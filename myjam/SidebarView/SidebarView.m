@@ -150,11 +150,13 @@
             NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
             resultProfile = [resultsDictionary objectForKey:@"profile"];
             
-            NSString *fname = [resultProfile objectForKey:@"fullname"];
+            NSString *fname = [resultProfile objectForKey:@"first_name"];
+            NSString *lname = [resultProfile objectForKey:@"last_name"];
             NSString *email = [resultProfile objectForKey:@"email"];
             NSString *mobile = [resultProfile objectForKey:@"mobileno"];
             
-            [localData setObject:fname forKey:@"fullname"];
+            [localData setObject:fname forKey:@"first_name"];
+            [localData setObject:lname forKey:@"last_name"];
             [localData setObject:email forKey:@"email"];
             [localData setObject:mobile forKey:@"mobile"];
             
@@ -188,14 +190,23 @@
 }
 - (void)setUserInfo
 {
-    NSString *fullname = [[[NSUserDefaults standardUserDefaults] objectForKey:@"fullname"] copy];
+    NSString *fname = [[[NSUserDefaults standardUserDefaults] objectForKey:@"first_name"] copy];
+    NSString *lname = @"";
+    id objLname = [[[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"] copy];
+    
+    if ( objLname != [NSNull null]) {
+        lname = [[[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"] copy];
+    }
+//    NSString *lname = [[[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"] copy];
     NSString *email = [[[NSUserDefaults standardUserDefaults] objectForKey:@"email"] copy];
     NSString *mobile = [[[NSUserDefaults standardUserDefaults] objectForKey:@"mobile"] copy];
-    self.nameLabel.text = fullname;
+    self.nameLabel.text = [NSString stringWithFormat:@"%@ %@",fname,lname];
     self.emailLabel.text = email;
     self.mobileLabel.text = mobile;
     
-    [fullname release];
+//    [fullname release];
+    [fname release];
+    [lname release];
     [email release];
     [mobile release];
 }

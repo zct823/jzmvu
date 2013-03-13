@@ -130,7 +130,8 @@
 - (void)viewDidAppear:(BOOL)animated{
     
     
-    [self switchViewController:vc1];
+//    [self switchViewController:vc1];
+    [tabBar showDefaults];
     [self animateAds];
     
     NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];

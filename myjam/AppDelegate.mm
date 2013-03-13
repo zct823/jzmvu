@@ -83,6 +83,9 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 
 - (void)initViews
 {
+    // local cache dictionaries
+     NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
+    
     // if internetconnection is good
     if ([ConnectionClass connected])
     {
@@ -100,7 +103,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         
         // Everytime launch show tutorial until 500 times
         // from 1-5 times, if click home, then show tutorial again. after 5th launched, show only once
-        NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
+//        NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
         NSString *counterKey = [NSString stringWithFormat:@"counter%@",[localData objectForKey:@"tokenString"]];
         
         NSString *counter = [localData objectForKey:counterKey];
@@ -129,12 +132,14 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
                 [self setupViews];
             }
         }
-        
+        [localData setObject:@"NO" forKey:@"noConnection"];
     }else{
         ErrorViewController *errorpage = [[ErrorViewController alloc] init];
         errorpage.errorOption = kERROR_NO_INTERNET_CONNECTION;
         [self.window addSubview:errorpage.view];
         [errorpage release];
+        
+        [localData setObject:@"YES" forKey:@"noConnection"];
     }
 }
 
@@ -685,6 +690,15 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    if ([ConnectionClass connected]) {
+         NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
+        
+        if ([[localData objectForKey:@"noConnection"] isEqualToString:@"YES"]) {
+            [localData setObject:@"NO" forKey:@"noConnection"];
+            [self initViews];
+        }
+    }
 //    [self initViews];
     
     [FBSession.activeSession handleDidBecomeActive]; //fb login

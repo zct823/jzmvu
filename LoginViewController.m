@@ -301,10 +301,12 @@
         NSString *message = [resultsDictionary objectForKey:@"message"];
         NSString *token = [resultsDictionary objectForKey:@"token"];
         NSString *fullname = [resultsDictionary objectForKey:@"fullname"];
+        NSString *fname = [resultsDictionary objectForKey:@"first_name"];
+        NSString *lname = [resultsDictionary objectForKey:@"last_name"];
         NSString *email = [resultsDictionary objectForKey:@"email"];
         NSString *mobile = [resultsDictionary objectForKey:@"mobileno"];
         
-        NSLog(@"token: %@, name %@",token, fullname);
+        NSLog(@"token: %@, name %@",token, fname);
         if ([status isEqualToString:@"ok"])
         {
             [self handleSuccessLogin];
@@ -312,7 +314,13 @@
             // store token and remember-login in local cache
             NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
             [localData setObject:token forKey:@"tokenString"];
-            [localData setObject:fullname forKey:@"fullname"];
+//            [localData setObject:fullname forKey:@"fullname"];
+            if ([fname length] > 0) {
+                [localData setObject:fname forKey:@"first_name"];
+            }else{
+                [localData setObject:fullname forKey:@"first_name"];
+            }
+            [localData setObject:lname forKey:@"last_name"];
             [localData setObject:email forKey:@"email"];
             [localData setObject:mobile forKey:@"mobile"];
             [localData setObject:[NSString stringWithFormat:@"YES"] forKey:@"islogin"];

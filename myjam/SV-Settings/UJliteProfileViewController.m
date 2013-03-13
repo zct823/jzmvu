@@ -19,8 +19,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <QuartzCore/QuartzCore.h>
 
-#define kFrameHeightOnKeyboardUp 1185.0f
-#define kStartAddressY 1020.0f
+#define kFrameHeightOnKeyboardUp 1095.0f
+#define kStartAddressY 930.0f
 
 @interface UJliteProfileViewController (){
     NSString *gen;
@@ -146,10 +146,11 @@
 {
     NSLog(@"setupViews");
     
-    self.fNameLabel.text = self.fName;
+    self.fNameLabel.text = [NSString stringWithFormat:@"%@ %@",self.fName,self.lName];
     self.emailLabel.text = self.email;
     self.mobileTextField.text = self.mobile;
     self.firstNameTextField.text = self.fName;
+    self.lastNameTextField.text = self.lName;
     self.dateOfBirthTextField.text = [self formattedDate:self.dOBirth];
     if ([self.gender isEqualToString:@"M"]) {
         [self mGender];
@@ -198,8 +199,8 @@
     [self.view addSubview:self.saveButton];
     
     //set scroller & content height
-    [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, aHeightSave+self.saveButton.frame.size.height+46)];
-    self.contentView.frame = CGRectMake(0, 0.0f, self.contentView.frame.size.width, aHeightSave+self.saveButton.frame.size.height+46);
+    [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, aHeightSave+self.saveButton.frame.size.height+46+60)];
+    self.contentView.frame = CGRectMake(0, 0.0f, self.contentView.frame.size.width, aHeightSave+self.saveButton.frame.size.height+46+60);
     kFrame = self.contentView.frame.size.height;
 }
 
@@ -213,6 +214,10 @@
     }
     else if ([self.firstNameTextField.text length] == 0) {
         reqFieldName = @"First Name is required";
+        [self triggerRequiredAlert];
+    }
+    else if ([self.lastNameTextField.text length] == 0) {
+        reqFieldName = @"Last Name is required";
         [self triggerRequiredAlert];
     }
     else if ([self.dateOfBirthTextField.text length] == 0) {
@@ -276,7 +281,9 @@
             success = YES;
             resultProfile = [resultsDictionary objectForKey:@"profile"];
             self.mobile = [resultProfile objectForKey:@"mobileno"];
-            self.fName = [resultProfile objectForKey:@"fullname"];
+//            self.fName = [resultProfile objectForKey:@"fullname"];
+            self.fName = [resultProfile objectForKey:@"first_name"];
+            self.lName = [resultProfile objectForKey:@"last_name"];
             self.dOBirth = [resultProfile objectForKey:@"birth_date"];
             self.gender = [resultProfile objectForKey:@"gender"];
             self.email = [resultProfile objectForKey:@"email"];
@@ -389,10 +396,11 @@
     NSString *urlString = [NSString stringWithFormat:@"%@/api/settings_jambulite_profile.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
 
     NSString *dataContent = @"";
-    dataContent = [NSString stringWithFormat:@"{\"flag\":\"%@\",\"mobile\":\"%@\",\"name\":\"%@\",\"birthdate\":\"%@\",\"gender\":\"%@\"",
+    dataContent = [NSString stringWithFormat:@"{\"flag\":\"%@\",\"mobile\":\"%@\",\"name\":\"%@\",\"name2\":\"%@\",\"birthdate\":\"%@\",\"gender\":\"%@\"",
                              self.flag,
                              self.mobileTextField.text,
                              self.firstNameTextField.text,
+                             self.lastNameTextField.text,
                              self.dateOfBirthTextField.text,
                              gen];
     if ([self.reNewEmailTextField.text length] > 0) {

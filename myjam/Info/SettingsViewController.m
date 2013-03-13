@@ -61,7 +61,7 @@
     s1 = [[NewsPreferenceViewController alloc] init];
     s1.view.frame = innerViewFrame;
     s2 = [[UJliteProfileViewController alloc] init];
-    s2.view.frame = innerViewFrame;
+    s2.view.frame = CGRectMake(0,15+85,self.view.frame.size.width, self.view.frame.size.height-(TBTB.frame.size.height)-62);
     
     tb1 = [[[TBViewController alloc] init]autorelease];
     [tb1.view addSubview:s1.view];

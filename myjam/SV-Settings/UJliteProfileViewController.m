@@ -61,14 +61,15 @@
     // Do any additional setup after loading the view from its nib.
     //[self loadData];
     
-    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.frame = CGRectMake(20, 130, 130, 143);
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..." width:100];
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.frame = CGRectMake(20, 130, 130, 143);
     [activityIndicator startAnimating];
     [self performSelector:@selector(loadData) withObject:self];
 }
@@ -322,8 +323,8 @@
         }
         //        [resultProfile release];
     }
-    [activityIndicator stopAnimating];
-    [activityIndicator removeFromSuperview];
+    //[activityIndicator stopAnimating];
+    //[activityIndicator removeFromSuperview];
     [DejalBezelActivityView removeViewAnimated:YES];
     [resultsDictionary release];
     return success;

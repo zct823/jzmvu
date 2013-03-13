@@ -78,6 +78,21 @@
     //
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
+    UIButton *unFollowButton = (UIButton *)[self.window viewWithTag:1];
+    UIButton *FavButton = (UIButton *)[self.window viewWithTag:2];
+    
+    if ([mydelegate.swipeOptionString isEqualToString:@"scan"] || [mydelegate.swipeOptionString isEqualToString:@"share"] || [mydelegate.swipeOptionString isEqualToString:@"favourite"] || [mydelegate.swipeOptionString isEqualToString:@"create"])
+    {
+        NSLog(@"Hiding unfollow and favourite btn");
+        [self.btnFav setHidden:YES];
+        [self.btnUnfollow setHidden:YES];
+    }
+    else
+    {
+        NSLog(@"Staying unfollow and favourite btn");
+        [self.btnFav setHidden:NO];
+        [self.btnUnfollow setHidden:NO];
+    }
     
     
     HomeViewController *home = [mydelegate.homeNavController.viewControllers objectAtIndex:0];
@@ -1023,7 +1038,10 @@
     
     twitter.completionHandler = ^(TWTweetComposeViewControllerResult res) {
         
-        if(res == TWTweetComposeViewControllerResultDone) {
+        if(res == TWTweetComposeViewControllerResultDone)
+        {
+            
+            [self addShareItemtoServer:self.detailsData.qrcodeId withShareType:[@"Twitter" lowercaseString]];
             
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Success" message:@"Successfully posted." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
             
@@ -1042,7 +1060,7 @@
         
     };
     
-    [self addShareItemtoServer:self.detailsData.qrcodeId withShareType:[@"Twitter" lowercaseString]];
+    
 }
 
 - (void)callAPIShare:(int)option
@@ -1081,6 +1099,7 @@
                     [alert show];
                     [alert release];
                     [self dismissModalViewControllerAnimated:YES];
+                    [self addShareItemtoServer:self.detailsData.qrcodeId withShareType:[type lowercaseString]];
                     break;
                 default:
                     break;
@@ -1088,13 +1107,15 @@
             
         }];
         
-    }else{
+    }
+    else
+    {
         CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"JAM-BU Share" message:[NSString stringWithFormat:@"Please add your %@ account in IOS Device Settings",type] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         [alert release];
     }
     
-    [self addShareItemtoServer:self.detailsData.qrcodeId withShareType:[type lowercaseString]];
+    
 }
 
 - (void)handleOpenBrowser

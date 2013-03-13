@@ -7,6 +7,7 @@
 //
 
 #import "AboutViewController.h"
+#import "AppDelegate.h"
 
 @interface AboutViewController ()
 
@@ -37,6 +38,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [mydelegate handleTab5];
 }
 
 - (void)didReceiveMemoryWarning

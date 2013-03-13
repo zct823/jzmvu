@@ -39,7 +39,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [mydelegate handleTab5];

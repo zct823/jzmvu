@@ -89,6 +89,8 @@
         self.view.frame = CGRectMake(0,0,self.view.bounds.size.width, 480);
     }
     
+    self.uiTableView.frame = CGRectMake(0,0,self.view.bounds.size.width, self.view.bounds.size.height-84);
+    
     // Do any additional setup after loading the view from its nib.
     
     [self viewWillAppear:NO];

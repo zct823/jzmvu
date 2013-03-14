@@ -18,16 +18,16 @@
         
         // Add Image view
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        [imageView setImage:[UIImage imageNamed:@"tutorial"]];
+//        [imageView setImage:[UIImage imageNamed:@"tutorial"]];
         
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         
         if (screenBounds.size.height == 568) {
             // code for 4-inch screen
-            [imageView setImage:[UIImage imageNamed:@"tutorial"]];
+            [imageView setImage:[UIImage imageNamed:@"tutorial@2x"]];
         } else {
             // code for 3.5-inch screen
-            [imageView setImage:[UIImage imageNamed:@"tutorial@2x"]];
+            [imageView setImage:[UIImage imageNamed:@"tutorial"]];
         }
 
         

@@ -207,6 +207,7 @@
 //    [fullname release];
     [fname release];
     [lname release];
+    [fullname release];
     [email release];
     [mobile release];
 }
@@ -335,6 +336,7 @@
     
     // If OK, go to alertview delegate
     CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Logout JAM-BU" message:@"Are you sure to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
+    alert.tag= 7;
     [alert show];
     [alert release];
     
@@ -343,20 +345,28 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
-        AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mydelegate presentLoginPage];
-        NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
-        [localData setObject:@"" forKey:@"tokenString"];
-        [localData setObject:@"" forKey:@"fullname"];
-        [localData setObject:@"" forKey:@"email"];
-        [localData setObject:@"" forKey:@"mobile"];
-        [localData setObject:@"NO" forKey:@"islogin"];
-        [localData setObject:@"YES" forKey:@"isReloadNewsNeeded"];
-        [localData synchronize];
-        [mydelegate handleTab5];
-        [mydelegate.tabView activateController:0];
-        [mydelegate.tabView activateTabItem:0];
+    if (alertView.tag == 7){
+        if (buttonIndex == 1) {
+            AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [mydelegate presentLoginPage];
+            NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
+            [localData setObject:@"" forKey:@"tokenString"];
+            [localData setObject:@"" forKey:@"fullname"];
+            [localData setObject:@"" forKey:@"email"];
+            [localData setObject:@"" forKey:@"mobile"];
+            [localData setObject:@"NO" forKey:@"islogin"];
+            [localData setObject:@"YES" forKey:@"isReloadNewsNeeded"];
+            [localData synchronize];
+            [mydelegate handleTab5];
+            [mydelegate.tabView activateController:0];
+            [mydelegate.tabView activateTabItem:0];
+        }
+    }
+    else{
+        if (buttonIndex == 0)
+        {
+            [self changeQuantity:@"0" from: alertView.tag];
+        }
     }
     
 }
@@ -515,16 +525,31 @@
         }
     if ([newQty isEqualToString:@"-1"])
     {
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle: @"Unsuccessful"
-                                  message: @"Insufficient stock"
-                                  delegate: nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            [alert show];
-            [alert release];
-            return ;
-        }
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Unsuccessful"
+                              message: @"Insufficient stock"
+                              delegate: nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        return ;
+    }else if([newQty isEqualToString:@"0"]){
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Are you sure?"
+                              message: @"Are you sure to remove the item?"
+                              delegate: self
+                              cancelButtonTitle:@"Yes"
+                              otherButtonTitles:@"No",nil];
+        alert.tag = [sender tag];
+        [alert show];
+        [alert release];
+        
+    }
+    
+    else{
+        [self changeQuantity:newQty from:[sender tag]];
+    }
     
     //TODO if cart empty
     
@@ -578,14 +603,19 @@
     [mydelegate.shopNavController pushViewController:detailViewController animated:NO];
 
     
-    [UIView animateWithDuration:0.35f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
-     {
-         mydelegate.tabView.view.frame = CGRectMake(0, 0.0f, mydelegate.window.frame.size.width, mydelegate.window.frame.size.height);
-      //   mydelegate.bannerView.frame = CGRectMake(0, mydelegate.window.frame.size.height-39-bannerHeight, mydelegate.window.frame.size.width, mydelegate.bannerHeight);
-         mydelegate.sidebarController.view.frame = CGRectMake(320.0f, 0.0f, mydelegate.sidebarController.view.frame.size.width, mydelegate.window.frame.size.height);
-         
-     }
-                     completion:^(BOOL finished){}];
+    [mydelegate.tabView activateController:1];
+    
+    
+    // Manually change the selected tabButton
+    for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
+        if (i == 1) {
+            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
+        } else {
+            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
+        }
+    }
+    
+    [mydelegate handleTab5];
     
     //[mydelegate->frontLayerView removeFromSuperview];
    // [self pushController:detailViewController];

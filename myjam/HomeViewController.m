@@ -133,6 +133,8 @@
     [self switchViewController:vc1];
     [self animateAds];
     
+    [DejalBezelActivityView removeViewAnimated:YES];
+    
     NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
     NSString *isDisplay = [localData objectForKey:@"isDisplayTutorial"];
     

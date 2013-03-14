@@ -47,6 +47,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
 - (IBAction)createSocial:(id)sender

@@ -151,7 +151,8 @@
 
 - (void)getCategoriesFromAPI
 {
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait.." width:100];
+    
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
     
     NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_category.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
     NSString *dataContent = [NSString stringWithFormat:@"{\"src\":\"\"}"];

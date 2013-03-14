@@ -172,7 +172,6 @@
 
 - (NSString *)returnAPIURL
 {
-    NSLog(@"Token String: %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]);
     return [NSString stringWithFormat:@"%@/api/qrcode_news_list.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]copy]];
 }
 
@@ -184,8 +183,6 @@
 
 - (NSMutableArray *)loadMoreFromServer
 {
-    NSLog(@"Token String: %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]);
-    
     NSString *urlString = [self returnAPIURL];
     
     NSString *dataContent = [self returnAPIDataContent];

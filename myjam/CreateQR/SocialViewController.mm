@@ -151,8 +151,6 @@
 
 - (void)getCategoriesFromAPI
 {
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait.." width:100];
-    
     NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_category.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
     NSString *dataContent = [NSString stringWithFormat:@"{\"src\":\"\"}"];
     NSDictionary *cat;
@@ -172,7 +170,6 @@
             {
                 [self.categories setObject:[row objectForKey:@"category_id"] forKey:[row objectForKey:@"category_name"]];
             }
-            [DejalBezelActivityView removeViewAnimated:YES];
         }else{
             CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Create Failed" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             alert.tag = kAlertNoConnection;

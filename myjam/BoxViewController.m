@@ -53,9 +53,6 @@
     myDelegate.swipeBottomEnabled = YES;
     myDelegate.swipeOptionString = @"scan";
     
-    //[self switchViewController:vc1];
-    [tabBar showDefaults];
-    
     //--- end activating SwipeBottomBox
 }
 
@@ -123,13 +120,6 @@
     tabBar.delegate = self;
     [self.view addSubview:tabBar];
     [tabBar showDefaults];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    AppDelegate *mainVC = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    
-    mainVC.swipeBottomEnabled = NO;
 }
 
 

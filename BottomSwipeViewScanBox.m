@@ -430,13 +430,11 @@ static int kImageTagStart = 1000;
             NSLog(@"%@",[qrcodeTypeDict objectForKey:val]);
             [checkedCategories setObject:[qrcodeTypeDict objectForKey:val] forKey:val];
         }
-        else
-        {
+        else{
             [checkedCategories setObject:val forKey:val];
         }
     }
-    else
-    {
+    else{
         [imgv setHidden:YES];
         [checkedCategories removeObjectForKey:val];
     }

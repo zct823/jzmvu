@@ -54,6 +54,8 @@
     myDelegate.swipeOptionString = @"scan";
     
     //--- end activating SwipeBottomBox
+    
+    [tabBar showDefaults];
 }
 
 - (void)animateAds
@@ -122,6 +124,13 @@
     [tabBar showDefaults];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    
+    AppDelegate *mainVC = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    mainVC.swipeBottomEnabled = NO;
+}
 
 - (void)didReceiveMemoryWarning
 {

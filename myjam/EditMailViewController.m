@@ -119,7 +119,7 @@
     [self getStateCountryFromAPI];
     // Set list for pickerView
     NSLog(@"%@", self.dictStates);
-    if ([self.dictStates isEqual: [NSNull null]]) {
+    if (![self.dictStates isEqual: [NSNull null]]) {
     self.stateArray = [[NSMutableArray alloc] initWithArray:[self.dictStates allKeys]];
     [self.stateArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     self.countryArray = [[NSMutableArray alloc] initWithArray:[self.dictCountries allKeys]];
@@ -204,11 +204,11 @@
         reqFieldName = @"Address";
         [self triggerRequiredAlert];
     }
-    else if ([self.cityTextField.text length] == 0)
-    {
-        reqFieldName = @"City";
-        [self triggerRequiredAlert];
-    }
+//    else if ([self.cityTextField.text length] == 0)
+//    {
+//        reqFieldName = @"City";
+//        [self triggerRequiredAlert];
+//    }
     else if ([self.postcodeTextField.text length] == 0)
     {
         reqFieldName = @"Postcode";

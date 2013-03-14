@@ -28,7 +28,7 @@
 {
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
     [tempImageView setFrame:self.tableView.frame];
-    
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 70, 0)];
     self.tableView.backgroundView = tempImageView;
     [tempImageView release];
     

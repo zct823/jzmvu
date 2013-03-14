@@ -19,7 +19,7 @@
 #import "ShopViewController.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
-@interface CheckoutViewController : CoreViewController<UITableViewDelegate,UITableViewDataSource>
+@interface CheckoutViewController : CoreViewController<UITableViewDelegate,UITableViewDataSource, UIAlertViewDelegate>
 @property (retain, nonatomic) IBOutlet UILabel *shopName;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *cartList;

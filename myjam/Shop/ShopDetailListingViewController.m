@@ -37,6 +37,7 @@
     
     self.tableView.backgroundView = tempImageView;
     [tempImageView release];
+       [DejalBezelActivityView removeViewAnimated:YES];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -147,6 +148,7 @@
     // Configure the cell...
     //  cell.topLabel1.text =
     cell.catLabel1.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_name"];
+   
     
        cell.productLabel1.text =[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_category"];
     
@@ -163,7 +165,7 @@
     cell.rateView1.selectedImage = [UIImage imageNamed:@"star.png"];
     cell.rateView1.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
     cell.rateView1.maxRating = 5;
-    cell.transView1.hidden = NO;
+    cell.transView1.hidden = FALSE;
     }
     [cell.button1 setBackgroundImageWithURL:[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_image"] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
     [cell.button1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -184,7 +186,7 @@
         cell.rateView2.selectedImage = [UIImage imageNamed:@"star.png"];
         cell.rateView2.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
         cell.rateView2.maxRating = 5;
-        cell.transView2.hidden = NO;
+        cell.transView2.hidden = FALSE;
         }
         cell.button2.tag = 3*indexPath.section+1;
            [cell.button2 setBackgroundImageWithURL:[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_image"] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
@@ -207,7 +209,7 @@
         cell.rateView3.selectedImage = [UIImage imageNamed:@"star.png"];
         cell.rateView3.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
         cell.rateView3.maxRating = 5;
-        cell.transView3.hidden = NO;
+        cell.transView3.hidden = FALSE;
         }
         cell.button3.tag = 3*indexPath.section+2;
            [cell.button3 setBackgroundImageWithURL:[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_image"] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
@@ -227,6 +229,7 @@
    // [detailViewController release];
 }
 -(void)tapAction:(id)sender{
+    //[DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
 
     DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
     NSString *prodId = [[[[_productArray objectAtIndex:([sender tag]/3)] valueForKey:@"product_list"] objectAtIndex:([sender tag]%3)] valueForKey:@"product_id" ];

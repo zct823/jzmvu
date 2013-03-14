@@ -30,14 +30,16 @@
     self.searchedText = @"";
     self.selectedStatus = @"";
     self.purchasedHistory = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getPurchasedHistoryItems]];
- //   self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
-    self.purchasedHistoryArray = [[NSMutableArray alloc]initWithArray:[self.purchasedHistory valueForKey:@"list" ]];
+   self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
+    self.tempPurchasedArray = [[NSMutableArray alloc] initWithArray:[self.purchasedHistory valueForKey:@"list"]];
+
     self.totalPage = [self.purchasedHistory valueForKey:@"pagecount"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable:) name:@"refreshPurchaseHistory" object:nil];
-    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
+   /* UIView *tempImageView = [[UIView alloc] init];
+    [tempImageView setBackgroundColor:[UIColor colorWithRed:232/255 green:232/255 blue:232/255 alpha:1.0]];
     [tempImageView setFrame:self.tableView.frame];
     self.tableView.backgroundView = tempImageView;
-    [tempImageView release];
+    [tempImageView release];*/
 
 
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
@@ -59,32 +61,35 @@
         NSLog(@"%@",tempId);
         NSLog(@"%@",[[orders objectAtIndex:i] valueForKey:@"order_no" ] );
         NSLog(@"%c", [[NSString stringWithFormat:@"%@",[[orders objectAtIndex:i] valueForKey:@"order_no" ] ]isEqualToString:tempId]);
+        NSLog(@"i=%d",i);
         if ( [[NSString stringWithFormat:@"%@",[[orders objectAtIndex:i] valueForKey:@"order_no" ] ]isEqualToString:tempId]){
-            
-            [tempOrderArray addObject:[NSArray arrayWithObject:[orders objectAtIndex:i]]];
+        
+            [tempOrderArray addObject:[orders objectAtIndex:i]];
             NSLog(@"same");
         }else{
-            
-            [tempArray addObjectsFromArray:tempOrderArray];
-            NSLog(@"%@",tempArray);
             NSLog(@"%@",tempOrderArray);
-            [tempOrderArray removeAllObjects];
+            NSLog(@"%d",[tempOrderArray count]);
+            [tempArray addObject:tempOrderArray];
+   NSLog(@"%d",[tempArray count]);
             NSLog(@"%@",tempArray);
-            NSLog(@"%@",tempOrderArray);
-            [tempOrderArray addObject:[NSArray arrayWithObject:[orders objectAtIndex:i]]];
-            NSLog(@"%@",tempArray);
-            NSLog(@"%@",tempOrderArray);
+            tempOrderArray = [NSMutableArray array];
+          NSLog(@"%@",tempArray);
+            [tempOrderArray addObject:[orders objectAtIndex:i]];
+         
             tempId = [[orders objectAtIndex:i] valueForKey:@"order_no" ];
-            NSLog(@"%@",tempArray);
-            NSLog(@"%@",tempOrderArray);
+            NSLog(@"tempArray:%@",tempArray);
+            NSLog(@"tempOrderArray:%@",tempOrderArray);
             
         }
     }
-    NSLog(@"%@",[tempArray lastObject]);
+    NSLog(@"last object: %@",tempArray );
+    NSLog(@"last object: %@",[tempArray lastObject]);
     NSLog(@"%@",tempId);
-    if (![[[tempArray lastObject]  valueForKey:@"order_no"] isEqualToString:tempId])
+    if (![[[[tempArray lastObject] lastObject] valueForKey:@"order_no"] isEqualToString:tempId])
     {
         [tempArray addObject:tempOrderArray];
+        NSLog(@"tempArray:%@",tempArray);
+        NSLog(@"tempOrderArray:%@",tempOrderArray);
     }
     return tempArray;
 }
@@ -158,7 +163,7 @@
                 {
                 NSString *status = [resultsDictionary objectForKey:@"status"];
                     NSMutableArray* resultArray;
-                    
+                    NSMutableArray *tempArray = [NSMutableArray array];
                     if ([status isEqualToString:@"ok"])
                     {
                         self.totalPage = [[resultsDictionary objectForKey:@"pagecount"] intValue];
@@ -167,9 +172,14 @@
                         
                         for (id row in resultArray)
                         {
-                            [self.purchasedHistoryArray addObject:row];
+                            [tempArray addObject:row];
                         
                         }
+                [self.tempPurchasedArray addObjectsFromArray:tempArray];
+                NSLog(@"%d",[self.tempPurchasedArray count]);
+                NSLog(@"%@",self.tempPurchasedArray);
+                self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId: self.tempPurchasedArray ]];
+                        
                     }
                         if (![resultArray count] || self.totalPage == 0)
                         {
@@ -260,7 +270,7 @@ if ([status isEqualToString:@"error"]) {
 {
 
     // Return the number of rows in the section.
-    return 1;
+    return [[[self purchasedHistoryArray ] objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -278,17 +288,18 @@ if ([status isEqualToString:@"error"]) {
 }
 
 -(void)createCellForIndex:(NSIndexPath*)indexPath cell:(PurchasedViewCell*)cell{
-    cell.productName.text =[[self.purchasedHistoryArray objectAtIndex:indexPath.section] valueForKey:@"product_name"];
-    cell.priceLabel.text =[[self.purchasedHistoryArray objectAtIndex:indexPath.section] valueForKey:@"price"];
-    cell.dateLabel.text =[[self.purchasedHistoryArray objectAtIndex:indexPath.section] valueForKey:@"date_purchased"];
-     cell.qtyLabel.text =[[self.purchasedHistoryArray objectAtIndex:indexPath.section]  valueForKey:@"quantity"];
-    if (![[[[ self.purchasedHistoryArray objectAtIndex:indexPath.section]  valueForKey:@"size_name"] class] isEqual:[NSNull class]]){
-         cell.sizeLabel.text = [[self.purchasedHistoryArray objectAtIndex:indexPath.section]valueForKey:@"size_name"];
+    cell.productName.text =[[[self.purchasedHistoryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] valueForKey:@"product_name"];
+    cell.priceLabel.text =[[[self.purchasedHistoryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]
+                            valueForKey:@"price"];
+    cell.dateLabel.text =[[[self.purchasedHistoryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]valueForKey:@"date_purchased"];
+     cell.qtyLabel.text =[[[self.purchasedHistoryArray objectAtIndex:indexPath.section]  objectAtIndex:indexPath.row]valueForKey:@"quantity"];
+    if (![[[[[ self.purchasedHistoryArray objectAtIndex:indexPath.section]  objectAtIndex:indexPath.row]valueForKey:@"size_name"] class] isEqual:[NSNull class]]){
+         cell.sizeLabel.text = [[[self.purchasedHistoryArray objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]valueForKey:@"size_name"];
     }
    
-    cell.statusLabel.text = [[[self.purchasedHistoryArray objectAtIndex:indexPath.section]valueForKey:@"order_status"] stringByStrippingHTML];
-    if (![[[[self.purchasedHistoryArray objectAtIndex:indexPath.section]valueForKey:@"product_image"] class] isEqual:[NSNull class]]){
-         [cell.imageView setImageWithURL:[NSURL URLWithString:[[self.purchasedHistoryArray objectAtIndex:indexPath.section]valueForKey:@"product_image"]] placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
+    cell.statusLabel.text = [[[[self.purchasedHistoryArray objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]valueForKey:@"order_status"] stringByStrippingHTML];
+    if (![[[[[self.purchasedHistoryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]valueForKey:@"product_image"] class] isEqual:[NSNull class]]){
+         [cell.imageView setImageWithURL:[NSURL URLWithString:[[[self.purchasedHistoryArray objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]valueForKey:@"product_image"]] placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
     }
   
 }
@@ -299,9 +310,9 @@ if ([status isEqualToString:@"error"]) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
-    detailViewController.productInfo = [[MJModel sharedInstance] getPuchasedInfoForId:[[self.purchasedHistoryArray objectAtIndex:indexPath.section]valueForKey:@"order_item_id"]];
+    detailViewController.productInfo = [[MJModel sharedInstance] getPuchasedInfoForId:[[[self.purchasedHistoryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] valueForKey:@"order_item_id"]];
        detailViewController.buyButton = [[NSString alloc] initWithString:@"not-ok"];
-    detailViewController.productId = [[self.purchasedHistoryArray objectAtIndex:indexPath.section]valueForKey:@"product_id"];
+    detailViewController.productId = [[[self.purchasedHistoryArray objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]valueForKey:@"product_id"];
     detailViewController.purchasedString = @"purchased";
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -316,9 +327,9 @@ if ([status isEqualToString:@"error"]) {
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     PurchasedHeaderView *header = [[[NSBundle mainBundle] loadNibNamed:@"PurchasedHeaderView" owner:self options:nil]objectAtIndex:0];
-    header.sellerName.text= [[self.purchasedHistoryArray objectAtIndex:section]valueForKey:@"shop_name"];
-    header.orderNo.text=[[self.purchasedHistoryArray objectAtIndex:section] valueForKey:@"order_no"];
-    CGSize expectedLabelSize  = [[[self.purchasedHistoryArray objectAtIndex:section]valueForKey:@"shop_name"] sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(150.0, header.sellerName.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
+    header.sellerName.text= [[[self.purchasedHistoryArray objectAtIndex:section] objectAtIndex:0]valueForKey:@"shop_name"];
+    header.orderNo.text=[[[self.purchasedHistoryArray objectAtIndex:section] objectAtIndex:0]valueForKey:@"order_no"];
+    CGSize expectedLabelSize  = [[[[self.purchasedHistoryArray objectAtIndex:section] objectAtIndex:0]valueForKey:@"shop_name"] sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(150.0, header.sellerName.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
     
     
     CGRect newFrame = header.sellerName.frame;
@@ -341,7 +352,10 @@ if ([status isEqualToString:@"error"]) {
     
 }
 -(void)refreshTable:(NSNotification*)notification{
-    
+    self.purchasedHistory = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getPurchasedHistoryItems]];
+    self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
+    self.tempPurchasedArray = [[NSMutableArray alloc] initWithArray:[self.purchasedHistory valueForKey:@"list"]];
+
     [self refreshTableItemsWithFilter:@"" andSearchedText:@"" andOptions:@""];
 
 }

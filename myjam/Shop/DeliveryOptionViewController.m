@@ -173,11 +173,20 @@
     NSDictionary *status = [[MJModel sharedInstance] sendAddressSaved:cartId withAddress:[[[addressInfo valueForKey:@"delivery_address_list"] objectAtIndex:[selectedRow intValue] ] valueForKey:@"address_id"]];
     
     if ([[status valueForKey:@"status" ] isEqual:@"ok"]){
+        NSDictionary *dictTemp = [[MJModel sharedInstance] getDeliveryInfoFor:cartId];
+        
+        if ([[dictTemp valueForKey:@"delivery_option_list"] count] ==1){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"An error has occured. Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alertView show];
+            [alertView release];
+            
+        }
+        else{
         DeliveryChoiceViewController *detailViewController = [[DeliveryChoiceViewController alloc] initWithNibName:@"DeliveryChoiceViewController" bundle:nil andCartId:cartId];
    
         
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
+            [mydelegate.shopNavController pushViewController:detailViewController animated:YES];}
     }
     else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"An error has occured. Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];

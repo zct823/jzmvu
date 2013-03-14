@@ -14,5 +14,5 @@
 @property (retain, nonatomic) IBOutlet UILabel *qtyLabel;
 @property (retain, nonatomic) IBOutlet UILabel *statusLabel;
 @property (retain, nonatomic) IBOutlet UIButton *submitButton;
-
+@property (retain, nonatomic) IBOutlet UIWebView *webView;
 @end

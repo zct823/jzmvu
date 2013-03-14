@@ -9,7 +9,7 @@
 #import "PurchaseVerificationCell.h"
 
 @implementation PurchaseVerificationCell
-
+@synthesize webView;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -32,6 +32,7 @@
     [_qtyLabel release];
     [_statusLabel release];
     [_submitButton release];
+    [webView release];
     [super dealloc];
 }
 @end

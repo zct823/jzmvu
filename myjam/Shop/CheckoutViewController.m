@@ -178,26 +178,52 @@
         }
     }
     //TODO if cart empty
-    NSMutableArray *arrayTemp;
-  arrayTemp = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] updateProduct:[[[[_cartList objectAtIndex:0] valueForKey:@"item_list"] objectAtIndex:([sender tag]/2)] valueForKey:@"cart_item_id"] forCart:[[_cartList objectAtIndex:0] valueForKey:@"cart_id"]  forQuantity:newQty]];
     if ([newQty isEqualToString:@"0"]){
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Are you sure?"
+                              message: @"Are you sure to remove the item?"
+                              delegate: self
+                              cancelButtonTitle:@"Yes"
+                              otherButtonTitles:@"No",nil];
+        alert.tag = [sender tag];
+        [alert show];
+        [alert release];
+    
+    }
+    else{
+        [self changeQuantity:newQty fromId:[sender tag]];
+    }
+   
+    
+}
+
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{ if (buttonIndex == 0)
+{
+    
+[self changeQuantity:@"0" fromId: alertView.tag];
+}}
+
+-(void)changeQuantity:(NSString*)qty fromId:(NSInteger)tag{
+    NSMutableArray *arrayTemp;
+    arrayTemp = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] updateProduct:[[[[_cartList objectAtIndex:0] valueForKey:@"item_list"] objectAtIndex:(tag/2)] valueForKey:@"cart_item_id"] forCart:[[_cartList objectAtIndex:0] valueForKey:@"cart_id"]  forQuantity:qty]];
+    if ([qty isEqualToString:@"0"]){
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [mydelegate.shopNavController popToRootViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"cartChanged"
          object:self];
     }else{
-    for (id row in arrayTemp){
-        if ([[row valueForKey:@"cart_id"] isEqualToString:[[self.cartList objectAtIndex:0] valueForKey:@"cart_id"]]){
-            self.cartList = [[NSMutableArray alloc] initWithObjects:row, nil];
+        for (id row in arrayTemp){
+            if ([[row valueForKey:@"cart_id"] isEqualToString:[[self.cartList objectAtIndex:0] valueForKey:@"cart_id"]]){
+                self.cartList = [[NSMutableArray alloc] initWithObjects:row, nil];
+            }
         }
+        
+        NSLog(@"%@", _cartList);
+        [self.tableView reloadData];
+        [self updatePage];
     }
-    
-    NSLog(@"%@", _cartList);
-    [self.tableView reloadData];
-    [self updatePage];
-    }
-    
 }
 -(void)deliveryOptions:(id)sender{
     AddressEditViewController *detailViewController = [[AddressEditViewController alloc] initWithNibName:@"AddressEditViewController" bundle:nil];

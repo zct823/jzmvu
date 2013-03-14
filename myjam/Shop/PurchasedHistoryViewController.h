@@ -28,5 +28,6 @@
 @property (retain, nonatomic) NSString *searchedText;
 @property (retain, nonatomic) NSString *selectedStatus;
 @property (retain, nonatomic) NSMutableArray *purchasedHistoryArray;
+@property (retain, nonatomic) NSMutableArray *tempPurchasedArray;
 - (void) refreshTableItemsWithFilter:(NSString *)str andSearchedText:(NSString *)pattern andOptions:(NSString*)optionData;
 @end

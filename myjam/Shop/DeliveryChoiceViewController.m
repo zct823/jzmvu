@@ -28,7 +28,7 @@
 - (void)viewDidLoad
 {
     self.deliveryInfo = [[MJModel sharedInstance] getDeliveryInfoFor:_cartId];
-    
+   
 
     self.priceLabel.text = [[[[_deliveryInfo valueForKey:@"delivery_option_list"] objectAtIndex:0 ] valueForKey:@"price"] stringByStrippingHTML];
      self.priceLabel.text = [[[[_deliveryInfo valueForKey:@"delivery_option_list"] objectAtIndex:0 ] valueForKey:@"price"] stringByStrippingHTML];
@@ -38,6 +38,7 @@
     self.delConvenienceLabel.text = [[[[[[_deliveryInfo valueForKey:@"delivery_option_list"] objectAtIndex:0 ] valueForKey:@"title"] componentsSeparatedByString:@"<br/>" ] objectAtIndex:0]stringByStrippingHTML];
     self.shipWithinLabel.text = [[[[[[_deliveryInfo valueForKey:@"delivery_option_list"] objectAtIndex:0 ] valueForKey:@"title"] componentsSeparatedByString:@"<br/>" ] objectAtIndex:1]stringByStrippingHTML];
     self.infoLabel.text = [[[[_deliveryInfo valueForKey:@"delivery_option_list"] objectAtIndex:1 ] valueForKey:@"info"] stringByStrippingHTML];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -70,6 +71,11 @@
     [self setShipWithinLabel:nil];
     [self setJambueFeeLabel:nil];
     [super viewDidUnload];
+}
+-(void)alertViewCancel:(UIAlertView *)alertView{
+    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [mydelegate.shopNavController popViewControllerAnimated:YES];
+
 }
 - (IBAction)nextButtonTapped:(id)sender {
     NSDictionary *status = [NSDictionary dictionaryWithDictionary:[[MJModel sharedInstance]submitDeliveryOptionFor:_cartId withOption:self.deliverChoice]];

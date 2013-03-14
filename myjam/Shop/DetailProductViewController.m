@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     tempColorsForSize = [[NSMutableArray alloc] init];
     tempSizesForColor = [[NSMutableArray alloc] init];
     counter = 0;
@@ -66,7 +67,7 @@
     }
     
     [self setupCarousel];
-    
+       [DejalBezelActivityView removeViewAnimated:YES];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -418,14 +419,15 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
 
 - (void)setPurchaseCell:(PurchaseVerificationCell *)cell
 {
-    NSLog(@"%@",[productInfo valueForKey:@"order_info"]);
-    NSArray *purchaseInfo =[[productInfo valueForKey:@"order_info"] componentsSeparatedByString:@"<br/>"];
-    cell.orderLabel.text =  [[[[purchaseInfo objectAtIndex:0] stringByStrippingHTML] componentsSeparatedByString:@":"] objectAtIndex:1];
-    //   cell.modelLabel.text
-    cell.qtyLabel.text =  [[[[purchaseInfo objectAtIndex:1] stringByStrippingHTML] componentsSeparatedByString:@":"] objectAtIndex:1];
-    cell.statusLabel.text =  [[[[purchaseInfo objectAtIndex:2] stringByStrippingHTML] componentsSeparatedByString:@":"] objectAtIndex:1];
+    cell.webView.delegate = self;
+  
+    [cell.webView  loadHTMLString:[NSString stringWithFormat:@"<div id ='foo' align='justify' style='font-size:10px; font-family:verdana';>%@<div>",[productInfo valueForKey:@"order_info"]] baseURL:nil];
+
+    [cell.webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('br')[0].style.fontFamily =\"Verdana\""];
+
     [cell.submitButton addTarget:self action:@selector(submitReport:) forControlEvents:UIControlEventTouchUpInside];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

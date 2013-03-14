@@ -10,7 +10,7 @@
 #import "MJModel.h"
 #import "CheckoutViewController.h"
 #import "AppDelegate.h"
-@interface DeliveryChoiceViewController : UIViewController
+@interface DeliveryChoiceViewController : UIViewController<UIAlertViewDelegate>
 @property (retain, nonatomic) IBOutlet UILabel *priceLabel;
 @property (retain, nonatomic) IBOutlet UIButton *nextButton;
 @property (nonatomic, strong) NSDictionary *deliveryInfo;

@@ -63,7 +63,7 @@
           }
     else{
         self.stateSelection = @"KUL";
-        [self.stateButton setTitle:@"Federal Territory of Kuala Lumpur" forState:UIControlStateNormal];
+        [self.stateButton setTitle:@"Kuala Lumpur" forState:UIControlStateNormal];
 
     }
     if (![[addressInfo valueForKey:@"delivery_country_code"] isEqualToString:@""]){
@@ -168,6 +168,14 @@
                       NSDictionary *status = [[MJModel sharedInstance] submitAddressForCart:_cartId forAddress:self.addressLabel.text  inCity:self.cityLabel.text withPostcode:_postcodeLabel.text inState:stateSelection inCountry:countrySelection];
             
             if ([[status valueForKey:@"status" ] isEqual:@"ok"]){
+                NSDictionary *dictTemp = [[MJModel sharedInstance] getDeliveryInfoFor:_cartId];
+                
+                if ([[dictTemp valueForKey:@"delivery_option_list"] count] ==1){
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"An error has occured. Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                    [alertView show];
+                    [alertView release];
+                    
+                }else{
                 DeliveryChoiceViewController *detailViewController = [[DeliveryChoiceViewController alloc] initWithNibName:@"DeliveryChoiceViewController" bundle:nil andCartId:_cartId];
                 
 
@@ -176,6 +184,7 @@
                 
                 [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
                  [detailViewController release];
+                }
             }
             else{
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"An error has occured. Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];

@@ -108,6 +108,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
  
     cell.catLabel1.text = [[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:0] valueForKey:@"shop_name"];
+    cell.shopLabel1.hidden = NO;
     if([[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:0] valueForKey:@"shop_top_seller"] isEqual:@"Y"]){
         cell.topLabel1.hidden=NO;
     }
@@ -123,17 +124,20 @@
     if ([[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] count] >1){
         cell.catLabel2.text = [[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_name"];
         cell.shopLabel2.text =[[[[_catArray objectAtIndex:indexPath.section]valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_category"];
+        cell.shopLabel2.hidden = NO;
         if([[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_top_seller"] isEqual:@"Y"]){
             cell.topLabel2.hidden=NO;
         }
         cell.button2.tag = 3*indexPath.section+1;
        [cell.button2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+            cell.shopLabel2.hidden = NO;
          [cell.button2 setBackgroundImageWithURL:[NSURL URLWithString:[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_logo"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
       
         
     }
     if ([[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] count] >2){
         cell.catLabel3.text = [[[[_catArray objectAtIndex:indexPath.section]valueForKey:@"shop_list"] objectAtIndex:2] valueForKey:@"shop_name"];
+          cell.shopLabel3.hidden = NO;
         cell.shopLabel3.text =[[[[_catArray objectAtIndex:indexPath.section]valueForKey:@"shop_list"] objectAtIndex:2] valueForKey:@"shop_category"];
         cell.button3.tag = 3*indexPath.section+2;
        
@@ -183,8 +187,9 @@
     [detailViewController release];
 }
 -(void)tapAction:(id)sender{
-    NSLog(@"%@",_catArray);
+
     ShopDetailListingViewController *detailViewController = [[ShopDetailListingViewController alloc] init];
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     detailViewController.productArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getTopListOfItemsFor:[[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list"]objectAtIndex:([sender tag]%3)]valueForKey:@"shop_id"]]];
     NSLog(@"%@",_catArray);
     detailViewController.shopInfo = [[NSDictionary alloc] initWithObjectsAndKeys: [[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list" ] objectAtIndex:([sender tag] %3) ]valueForKey:@"shop_id"],@"shop_id", [[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list" ] objectAtIndex:([sender tag] %3) ]valueForKey:@"shop_name"], @"shop_name",  [[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list" ] objectAtIndex:([sender tag] %3) ]valueForKey:@"shop_top_seller"],@"shop_top_seller", nil];

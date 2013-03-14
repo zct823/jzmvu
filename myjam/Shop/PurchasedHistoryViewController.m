@@ -29,11 +29,11 @@
     self.selectedCategories = @"";
     self.searchedText = @"";
     self.selectedStatus = @"";
-    self.purchasedHistory = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getPurchasedHistoryItems]];
-   self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
-    self.tempPurchasedArray = [[NSMutableArray alloc] initWithArray:[self.purchasedHistory valueForKey:@"list"]];
-
-    self.totalPage = [self.purchasedHistory valueForKey:@"pagecount"];
+//    self.purchasedHistory = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getPurchasedHistoryItems]];
+//    self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
+//    self.tempPurchasedArray = [[NSMutableArray alloc] initWithArray:[self.purchasedHistory valueForKey:@"list"]];
+//    
+//    self.totalPage = [self.purchasedHistory valueForKey:@"pagecount"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable:) name:@"refreshPurchaseHistory" object:nil];
    /* UIView *tempImageView = [[UIView alloc] init];
     [tempImageView setBackgroundColor:[UIColor colorWithRed:232/255 green:232/255 blue:232/255 alpha:1.0]];
@@ -50,6 +50,8 @@
         // code for 3.5-inch screen
         kDisplayPerscreen = 3;
     }
+    
+    [self loadData];
     
    
 }
@@ -105,6 +107,12 @@
     self.selectedCategories = @"";
     self.searchedText = @"";
     self.selectedStatus = @"";
+    
+    self.purchasedHistory = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getPurchasedHistoryItems]];
+    self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
+    self.tempPurchasedArray = [[NSMutableArray alloc] initWithArray:[self.purchasedHistory valueForKey:@"list"]];
+    
+    self.totalPage = [self.purchasedHistory valueForKey:@"pagecount"];
     
     NSString *isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:@"islogin"]copy];
     

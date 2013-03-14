@@ -27,33 +27,63 @@
 {
     [super viewDidLoad];
     
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
     
-    [self performSelector:@selector(appearThisFirst) withObject:self afterDelay:0.5f];
+//    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
+//    [tempImageView setFrame:self.tableView.frame];
+//    
+//    self.tableView.backgroundView = tempImageView;
+//    [tempImageView release];
+    [self.activityIndicator startAnimating];
+    [self refresh];
+    //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
+//    [self performSelectorInBackground:@selector(loadData) withObject:nil];
+}
+
+- (void)loadData
+{
+    _catArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShop]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
-    
-    [self performSelector:@selector(appearThisFirst) withObject:self afterDelay:0.5f];
+    NSLog(@"vda shoplist");
+    [self.activityIndicator startAnimating];
+    //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
+//    [self performSelectorInBackground:@selector(loadData) withObject:nil];
+    [self refresh];
 }
 
-- (void)appearThisFirst
-{
-    [DejalBezelActivityView removeViewAnimated:YES];
-    
-    _catArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShop]];
-    
-    
-    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
-    [tempImageView setFrame:self.tableView.frame];
-    
-    self.tableView.backgroundView = tempImageView;
-    [tempImageView release];
-}
+//- (void)viewDidLoad
+//{
+//    [super viewDidLoad];
+//    
+//    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
+//    
+//    [self performSelector:@selector(appearThisFirst) withObject:self afterDelay:0.5f];
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    
+//    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
+//    
+//    [self performSelector:@selector(appearThisFirst) withObject:self afterDelay:0.5f];
+//}
+//
+//- (void)appearThisFirst
+//{
+//    [DejalBezelActivityView removeViewAnimated:YES];
+//    
+//    _catArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShop]];
+//    
+//    
+//    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
+//    [tempImageView setFrame:self.tableView.frame];
+//    
+//    self.tableView.backgroundView = tempImageView;
+//    [tempImageView release];
+//}
 
 - (void) addItemsToEndOfTableView{
     //    [super addItemsToEndOfTableView];
@@ -75,6 +105,9 @@
 }
 
 - (void)addItem { /* add item to top */
+    
+    [self loadData];
+    
    // self.pageCounter = 1;
     [self.catArray removeAllObjects];
     //    [aQRcodeType removeAllObjects];

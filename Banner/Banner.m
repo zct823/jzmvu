@@ -79,6 +79,7 @@
                                }
                                
                            }];
+            [self addURLImage];
         }else{
 //            NSLog(@"Error retrieve api data");
             //            [imageView setImage:[UIImage imageNamed:@"ad4.png"]];

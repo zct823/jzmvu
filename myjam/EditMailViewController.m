@@ -56,9 +56,17 @@
     self.addressTextField.text = self.address;
     self.cityTextField.text = self.city;
     self.postcodeTextField.text = self.postcode;
-    self.stateTextField.text = self.state;
-    self.countryTextField.text = self.country;
-    
+    if (![self.state isKindOfClass:[NSNull class]]) {
+        self.stateTextField.text = self.state;
+    } else {
+        self.stateTextField.text = @"";
+    }
+    if (![self.country isKindOfClass:[NSNull class]]) {
+        self.countryTextField.text = self.country;
+    } else {
+        self.countryTextField.text = @"";
+    }
+
     // textfield delegate
     self.addressTextField.delegate = self;
     self.cityTextField.delegate = self;
@@ -290,7 +298,7 @@
             UJliteProfileViewController *ujlite = [[UJliteProfileViewController alloc] init];
             [ujlite reloadView];
             [ujlite release];
-          //  [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
     [DejalBezelActivityView removeViewAnimated:YES];

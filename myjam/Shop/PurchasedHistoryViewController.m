@@ -369,5 +369,22 @@ if ([status isEqualToString:@"error"]) {
 }
 
 
+- (void)viewDidUnload {
+    self.activityIndicator=nil;
+    self.activityIndicatorView=nil;
+    self.footerActivityIndicator=nil;
+    self.tableView=nil;
+    
+    [super viewDidUnload];
+}
+
+
+- (void)dealloc {
+    [self.tableView release];
+    [[self activityIndicator] release];
+    [[self activityIndicatorView] release];
+    [[self footerActivityIndicator] release];
+    [super dealloc];
+}
 
 @end

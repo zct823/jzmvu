@@ -28,7 +28,7 @@ static MJModel *_sharedInstance = nil;
     NSLog(@"%@",dataContent);
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
    
-    NSDictionary *resultsDictionary = [[NSDictionary alloc] initWithDictionary:[response objectFromJSONString]];
+    NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
     NSLog(@"%@",resultsDictionary);
     return [resultsDictionary autorelease];
 }
@@ -153,6 +153,8 @@ static MJModel *_sharedInstance = nil;
         }
     }
    // return catList;
+    
+    return nil;
 }
 -(NSMutableArray*) getTopListOfItemsFor:(NSString*)shopId{
     NSMutableArray *catList = [NSMutableArray array];
@@ -241,11 +243,11 @@ static MJModel *_sharedInstance = nil;
     
 }
 -(NSDictionary*) getProductInfoFor:(NSString*)prodId{
-    NSDictionary *productDetail = [NSDictionary dictionary];
+//    NSDictionary *productDetail = [NSDictionary dictionary];
     NSString* request = [NSString stringWithFormat:@"/api/shop_product_details.php"];
    
      NSString *options =[NSString stringWithFormat:@"{\"product_id\":\"%@\"}",prodId];        NSDictionary *answer =  [self getResponseDict:request withOptions:options];
-    NSDictionary *prod;
+    NSDictionary *prod = nil;
     if([answer count])
     {
         NSString *status = [answer objectForKey:@"status"];
@@ -301,8 +303,12 @@ static MJModel *_sharedInstance = nil;
         }
         return nil;
    
+    }
+    
+    return nil;
 }
-}
+
+
 -(NSDictionary*)submitReview:(NSString*)review forProduct:(NSString*)prodId withRating:(NSString*)rate{
     NSDictionary *reviewStatus = [NSDictionary dictionary];
     NSString* request = [NSString stringWithFormat:@"/api/shop_product_review_submit.php"];
@@ -400,7 +406,7 @@ static MJModel *_sharedInstance = nil;
     
     //return cartList;
 
-    
+    return nil;
 }
 -(NSDictionary*)getDeliveryDetailforCart:(NSString*)cartId{
     
@@ -501,11 +507,11 @@ static MJModel *_sharedInstance = nil;
     NSLog(@"answer:%@", answer);
     return [answer autorelease];
 }
--(void)authenticateWithFacebook{
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-    ACAccountType *accountTypeFacebook = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-    
- //   NSDictionary *options = @{ACFacebookAppIdKey
-}
+//-(void)authenticateWithFacebook{
+//    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+//    ACAccountType *accountTypeFacebook = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+//    
+// //   NSDictionary *options = @{ACFacebookAppIdKey
+//}
 @end
 

@@ -226,6 +226,26 @@
    
 }
 
+- (void)showViewControllerWithLoadingView:(UIViewController *)vc
+{
+    AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    [DejalBezelActivityView activityViewForView:myDel.window withLabel:@"Please wait..." width:100];
+    
+    [self performSelector:@selector(pushController:) withObject:vc afterDelay:0.6];
+}
+
+- (void)showLoadingView
+{
+    AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    [DejalBezelActivityView activityViewForView:myDel.window withLabel:@"Please wait..." width:100];
+}
+
+- (void)removeDejalLoadingView
+{
+    [DejalBezelActivityView removeViewAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -234,8 +254,8 @@
 
 - (void)pushController:(UIViewController *)controller
 {
-    
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    [DejalBezelActivityView activityViewForView:mydelegate.window withLabel:@"Please wait..." width:100];
     [mydelegate handleTab5];
     [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
     [mydelegate.otherNavController pushViewController:controller animated:NO];
@@ -263,7 +283,8 @@
     NSLog(@"handleContact");
     
     ContactViewController *contact = [[ContactViewController alloc] init];
-    [self pushController:contact];
+//    [self pushController:contact];
+    [self showViewControllerWithLoadingView:contact];
     [contact release];
 }
 
@@ -272,7 +293,7 @@
     NSLog(@"handleCalendar");
     
     CalenderViewController *cal = [[CalenderViewController alloc] init];
-    [self pushController:cal];
+    [self showViewControllerWithLoadingView:cal];
     [cal release];
 }
 
@@ -281,7 +302,7 @@
     NSLog(@"handleMap");
     
     MapViewController *map = [[MapViewController alloc] init];
-    [self pushController:map];
+    [self showViewControllerWithLoadingView:map];
     [map release];
 }
 
@@ -291,7 +312,7 @@
     NSLog(@"handleSocial");
     
     ShowSocialViewController *soc = [[ShowSocialViewController alloc] init];
-    [self pushController:soc];
+    [self showViewControllerWithLoadingView:soc];
     [soc release];
 }
 
@@ -300,7 +321,7 @@
     NSLog(@"handleFAQ");
     
     FAQViewController *faq = [[FAQViewController alloc] init];
-    [self pushController:faq];
+    [self showViewControllerWithLoadingView:faq];
     [faq release];
 }
 
@@ -309,7 +330,7 @@
     NSLog(@"handleFeedback");
     
     FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
-    [self pushController:feedback];
+    [self showViewControllerWithLoadingView:feedback];
     [feedback release];
 }
 - (void)handleSettings
@@ -317,14 +338,14 @@
     NSLog(@"handleSettings");
     
     SettingsViewController *settings = [[SettingsViewController alloc] init];
-    [self pushController:settings];
+    [self showViewControllerWithLoadingView:settings];
     [settings release];
 }
 
 - (void)handleAbout
 {
     AboutViewController *about = [[AboutViewController alloc] init];
-    [self pushController:about];
+    [self showViewControllerWithLoadingView:about];
     [about release];
 }
 
@@ -332,7 +353,7 @@
 - (void)handleLogout
 {
     NSLog(@"handleLogout");
-    
+    [self showLoadingView];
     // If OK, go to alertview delegate
     CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Logout JAM-BU" message:@"Are you sure to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
     alert.tag= 7;
@@ -345,12 +366,15 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 7){
+        [self removeDejalLoadingView];
         if (buttonIndex == 1) {
             AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [mydelegate presentLoginPage];
             NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
             [localData setObject:@"" forKey:@"tokenString"];
             [localData setObject:@"" forKey:@"fullname"];
+            [localData setObject:@"" forKey:@"first_name"];
+            [localData setObject:@"" forKey:@"last_name"];
             [localData setObject:@"" forKey:@"email"];
             [localData setObject:@"" forKey:@"mobile"];
             [localData setObject:@"NO" forKey:@"islogin"];

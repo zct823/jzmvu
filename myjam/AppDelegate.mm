@@ -321,6 +321,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
          completion:^(BOOL finished){}];
         
         [frontLayerView removeFromSuperview];
+        [DejalBezelActivityView removeViewAnimated:YES];
         
     }else{
 //        [self.tabView activateController:0];

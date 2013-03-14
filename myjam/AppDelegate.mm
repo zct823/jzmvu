@@ -133,6 +133,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
             }
         }
         [localData setObject:@"NO" forKey:@"noConnection"];
+        [localData synchronize];
     }else{
         ErrorViewController *errorpage = [[ErrorViewController alloc] init];
         errorpage.errorOption = kERROR_NO_INTERNET_CONNECTION;
@@ -338,7 +339,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         [bottomSVCreateBox.view setHidden:YES];
         
         // Reset scrollview to top
-        CGPoint topOffset = CGPointMake(0,0);
+//        CGPoint topOffset = CGPointMake(0,0);
        // [sidebarController.scroller setContentOffset:topOffset animated:NO];
         
         [UIView animateWithDuration:kAnimateDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
@@ -699,6 +700,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         NSLog(@"get connected!");
         if ([[localData objectForKey:@"noConnection"] isEqualToString:@"YES"]) {
             [localData setObject:@"NO" forKey:@"noConnection"];
+            [localData synchronize];
             [self initViews];
         }
     }

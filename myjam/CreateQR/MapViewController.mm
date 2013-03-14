@@ -166,6 +166,7 @@
 
 - (void)getCategoriesFromAPI
 {
+    
     NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_category.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
     NSString *dataContent = [NSString stringWithFormat:@"{\"src\":\"\"}"];
     NSDictionary *cat;
@@ -185,7 +186,12 @@
             {
                 [self.categories setObject:[row objectForKey:@"category_id"] forKey:[row objectForKey:@"category_name"]];
             }
-        }else{
+            
+            [DejalBezelActivityView removeViewAnimated:YES];
+            
+        }
+        else
+        {
             CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Create Failed" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             alert.tag = kAlertNoConnection;
             [alert show];
@@ -301,6 +307,8 @@
         [mailer setMessageBody:emailBody isHTML:NO];
         [self presentModalViewController:mailer animated:YES];
         [mailer release];
+        
+        [self addShareItemtoServer:qrcodeId withShareType:@"email"];
     }
     else
     {
@@ -309,7 +317,7 @@
         [alert release];
     }
     
-    [self addShareItemtoServer:qrcodeId withShareType:@"email"];
+    
 }
 
 - (void)shareImageOnTwitter
@@ -358,6 +366,8 @@
             [alert show];
             [alert release];
             
+            [self addShareItemtoServer:qrcodeId withShareType:@"twitter"];
+            
         }
         if(res == TWTweetComposeViewControllerResultCancelled) {
             /*
@@ -370,7 +380,7 @@
         
     };
     
-    [self addShareItemtoServer:qrcodeId withShareType:@"twitter"];
+    
 }
 
 - (void)callAPIShare:(int)option
@@ -406,6 +416,8 @@
                     CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Save" message:output delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [alert show];
                     [alert release];
+                    
+                    [self addShareItemtoServer:qrcodeId withShareType:[type lowercaseString]];
                     break;
                     [self dismissModalViewControllerAnimated:YES];
             }
@@ -420,7 +432,7 @@
         [alert release];
     }
     
-    [self addShareItemtoServer:qrcodeId withShareType:[type lowercaseString]];
+    
 }
 
 #pragma mark -

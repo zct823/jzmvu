@@ -695,7 +695,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     
     if ([ConnectionClass connected]) {
          NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
-        
+        NSLog(@"get connected!");
         if ([[localData objectForKey:@"noConnection"] isEqualToString:@"YES"]) {
             [localData setObject:@"NO" forKey:@"noConnection"];
             [self initViews];

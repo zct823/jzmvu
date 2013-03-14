@@ -35,7 +35,7 @@
 }
 
 - (void)viewDidLoad
-{
+{   
     self.shopAddInfo = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance]getAddressForStore:shopId]];
     [self refreshScroller];
     [self.shopLogo setImageWithURL:[NSURL URLWithString:[shopAddInfo valueForKey:@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"default_icon.png"]];

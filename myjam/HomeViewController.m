@@ -134,6 +134,8 @@
     [tabBar showDefaults];
     [self animateAds];
     
+    [DejalBezelActivityView removeViewAnimated:YES];
+    
     NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
     NSString *isDisplay = [localData objectForKey:@"isDisplayTutorial"];
     

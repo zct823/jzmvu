@@ -26,15 +26,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _catArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShop]];
-
     
-   UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
+    
+    [self performSelector:@selector(appearThisFirst) withObject:self afterDelay:0.5f];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
+    
+    [self performSelector:@selector(appearThisFirst) withObject:self afterDelay:0.5f];
+}
+
+- (void)appearThisFirst
+{
+    [DejalBezelActivityView removeViewAnimated:YES];
+    
+    _catArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShop]];
+    
+    
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
     [tempImageView setFrame:self.tableView.frame];
     
     self.tableView.backgroundView = tempImageView;
     [tempImageView release];
 }
+
 - (void) addItemsToEndOfTableView{
     //    [super addItemsToEndOfTableView];
     [UIView animateWithDuration:0.3 animations:^{

@@ -59,6 +59,8 @@
     
     [self addAnnotationToMap];
     NSLog(@"address: %@", self.mapAddress);
+    
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
 - (void)addAnnotationToMap

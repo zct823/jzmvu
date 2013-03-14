@@ -339,6 +339,7 @@
     
     SettingsViewController *settings = [[SettingsViewController alloc] init];
     [self showViewControllerWithLoadingView:settings];
+//    [self pushController:settings];
     [settings release];
 }
 

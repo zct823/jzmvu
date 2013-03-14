@@ -220,6 +220,11 @@
     [self touchUpForButton:[self.buttons objectAtIndex:0]];
 }
 
+-(void)showViewControllerAtIndex:(NSUInteger)index {
+    [self touchDownForButton:[self.buttons objectAtIndex:index]];
+    [self touchUpForButton:[self.buttons objectAtIndex:index]];
+}
+
 -(void)touchDownForButton:(UIButton*)button {
     [button setSelected:YES];
     NSInteger i = [self.buttons indexOfObject:button];

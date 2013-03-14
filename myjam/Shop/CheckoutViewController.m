@@ -279,7 +279,8 @@
         [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
          [[NSNotificationCenter defaultCenter ] postNotificationName:@"refreshPurchaseHistory" object:self];
         
-        [sv1 switchViewController:sv1.vc3];
+//        [sv1 switchViewController:sv1.vc3];
+        [sv1.tabBar showViewControllerAtIndex:1];
         
         [mydelegate.shopNavController popToRootViewControllerAnimated:YES];
     }

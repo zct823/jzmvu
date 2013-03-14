@@ -16,9 +16,10 @@
 @class ShopListViewController;
 @class PurchasedHistoryViewController;
 @interface ShopViewController : UIViewController <TBTabBarDelegate>{
-    TBTabBar *tabBar;
+//    TBTabBar *tabBar;
 }
 
+@property (retain, nonatomic) TBTabBar *tabBar;
 @property (retain, nonatomic) NewsViewController *nv;
 @property (retain, nonatomic) ShopListViewController *sv;
 @property (retain, nonatomic) PurchasedHistoryViewController *phv;

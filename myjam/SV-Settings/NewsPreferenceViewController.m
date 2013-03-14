@@ -93,13 +93,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self animateDBAV:@"Loading ..."];
+//    [self animateDBAV:@"Loading ..."];
     
     [self.uiTableView setHidden:YES];
+    [self loadData:nil];
+//    [self performSelector:@selector(loadData:) withObject:nil afterDelay:0.0];
     
-    [self performSelector:@selector(loadData:) withObject:nil afterDelay:0.5];
-    
-    [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:1.0];
+//    [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:1.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated

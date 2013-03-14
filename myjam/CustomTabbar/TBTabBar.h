@@ -22,6 +22,7 @@
 -(id)initWithFrame:(CGRect)frameSize andItems:(NSArray *)items;
 
 -(void)showDefaults;
+-(void)showViewControllerAtIndex:(NSUInteger)index;
 
 -(void)touchDownForButton:(UIButton*)button;
 -(void)touchUpForButton:(UIButton*)button;

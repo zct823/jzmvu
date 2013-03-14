@@ -458,8 +458,8 @@ static MJModel *_sharedInstance = nil;
     return answer;
 }
 -(NSDictionary*)sendAddressSaved:(NSString*)cartId withAddress:(NSString*)addressId{
-    NSString* request = [NSString stringWithFormat:@"/api/shop_cart_delivery_address_list.php"];
-      NSString *options =[NSString stringWithFormat:@"{\"cart_id\":\"%@\",\"address_id\":\"%@\"}",cartId,addressId];
+    NSString* request = [NSString stringWithFormat:@"/api/shop_cart_delivery_address_submit.php"];
+    NSString *options =[NSString stringWithFormat:@"{\"cart_id\":\"%@\",\"address_id\":\"%@\"}",cartId,addressId];
     NSDictionary *answer =  [self getResponseDict:request withOptions:options];
     
     return answer;

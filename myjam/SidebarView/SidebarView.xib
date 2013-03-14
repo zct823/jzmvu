@@ -484,6 +484,7 @@
 				<double key="IBUIContentInset.bottom">0.0</double>
 				<double key="IBUIContentInset.left">0.0</double>
 				<double key="IBUIContentInset.right">0.0</double>
+				<bool key="IBUIBounces">NO</bool>
 				<bool key="IBUIAlwaysBounceVertical">YES</bool>
 				<double key="IBUIScrollIndicatorInsets.top">30</double>
 				<double key="IBUIScrollIndicatorInsets.bottom">0.0</double>
@@ -827,10 +828,6 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1552" key="NS.object.0"/>
-		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">

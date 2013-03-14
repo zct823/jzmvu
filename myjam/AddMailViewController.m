@@ -189,11 +189,11 @@
         reqFieldName = @"Address";
         [self triggerRequiredAlert];
     }
-    else if ([self.cityTextField.text length] == 0)
-    {
-        reqFieldName = @"City";
-        [self triggerRequiredAlert];
-    }
+//    else if ([self.cityTextField.text length] == 0)
+//    {
+//        reqFieldName = @"City";
+//        [self triggerRequiredAlert];
+//    }
     else if ([self.postcodeTextField.text length] == 0)
     {
         reqFieldName = @"Postcode";

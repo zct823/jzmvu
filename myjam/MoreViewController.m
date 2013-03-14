@@ -75,10 +75,20 @@
 {
     [super viewDidLoad];
     
-    //
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    
+    if ([mydelegate.swipeOptionString isEqualToString:@"scan"] || [mydelegate.swipeOptionString isEqualToString:@"share"] || [mydelegate.swipeOptionString isEqualToString:@"favourite"] || [mydelegate.swipeOptionString isEqualToString:@"create"])
+    {
+        NSLog(@"Hiding unfollow and favourite btn");
+        [self.btnFav setHidden:YES];
+        [self.btnUnfollow setHidden:YES];
+    }
+    else
+    {
+         NSLog(@"Staying unfollow and favourite btn");
+         [self.btnFav setHidden:NO];
+         [self.btnUnfollow setHidden:NO];
+    }
     
     HomeViewController *home = [mydelegate.homeNavController.viewControllers objectAtIndex:0];
     home.nv.refreshDisabled = YES;

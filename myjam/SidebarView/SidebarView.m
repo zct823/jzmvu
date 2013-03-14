@@ -260,6 +260,16 @@
 
 - (void)handleContact
 {
+    
+    AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    [DejalBezelActivityView activityViewForView:myDel.window withLabel:@"Please wait..." width:100];
+    
+    [self performSelector:@selector(openContactVC) withObject:self afterDelay:0.5f];
+}
+
+- (void)openContactVC
+{
     NSLog(@"handleContact");
     
     ContactViewController *contact = [[ContactViewController alloc] init];
@@ -268,6 +278,16 @@
 }
 
 - (void)handleCalendar
+{
+    
+    AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    [DejalBezelActivityView activityViewForView:myDel.window withLabel:@"Please wait..." width:100];
+    
+    [self performSelector:@selector(openCalendarVC) withObject:self afterDelay:0.5f];
+}
+
+- (void)openCalendarVC
 {
     NSLog(@"handleCalendar");
     
@@ -278,6 +298,17 @@
 
 - (void)handleMap
 {
+    
+    AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    [DejalBezelActivityView activityViewForView:myDel.window withLabel:@"Please wait..." width:100];
+    
+    [self performSelector:@selector(openMapVC) withObject:self afterDelay:0.5f];
+    
+}
+
+- (void)openMapVC
+{
     NSLog(@"handleMap");
     
     MapViewController *map = [[MapViewController alloc] init];
@@ -285,8 +316,18 @@
     [map release];
 }
 
-
 - (void)handleSocial
+{
+    
+    AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    [DejalBezelActivityView activityViewForView:myDel.window withLabel:@"Please wait..." width:100];
+    
+    [self performSelector:@selector(openSocialVC) withObject:self afterDelay:0.5f];
+    
+}
+
+- (void)openSocialVC
 {
     NSLog(@"handleSocial");
     
@@ -333,6 +374,10 @@
 {
     NSLog(@"handleLogout");
     
+    AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    [DejalBezelActivityView activityViewForView:myDel.window withLabel:@"Logging out..." width:100];
+    
     // If OK, go to alertview delegate
     CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Logout JAM-BU" message:@"Are you sure to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
     [alert show];
@@ -343,7 +388,12 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
+    if (buttonIndex == 0)
+    {
+        [DejalBezelActivityView removeViewAnimated:YES];
+    }
+    else if (buttonIndex == 1)
+    {
         AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [mydelegate presentLoginPage];
         NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];

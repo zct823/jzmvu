@@ -28,7 +28,7 @@
     self.scroller.contentSize = self.scroller.frame.size;
     self.scroller.frame = self.view.frame;
     if (self.scroller.frame.size.height > 350){
-       [ scroller setContentSize:CGSizeMake(320, 800) ];
+        [ scroller setContentSize:CGSizeMake(320, self.shopAddress.frame.size.height+300) ];
         
     }
     [self.view addSubview:self.scroller];

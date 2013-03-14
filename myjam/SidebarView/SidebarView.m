@@ -207,7 +207,6 @@
 //    [fullname release];
     [fname release];
     [lname release];
-    [fullname release];
     [email release];
     [mobile release];
 }
@@ -514,15 +513,15 @@
     NSLog(@"%d", [sender tag]);
     if (([sender tag] % 2) == 0){
         NSLog(@"%d",(([sender tag]/100)-1));
-          NSLog(@"%@",cartItems);
+        NSLog(@"%@",cartItems);
         newQty = [NSString stringWithFormat:@"%d",([[[[[cartItems objectAtIndex:([sender tag]/1000)] valueForKey:@"item_list"]  objectAtIndex:((([sender tag]%1000)/100)-1)]  valueForKey:@"quantity" ] intValue] +1)  ];
         
     }
     //For minus item
     else{
-         newQty = [NSString stringWithFormat:@"%d",([[[[[cartItems objectAtIndex:([sender tag]/1000)] valueForKey:@"item_list"]  objectAtIndex:((([sender tag]%1000)/100)-1)]   valueForKey:@"quantity" ] intValue] -1)  ];;
+        newQty = [NSString stringWithFormat:@"%d",([[[[[cartItems objectAtIndex:([sender tag]/1000)] valueForKey:@"item_list"]  objectAtIndex:((([sender tag]%1000)/100)-1)]   valueForKey:@"quantity" ] intValue] -1)  ];;
         
-        }
+    }
     if ([newQty isEqualToString:@"-1"])
     {
         UIAlertView *alert = [[UIAlertView alloc]
@@ -553,15 +552,19 @@
     
     //TODO if cart empty
     
-    self.cartItems = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] updateProduct:[[[[cartItems objectAtIndex:([sender tag]/1000)] valueForKey:@"item_list"]  objectAtIndex:((([sender tag]%1000)/100)-1)] valueForKey:@"cart_item_id"] forCart:[[cartItems objectAtIndex:([sender tag]/1000)]valueForKey:@"cart_id"]  forQuantity:newQty]];
+    
+    //  [self updatePage];
+    
+}
+
+-(void)changeQuantity:(NSString*)qty from:(NSInteger*)tag{
+    self.cartItems = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] updateProduct:[[[[cartItems objectAtIndex:((int)tag/1000)] valueForKey:@"item_list"]  objectAtIndex:((((int)tag%1000)/100)-1)] valueForKey:@"cart_item_id"] forCart:[[cartItems objectAtIndex:((int)tag/1000)]valueForKey:@"cart_id"]  forQuantity:qty]];
     
     [self.tableView reloadData];
     [self updateTabBar];
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"cartChangedFromView"
      object:self];
-  //  [self updatePage];
-    
 }
 - (void)updateTabBar {
      int counter = 0;
@@ -616,9 +619,6 @@
     }
     
     [mydelegate handleTab5];
-    
-    //[mydelegate->frontLayerView removeFromSuperview];
-   // [self pushController:detailViewController];
     [detailViewController release];
    }
 @end

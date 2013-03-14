@@ -22,6 +22,8 @@
     [super viewDidLoad];
 //    [self loadData];
     NSLog(@"a-vdl");
+    self.selectedCategories = @"";
+    self.searchedText = @"";
 	// Do any additional setup after loading the view.
 }
 

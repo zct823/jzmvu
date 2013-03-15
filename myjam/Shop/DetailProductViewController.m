@@ -73,10 +73,31 @@
         [self retrieveImages:[[productInfo valueForKey:@"product_image"] objectAtIndex:i] ];
         
     }
+//iwe
+    headerView.shopName.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapCheckbox = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backToShop)];
+    [headerView.shopName addGestureRecognizer:tapCheckbox];
+    
+    //setup descLabel
+    [self.descLabel setBackgroundColor:[UIColor clearColor]];
+    [self.descLabel setFont:[UIFont systemFontOfSize:12]];
+    [self.descLabel setText:[productInfo valueForKey:@"product_description"]];
+    [self.descLabel setNumberOfLines:0];
+    [self.descLabel sizeToFit];
+    
+    //setup descView
+    self.bottomView.frame = CGRectMake(0, 520+self.descLabel.frame.size.height, self.bottomView.frame.size.width, self.bottomView.frame.size.height);
+    
+    [self.scrollView addSubview:self.bottomView];
     
     [self setupCarousel];
        [DejalBezelActivityView removeViewAnimated:YES];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)backToShop
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

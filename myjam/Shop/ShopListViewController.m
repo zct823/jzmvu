@@ -34,10 +34,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
     [self refresh];
->>>>>>> Modified shoplistvc
+//>>>>>>> Modified shoplistvc
     
 //    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
 //    [tempImageView setFrame:self.tableView.frame];

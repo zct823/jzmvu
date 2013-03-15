@@ -253,7 +253,6 @@
 		613963E216EF8EFF0056B314 /* DeliveryOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139636F16EF8EFF0056B314 /* DeliveryOptionViewController.m */; };
 		613963E316EF8EFF0056B314 /* DeliveryOptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6139637016EF8EFF0056B314 /* DeliveryOptionViewController.xib */; };
 		613963E416EF8EFF0056B314 /* DetailProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139637216EF8EFF0056B314 /* DetailProductViewController.m */; };
-		613963E516EF8EFF0056B314 /* DetailProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6139637316EF8EFF0056B314 /* DetailProductViewController.xib */; };
 		613963E616EF8EFF0056B314 /* JAM-BU Beta v1.0.ipa in Resources */ = {isa = PBXBuildFile; fileRef = 6139637616EF8EFF0056B314 /* JAM-BU Beta v1.0.ipa */; };
 		613963E716EF8EFF0056B314 /* MJModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139637916EF8EFF0056B314 /* MJModel.m */; };
 		613963E816EF8EFF0056B314 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139637B16EF8EFF0056B314 /* Shop.m */; };
@@ -776,7 +775,6 @@
 		6139637016EF8EFF0056B314 /* DeliveryOptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliveryOptionViewController.xib; sourceTree = "<group>"; };
 		6139637116EF8EFF0056B314 /* DetailProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailProductViewController.h; sourceTree = "<group>"; };
 		6139637216EF8EFF0056B314 /* DetailProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailProductViewController.m; sourceTree = "<group>"; };
-		6139637316EF8EFF0056B314 /* DetailProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailProductViewController.xib; sourceTree = "<group>"; };
 		6139637616EF8EFF0056B314 /* JAM-BU Beta v1.0.ipa */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JAM-BU Beta v1.0.ipa"; sourceTree = "<group>"; };
 		6139637816EF8EFF0056B314 /* MJModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJModel.h; sourceTree = "<group>"; };
 		6139637916EF8EFF0056B314 /* MJModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJModel.m; sourceTree = "<group>"; };
@@ -1438,7 +1436,6 @@
 				6139637016EF8EFF0056B314 /* DeliveryOptionViewController.xib */,
 				6139637116EF8EFF0056B314 /* DetailProductViewController.h */,
 				6139637216EF8EFF0056B314 /* DetailProductViewController.m */,
-				6139637316EF8EFF0056B314 /* DetailProductViewController.xib */,
 				6139637416EF8EFF0056B314 /* Images */,
 				6139637616EF8EFF0056B314 /* JAM-BU Beta v1.0.ipa */,
 				6139637716EF8EFF0056B314 /* Model */,
@@ -2534,7 +2531,6 @@
 				613963DF16EF8EFF0056B314 /* DeliveryChoiceViewController.xib in Resources */,
 				613963E116EF8EFF0056B314 /* DeliveryDayChoiceViewController.xib in Resources */,
 				613963E316EF8EFF0056B314 /* DeliveryOptionViewController.xib in Resources */,
-				613963E516EF8EFF0056B314 /* DetailProductViewController.xib in Resources */,
 				613963E616EF8EFF0056B314 /* JAM-BU Beta v1.0.ipa in Resources */,
 				613963EC16EF8EFF0056B314 /* ProductHeaderView.xib in Resources */,
 				613963EE16EF8EFF0056B314 /* ProductRatingListViewController.xib in Resources */,

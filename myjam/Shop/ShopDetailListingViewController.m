@@ -136,6 +136,10 @@
 
 - (void)createCellForIndex:(NSIndexPath *)indexPath cell:(ProductTableViewCell *)cell
 {
+    [cell.transView1 setHidden:YES];
+    [cell.transView2 setHidden:YES];
+    [cell.transView3 setHidden:YES];
+    
     if ((indexPath.row ==1 && indexPath.section==0) ||indexPath.row==0 ){
 
     
@@ -169,7 +173,9 @@
        cell.productLabel1.text =[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_category"];
     
     cell.priceLabel1.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_price"];
-    cell.button1.tag =  3*indexPath.section+0;
+    cell.buttonTap1.tag =  3*indexPath.section+0;
+    [cell.transView1 setHidden:NO];
+    
     if( [[[[[_productArray objectAtIndex:indexPath.section]
             valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_rating"] isEqual:@"0.0"]){
         cell.rateView1.hidden = TRUE;
@@ -184,7 +190,13 @@
     cell.transView1.hidden = FALSE;
     }
     [cell.button1 setBackgroundImageWithURL:[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_image"] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
-    [cell.button1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.buttonTap1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+//Siwe
+    cell.transView1.tag = 3*indexPath.section+0;
+    cell.transView1.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    [cell.transView1 addGestureRecognizer:tap1];
+//Eiwe    
     if ([[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] count] >1){
         
     
@@ -204,9 +216,10 @@
         cell.rateView2.maxRating = 5;
         cell.transView2.hidden = FALSE;
         }
-        cell.button2.tag = 3*indexPath.section+1;
+        [cell.transView2 setHidden:NO];
+        cell.buttonTap2.tag = 3*indexPath.section+1;
            [cell.button2 setBackgroundImageWithURL:[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_image"] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
-        [cell.button2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.buttonTap2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
         
         
     }
@@ -227,9 +240,10 @@
         cell.rateView3.maxRating = 5;
         cell.transView3.hidden = FALSE;
         }
-        cell.button3.tag = 3*indexPath.section+2;
+        [cell.transView3 setHidden:NO];
+        cell.buttonTap3.tag = 3*indexPath.section+2;
            [cell.button3 setBackgroundImageWithURL:[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_image"] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
-          [cell.button3 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+          [cell.buttonTap3 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 

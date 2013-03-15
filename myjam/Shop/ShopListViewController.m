@@ -147,6 +147,10 @@
 
 - (void)createCellForIndex:(NSIndexPath *)indexPath cell:(ShopTableViewCell *)cell
 {
+    [cell.transView1 setHidden:YES];
+    [cell.transView2 setHidden:YES];
+    [cell.transView3 setHidden:YES];
+    
     cell.contentView.backgroundColor = [UIColor clearColor];
     CGSize expectedLabelSize  = [[[_catArray objectAtIndex:indexPath.section] valueForKey:@"category_name"] sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(150.0, cell.catNameLabel.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
     CGRect newFrame = cell.catNameLabel.frame;
@@ -165,43 +169,44 @@
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
  
-    cell.catLabel1.text = [[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:0] valueForKey:@"shop_name"];
+    cell.cateLabel1.text = [[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:0] valueForKey:@"shop_name"];
     cell.shopLabel1.hidden = NO;
     if([[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:0] valueForKey:@"shop_top_seller"] isEqual:@"Y"]){
         cell.topLabel1.hidden=NO;
     }
-    cell.shopLabel1.text =[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:0] valueForKey:@"shop_category"];
-    cell.button1.tag =  3*indexPath.section+0;
-    
+    cell.shoPLabel1.text =[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:0] valueForKey:@"shop_category"];
+    cell.buttonTap1.tag =  3*indexPath.section+0;
+    [cell.transView1 setHidden:NO];
     [cell.button1 setBackgroundImageWithURL:[NSURL URLWithString:[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:0] valueForKey:@"shop_logo"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
  
     
 
-    [cell.button1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.buttonTap1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
     
     if ([[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] count] >1){
-        cell.catLabel2.text = [[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_name"];
-        cell.shopLabel2.text =[[[[_catArray objectAtIndex:indexPath.section]valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_category"];
+        cell.cateLabel2.text = [[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_name"];
+        cell.shoPLabel2.text =[[[[_catArray objectAtIndex:indexPath.section]valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_category"];
         cell.shopLabel2.hidden = NO;
         if([[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_top_seller"] isEqual:@"Y"]){
             cell.topLabel2.hidden=NO;
         }
-        cell.button2.tag = 3*indexPath.section+1;
-       [cell.button2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.buttonTap2.tag = 3*indexPath.section+1;
+        [cell.transView2 setHidden:NO];
+       [cell.buttonTap2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
             cell.shopLabel2.hidden = NO;
          [cell.button2 setBackgroundImageWithURL:[NSURL URLWithString:[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:1] valueForKey:@"shop_logo"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
       
         
     }
     if ([[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] count] >2){
-        cell.catLabel3.text = [[[[_catArray objectAtIndex:indexPath.section]valueForKey:@"shop_list"] objectAtIndex:2] valueForKey:@"shop_name"];
+        cell.cateLabel3.text = [[[[_catArray objectAtIndex:indexPath.section]valueForKey:@"shop_list"] objectAtIndex:2] valueForKey:@"shop_name"];
           cell.shopLabel3.hidden = NO;
-        cell.shopLabel3.text =[[[[_catArray objectAtIndex:indexPath.section]valueForKey:@"shop_list"] objectAtIndex:2] valueForKey:@"shop_category"];
-        cell.button3.tag = 3*indexPath.section+2;
-       
+        cell.shoPLabel3.text =[[[[_catArray objectAtIndex:indexPath.section]valueForKey:@"shop_list"] objectAtIndex:2] valueForKey:@"shop_category"];
+        cell.buttonTap3.tag = 3*indexPath.section+2;
+        [cell.transView3 setHidden:NO];
         [cell.button3 setBackgroundImageWithURL:[NSURL URLWithString:[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:2] valueForKey:@"shop_logo"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
        
-        [cell.button3 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.buttonTap3 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
         
         if([[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:2] valueForKey:@"shop_top_seller"] isEqual:@"Y"]){
             cell.topLabel3.hidden=NO;

@@ -27,6 +27,22 @@
 @property (retain, nonatomic) IBOutlet UIButton *viewAllButton;
 @property (retain, nonatomic) IBOutlet UILabel *catNameLabel;
 
+@property (retain, nonatomic) IBOutlet UILabel *priceLabel1;
+@property (retain, nonatomic) IBOutlet UILabel *shoPLabel1;
+@property (retain, nonatomic) IBOutlet UILabel *cateLabel1;
+@property (retain, nonatomic) IBOutlet UILabel *priceLabel2;
+@property (retain, nonatomic) IBOutlet UILabel *shoPLabel2;
+@property (retain, nonatomic) IBOutlet UILabel *cateLabel2;
+@property (retain, nonatomic) IBOutlet UILabel *priceLabel3;
+@property (retain, nonatomic) IBOutlet UILabel *shoPLabel3;
+@property (retain, nonatomic) IBOutlet UILabel *cateLabel3;
+@property (retain, nonatomic) IBOutlet UIButton *buttonTap1;
+@property (retain, nonatomic) IBOutlet UIButton *buttonTap2;
+@property (retain, nonatomic) IBOutlet UIButton *buttonTap3;
+@property (retain, nonatomic) IBOutlet UIView *transView2;
+@property (retain, nonatomic) IBOutlet UIView *transView3;
+@property (retain, nonatomic) IBOutlet UIView *transView1;
+
 
 
 @end

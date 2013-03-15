@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PullRefreshTableViewController.h"
-#import "ShopDetailListingViewController.h"
-#import "AppDelegate.h"
+#import "NewsViewController.h"
 #import "MJModel.h"
 #import "CustomHeader.h"
 #import "ShopViewAllViewController.h"
@@ -18,12 +16,8 @@
 #import "ShopDetailListingViewController.h"
 #import <SDWebImage/UIButton+WebCache.h>
 
-
-@interface ShopListViewController : PullRefreshTableViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ShopListViewController : NewsViewController
 
 @property (strong, nonatomic) NSMutableArray *catArray;
 
-- (void) refreshTableItemsWithFilter:(NSString *)str andSearchedText:(NSString *)pattern andOptions:optionData;
-@property (retain, nonatomic) NSString *selectedCategories;
-@property (retain, nonatomic) NSString *searchedText;
 @end

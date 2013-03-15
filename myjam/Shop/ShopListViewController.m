@@ -8,6 +8,7 @@
 
 #import "ShopListViewController.h"
 #define kTableCellHeight 170
+
 @interface ShopListViewController ()
 
 @end
@@ -33,31 +34,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+<<<<<<< HEAD
+=======
+    [self refresh];
+>>>>>>> Modified shoplistvc
     
 //    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
 //    [tempImageView setFrame:self.tableView.frame];
 //    
 //    self.tableView.backgroundView = tempImageView;
 //    [tempImageView release];
-    [self.activityIndicator startAnimating];
-    [self refresh];
-    //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
+//    [self.activityIndicator startAnimating];
+//    [self refresh];
+//    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
 //    [self performSelectorInBackground:@selector(loadData) withObject:nil];
 }
 
-- (void)loadData
-{
-    _catArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShop]];
-}
+//- (void)loadData
+//{
+//    _catArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShop]];
+//}
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    NSLog(@"vda shoplist");
-    [self.activityIndicator startAnimating];
-    //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
-//    [self performSelectorInBackground:@selector(loadData) withObject:nil];
-    [self refresh];
-}
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    NSLog(@"vda shoplist");
+//    [self.activityIndicator startAnimating];
+//    //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
+////    [self performSelectorInBackground:@selector(loadData) withObject:nil];
+//    [self refresh];
+//}
 
 //- (void)viewDidLoad
 //{
@@ -91,23 +96,32 @@
 //    [tempImageView release];
 //}
 
-- (void) addItemsToEndOfTableView{
-    //    [super addItemsToEndOfTableView];
-    [UIView animateWithDuration:0.3 animations:^{
-      
-
-                CGRect screenBounds = [[UIScreen mainScreen] bounds];
-                if (screenBounds.size.height != 568) {
-                    // code for 4-inch screen
-                    [self.tableView setContentOffset:CGPointMake(0, 0)];
-            
-        
-    
-                }}];
-}
+//- (void) addItemsToEndOfTableView{
+//    //    [super addItemsToEndOfTableView];
+//    [UIView animateWithDuration:0.3 animations:^{
+//      
+//
+//                CGRect screenBounds = [[UIScreen mainScreen] bounds];
+//                if (screenBounds.size.height != 568) {
+//                    // code for 4-inch screen
+//                    [self.tableView setContentOffset:CGPointMake(0, 0)];
+//            
+//        
+//    
+//                }}];
+//}
 
 - (void)refresh {
+    [self.activityIndicator startAnimating];
     [self performSelector:@selector(addItem) withObject:nil afterDelay:0.0];
+}
+
+- (void)loadData
+{
+//    [self.activityIndicatorView setHidden:NO];
+    
+    //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
+    [self performSelectorInBackground:@selector(setupView) withObject:nil];
 }
 
 - (void)addItem { /* add item to top */
@@ -121,6 +135,25 @@
     [self.tableView reloadData];
     
     [self stopLoading];
+//    [self.activityIndicatorView setHidden:YES];
+}
+
+- (void)setupView
+{
+    self.selectedCategories = @"";
+    self.searchedText = @"";
+    
+    NSArray *list = [[MJModel sharedInstance] getCategoryAndTopShop];
+    
+    if ([list count] > 0) {
+        [self.tableData addObjectsFromArray:list];
+    }
+    
+    self.tableData = [list mutableCopy];
+    
+    [self.tableView reloadData];
+    [self.activityIndicator stopAnimating];
+    [self.activityIndicatorView setHidden:YES];
 }
 
 
@@ -128,6 +161,49 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark Bottom Loadmore action
+
+//- (void) addItemsToEndOfTableView{
+//    //    [super addItemsToEndOfTableView];
+//    [UIView animateWithDuration:0.3 animations:^{
+//        
+//        
+//        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+//        if (screenBounds.size.height != 568) {
+//            // code for 4-inch screen
+//            [self.tableView setContentOffset:CGPointMake(0, 0)];
+//            
+//            
+//            
+//        }}];
+//}
+
+- (void) addItemsToEndOfTableView{
+    //    [super addItemsToEndOfTableView];
+    [UIView animateWithDuration:0.3 animations:^{
+        if (self.pageCounter >= self.totalPage)
+        {
+            
+            CGRect screenBounds = [[UIScreen mainScreen] bounds];
+            if (screenBounds.size.height != 568) {
+                // code for 4-inch screen
+                [self.tableView setContentOffset:CGPointMake(0, 0)];
+                
+            }
+            
+        }else if (self.pageCounter < self.totalPage){
+            self.pageCounter++;
+            NSArray *list = [[MJModel sharedInstance] getCategoryAndTopShop];
+            
+            if ([list count] > 0) {
+                [self.tableData addObjectsFromArray:list];
+            }
+            
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -229,10 +305,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
         return kTableCellHeight;
-    
-    
 }
 
 #pragma mark - Table view delegate

@@ -27,10 +27,10 @@ static MJModel *_sharedInstance = nil;
    NSString *dataContent = options;
     NSLog(@"%@",dataContent);
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-   
+//   NSDictionary *resultsDictionary = [[NSDictionary alloc] initWithDictionary:[response objectFromJSONString]];
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
-    NSLog(@"%@",resultsDictionary);
-    return [resultsDictionary autorelease];
+//    NSLog(@"%@",resultsDictionary);
+    return resultsDictionary;
 }
 
 -(NSMutableArray*) getCategoryAndTopShop{
@@ -50,7 +50,7 @@ static MJModel *_sharedInstance = nil;
             for (id row in cat)
             {
                 if ( ![[row objectForKey:@"category_shop_count"] isEqual:[NSNumber numberWithInt:0]]){
-                    NSLog(@"%@",row);
+//                    NSLog(@"%@",row);
                     [catList addObject:row];
                 }
                
@@ -58,6 +58,8 @@ static MJModel *_sharedInstance = nil;
         }
         
     }
+    
+    [answer release];
 
  
     return catList;

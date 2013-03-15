@@ -38,6 +38,8 @@
         }
         return [NSString stringWithFormat:@"{\"status\":\"error\"}"];
     }
+    
+    [request release];
 }
 
 @end

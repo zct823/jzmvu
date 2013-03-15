@@ -20,12 +20,12 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        
-        self.navigationItem.backBarButtonItem =
-        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                          style:UIBarButtonItemStyleBordered
-                                         target:nil
-                                         action:nil] autorelease];
+//        
+//        self.navigationItem.backBarButtonItem =
+//        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
+//                                          style:UIBarButtonItemStyleBordered
+//                                         target:nil
+//                                         action:nil] autorelease];
         
     }
     return self;
@@ -121,12 +121,14 @@
 //    [self.activityIndicatorView setHidden:NO];
     
     //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
-    [self performSelectorInBackground:@selector(setupView) withObject:nil];
+//    [self performSelectorInBackground:@selector(setupView) withObject:nil];
+    [self setupView];
 }
 
 - (void)addItem { /* add item to top */
     
-    [self loadData];
+//    [self loadData];
+    [self setupView];
     
    // self.pageCounter = 1;
     [self.catArray removeAllObjects];

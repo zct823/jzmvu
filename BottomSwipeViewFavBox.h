@@ -24,6 +24,7 @@
 @property (retain, nonatomic) IBOutlet UIButton *closeSwipeButton;
 @property (nonatomic, retain) UILabel* label;
 @property (nonatomic, retain) UITextField *addNewFolder;
+@property (nonatomic, retain) UITextField *editFolder;
 @property (nonatomic) NSInteger lblTagToSendOnTapRec;
 @property (nonatomic, retain) NSString *favFolderName;
 

@@ -29,7 +29,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 @implementation BottomSwipeViewFavBox
 
-@synthesize checkedCategories,contentSwitch,label,addNewFolder,animatedDistance,lblTagToSendOnTapRec,favFolderName;
+@synthesize checkedCategories,contentSwitch,label,addNewFolder,animatedDistance,lblTagToSendOnTapRec,favFolderName, editFolder;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -309,6 +309,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             if (![categories isEqual:[NSNull null]])
             {
                 //NSInteger count = 0;
+                //if content is available
                 
                 for (id row in categories)
                 {
@@ -366,7 +367,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
                     [label release];
                 }
                 
-                if ([contentSwitch isEqual:@"0"] || contentSwitch == nil)
+                if ([contentSwitch isEqual:@"1"])
                 {
                 
                     if ((item%2) == 0)
@@ -390,7 +391,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
                     addNewFolder = [[UITextField alloc]initWithFrame:labelFrame];
                     addNewFolder.delegate = self;
                     addNewFolder.tag = 1;
-                    addNewFolder.text = @"";
+                    addNewFolder.text = @"Add a new folder here...";
                     addNewFolder.font = [UIFont fontWithName:@"Arial" size:12];
                     addNewFolder.backgroundColor = [UIColor whiteColor];
                     addNewFolder.layer.borderColor = [[UIColor blackColor]CGColor];
@@ -409,14 +410,20 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             }
             else
             {
+                
+                //if content is not available
+                
                 if ([contentSwitch isEqual:@"0"] || contentSwitch == nil)
                 {
-                    
                     [self preparingDefaultFolder];
+                }
+                
+                if ([contentSwitch isEqual:@"1"])
+                {
                     
                     addNewFolder = [[UITextField alloc]initWithFrame:CGRectMake(5, 5, 140, 20)];
                     addNewFolder.delegate = self;
-                    addNewFolder.text = @"";
+                    addNewFolder.text = @"Add a new folder here...";
                     addNewFolder.tag = 1;
                     addNewFolder.font = [UIFont fontWithName:@"Arial" size:14];
                     addNewFolder.backgroundColor = [UIColor whiteColor];
@@ -428,7 +435,11 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
                 
                     [self.contentView addSubview:addNewFolder];
                     [addNewFolder release];
+                    
+                    
+                    
                 }
+                /*
                 else if ([contentSwitch isEqual:@"1"])
                 {
                     isSearchDisabled = YES;
@@ -444,6 +455,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
                     [self.contentView addSubview: label];
                     [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, self.scroller.frame.size.height)];
                 }
+                 */
             }
             
         }else{
@@ -582,19 +594,19 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     {
         [aLabel setHidden:YES];
         [imgv setHidden:YES];
-        addNewFolder = [[UITextField alloc] initWithFrame:CGRectMake(imgFrame.origin.x, imgFrame.origin.y, 100, imgFrame.size.height)];
-        addNewFolder.text = aLabel.text;
-        addNewFolder.tag = 2;
-        addNewFolder.delegate = self;
-        addNewFolder.font = [UIFont fontWithName:@"Arial" size:12];
-        addNewFolder.backgroundColor = [UIColor whiteColor];
-        addNewFolder.layer.borderColor = [[UIColor blackColor]CGColor];
-        addNewFolder.layer.cornerRadius = 2.0f;
-        addNewFolder.layer.borderWidth = 2.0f;
-        addNewFolder.layer.masksToBounds = YES;
-        [addNewFolder setReturnKeyType:UIReturnKeyDone];
+        editFolder = [[UITextField alloc] initWithFrame:CGRectMake(imgFrame.origin.x, imgFrame.origin.y, 100, imgFrame.size.height)];
+        editFolder.text = aLabel.text;
+        editFolder.tag = 2;
+        editFolder.delegate = self;
+        editFolder.font = [UIFont fontWithName:@"Arial" size:12];
+        editFolder.backgroundColor = [UIColor whiteColor];
+        editFolder.layer.borderColor = [[UIColor blackColor]CGColor];
+        editFolder.layer.cornerRadius = 2.0f;
+        editFolder.layer.borderWidth = 2.0f;
+        editFolder.layer.masksToBounds = YES;
+        [editFolder setReturnKeyType:UIReturnKeyDone];
         
-        [self.contentView addSubview:addNewFolder];
+        [self.contentView addSubview:editFolder];
         
         lblTagToSendOnTapRec = [(UIGestureRecognizer *)sender view].tag;
         //favFolderName = addNewFolder.text;
@@ -608,6 +620,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     //    textField.contentInset = UIEdgeInsetsZero;
+    
+    addNewFolder.text = @"";
+    
     CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
     CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
     
@@ -664,11 +679,17 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 {
     NSLog(@"textfield tag: %d",textField.tag);
     NSLog(@"Check label tag: %d",lblTagToSendOnTapRec);
-    NSLog(@"Fav Folder Name: %@",addNewFolder.text);
+    NSLog(@"Fav Folder Name AddNewFolder: %@",addNewFolder.text);
+    NSLog(@"Fav Folder Name EditExistingFolder: %@",editFolder.text);
     
     if (![addNewFolder.text isEqual:@""])
     {
         [self storeOrModifyFavFolder:textField.tag withFolderName:addNewFolder.text andFolderID:lblTagToSendOnTapRec];
+    }
+    
+    if (![editFolder.text isEqual:@""])
+    {
+        [self storeOrModifyFavFolder:textField.tag withFolderName:editFolder.text andFolderID:lblTagToSendOnTapRec];
     }
     
     [textField resignFirstResponder];

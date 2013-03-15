@@ -19,6 +19,13 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
+        self.navigationItem.backBarButtonItem =
+        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                          style:UIBarButtonItemStyleBordered
+                                         target:nil
+                                         action:nil] autorelease];
+        
     }
     return self;
 }
@@ -26,7 +33,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     
 //    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
 //    [tempImageView setFrame:self.tableView.frame];

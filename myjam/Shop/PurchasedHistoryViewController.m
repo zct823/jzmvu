@@ -109,7 +109,7 @@
     self.selectedStatus = @"";
     
     self.purchasedHistory = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getPurchasedHistoryItems]];
-    self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
+    //self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
     self.tempPurchasedArray = [[NSMutableArray alloc] initWithArray:[self.purchasedHistory valueForKey:@"list"]];
     
     self.totalPage = [self.purchasedHistory valueForKey:@"pagecount"];

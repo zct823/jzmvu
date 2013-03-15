@@ -193,12 +193,15 @@
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
     
     NSString *status = nil;
+    NSMutableArray* list = nil;
+    
     if([resultsDictionary count])
     {
         status = [resultsDictionary objectForKey:@"status"];
+        list = [resultsDictionary objectForKey:@"list"];
         NSMutableArray* resultArray;
         
-        if ([status isEqualToString:@"ok"])
+        if ([status isEqualToString:@"ok"] && [list count])
         {
             self.totalPage = [[resultsDictionary objectForKey:@"pagecount"] intValue];
             
@@ -275,6 +278,15 @@
                 [self.activityIndicatorView setHidden:YES];
             }
             
+        }
+        else
+        {
+            NSLog(@"Listing error (probably API error) but we treat as no records to close the (null) message.");
+            [self.activityIndicatorView setHidden:NO];
+            [self.activityIndicator setHidden:YES];
+            self.loadingLabel.text = [NSString stringWithFormat:@"No records. Pull to refresh"];
+            [self.loadingLabel setTextAlignment:NSTextAlignmentCenter];
+            self.loadingLabel.textColor = [UIColor grayColor];
         }
         
     }

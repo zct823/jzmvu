@@ -30,6 +30,12 @@
         self.navigationItem.titleView = titleView;
         [titleView release];
 //        self.tabBarItem.image = [UIImage imageNamed:@"apple"];
+        
+        self.navigationItem.backBarButtonItem =
+        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                          style:UIBarButtonItemStyleBordered
+                                         target:nil
+                                         action:nil] autorelease];
     }
     return self;
 }

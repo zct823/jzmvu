@@ -18,7 +18,16 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.navigationItem.title = @"Checkout";
+        self.title = @"Checkout";
+        FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
+        titleView.text = self.title;
+        titleView.textAlignment = NSTextAlignmentCenter;
+        titleView.backgroundColor = [UIColor clearColor];
+        titleView.textColor = [UIColor whiteColor];
+        [titleView sizeToFit];
+        self.navigationItem.titleView = titleView;
+        [titleView release];
+
          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shoppingCartChange:) name:@"cartChangedFromView" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(PurchaseVerification:)

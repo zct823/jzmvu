@@ -26,7 +26,16 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
       self.productId = productId;
-        self.navigationItem.title = @"Report";
+        //self.navigationItem.title = @"Report";
+        self.title = @"Report";
+        FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
+        titleView.text = self.title;
+        titleView.textAlignment = NSTextAlignmentCenter;
+        titleView.backgroundColor = [UIColor clearColor];
+        titleView.textColor = [UIColor whiteColor];
+        [titleView sizeToFit];
+        self.navigationItem.titleView = titleView;
+        [titleView release];
            }
     return self;
 

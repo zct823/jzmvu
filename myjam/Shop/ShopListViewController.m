@@ -19,13 +19,6 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
-//        
-//        self.navigationItem.backBarButtonItem =
-//        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
-//                                          style:UIBarButtonItemStyleBordered
-//                                         target:nil
-//                                         action:nil] autorelease];
         
     }
     return self;
@@ -34,82 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//<<<<<<< HEAD
-//=======
     [self refresh];
-//>>>>>>> Modified shoplistvc
-    
-//    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
-//    [tempImageView setFrame:self.tableView.frame];
-//    
-//    self.tableView.backgroundView = tempImageView;
-//    [tempImageView release];
-//    [self.activityIndicator startAnimating];
-//    [self refresh];
-//    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
-//    [self performSelectorInBackground:@selector(loadData) withObject:nil];
 }
-
-//- (void)loadData
-//{
-//    _catArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShop]];
-//}
-
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    NSLog(@"vda shoplist");
-//    [self.activityIndicator startAnimating];
-//    //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
-////    [self performSelectorInBackground:@selector(loadData) withObject:nil];
-//    [self refresh];
-//}
-
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//    
-//    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
-//    
-//    [self performSelector:@selector(appearThisFirst) withObject:self afterDelay:0.5f];
-//}
-//
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    
-//    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
-//    
-//    [self performSelector:@selector(appearThisFirst) withObject:self afterDelay:0.5f];
-//}
-//
-//- (void)appearThisFirst
-//{
-//    [DejalBezelActivityView removeViewAnimated:YES];
-//    
-//    _catArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShop]];
-//    
-//    
-//    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
-//    [tempImageView setFrame:self.tableView.frame];
-//    
-//    self.tableView.backgroundView = tempImageView;
-//    [tempImageView release];
-//}
-
-//- (void) addItemsToEndOfTableView{
-//    //    [super addItemsToEndOfTableView];
-//    [UIView animateWithDuration:0.3 animations:^{
-//      
-//
-//                CGRect screenBounds = [[UIScreen mainScreen] bounds];
-//                if (screenBounds.size.height != 568) {
-//                    // code for 4-inch screen
-//                    [self.tableView setContentOffset:CGPointMake(0, 0)];
-//            
-//        
-//    
-//                }}];
-//}
 
 - (void)refresh {
     [self.activityIndicator startAnimating];
@@ -118,10 +37,6 @@
 
 - (void)loadData
 {
-//    [self.activityIndicatorView setHidden:NO];
-    
-    //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
-//    [self performSelectorInBackground:@selector(setupView) withObject:nil];
     [self setupView];
 }
 
@@ -319,6 +234,22 @@
 #pragma mark - Table view delegate
 
 -(void)viewAll:(id)sender{
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    
+    //  [detailViewController release];
+    [self performSelector:@selector(showAllShop:) withObject:sender afterDelay:0.3];
+}
+
+-(void)tapAction:(id)sender{
+
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    
+    //  [detailViewController release];
+    [self performSelector:@selector(showShopProducts:) withObject:sender afterDelay:0.3];
+}
+
+- (void)showAllShop:(id)sender
+{
     ShopViewAllViewController *detailViewController = [[ShopViewAllViewController alloc] init];
     detailViewController.catAllArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getFullListOfShopsFor:[[_catArray objectAtIndex:[sender tag] ]valueForKey:@"category_id"] andPage:@"1"]];
     
@@ -326,8 +257,9 @@
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
     [detailViewController release];
 }
--(void)tapAction:(id)sender{
 
+- (void)showShopProducts:(id)sender
+{
     ShopDetailListingViewController *detailViewController = [[ShopDetailListingViewController alloc] init];
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     detailViewController.productArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getTopListOfItemsFor:[[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list"]objectAtIndex:([sender tag]%3)]valueForKey:@"shop_id"]]];
@@ -335,9 +267,6 @@
     detailViewController.shopInfo = [[NSDictionary alloc] initWithObjectsAndKeys: [[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list" ] objectAtIndex:([sender tag] %3) ]valueForKey:@"shop_id"],@"shop_id", [[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list" ] objectAtIndex:([sender tag] %3) ]valueForKey:@"shop_name"], @"shop_name",  [[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list" ] objectAtIndex:([sender tag] %3) ]valueForKey:@"shop_top_seller"],@"shop_top_seller", nil];
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-    //  [detailViewController release];
- 
-
 }
 
 - (void) refreshTableItemsWithFilter:(NSString *)str andSearchedText:(NSString *)pattern andOptions:optionData{

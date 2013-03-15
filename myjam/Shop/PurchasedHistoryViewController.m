@@ -17,14 +17,7 @@
 
 @implementation PurchasedHistoryViewController
 @synthesize purchasedHistory;
-//- (id)initWithStyle:(UITableViewStyle)style
-//{
-//    self = [super initWithStyle:style];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
-//}
+
 
 - (void)viewDidLoad
 {
@@ -32,18 +25,8 @@
     self.selectedCategories = @"";
     self.searchedText = @"";
     self.selectedStatus = @"";
-    //    self.purchasedHistory = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getPurchasedHistoryItems]];
-    //    self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
-    //    self.tempPurchasedArray = [[NSMutableArray alloc] initWithArray:[self.purchasedHistory valueForKey:@"list"]];
-    //
-    //    self.totalPage = [self.purchasedHistory valueForKey:@"pagecount"];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable:) name:@"refreshPurchaseHistory" object:nil];
-    /* UIView *tempImageView = [[UIView alloc] init];
-     [tempImageView setBackgroundColor:[UIColor colorWithRed:232/255 green:232/255 blue:232/255 alpha:1.0]];
-     [tempImageView setFrame:self.tableView.frame];
-     self.tableView.backgroundView = tempImageView;
-     [tempImageView release];*/
-    
     
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     if (screenBounds.size.height == 568) {

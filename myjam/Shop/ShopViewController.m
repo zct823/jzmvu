@@ -52,7 +52,7 @@
         self.view.frame = CGRectMake(0,0,self.view.bounds.size.width, 480);
     }
     
-    CGRect innerViewFrame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height-(tabBar.frame.size.height)-26);
+    CGRect innerViewFrame = CGRectMake(0,5,self.view.frame.size.width, self.view.frame.size.height-(tabBar.frame.size.height)-26);
     
     
    
@@ -88,6 +88,10 @@
 //   // [tabBar showDefaults];
 //
 //}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [DejalBezelActivityView removeViewAnimated:YES];
+}
 
 - (void)didReceiveMemoryWarning
 {

@@ -241,15 +241,42 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
 }
 
 - (IBAction)reportProduct:(id)sender {
-    ProductReportViewController *detailViewController = [[ProductReportViewController alloc] initWithNibName:@"ProductReportViewController" bundle:nil andProductId:self.productId];
+    
+        //popDisabled = YES;
+        
+    ReportSpamViewController *detailView = [[ReportSpamViewController alloc] init];
+    detailView.qrcodeId = self.productId;
+    NSLog(@"detailView QRCodeID: %@",detailView.qrcodeId);
+    detailView.qrTitle = headerView.productName.text;
+    NSLog(@"detailView qrtitle: %@",detailView.qrTitle);
+    detailView.qrProvider = headerView.shopName.text;
+    NSLog(@"detailView QRProvider: %@",detailView.qrProvider);
+    detailView.qrDate = @"";
+    NSLog(@"detailView QRdate: %@",detailView.qrDate);
+    detailView.qrAbstract = @"";
+    NSLog(@"detailView QRAbstract: %@",detailView.qrAbstract);
+    detailView.qrType = headerView.productName.text;
+    NSLog(@"detailView QRType: %@",detailView.qrType);
+    detailView.qrCategory = headerView.productCat.text;
+    NSLog(@"detailView QRCategory: %@",detailView.qrCategory);
+    detailView.qrLabelColor = @"#ffffff";
+    NSLog(@"detailView QRLabelCOlor: %@",detailView.qrLabelColor);
+    detailView.qrImage = [self.aImages objectAtIndex:0];
+    //NSLog(@"detailView QRimage: %@",detailView.qrcodeId);
+    [self.navigationController pushViewController:detailView animated:YES];
+    [detailView release];
+        
+    
+    //ProductReportViewController *detailViewController = [[ProductReportViewController alloc] initWithNibName:@"ProductReportViewController" bundle:nil andProductId:self.productId];
     
     
-    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
+    //AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    //[mydelegate.shopNavController pushViewController:detailViewController animated:YES];
     //[self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
+    //[detailViewController release];
 
 }
+
 -(void)buyNow:(id)sender{
     if (counter == 3){
         if ([selectedSize isEqualToString:@"none"]){

@@ -24,6 +24,8 @@
 #import "SidebarView.h"
 #import "ProductReportViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "ReportSpamViewController.h"
+
 @interface DetailProductViewController : CoreViewController<ImageSliderDelegate, SizeSelectViewDelegate,ColorSelectViewDelegate,UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate,UIWebViewDelegate,UIWebViewDelegate>{
         Carousel *carousel;
         int imgCounter;

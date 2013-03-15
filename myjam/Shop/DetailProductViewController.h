@@ -46,6 +46,8 @@
 @property (retain, nonatomic) NSMutableArray *tempColorsForSize;
 @property (retain, nonatomic) NSMutableArray *tempSizesForColor;
 @property (retain, nonatomic) NSString *purchasedString;
+@property (retain, nonatomic) IBOutlet UILabel *descLabel;
+@property (retain, nonatomic) IBOutlet UIView *bottomView;
 - (IBAction)facebookPressed:(id)sender;
 - (IBAction)twitterPressed:(id)sender;
 - (IBAction)emailPressed:(id)sender;

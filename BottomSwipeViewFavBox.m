@@ -308,12 +308,12 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             // setup label and check image
             if (![categories isEqual:[NSNull null]])
             {
-                //NSInteger count = 0;
+                NSInteger count = 0;
                 //if content is available
                 
                 for (id row in categories)
                 {
-                    
+                    count = count + 1;
                     if ((item%2) == 0)
                     { // left column
                         imgFrame = CGRectMake(leftX, leftY + 2, imgWidth, imgWidth);
@@ -407,6 +407,13 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
                 // set scrollerview to fit size of catogery list
                 totalHeight += leftY;
                 [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, totalHeight)];
+                
+                if ((count == 0 || count == 1) && [contentSwitch isEqual:@"1"])
+                {
+                    CustomAlertView *appearTutorial = [[CustomAlertView alloc] initWithTitle:@"Favourites" message:@"Type your new or edit existing Fav name, then press DONE button at the right bottom of your keyboard when done." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [appearTutorial show];
+                    [appearTutorial release];
+                }
             }
             else
             {
@@ -607,7 +614,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         [editFolder setReturnKeyType:UIReturnKeyDone];
         
         [self.contentView addSubview:editFolder];
-        
+        [editFolder release];
         lblTagToSendOnTapRec = [(UIGestureRecognizer *)sender view].tag;
         //favFolderName = addNewFolder.text;
     }
@@ -679,15 +686,14 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 {
     NSLog(@"textfield tag: %d",textField.tag);
     NSLog(@"Check label tag: %d",lblTagToSendOnTapRec);
-    NSLog(@"Fav Folder Name AddNewFolder: %@",addNewFolder.text);
-    NSLog(@"Fav Folder Name EditExistingFolder: %@",editFolder.text);
+//    NSLog(@"Fav Folder Name AddNewFolder: %@",addNewFolder.text);
+//    NSLog(@"Fav Folder Name EditExistingFolder: %@",editFolder.text);
     
-    if (![addNewFolder.text isEqual:@""])
+    if ([addNewFolder.text length])
     {
         [self storeOrModifyFavFolder:textField.tag withFolderName:addNewFolder.text andFolderID:lblTagToSendOnTapRec];
     }
-    
-    if (![editFolder.text isEqual:@""])
+    else if ([editFolder.text length])
     {
         [self storeOrModifyFavFolder:textField.tag withFolderName:editFolder.text andFolderID:lblTagToSendOnTapRec];
     }

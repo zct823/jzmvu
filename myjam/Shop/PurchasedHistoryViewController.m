@@ -8,6 +8,9 @@
 
 #import "PurchasedHistoryViewController.h"
 
+#define kCellHeaderHeight 50
+
+
 @interface PurchasedHistoryViewController ()
 
 @end
@@ -26,9 +29,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //    self.selectedCategories = @"";
-    //    self.searchedText = @"";
-    //    self.selectedStatus = @"";
+    self.selectedCategories = @"";
+    self.searchedText = @"";
+    self.selectedStatus = @"";
     //    self.purchasedHistory = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getPurchasedHistoryItems]];
     //    self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
     //    self.tempPurchasedArray = [[NSMutableArray alloc] initWithArray:[self.purchasedHistory valueForKey:@"list"]];
@@ -42,15 +45,15 @@
      [tempImageView release];*/
     
     
-    //    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    //    if (screenBounds.size.height == 568) {
-    //        // code for 4-inch screen
-    //        kDisplayPerscreen = 4;
-    //    } else {
-    //        // code for 3.5-inch screen
-    //        kDisplayPerscreen = 3;
-    //    }
-    //
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        // code for 4-inch screen
+        kDisplayPerscreen = 4;
+    } else {
+        // code for 3.5-inch screen
+        kDisplayPerscreen = 3;
+    }
+    
     [self loadData];
     
     
@@ -155,16 +158,21 @@
     [UIView animateWithDuration:0.3 animations:^{
         if (self.pageCounter >= self.totalPage)
         {
-            if (([self.purchasedHistoryArray count] > kDisplayPerscreen)) {
-                [self.tableView setContentOffset:CGPointMake(0, (([self.purchasedHistoryArray count]-kDisplayPerscreen)*kTableCellHeight)+kExtraCellHeight)];
-            }else{
-                
-                CGRect screenBounds = [[UIScreen mainScreen] bounds];
-                if (screenBounds.size.height != 568) {
-                    // code for 4-inch screen
-                    [self.tableView setContentOffset:CGPointMake(0, (([self.purchasedHistoryArray count]-kDisplayPerscreen)*kTableCellHeight)+kExtraCellHeight)];
-                }
-            }
+            CGPoint bottomOffset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height-kExtraCellHeight+5);
+            [self.tableView setContentOffset:bottomOffset animated:YES];
+            
+            //            if (([self.purchasedHistoryArray count] > kDisplayPerscreen))
+            //            {
+            //                NSLog(@"here=");
+            //                [self.tableView setContentOffset:CGPointMake(0, (([self.purchasedHistoryArray count]-kDisplayPerscreen)*(kTableCellHeight+kCellHeaderHeight)+kExtraCellHeight)];
+            //            }else{
+            //
+            //                CGRect screenBounds = [[UIScreen mainScreen] bounds];
+            //                if (screenBounds.size.height != 568) {
+            //                    // code for non 4-inch screen
+            //                    [self.tableView setContentOffset:CGPointMake(0, (([self.purchasedHistoryArray count]-kDisplayPerscreen)*(kTableCellHeight+kCellHeaderHeight)+kExtraCellHeight)];
+            //                }
+            //            }
             
         }else if (self.pageCounter < self.totalPage){
             self.pageCounter++;
@@ -228,44 +236,50 @@
         NSLog(@"page now is %d",self.pageCounter);
         NSLog(@"totpage %d",self.totalPage);
         
-        // if data is less, then hide the loading view
-        if (([[resultsDictionary valueForKey:@"list"] count] > 0 && [[resultsDictionary valueForKey:@"list"] count] < kListPerpage)) {
-            NSLog(@"here xx");
-            [self.activityIndicatorView setHidden:YES];
+        if (self.totalPage == self.pageCounter) {
+            self.loadingLabel.text = @"";
+            CGPoint bottomOffset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height-kExtraCellHeight+5);
+            [self.tableView setContentOffset:bottomOffset animated:YES];
+        }else{
             
+            // if data is less, then hide the loading view
+            if (([[resultsDictionary valueForKey:@"list"] count] > 0 && [[resultsDictionary valueForKey:@"list"] count] < kListPerpage)) {
+                NSLog(@"here xx");
+                [self.activityIndicatorView setHidden:YES];
+                
+            }
+            
+            
+            if ([status isEqualToString:@"error"]) {
+                [self.activityIndicatorView setHidden:NO];
+                [self.activityIndicator setHidden:YES];
+                
+                NSString *errorMsg = [resultsDictionary objectForKey:@"message"];
+                
+                if([errorMsg length] < 1)
+                    errorMsg = @"Failed to retrieve data.";
+                
+                self.loadingLabel.text = [NSString stringWithFormat:@"%@",errorMsg];
+                [self.loadingLabel setTextAlignment:NSTextAlignmentCenter];
+                self.loadingLabel.textColor = [UIColor grayColor];
+                
+            }
+            
+            if ([status isEqualToString:@"ok"] && self.totalPage == 0) {
+                NSLog(@"empty");
+                [self.activityIndicatorView setHidden:NO];
+                [self.activityIndicator setHidden:YES];
+                self.loadingLabel.text = [NSString stringWithFormat:@"No records. Pull to refresh"];
+                [self.loadingLabel setTextAlignment:NSTextAlignmentCenter];
+                self.loadingLabel.textColor = [UIColor grayColor];
+            }
+            
+            if ([status isEqualToString:@"ok"] && self.totalPage > 1 && ![[resultsDictionary objectForKey:@"list"] count]) {
+                NSLog(@"data empty");
+                [self.activityIndicatorView setHidden:YES];
+                //        [self.tableView setContentOffset:CGPointMake(0, (([self.tableData count]-kDisplayPerscreen)*kTableCellHeight)+kExtraCellHeight)];
+            }
         }
-        
-        
-        if ([status isEqualToString:@"error"]) {
-            [self.activityIndicatorView setHidden:NO];
-            [self.activityIndicator setHidden:YES];
-            
-            NSString *errorMsg = [resultsDictionary objectForKey:@"message"];
-            
-            if([errorMsg length] < 1)
-                errorMsg = @"Failed to retrieve data.";
-            
-            self.loadingLabel.text = [NSString stringWithFormat:@"%@",errorMsg];
-            [self.loadingLabel setTextAlignment:NSTextAlignmentCenter];
-            self.loadingLabel.textColor = [UIColor grayColor];
-            
-        }
-        
-        if ([status isEqualToString:@"ok"] && self.totalPage == 0) {
-            NSLog(@"empty");
-            [self.activityIndicatorView setHidden:NO];
-            [self.activityIndicator setHidden:YES];
-            self.loadingLabel.text = [NSString stringWithFormat:@"No records. Pull to refresh"];
-            [self.loadingLabel setTextAlignment:NSTextAlignmentCenter];
-            self.loadingLabel.textColor = [UIColor grayColor];
-        }
-        
-        if ([status isEqualToString:@"ok"] && self.totalPage > 1 && ![[resultsDictionary objectForKey:@"list"] count]) {
-            NSLog(@"data empty");
-            [self.activityIndicatorView setHidden:YES];
-            //        [self.tableView setContentOffset:CGPointMake(0, (([self.tableData count]-kDisplayPerscreen)*kTableCellHeight)+kExtraCellHeight)];
-        }
-        
     }
     
 }
@@ -359,8 +373,8 @@
     header.middleLine.frame = CGRectMake(expectedLabelSize.width+50,header.middleLine.frame.origin.y,230-expectedLabelSize.width-50, 1);
     [self.tableView bringSubviewToFront:header];
     [self.tableView setNeedsDisplay];
-//    header.frame = CGRectMake(0, 0, header.bounds.size.width, 50);
-//    [header setBackgroundColor:[UIColor whiteColor]];
+    //    header.frame = CGRectMake(0, 0, header.bounds.size.width, 50);
+    //    [header setBackgroundColor:[UIColor whiteColor]];
     return  header;
 }
 - (void) refreshTableItemsWithFilter:(NSString *)str andSearchedText:(NSString *)pattern andOptions:(NSString*)optionData{

@@ -156,6 +156,12 @@
     [self.tableView reloadData];
     [self.activityIndicator stopAnimating];
     [self.activityIndicatorView setHidden:YES];
+    
+    if (![self.tableData count]) {
+        [self.activityIndicator setHidden:YES];
+        [self.activityIndicatorView setHidden:NO];
+        [self.loadingLabel setText:@"Request timed out. Pull to refresh."];
+    }
 }
 
 

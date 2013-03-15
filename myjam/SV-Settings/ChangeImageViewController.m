@@ -69,7 +69,7 @@
     [self.navigationController popViewControllerAnimated:YES];
     
     CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Image changed" message:@"Successful" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    alert.tag = kAlertNoConnection;
+    //alert.tag = kAlertNoConnection;
     [alert show];
     [alert release];
 }

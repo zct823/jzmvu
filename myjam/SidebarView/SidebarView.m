@@ -78,7 +78,7 @@
     UISwipeGestureRecognizer *swipeRightRecognizer;
     swipeRightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight)];
     [swipeRightRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
-    [[self contentView] addGestureRecognizer:swipeRightRecognizer];
+    [[self tableView] addGestureRecognizer:swipeRightRecognizer];
     [swipeRightRecognizer release];
     
     self.contactLabel.userInteractionEnabled = YES;

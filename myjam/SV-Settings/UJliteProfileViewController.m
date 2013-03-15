@@ -240,6 +240,9 @@
             reqFieldName = @"New password and confirm password not match";
             [self triggerRequiredAlert];
         }
+        else {
+            [self saveChange];
+        }
     }
     else
     {
@@ -410,7 +413,7 @@
         dataContent = [dataContent stringByAppendingFormat:@",\"passCurrent\":\"%@\"",self.currPasswordTextField.text];
     }
     if ([self.reNewPasswordTextField.text length] > 0) {
-        dataContent = [dataContent stringByAppendingFormat:@",\"passNew\":\"%@\"",self.reNewPasswordTextField];
+        dataContent = [dataContent stringByAppendingFormat:@",\"passNew\":\"%@\"",self.reNewPasswordTextField.text];
     }
     dataContent = [dataContent stringByAppendingFormat:@"}"];
     NSLog(@"Data :%@",dataContent);

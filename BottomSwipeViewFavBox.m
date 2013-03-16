@@ -29,7 +29,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 @implementation BottomSwipeViewFavBox
 
-@synthesize checkedCategories,contentSwitch,label,addNewFolder,animatedDistance,lblTagToSendOnTapRec,favFolderName, editFolder;
+@synthesize checkedCategories,contentSwitch,label,addNewFolder,animatedDistance,lblTagToSendOnTapRec,favFolderName,editFolder,
+    replaceLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -552,6 +553,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)handleTapCategory:(id)sender
 {
+    
     NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
     int imgTag = kImageTagStart + [(UIGestureRecognizer *)sender view].tag - kLabelTagStart;
     int labelTag = [(UIGestureRecognizer *)sender view].tag;
@@ -601,6 +603,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     {
         [aLabel setHidden:YES];
         [imgv setHidden:YES];
+        
         editFolder = [[UITextField alloc] initWithFrame:CGRectMake(imgFrame.origin.x, imgFrame.origin.y, 100, imgFrame.size.height)];
         editFolder.text = aLabel.text;
         editFolder.tag = 2;
@@ -614,7 +617,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         [editFolder setReturnKeyType:UIReturnKeyDone];
         
         [self.contentView addSubview:editFolder];
-        [editFolder release];
+        //[editFolder release];
         lblTagToSendOnTapRec = [(UIGestureRecognizer *)sender view].tag;
         //favFolderName = addNewFolder.text;
     }

@@ -243,7 +243,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     
     UISwipeGestureRecognizer *twoFingerSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUp)];
     [twoFingerSwipe setDirection:UISwipeGestureRecognizerDirectionUp];
-    [twoFingerSwipe setNumberOfTouchesRequired:2];
+    [twoFingerSwipe setNumberOfTouchesRequired:1];
     [self.window addGestureRecognizer:twoFingerSwipe];
     [twoFingerSwipe release];
     

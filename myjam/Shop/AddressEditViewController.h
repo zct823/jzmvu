@@ -13,12 +13,16 @@
 #import "DeliveryOptionViewController.h"
 #import "AppDelegate.h"
 #import "MJModel.h"
+#import "ASIWrapper.h" // FOR COUNTING
+
 @interface AddressEditViewController : CoreViewController<UIPickerViewDelegate, UITextViewDelegate>
 
 @property (nonatomic, retain) NSDictionary *addressInfo;
 @property (nonatomic, retain) NSString *countrySelection;
 @property (nonatomic, retain) NSString *stateSelection;
 @property (strong, nonatomic) NSString *cartId;
+
+@property (nonatomic) NSInteger count;
 
 @property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (retain, nonatomic) IBOutlet UITextView *addressLabel;

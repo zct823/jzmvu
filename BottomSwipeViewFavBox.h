@@ -28,6 +28,8 @@
 @property (nonatomic) NSInteger lblTagToSendOnTapRec;
 @property (nonatomic, retain) NSString *favFolderName;
 
+@property (nonatomic, retain) NSString *replaceLabel;
+
 @property CGFloat animatedDistance;
 
 @property (nonatomic, retain) NSString *contentSwitch; //two buttons

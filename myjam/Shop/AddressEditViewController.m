@@ -85,9 +85,88 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
     [tap release];
+    
+    //*** REPLACING SELECT SAVED ADDRESSESS WITH PROGRAMMATICALLY ONE ***//
+    
+    [self counterOfAddress];
+    
+    UILabel *addrLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, self.scrollView.bounds.size.width, 20)];
+    addrLabel.font = [UIFont boldSystemFontOfSize:15];
+    addrLabel.textAlignment = NSTextAlignmentCenter;
+    addrLabel.textColor = [UIColor colorWithHex:@"#E01B46"];
+    addrLabel.backgroundColor = [UIColor clearColor];
+    addrLabel.text = [NSString stringWithFormat:@"Select Saved Addresses(%d)",self.count];
+    addrLabel.userInteractionEnabled = YES;
+    UIGestureRecognizer *addrLabelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(addrLabelTapSelector)];
+    
+    [addrLabel addGestureRecognizer:addrLabelTap];
+    
+    [self.scrollView addSubview:addrLabel];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+- (void)addrLabelTapSelector
+{
+    //*** TO HOOK UP WITH ADDRLABEL ***//
+    
+    if (self.count != 0)
+    {
+        [self.scrollView endEditing:YES];
+    
+        DeliveryOptionViewController *detailViewController = [[DeliveryOptionViewController alloc] init];
+        detailViewController.cartId =_cartId;
+        AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+        [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
+    }
+    else
+    {
+        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Saved Address" message:@"You haven't save any address yet. You may save your address in Settings - Update Jambulite Profile." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+
+}
+
+-(void)counterOfAddress
+{
+    NSLog(@"Counting");
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/settings_jambulite_profile.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
+    
+    NSString *paramString = [NSString stringWithFormat:@"{\"flag\":\"%@\"}",@"DEFAULT"];
+    
+    NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:paramString];
+    
+    NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
+    
+    NSDictionary *content;
+    self.count = 0;
+    NSLog(@"resultsdict %@",resultsDictionary);
+    
+    if([resultsDictionary count])
+    {
+        NSString *status = [resultsDictionary objectForKey:@"status"];
+        
+        if ([status isEqualToString:@"ok"])
+        {
+            if (! [[resultsDictionary objectForKey:@"address"] isKindOfClass:[NSString class]])
+            {
+                content = [resultsDictionary objectForKey:@"address"];
+                
+                for (id row in content)
+                {
+                    self.count++;
+                }
+            }
+        }
+    }
+}
+
+
+
 -(void)dismissKeyboard
 {
     UITextView *activeTextView = nil;
@@ -167,9 +246,7 @@
             [self createAlertViewFor:@"Address"];
             
             
-        } else if([self.cityLabel.text isEqualToString:@""]){
-            [self createAlertViewFor:@"City"];
-        }else if ([self.postcodeLabel.text isEqualToString:@""]){
+        } else if ([self.postcodeLabel.text isEqualToString:@""]){
             [self createAlertViewFor:@"Postcode"];
             
         } else{
@@ -246,14 +323,15 @@
 
 // tell the picker the title for a given component
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString *title;
+    NSString *title = nil;
     if (pickerView.tag == 0){
         title = [[[addressInfo valueForKey:@"state_list"] objectAtIndex:row] valueForKey:@"state_name"];
       
     }
-    else if (pickerView.tag == 1){
+    else if (pickerView.tag == 1)
+    {
         title = [[[addressInfo valueForKey:@"country_list"] objectAtIndex:row] valueForKey:@"country_name"];
-            }
+    }
    
     
     return title;

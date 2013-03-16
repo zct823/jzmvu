@@ -30,5 +30,7 @@
 
 - (IBAction)firstButton:(id)sender;
 - (IBAction)secondButton:(id)sender;
+- (IBAction)thirdButton:(id)sender;
+- (IBAction)fourthButton:(id)sender;
 
 @end

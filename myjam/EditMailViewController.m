@@ -155,7 +155,7 @@
     {
         NSString *status = [resultsDictionary objectForKey:@"status"];
         
-        if ([status isEqualToString:@"ok"] && [[resultsDictionary objectForKey:@"states2"] isKindOfClass:[NSString class]])
+        if ([status isEqualToString:@"ok"] && ![[resultsDictionary objectForKey:@"states2"] isKindOfClass:[NSNull class]])
         {
             states = [resultsDictionary objectForKey:@"states2"];
             for (id row in states) {

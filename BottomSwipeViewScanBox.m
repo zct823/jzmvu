@@ -60,14 +60,19 @@ static int kImageTagStart = 1000;
 - (IBAction)firstButton:(id)sender
 {
     NSLog(@"FirstButton Will Be Sent");
+    NSLog(@"Reload Data");
     
     UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
     UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
+    UIButton *btn3 = (UIButton *)[self.view viewWithTag:3];
+    UIButton *btn4 = (UIButton *)[self.view viewWithTag:4];
     btn1.backgroundColor = [UIColor darkGrayColor];
     btn2.backgroundColor = [UIColor clearColor];
+    btn3.backgroundColor = [UIColor clearColor];
+    btn4.backgroundColor = [UIColor clearColor];
     
     [self.activityView startAnimating];
-    [label setText:@""];
+    [label setText:nil];
     
     contentSwitch = @"0";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -81,15 +86,63 @@ static int kImageTagStart = 1000;
     
     UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
     UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
+    UIButton *btn3 = (UIButton *)[self.view viewWithTag:3];
+    UIButton *btn4 = (UIButton *)[self.view viewWithTag:4];
     btn1.backgroundColor = [UIColor clearColor];
     btn2.backgroundColor = [UIColor darkGrayColor];
+    btn3.backgroundColor = [UIColor clearColor];
+    btn4.backgroundColor = [UIColor clearColor];
     
     [self.activityView startAnimating];
-    [label setText:@""];
+    [label setText:nil];
     
     contentSwitch = @"1";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+}
+
+- (IBAction)thirdButton:(id)sender
+{
+    NSLog(@"ThirdButton Will Be Sent");
+    NSLog(@"Reload Data");
+    
+    UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
+    UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
+    UIButton *btn3 = (UIButton *)[self.view viewWithTag:3];
+    UIButton *btn4 = (UIButton *)[self.view viewWithTag:4];
+    btn1.backgroundColor = [UIColor clearColor];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn3.backgroundColor = [UIColor darkGrayColor];
+    btn4.backgroundColor = [UIColor clearColor];
+    
+    [self.activityView startAnimating];
+    [label setText:nil];
+    
+    contentSwitch = @"2";
+    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+}
+
+- (IBAction)fourthButton:(id)sender
+{
+    NSLog(@"FourthButton Will Be Sent");
+    NSLog(@"Reload Data");
+    
+    UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
+    UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
+    UIButton *btn3 = (UIButton *)[self.view viewWithTag:3];
+    UIButton *btn4 = (UIButton *)[self.view viewWithTag:4];
+    btn1.backgroundColor = [UIColor clearColor];
+    btn2.backgroundColor = [UIColor clearColor];
+    btn3.backgroundColor = [UIColor clearColor];
+    btn4.backgroundColor = [UIColor darkGrayColor];
+    
+    [self.activityView startAnimating];
+    [label setText:nil];
+    
+    contentSwitch = @"3";
+    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
 }
 
 - (void)beginProcessData

@@ -48,7 +48,7 @@
     if ([[productInfo valueForKey:@"color_available"] count] > 0 ){
         counter = counter+2;
     }
-     headerView = [[[NSBundle mainBundle] loadNibNamed:@"ProductHeaderView" owner:self options:nil]objectAtIndex:0];
+    headerView = [[[NSBundle mainBundle] loadNibNamed:@"ProductHeaderView" owner:self options:nil]objectAtIndex:0];
     self.tableView.tableHeaderView = headerView;
     headerView.productName.text = [productInfo valueForKey:@"product_name"];
     headerView.productCat.text = [productInfo valueForKey:@"product_category"];
@@ -60,7 +60,7 @@
             headerView.productState.image = [UIImage imageNamed:@"bulkyfragile.png"];
         }
         else{
-             headerView.productState.image = [UIImage imageNamed:@"bulky.png"];
+            headerView.productState.image = [UIImage imageNamed:@"bulky.png"];
         }
     }
     else if([[productInfo valueForKey:@"product_fragile"] isEqualToString:@"Y"]){
@@ -69,29 +69,46 @@
     
     self.aImages = [[NSMutableArray alloc] initWithCapacity:[[productInfo valueForKey:@"product_image"] count]];
     for (int i=0; i< [[productInfo valueForKey:@"product_image"] count]; i++){
-      
+        
         [self retrieveImages:[[productInfo valueForKey:@"product_image"] objectAtIndex:i] ];
         
     }
-//iwe
+    
+    currentHeight = 0;
     headerView.shopName.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapCheckbox = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backToShop)];
     [headerView.shopName addGestureRecognizer:tapCheckbox];
     
     //setup descLabel
-    [self.descLabel setBackgroundColor:[UIColor clearColor]];
-    [self.descLabel setFont:[UIFont systemFontOfSize:12]];
-    [self.descLabel setText:[productInfo valueForKey:@"product_description"]];
-    [self.descLabel setNumberOfLines:0];
-    [self.descLabel sizeToFit];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, currentHeight, 250, 10)];
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setText:[productInfo valueForKey:@"product_description"]];
+    [label setNumberOfLines:0];
+    [label sizeToFit];
+    
+    currentHeight += label.frame.size.height + 10;
     
     //setup descView
-    self.bottomView.frame = CGRectMake(0, 520+self.descLabel.frame.size.height, self.bottomView.frame.size.width, self.bottomView.frame.size.height);
+    self.bottomView.frame = CGRectMake(0, currentHeight, self.bottomView.frame.size.width, self.bottomView.frame.size.height);
     
-    [self.scrollView addSubview:self.bottomView];
+    currentHeight += self.bottomView.bounds.size.height;
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, currentHeight)];
+    
+    [footerView addSubview:label];
+    [label release];
+    
+    [footerView addSubview:self.bottomView];
+    [self.bottomView release];
+    
+    [self.tableView setTableFooterView:footerView];
+    [footerView release];
+    
+    //    self.view.frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height);
     
     [self setupCarousel];
-       [DejalBezelActivityView removeViewAnimated:YES];
+    [DejalBezelActivityView removeViewAnimated:YES];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -108,7 +125,7 @@
     [self setSizeView:nil];
     [self setColorSelectView:nil];
     [self setTableView:nil];
-   
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -139,8 +156,8 @@
     // Add carousel side buttons
     [headerView.leftButton addTarget:self action:@selector(handleLeftButton) forControlEvents:UIControlEventTouchUpInside];
     [headerView.rightButton addTarget:self action:@selector(handleRightButton) forControlEvents:UIControlEventTouchUpInside];
-   
-   
+    
+    
 }
 - (void)handleLeftButton
 {
@@ -182,15 +199,15 @@
     
     [imageRequest startSynchronous];
     [imageRequest setTimeOutSeconds:2];
-   // NSError *error = [imageRequest error];
-   // NSString *contentType = [[imageRequest responseHeaders]
-           //                  objectForKey:@"Content-Type"];
-UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
+    // NSError *error = [imageRequest error];
+    // NSString *contentType = [[imageRequest responseHeaders]
+    //                  objectForKey:@"Content-Type"];
+    UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
     NSLog(@"%@", [aImg class]);
     
     if ([aImg isKindOfClass:[NSData class]]||[aImg isKindOfClass:[UIImage class]] ){
         
-    
+        
     }else{
         NSLog(@"img is null");
         aImg = [UIImage imageNamed:@"default_icon.png"];
@@ -198,13 +215,13 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
     [self.aImages addObject:aImg];
     
     [aImg release];
-     [imageRequest release];
-       
-     
-         //   }
-     
+    [imageRequest release];
     
-   
+    
+    //   }
+    
+    
+    
 }
 #pragma mark -
 #pragma mark Carousel delegate
@@ -263,8 +280,8 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
 
 - (IBAction)reportProduct:(id)sender {
     
-        //popDisabled = YES;
-        
+    //popDisabled = YES;
+    
     ReportSpamViewController *detailView = [[ReportSpamViewController alloc] init];
     detailView.qrcodeId = self.productId;
     NSLog(@"detailView QRCodeID: %@",detailView.qrcodeId);
@@ -286,7 +303,7 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
     //NSLog(@"detailView QRimage: %@",detailView.qrcodeId);
     [self.navigationController pushViewController:detailView animated:YES];
     [detailView release];
-        
+    
     
     //ProductReportViewController *detailViewController = [[ProductReportViewController alloc] initWithNibName:@"ProductReportViewController" bundle:nil andProductId:self.productId];
     
@@ -295,7 +312,7 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
     //[mydelegate.shopNavController pushViewController:detailViewController animated:YES];
     //[self.navigationController pushViewController:detailViewController animated:YES];
     //[detailViewController release];
-
+    
 }
 
 -(void)buyNow:(id)sender{
@@ -341,14 +358,14 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
         self.cartId = [NSString stringWithString:[purchaseStat valueForKey:@"cart_id"]];
         [self.tableView reloadData];
     }
-    }
+}
 
 -(void)createAlertFor:(NSString*)cat{
     UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Alert" message:[NSString stringWithFormat:@"Please select a %@ before proceeding",cat] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
     [alert show];
     [alert release];
 }
-  //  [detailViewController release];
+//  [detailViewController release];
 
 
 #pragma mark - Table view data source
@@ -371,7 +388,9 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
     }
     else if (counter == 3){
         return 3;
-    }    
+    }
+    
+    return 0;
 }
 
 
@@ -388,18 +407,18 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
             return 100;
         }
     }
-     if (counter == 3){
+    if (counter == 3){
         if (indexPath.row == 2){
             return 100;
         }
     }
-
-    else return kTableCellHeight;
+    
+    return kTableCellHeight;
 }
 
 - (void)setupBuyCell:(NSString *)CellIdentifier tableView:(UITableView *)tableView
 {
-    }
+}
 
 - (void)setBuyNowCell:(BuyNowCell *)cell
 {
@@ -476,11 +495,11 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
 - (void)setPurchaseCell:(PurchaseVerificationCell *)cell
 {
     cell.webView.delegate = self;
-  
+    
     [cell.webView  loadHTMLString:[NSString stringWithFormat:@"<div id ='foo' align='justify' style='font-size:10px; font-family:verdana';>%@<div>",[productInfo valueForKey:@"order_info"]] baseURL:nil];
-
+    
     [cell.webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('br')[0].style.fontFamily =\"Verdana\""];
-
+    
     [cell.submitButton addTarget:self action:@selector(submitReport:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -517,224 +536,224 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
     else
     {
         
-    if (counter ==1){
-       SizeSelectionCell *cell = (SizeSelectionCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (indexPath.row==0){
-      if (cell == nil)
-      {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SizeSelectionCell" owner:nil options:nil];
-        cell = [nib objectAtIndex:0];
-      }
-    if ([self.purchasedString isEqualToString:@"purchased"])
-    {
-        cell.sizeSelectView.sizeChoices = [NSMutableArray arrayWithObject:[self getSizeInfo:[productInfo valueForKey:@"size_available"] forId:[productInfo valueForKey:@"order_size_id"]]];
-        cell.sizeSelectView.editable = NO;
-        cell.sizeSelectView.sizeChoicesNum = 1;
-        cell.sizeSelectView.delegate = self;
-        cell.sizeSelectLabel.text = @"Selected size";
-        if (![self.selectedSize isEqual:@"none"])
-        {
-            cell.sizeSelectView.size = [self.selectedSize intValue];
-        }
-        }
-        else{
-        
-        cell.sizeSelectView.sizeChoices = [NSMutableArray arrayWithObjects:[productInfo valueForKey:@"size_available"], [productInfo valueForKey:@"stock_balance"], nil];
-        cell.sizeSelectView.editable = YES;
-        cell.sizeSelectView.sizeChoicesNum = [[productInfo valueForKey:@"size_available"] count];
-        cell.sizeSelectView.delegate = self;
-    
-        if (![self.selectedSize isEqual:@"none"])
-        {
-            cell.sizeSelectView.size = [self.selectedSize intValue];
-        }
-        }
-        
-        return cell;
-    }
-        else{
-            if ([self.buyButton isEqualToString:@"ok"])
-            {
-                BuyNowCell *cell = (BuyNowCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"BuyNowCell" owner:nil options:nil];
-                if (cell == nil)
-                {
-                    cell = [nib objectAtIndex:0];
-                    [self setBuyNowCell:cell];
-                    return cell;
-                }
-            }
-            else{
-                PurchaseVerificationCell *cell = (PurchaseVerificationCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PurchaseVerificationCell" owner:nil options:nil];
-                if (cell == nil)
-                {
-                    
-                    cell = [nib objectAtIndex:0];
-                    [self setPurchaseCell:cell];
-                    
-                    return cell;
-                }
-            }
-        }
-    }
-    
-   else if (counter ==2){
-       if (indexPath.row ==0){
-        ColorSelectionCell *cell = (ColorSelectionCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil)
-        {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ColorSelectionCell" owner:nil options:nil];
-            cell = [nib objectAtIndex:0];
-        }
-        if ([self.purchasedString isEqualToString:@"purchased"])
-        {
-            NSMutableArray *arrayTemp = [NSMutableArray arrayWithObjects:[self getColorInfo:[productInfo valueForKey:@"color_available"] forId:[productInfo valueForKey:@"order_color_id"]],nil];
-            cell.colorSelectView.colorChoices = [NSMutableArray arrayWithObjects:arrayTemp,nil];
-            cell.colorSelectView.editable = NO;
-            cell.colorSelectView.colorChoicesNum = 1;
-            cell.colorSelectView.delegate = self;
-           cell.colorSelectTitle.text = @"Selected color";
-            if (![self.selectedSize isEqual:@"none"])
-            {
-                cell.colorSelectView.color = [self.selectedSize intValue];
-            }
-        }else{
-            
-        cell.colorSelectView.colorChoices = [NSMutableArray arrayWithObjects:[productInfo valueForKey:@"color_available"], [productInfo valueForKey:@"stock_balance"], nil];
-        cell.colorSelectView.editable = YES;
-        cell.colorSelectView.colorChoicesNum = [[productInfo valueForKey:@"color_available"] count];
-       
-        cell.colorSelectView.delegate = self;
-        if (![self.selectedColor isEqual:@"none"]){
-            cell.colorSelectView.color =[self.selectedColor intValue];
-        }
-        
-        }
-        return cell;
-   }
-       else{
-           if ([self.buyButton isEqualToString:@"ok"])
-           {
-               BuyNowCell *cell = (BuyNowCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-               NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"BuyNowCell" owner:nil options:nil];
-               if (cell == nil)
-               {
-                   cell = [nib objectAtIndex:0];
-                   [self setBuyNowCell:cell];
-                   return cell;
-               }
-           }
-           else{
-               PurchaseVerificationCell *cell = (PurchaseVerificationCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-               NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PurchaseVerificationCell" owner:nil options:nil];
-               if (cell == nil)
-               {
-                   
-                   cell = [nib objectAtIndex:0];
-                   [self setPurchaseCell:cell];
-                   
-                   return cell;
-               }
-           }
-       }
-   }
-  else  if (counter ==3){
-        if (indexPath.row == 1){
+        if (counter ==1){
             SizeSelectionCell *cell = (SizeSelectionCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil)
-            {
-                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SizeSelectionCell" owner:nil options:nil];
-                cell = [nib objectAtIndex:0];
-            }
-            if ([self.purchasedString isEqualToString:@"purchased"])
-            {
-        NSMutableArray *arrayTemp = [NSMutableArray arrayWithObjects:[self getSizeInfo:[productInfo valueForKey:@"size_available"] forId:[productInfo valueForKey:@"order_size_id"]],nil];
-            cell.sizeSelectView.sizeChoices = [NSMutableArray arrayWithObjects:arrayTemp,nil];
-            cell.sizeSelectView.editable = NO;
-            cell.sizeSelectView.sizeChoicesNum = 1;
-            cell.sizeSelectView.delegate = self;
-                cell.sizeSelectLabel.text = @"Selected size";
-            if (![self.selectedSize isEqual:@"none"])
-            {
-            cell.sizeSelectView.size = [self.selectedSize intValue];
-            }
+            if (indexPath.row==0){
+                if (cell == nil)
+                {
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SizeSelectionCell" owner:nil options:nil];
+                    cell = [nib objectAtIndex:0];
+                }
+                if ([self.purchasedString isEqualToString:@"purchased"])
+                {
+                    cell.sizeSelectView.sizeChoices = [NSMutableArray arrayWithObject:[self getSizeInfo:[productInfo valueForKey:@"size_available"] forId:[productInfo valueForKey:@"order_size_id"]]];
+                    cell.sizeSelectView.editable = NO;
+                    cell.sizeSelectView.sizeChoicesNum = 1;
+                    cell.sizeSelectView.delegate = self;
+                    cell.sizeSelectLabel.text = @"Selected size";
+                    if (![self.selectedSize isEqual:@"none"])
+                    {
+                        cell.sizeSelectView.size = [self.selectedSize intValue];
+                    }
+                }
+                else{
+                    
+                    cell.sizeSelectView.sizeChoices = [NSMutableArray arrayWithObjects:[productInfo valueForKey:@"size_available"], [productInfo valueForKey:@"stock_balance"], nil];
+                    cell.sizeSelectView.editable = YES;
+                    cell.sizeSelectView.sizeChoicesNum = [[productInfo valueForKey:@"size_available"] count];
+                    cell.sizeSelectView.delegate = self;
+                    
+                    if (![self.selectedSize isEqual:@"none"])
+                    {
+                        cell.sizeSelectView.size = [self.selectedSize intValue];
+                    }
+                }
+                
+                return cell;
             }
             else{
-            if (![self.selectedSize isEqual:@"none"]){
-                cell.sizeSelectView.size =[self.selectedSize intValue];
+                if ([self.buyButton isEqualToString:@"ok"])
+                {
+                    BuyNowCell *cell = (BuyNowCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"BuyNowCell" owner:nil options:nil];
+                    if (cell == nil)
+                    {
+                        cell = [nib objectAtIndex:0];
+                        [self setBuyNowCell:cell];
+                        return cell;
+                    }
+                }
+                else{
+                    PurchaseVerificationCell *cell = (PurchaseVerificationCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PurchaseVerificationCell" owner:nil options:nil];
+                    if (cell == nil)
+                    {
+                        
+                        cell = [nib objectAtIndex:0];
+                        [self setPurchaseCell:cell];
+                        
+                        return cell;
+                    }
+                }
             }
-           cell.sizeSelectView.sizeChoices = [NSMutableArray arrayWithObjects:[productInfo valueForKey:@"size_available"] , [productInfo valueForKey:@"stock_balance"], nil];
-            cell.sizeSelectView.editable = YES;
-            cell.sizeSelectView.colorsForSize = tempColorsForSize;
-            cell.sizeSelectView.sizeChoicesNum = [[productInfo valueForKey:@"size_available"] count];
-            cell.sizeSelectView.delegate = self;
-            NSLog(@"%@", tempColorsForSize);
-            }
-            return cell;
-    }else if (indexPath.row ==0)
-    {
-        ColorSelectionCell *cell = (ColorSelectionCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil)
-        {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ColorSelectionCell" owner:nil options:nil];
-            cell = [nib objectAtIndex:0];
         }
-        if ([self.purchasedString isEqualToString:@"purchased"]){
-            NSMutableArray *arrayTemp = [NSMutableArray arrayWithObjects:[self getColorInfo:[productInfo valueForKey:@"color_available"] forId:[productInfo valueForKey:@"order_color_id"]],nil];
-            cell.colorSelectView.colorChoices = [NSMutableArray arrayWithObjects:arrayTemp,nil];
-    cell.colorSelectTitle.text = @"Selected color";
-            cell.colorSelectView.editable = NO;
-            cell.colorSelectView.colorChoicesNum = 1;
-            cell.colorSelectView.delegate = self;
-            if (![self.selectedSize isEqual:@"none"]){
-                cell.colorSelectView.color = [self.selectedSize intValue];
-            }
-        }else{
-        if (![self.selectedColor isEqual:@"none"]){
-            cell.colorSelectView.color =[self.selectedColor intValue];
-        }
-        cell.colorSelectView.colorChoices = [NSMutableArray arrayWithObjects:[productInfo valueForKey:@"color_available"], [productInfo valueForKey:@"stock_balance" ] , nil ];
-        cell.colorSelectView.editable = YES;
-         cell.colorSelectView.sizesForColor = tempSizesForColor;
-        cell.colorSelectView.colorChoicesNum = [[productInfo valueForKey:@"color_available"] count];
-       
-        cell.colorSelectView.delegate = self;
-       // self.selectedColor = 0;
-        }
-        return cell;
-        }
-    else{
-        if ([self.buyButton isEqualToString:@"ok"])
-        {
-            BuyNowCell *cell = (BuyNowCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"BuyNowCell" owner:nil options:nil];
-            if (cell == nil)
-            {
-                cell = [nib objectAtIndex:0];
-                [self setBuyNowCell:cell];
+        
+        else if (counter ==2){
+            if (indexPath.row ==0){
+                ColorSelectionCell *cell = (ColorSelectionCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil)
+                {
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ColorSelectionCell" owner:nil options:nil];
+                    cell = [nib objectAtIndex:0];
+                }
+                if ([self.purchasedString isEqualToString:@"purchased"])
+                {
+                    NSMutableArray *arrayTemp = [NSMutableArray arrayWithObjects:[self getColorInfo:[productInfo valueForKey:@"color_available"] forId:[productInfo valueForKey:@"order_color_id"]],nil];
+                    cell.colorSelectView.colorChoices = [NSMutableArray arrayWithObjects:arrayTemp,nil];
+                    cell.colorSelectView.editable = NO;
+                    cell.colorSelectView.colorChoicesNum = 1;
+                    cell.colorSelectView.delegate = self;
+                    cell.colorSelectTitle.text = @"Selected color";
+                    if (![self.selectedSize isEqual:@"none"])
+                    {
+                        cell.colorSelectView.color = [self.selectedSize intValue];
+                    }
+                }else{
+                    
+                    cell.colorSelectView.colorChoices = [NSMutableArray arrayWithObjects:[productInfo valueForKey:@"color_available"], [productInfo valueForKey:@"stock_balance"], nil];
+                    cell.colorSelectView.editable = YES;
+                    cell.colorSelectView.colorChoicesNum = [[productInfo valueForKey:@"color_available"] count];
+                    
+                    cell.colorSelectView.delegate = self;
+                    if (![self.selectedColor isEqual:@"none"]){
+                        cell.colorSelectView.color =[self.selectedColor intValue];
+                    }
+                    
+                }
                 return cell;
             }
-        }
-        else{
-            PurchaseVerificationCell *cell = (PurchaseVerificationCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PurchaseVerificationCell" owner:nil options:nil];
-            if (cell == nil)
-            {
-                
-                cell = [nib objectAtIndex:0];
-                [self setPurchaseCell:cell];
-                
-                return cell;
+            else{
+                if ([self.buyButton isEqualToString:@"ok"])
+                {
+                    BuyNowCell *cell = (BuyNowCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"BuyNowCell" owner:nil options:nil];
+                    if (cell == nil)
+                    {
+                        cell = [nib objectAtIndex:0];
+                        [self setBuyNowCell:cell];
+                        return cell;
+                    }
+                }
+                else{
+                    PurchaseVerificationCell *cell = (PurchaseVerificationCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PurchaseVerificationCell" owner:nil options:nil];
+                    if (cell == nil)
+                    {
+                        
+                        cell = [nib objectAtIndex:0];
+                        [self setPurchaseCell:cell];
+                        
+                        return cell;
+                    }
+                }
             }
         }
-    }
-    }
+        else  if (counter ==3){
+            if (indexPath.row == 1){
+                SizeSelectionCell *cell = (SizeSelectionCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil)
+                {
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SizeSelectionCell" owner:nil options:nil];
+                    cell = [nib objectAtIndex:0];
+                }
+                if ([self.purchasedString isEqualToString:@"purchased"])
+                {
+                    NSMutableArray *arrayTemp = [NSMutableArray arrayWithObjects:[self getSizeInfo:[productInfo valueForKey:@"size_available"] forId:[productInfo valueForKey:@"order_size_id"]],nil];
+                    cell.sizeSelectView.sizeChoices = [NSMutableArray arrayWithObjects:arrayTemp,nil];
+                    cell.sizeSelectView.editable = NO;
+                    cell.sizeSelectView.sizeChoicesNum = 1;
+                    cell.sizeSelectView.delegate = self;
+                    cell.sizeSelectLabel.text = @"Selected size";
+                    if (![self.selectedSize isEqual:@"none"])
+                    {
+                        cell.sizeSelectView.size = [self.selectedSize intValue];
+                    }
+                }
+                else{
+                    if (![self.selectedSize isEqual:@"none"]){
+                        cell.sizeSelectView.size =[self.selectedSize intValue];
+                    }
+                    cell.sizeSelectView.sizeChoices = [NSMutableArray arrayWithObjects:[productInfo valueForKey:@"size_available"] , [productInfo valueForKey:@"stock_balance"], nil];
+                    cell.sizeSelectView.editable = YES;
+                    cell.sizeSelectView.colorsForSize = tempColorsForSize;
+                    cell.sizeSelectView.sizeChoicesNum = [[productInfo valueForKey:@"size_available"] count];
+                    cell.sizeSelectView.delegate = self;
+                    NSLog(@"%@", tempColorsForSize);
+                }
+                return cell;
+            }else if (indexPath.row ==0)
+            {
+                ColorSelectionCell *cell = (ColorSelectionCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil)
+                {
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ColorSelectionCell" owner:nil options:nil];
+                    cell = [nib objectAtIndex:0];
+                }
+                if ([self.purchasedString isEqualToString:@"purchased"]){
+                    NSMutableArray *arrayTemp = [NSMutableArray arrayWithObjects:[self getColorInfo:[productInfo valueForKey:@"color_available"] forId:[productInfo valueForKey:@"order_color_id"]],nil];
+                    cell.colorSelectView.colorChoices = [NSMutableArray arrayWithObjects:arrayTemp,nil];
+                    cell.colorSelectTitle.text = @"Selected color";
+                    cell.colorSelectView.editable = NO;
+                    cell.colorSelectView.colorChoicesNum = 1;
+                    cell.colorSelectView.delegate = self;
+                    if (![self.selectedSize isEqual:@"none"]){
+                        cell.colorSelectView.color = [self.selectedSize intValue];
+                    }
+                }else{
+                    if (![self.selectedColor isEqual:@"none"]){
+                        cell.colorSelectView.color =[self.selectedColor intValue];
+                    }
+                    cell.colorSelectView.colorChoices = [NSMutableArray arrayWithObjects:[productInfo valueForKey:@"color_available"], [productInfo valueForKey:@"stock_balance" ] , nil ];
+                    cell.colorSelectView.editable = YES;
+                    cell.colorSelectView.sizesForColor = tempSizesForColor;
+                    cell.colorSelectView.colorChoicesNum = [[productInfo valueForKey:@"color_available"] count];
+                    
+                    cell.colorSelectView.delegate = self;
+                    // self.selectedColor = 0;
+                }
+                return cell;
+            }
+            else{
+                if ([self.buyButton isEqualToString:@"ok"])
+                {
+                    BuyNowCell *cell = (BuyNowCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"BuyNowCell" owner:nil options:nil];
+                    if (cell == nil)
+                    {
+                        cell = [nib objectAtIndex:0];
+                        [self setBuyNowCell:cell];
+                        return cell;
+                    }
+                }
+                else{
+                    PurchaseVerificationCell *cell = (PurchaseVerificationCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PurchaseVerificationCell" owner:nil options:nil];
+                    if (cell == nil)
+                    {
+                        
+                        cell = [nib objectAtIndex:0];
+                        [self setPurchaseCell:cell];
+                        
+                        return cell;
+                    }
+                }
+            }
+        }
     }
     
 }
 -(void)showCart:(id)sender{
-     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate handleTab5];
 }
 -(NSDictionary*)getColorInfo:(NSArray*)info forId:(NSString*)colorId{
@@ -773,7 +792,7 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
                 break;
             }
         }
-
+        
     }
     NSMutableArray *tempAnswer =[[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCartListForCartId:cartId]] ;
     if([[[tempAnswer objectAtIndex:0] valueForKey:@"status"] isEqual:@"failure"]){
@@ -788,50 +807,50 @@ UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
     }
-   
+    
 }
 -(void)continueShopping:(id)sender{
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController popViewControllerAnimated:YES];
 }
-    - (void)dealloc {
-        [selectedColor release];
-        [selectedSize release];
+- (void)dealloc {
+    [selectedColor release];
+    [selectedSize release];
     [headerView release];
     [_productDesc release];
     [_sizeView release];
     [_colorSelectView release];
     [_tableView release];
-        [buyButton release];
-     
+    [buyButton release];
+    
     [super dealloc];
 }
 -(void)sizeview:(SizeSelectView *)sizeView sizeDidChange:(int)size{
     self.selectedSize = [NSString stringWithFormat:@"%d", size];
     if (counter == 3){
         [tempSizesForColor removeAllObjects];
-for (NSDictionary *row in [productInfo valueForKey:@"stock_balance"]){
+        for (NSDictionary *row in [productInfo valueForKey:@"stock_balance"]){
+            
+            if ([[[[productInfo valueForKey:@"size_available"] objectAtIndex:size] valueForKey:@"size_id"] isEqual:[NSString stringWithFormat:@"%@",[row valueForKey:@"size_id"]]]){
                 
-                if ([[[[productInfo valueForKey:@"size_available"] objectAtIndex:size] valueForKey:@"size_id"] isEqual:[NSString stringWithFormat:@"%@",[row valueForKey:@"size_id"]]]){
-                    
-                    [tempSizesForColor addObject:row];
-                }
+                [tempSizesForColor addObject:row];
             }
-            //  NSLog(@"%@", tempArray);
-            //= [NSMutableArray arrayWithArray:tempArray];
+        }
+        //  NSLog(@"%@", tempArray);
+        //= [NSMutableArray arrayWithArray:tempArray];
         [self.tableView reloadData];
     }
     else{
-    
-    if ([[[[productInfo valueForKey:@"stock_balance"] objectAtIndex:size] valueForKey:@"stock_balance"] isEqual:[NSNumber numberWithInt:0]]){
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Out of stock" message:@"This product is currently out of stock." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alertView show];
-        [alertView release];
         
-    }else{
-    self.selectedSize = [NSString stringWithFormat:@"%d", size];
-    [self.tableView reloadData];
-    }
+        if ([[[[productInfo valueForKey:@"stock_balance"] objectAtIndex:size] valueForKey:@"stock_balance"] isEqual:[NSNumber numberWithInt:0]]){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Out of stock" message:@"This product is currently out of stock." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            [alertView release];
+            
+        }else{
+            self.selectedSize = [NSString stringWithFormat:@"%d", size];
+            [self.tableView reloadData];
+        }
     }
 }
 -(void)colorview:(ColorSelectView *)colorView colorDidChange:(int)color{
@@ -839,28 +858,28 @@ for (NSDictionary *row in [productInfo valueForKey:@"stock_balance"]){
         self.selectedColor = [NSString stringWithFormat:@"%d", color];
         [tempColorsForSize removeAllObjects];
         for (NSDictionary *row in [productInfo valueForKey:@"stock_balance"]){
-         
+            
             if ([[[[productInfo valueForKey:@"color_available"] objectAtIndex:color] valueForKey:@"color_id"] isEqual:[NSString stringWithFormat:@"%@",[row valueForKey:@"color_id"]]]){
-               
-        [tempColorsForSize addObject:row];
+                
+                [tempColorsForSize addObject:row];
             }
         }
         [self.tableView reloadData];
         
     }
     else{
-    
-    if ([[[[productInfo valueForKey:@"stock_balance"] objectAtIndex:color] valueForKey:@"stock_balance"] isEqual:[NSNumber numberWithInt:0]]){
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Out of stock" message:@"This product is currently out of stock." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alertView show];
-        [alertView release];
         
-    }else{
-        self.selectedColor = [NSString stringWithFormat:@"%d", color];
-        [self.tableView reloadData];
+        if ([[[[productInfo valueForKey:@"stock_balance"] objectAtIndex:color] valueForKey:@"stock_balance"] isEqual:[NSNumber numberWithInt:0]]){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Out of stock" message:@"This product is currently out of stock." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            [alertView release];
+            
+        }else{
+            self.selectedColor = [NSString stringWithFormat:@"%d", color];
+            [self.tableView reloadData];
+        }
     }
-    }
-
+    
 }
 -(void)clearSelectedSize{
     self.selectedSize = @"none";
@@ -868,7 +887,7 @@ for (NSDictionary *row in [productInfo valueForKey:@"stock_balance"]){
 }
 -(void)clearSelectedColor{
     self.selectedColor =@"none";
-        NSLog(@"%@",selectedColor);
+    NSLog(@"%@",selectedColor);
 }
 
 @end

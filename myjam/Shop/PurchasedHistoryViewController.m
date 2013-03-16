@@ -37,7 +37,7 @@
         kDisplayPerscreen = 3;
     }
     
-//iwe    [self loadData];
+    [self loadData];
     
     
 }

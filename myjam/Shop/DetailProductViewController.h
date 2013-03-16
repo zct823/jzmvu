@@ -26,10 +26,12 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ReportSpamViewController.h"
 
-@interface DetailProductViewController : CoreViewController<ImageSliderDelegate, SizeSelectViewDelegate,ColorSelectViewDelegate,UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate,UIWebViewDelegate,UIWebViewDelegate>{
-        Carousel *carousel;
-        int imgCounter;
-        
+@interface DetailProductViewController : CoreViewController<ImageSliderDelegate, SizeSelectViewDelegate,ColorSelectViewDelegate,UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate,UIWebViewDelegate,UIWebViewDelegate>
+{
+    Carousel *carousel;
+    int imgCounter;
+    CGFloat currentHeight;
+    
 }
 @property (retain, nonatomic) NSString *productId;
 @property (retain, nonatomic) NSString *cartId;

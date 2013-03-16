@@ -63,5 +63,6 @@
 - (void)closeSession; //fb login
 - (void)removeCustomBadge;
 - (void)setCustomBadgeWithText:(NSString *)text;
+- (void)showUpdateProfileDialog;
 
 @end

@@ -66,9 +66,12 @@
      {
          [self setAlpha:0.6];
          [self setHidden:YES];
+         AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+         mydelegate.swipeBottomEnabled = YES;
+         [mydelegate showUpdateProfileDialog];
      }];
-    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    mydelegate.swipeBottomEnabled = YES;
+    
+    
 }
 
 @end

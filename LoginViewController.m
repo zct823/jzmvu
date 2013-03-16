@@ -327,6 +327,11 @@
             [localData setObject:@"NO" forKey:@"isReloadNewsNeeded"];
             [localData setObject:@"YES" forKey:@"isDisplayTutorial"];
             
+            if (![fname length]) {
+                NSLog(@"Profile not updated!");
+                [localData setObject:@"NO" forKey:@"isProfileUpdated"];
+            }
+            
             NSString *counterKey = [NSString stringWithFormat:@"counter%@",token];
             NSString *counter = [localData objectForKey:counterKey];
             if (counter == nil) {

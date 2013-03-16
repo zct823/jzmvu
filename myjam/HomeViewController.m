@@ -143,11 +143,9 @@
     NSString *counter = [localData objectForKey:counterKey];
     int countI = [counter intValue];
     NSLog(@"Home counter: %@",counter);
-    // Only show when launch app
+    
     if ([isDisplay isEqualToString:@"YES"] && countI < 500)
     {
-        //[self displayTutorial];
-//        [self performSelector:@selector(displayTutorial) withObject:nil afterDelay:0.3];
         [self displayTutorial];
         [localData setObject:@"NO" forKey:@"isDisplayTutorial"];
     }
@@ -157,6 +155,10 @@
 //            [self performSelector:@selector(displayTutorial) withObject:nil afterDelay:0.3];
             [self displayTutorial];
             [localData setObject:[NSString stringWithFormat:@"%d",++countI] forKey:counterKey];
+        }
+        else{
+            AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [mydelegate showUpdateProfileDialog];
         }
     }
 }

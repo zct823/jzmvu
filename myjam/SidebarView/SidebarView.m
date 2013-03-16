@@ -272,6 +272,27 @@
     }
 }
 
+- (void)pushProfileViewController
+{
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
+    
+    SettingsViewController *settings = [[SettingsViewController alloc] init];
+    settings.updateProfile = YES;
+    [mydelegate.otherNavController pushViewController:settings animated:NO];
+    [mydelegate.tabView activateController:4];
+    
+    
+    // Manually change the selected tabButton
+    for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
+        if (i == 4) {
+            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
+        } else {
+            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
+        }
+    }
+}
+
 - (void)handleSwipeRight
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];

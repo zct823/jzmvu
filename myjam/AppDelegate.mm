@@ -128,6 +128,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
             [self presentLoginPage];
         }else{
             NSLog(@"not presentlogin");
+            [localData setObject:@"YES" forKey:@"isProfileUpdated"];
             if (![self isSetupDone]) {
                 [self setupViews];
             }
@@ -670,6 +671,34 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 - (void)closeSession
 {
     [FBSession.activeSession closeAndClearTokenInformation];
+}
+
+#pragma mark -
+#pragma mark update profile
+
+- (void)showUpdateProfileDialog
+{
+    
+    NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
+    if ([[localData objectForKey:@"isProfileUpdated"] isEqualToString:@"NO"])
+    {
+        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Update Jambulite Profile" message:@"Do you want to update your Jambulite Profile?" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@" Jambulite Profile ",nil];
+        [alert show];
+        [alert release];
+        
+        // Just set to YES, to not appear when come to home again. just show when login. login will check if already updated or not.
+        [localData setObject:@"YES" forKey:@"isProfileUpdated"];
+        [localData synchronize];
+    }
+    
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1)
+    {
+        [self.sidebarController pushProfileViewController];
+    }
 }
 
 #pragma mark -

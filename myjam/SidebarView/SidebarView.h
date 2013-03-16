@@ -35,5 +35,6 @@
 @property (retain, nonatomic) NSMutableArray *cartItems;
 
 - (void) reloadImage;
+- (void)pushProfileViewController;
 
 @end

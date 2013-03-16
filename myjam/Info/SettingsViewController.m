@@ -79,7 +79,12 @@
     
     TBTB.delegate = self;
     [self.view addSubview:TBTB];
-    [TBTB showDefaults];
+    
+    if (self.updateProfile) {
+        [TBTB showViewControllerAtIndex:1];
+    }else{
+        [TBTB showDefaults];
+    }
     
 }
 

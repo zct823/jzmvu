@@ -21,5 +21,6 @@
 @property (nonatomic, retain) UJliteProfileViewController *s2;
 @property (nonatomic, retain) NewsPreferenceViewController *s1;
 @property (nonatomic, retain) TBViewController *tb1, *tb2;
+@property BOOL updateProfile;
 
 @end

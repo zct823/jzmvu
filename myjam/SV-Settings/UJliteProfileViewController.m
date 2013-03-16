@@ -63,11 +63,19 @@
     
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.frame = CGRectMake(20, 130, 130, 143);
+    
+    if ([self retrieveDataFromAPI])
+    {
+        [self performSelectorOnMainThread:@selector(setupViews) withObject:nil waitUntilDone:NO];
+    }else{
+        //        [self setupErrorPage];
+        NSLog(@"setupFailed");
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+//    [super viewWillAppear:animated];
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..." width:100];
     [activityIndicator startAnimating];
     [self performSelector:@selector(loadData) withObject:self];

@@ -42,6 +42,13 @@
     
     self.scrollView.contentSize = self.scrollView.frame.size;
     self.scrollView.frame = self.view.frame;
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 480) {
+        
+        [self.scrollView setContentInset:UIEdgeInsetsMake(110, 0, 70, 0)];
+        [self.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(110, 0, 70, 0)];
+        [self.scrollView setContentOffset:CGPointMake(0,-100)];
+    }
     [self.view addSubview:self.scrollView];
 
     addressInfo = [[NSMutableDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getSavedAddressFor:cartId]];

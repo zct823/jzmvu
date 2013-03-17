@@ -14,11 +14,13 @@
 #import "ShopHeaderViewCell.h"
 #import "ShopInfoButtonCell.h"
 #import <SDWebImage/UIButton+WebCache.h>
-@interface ProductViewAllViewController : PullRefreshTableViewController
+@interface ProductViewAllViewController : UITableViewController
 @property (strong, nonatomic) NSMutableArray *productAllArray;
 @property (retain, nonatomic) NSDictionary *shopInfo;
 @property (strong, nonatomic) NSString *catName;
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
 
 -(id)initWith:(NSDictionary*)shopInfo andCat:(NSString*)catName;
+- (IBAction)locateStore:(id)sender;
+
 @end

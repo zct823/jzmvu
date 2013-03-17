@@ -7,7 +7,7 @@
 //
 
 #import "ProductViewAllViewController.h"
-#define kTableCellHeight 150
+#define kTableCellHeight 170
 @interface ProductViewAllViewController ()
 
 @end
@@ -19,16 +19,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        //self.navigationItem.title = @"JAM-BU Shop";
-        self.title = @"JAM-BU Shop";
-        FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
-        titleView.text = self.title;
-        titleView.textAlignment = NSTextAlignmentCenter;
-        titleView.backgroundColor = [UIColor clearColor];
-        titleView.textColor = [UIColor whiteColor];
-        [titleView sizeToFit];
-        self.navigationItem.titleView = titleView;
-        [titleView release];
+        self.navigationItem.title = @"JAM-BU Shop";
     }
     return self;
 }
@@ -62,6 +53,7 @@
     
     self.tableView.backgroundView = tempImageView;
     [tempImageView release];
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 70, 0)];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -222,6 +214,16 @@
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
 
 }
+- (IBAction)locateStore:(id)sender {
+    ShopAddressViewController *detailViewController = [[ShopAddressViewController alloc] init];
+    // NSLog(@"%@",_shopInfo);
+    detailViewController.shopId = [self.shopInfo valueForKey:@"shop_id"];
+    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
+    // [detailViewController release];
+    
+}
+
 -(void) dealloc{
     [productAllArray release];
     [shopInfo release];

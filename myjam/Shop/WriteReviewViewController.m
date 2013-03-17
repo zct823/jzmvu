@@ -37,27 +37,17 @@
     self.productName.text = [_productInfo valueForKey:@"product_name"];
     self.shopName.text = [_productInfo valueForKey:@"shop_name"];
     self.productReview.text = [_productInfo valueForKey:@"comment"];
-    [self setNavBarTitle:@"Review"];
     self.scrollView.contentSize = self.scrollView.frame.size;
     self.scrollView.frame = self.view.frame;
-    CGSize expectedLabelSize  = [[_productInfo valueForKey:@"product_name"] sizeWithFont:[UIFont fontWithName:@"Verdana" size:14.0] constrainedToSize:CGSizeMake(180.0, self.productName.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize expectedLabelSize  = [[_productInfo valueForKey:@"product_name"] sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(180.0, self.productName.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
     
     
     CGRect newFrame = self.productName.frame;
     newFrame.size.width = expectedLabelSize.width;
-    newFrame.origin.x = 300-expectedLabelSize.width;
     self.productName.frame = newFrame;
    
-    self.lineMiddle.frame = CGRectMake(120 ,self.lineMiddle.frame.origin.y,170-expectedLabelSize.width, 1);
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    
-    if (screenBounds.size.height == 480) {
-     
-            [self.scrollView setContentInset:UIEdgeInsetsMake(110, 0, 70, 0)];
-        [self.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(110, 0, 70, 0)];
-        [self.scrollView setContentOffset:CGPointMake(0,-100)];
-    }
-
+    self.lineMiddle.frame = CGRectMake(120 ,self.lineMiddle.frame.origin.y,200-expectedLabelSize.width, 1);
+ 
     [self.view addSubview:self.scrollView];
     
     // Do any additional setup after loading the view from its nib.
@@ -95,29 +85,6 @@
     return YES;
 }
 - (IBAction)submitReview:(id)sender {
-    
-    if ([self.productReview.text isEqualToString:@""]){
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: @"Error"
-                              message: @"Please make sure that the comment is not empty"
-                              delegate: nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-    }
-    else if([self.ratingValue isEqualToString:@""]){
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: @"Succesful"
-                              message: @"Please select a rating value."
-                              delegate: nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-        
-    }
-    else{
     NSDictionary *answer = [[MJModel sharedInstance] submitReview:self.productReview.text forProduct:[_productInfo valueForKey:@"product_id"] withRating:self.ratingValue];
     NSLog(@"%@",answer);
     if ([[answer valueForKey:@"status"] isEqual:@"ok"]){
@@ -132,7 +99,6 @@
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"CommentWritten"
          object:self];
-    }
     }
 
 }

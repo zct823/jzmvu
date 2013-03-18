@@ -7,7 +7,7 @@
 //
 
 #import "ShopDetailListingViewController.h"
-
+#import "MarqueeLabel.h"
 
 
 #define kTableCellHeight 170
@@ -168,10 +168,38 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     // Configure the cell...
     //  cell.topLabel1.text =
-    cell.catLabel1.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_name"];
+//    cell.catLabel1.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_name"];
+//    
+//    
+//    cell.productLabel1.text =[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_category"];
     
+    MarqueeLabel *productNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
+    productNameLabel.marqueeType = MLContinuous;
+    productNameLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+    productNameLabel.numberOfLines = 1;
+    productNameLabel.opaque = NO;
+    productNameLabel.enabled = YES;
+    productNameLabel.textAlignment = UITextAlignmentLeft;
+    productNameLabel.textColor = [UIColor blackColor];
+    productNameLabel.backgroundColor = [UIColor clearColor];
+    productNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+    productNameLabel.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_name"];
+    [cell.transView1 addSubview:productNameLabel];
+    [productNameLabel release];
     
-    cell.productLabel1.text =[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_category"];
+    MarqueeLabel *categoryLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 14, 90, 18) rate:20.0f andFadeLength:10.0f];
+    categoryLabel.marqueeType = MLContinuous;
+    categoryLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+    categoryLabel.numberOfLines = 1;
+    categoryLabel.opaque = NO;
+    categoryLabel.enabled = YES;
+    categoryLabel.textAlignment = UITextAlignmentLeft;
+    categoryLabel.textColor = [UIColor blackColor];
+    categoryLabel.backgroundColor = [UIColor clearColor];
+    categoryLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+    categoryLabel.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_category"];
+    [cell.transView1 addSubview:categoryLabel];
+    [categoryLabel release];
     
     cell.priceLabel1.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_price"];
     cell.buttonTap1.tag =  3*indexPath.section+0;
@@ -179,7 +207,7 @@
     
     if( [[[[[_productArray objectAtIndex:indexPath.section]
             valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_rating"] isEqual:@"0.0"]){
-        cell.rateView1.hidden = TRUE;
+//        cell.rateView1.hidden = TRUE;
     }
     else{
         cell.rateView1.rating = [[[[[_productArray objectAtIndex:indexPath.section]
@@ -201,9 +229,38 @@
     if ([[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] count] >1){
         
         
-        cell.catLabel2.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_name"];
-        cell.productLabel2.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_category"];
+//        cell.catLabel2.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_name"];
+//        cell.productLabel2.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_category"];
         cell.priceLabel2.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_price"];
+        
+        MarqueeLabel *productNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
+        productNameLabel.marqueeType = MLContinuous;
+        productNameLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        productNameLabel.numberOfLines = 1;
+        productNameLabel.opaque = NO;
+        productNameLabel.enabled = YES;
+        productNameLabel.textAlignment = UITextAlignmentLeft;
+        productNameLabel.textColor = [UIColor blackColor];
+        productNameLabel.backgroundColor = [UIColor clearColor];
+        productNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+        productNameLabel.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_name"];
+        [cell.transView2 addSubview:productNameLabel];
+        [productNameLabel release];
+        
+        MarqueeLabel *categoryLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 14, 90, 18) rate:20.0f andFadeLength:10.0f];
+        categoryLabel.marqueeType = MLContinuous;
+        categoryLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        categoryLabel.numberOfLines = 1;
+        categoryLabel.opaque = NO;
+        categoryLabel.enabled = YES;
+        categoryLabel.textAlignment = UITextAlignmentLeft;
+        categoryLabel.textColor = [UIColor blackColor];
+        categoryLabel.backgroundColor = [UIColor clearColor];
+        categoryLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+        categoryLabel.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_category"];
+        [cell.transView2 addSubview:categoryLabel];
+        [categoryLabel release];
+        
         if( [[[[[_productArray objectAtIndex:indexPath.section]
                 valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_rating"] isEqual:@"0.0"]){
             cell.rateView2.hidden = TRUE;
@@ -225,8 +282,37 @@
         
     }
     if ([[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] count] >2){
-        cell.catLabel3.text = [[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_name"];
-        cell.productLabel3.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_category"];
+//        cell.catLabel3.text = [[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_name"];
+//        cell.productLabel3.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_category"];
+        
+        MarqueeLabel *productNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
+        productNameLabel.marqueeType = MLContinuous;
+        productNameLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        productNameLabel.numberOfLines = 1;
+        productNameLabel.opaque = NO;
+        productNameLabel.enabled = YES;
+        productNameLabel.textAlignment = UITextAlignmentLeft;
+        productNameLabel.textColor = [UIColor blackColor];
+        productNameLabel.backgroundColor = [UIColor clearColor];
+        productNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+        productNameLabel.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_name"];
+        [cell.transView3 addSubview:productNameLabel];
+        [productNameLabel release];
+        
+        MarqueeLabel *categoryLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 14, 90, 18) rate:20.0f andFadeLength:10.0f];
+        categoryLabel.marqueeType = MLContinuous;
+        categoryLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        categoryLabel.numberOfLines = 1;
+        categoryLabel.opaque = NO;
+        categoryLabel.enabled = YES;
+        categoryLabel.textAlignment = UITextAlignmentLeft;
+        categoryLabel.textColor = [UIColor blackColor];
+        categoryLabel.backgroundColor = [UIColor clearColor];
+        categoryLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+        categoryLabel.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_category"];
+        [cell.transView3 addSubview:categoryLabel];
+        [categoryLabel release];
+        
         cell.priceLabel3.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_price"];
         if( [[[[[_productArray objectAtIndex:indexPath.section]
                 valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_rating"] isEqual:@"0.0"]){

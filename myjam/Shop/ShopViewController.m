@@ -40,6 +40,20 @@
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    //--- activating SwipeBottomBox
+    
+    AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    
+    myDelegate.swipeBottomEnabled = YES;
+    myDelegate.swipeOptionString = @"shop";
+    
+    //--- end activating SwipeBottomBox
+    
+    [tabBar showDefaults];
+}
+
 - (void)viewDidLoad
 { // Setup screen for retina 4
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
@@ -99,6 +113,20 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)switchViewController:(UIViewController *)viewController {
+    
+    NSLog(@"switch vc in box");
+    
+    AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if(viewController == vc2)
+    {
+        myDel.swipeOptionString = @"shop";
+    }
+    else if(viewController == vc3)
+    {
+        myDel.swipeOptionString = @"purchase";
+    }
+    
     UIView *currentView = [self.view viewWithTag:SELECTED_VIEW_CONTROLLER_TAG];
         currentView = nil;
     [currentView removeFromSuperview];

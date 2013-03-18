@@ -14,6 +14,8 @@
 #import "BottomSwipeViewShareBox.h"
 #import "BottomSwipeViewFavBox.h"
 #import "BottomSwipeViewCreateBox.h"
+#import "BottomSwipeViewJShop.h"
+#import "BottomSwipeViewJSPurchase.h"
 #import "HomeViewController.h"
 #import "Banner.h"
 #import "CustomBadge.h"
@@ -39,6 +41,8 @@
 @property (nonatomic, retain) BottomSwipeViewShareBox *bottomSVShareBox;
 @property (nonatomic, retain) BottomSwipeViewFavBox *bottomSVFavBox;
 @property (nonatomic, retain) BottomSwipeViewCreateBox *bottomSVCreateBox;
+@property (nonatomic, retain) BottomSwipeViewJShop *bottomSVJShop;
+@property (nonatomic, retain) BottomSwipeViewJSPurchase *bottomSVJSPurchase;
 @property (nonatomic, retain) GTabBar *tabView;
 @property (nonatomic, retain) Banner *bannerView;
 @property (nonatomic, retain) TutorialView *tutorial;

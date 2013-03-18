@@ -38,7 +38,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 
 @synthesize window;
 @synthesize sidebarController;
-@synthesize bottomController, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox;
+@synthesize bottomController, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox, bottomSVJShop, bottomSVJSPurchase;
 @synthesize sideBarOpen;
 @synthesize bottomViewOpen;
 @synthesize tabView;
@@ -60,6 +60,8 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     [bottomSVShareBox release];
     [bottomSVFavBox release];
     [bottomSVCreateBox release];
+    [bottomSVJShop release];
+    [bottomSVJSPurchase release];
     [sidebarController release];
     [homeNavController release];
     [scanNavController release];
@@ -154,6 +156,8 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     [bottomSVShareBox.view removeFromSuperview];
     [bottomSVFavBox.view removeFromSuperview];
     [bottomSVCreateBox.view removeFromSuperview];
+    [bottomSVJShop.view removeFromSuperview];
+    [bottomSVJSPurchase.view removeFromSuperview];
     [frontLayerView release];
     [tabView release];
     [bottomController release];
@@ -189,6 +193,8 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     ScanQRViewController *scanVC = [[ScanQRViewController alloc] init];
     BoxViewController *boxVC = [[BoxViewController alloc] init];
     CreateViewController *createVC = [[CreateViewController alloc] init];
+    bottomSVJShop = [[BottomSwipeViewJShop alloc] init];
+    bottomSVJSPurchase = [[BottomSwipeViewJSPurchase alloc] init];
     
     // Init navigationControllers for TabbarController
     homeNavController = [[UINavigationController alloc] initWithRootViewController:homeVC];
@@ -238,6 +244,10 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     bottomSVFavBox.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVFavBox.view.frame.size.width, bottomSVFavBox.view.frame.size.height);
     
     bottomSVCreateBox.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVCreateBox.view.frame.size.width, bottomSVCreateBox.view.frame.size.height);
+    
+    bottomSVJShop.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVJShop.view.frame.size.width, bottomSVJShop.view.frame.size.height);
+    
+    bottomSVJSPurchase.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVJSPurchase.view.frame.size.width, bottomSVJSPurchase.view.frame.size.height);
     
     [self.window addSubview:sidebarController.view];
     [self.window addSubview:tabView.view];
@@ -312,6 +322,8 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         [bottomSVShareBox.view setHidden:NO];
         [bottomSVFavBox.view setHidden:NO];
         [bottomSVCreateBox.view setHidden:NO];
+        [bottomSVJShop.view setHidden:NO];
+        [bottomSVJSPurchase.view setHidden:NO];
         
         [UIView animateWithDuration:kAnimateDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
          {
@@ -338,6 +350,8 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         [bottomSVShareBox.view setHidden:YES];
         [bottomSVFavBox.view setHidden:YES];
         [bottomSVCreateBox.view setHidden:YES];
+        [bottomSVJShop.view setHidden:YES];
+        [bottomSVJSPurchase.view setHidden:YES];
         
         // Reset scrollview to top
 //        CGPoint topOffset = CGPointMake(0,0);
@@ -397,6 +411,14 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
              {
                  bottomSVCreateBox.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVCreateBox.view.frame.size.width, bottomSVCreateBox.view.frame.size.height);
              }
+             else if ([swipeOptionString isEqual:@"shop"])
+             {
+                 bottomSVJShop.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVJShop.view.frame.size.width, bottomSVJShop.view.frame.size.height);
+             }
+             else if ([swipeOptionString isEqual:@"purchase"])
+             {
+                 bottomSVJSPurchase.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVJSPurchase.view.frame.size.width, bottomSVJSPurchase.view.frame.size.height);
+             }
              
          }
                          completion:^(BOOL finished){
@@ -419,6 +441,14 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
                              else if ([swipeOptionString isEqual:@"create"])
                              {
                                  [bottomSVCreateBox.view removeFromSuperview];
+                             }
+                             else if ([swipeOptionString isEqual:@"shop"])
+                             {
+                                 [bottomSVJShop.view removeFromSuperview];
+                             }
+                             else if ([swipeOptionString isEqual:@"purchase"])
+                             {
+                                 [bottomSVJSPurchase.view removeFromSuperview];
                              }
                          }];
 //        [tabView.view setUserInteractionEnabled:YES];
@@ -456,6 +486,16 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
             [self.window addSubview:bottomSVCreateBox.view];
             [self.window bringSubviewToFront:bottomSVCreateBox.view];
         }
+        else if ([swipeOptionString isEqual:@"shop"])
+        {
+            [self.window addSubview:bottomSVJShop.view];
+            [self.window bringSubviewToFront:bottomSVJShop.view];
+        }
+        else if ([swipeOptionString isEqual:@"purchase"])
+        {
+            [self.window addSubview:bottomSVJSPurchase.view];
+            [self.window bringSubviewToFront:bottomSVJSPurchase.view];
+        }
         
         [UIView animateWithDuration:kAnimateDurationBottomView delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
          {
@@ -479,6 +519,14 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
              else if ([swipeOptionString isEqual:@"create"])
              {
                  bottomSVCreateBox.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomSVCreateBox.view.frame.size.height, bottomSVCreateBox.view.frame.size.width, bottomSVCreateBox.view.frame.size.height);
+             }
+             else if ([swipeOptionString isEqual:@"shop"])
+             {
+                 bottomSVJShop.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomSVJShop.view.frame.size.height, bottomSVJShop.view.frame.size.width, bottomSVJShop.view.frame.size.height);
+             }
+             else if ([swipeOptionString isEqual:@"purchase"])
+             {
+                 bottomSVJSPurchase.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomSVJSPurchase.view.frame.size.height, bottomSVJSPurchase.view.frame.size.width, bottomSVJSPurchase.view.frame.size.height);
              }
          }
                          completion:^(BOOL finished){
@@ -511,6 +559,18 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
                                  [bottomSVCreateBox.activityView startAnimating];
                                  
                                  [bottomSVCreateBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                             }
+                             else if ([swipeOptionString isEqual:@"shop"])
+                             {
+                                 [bottomSVJShop.activityView startAnimating];
+                                 
+                                 [bottomSVJShop performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                             }
+                             else if ([swipeOptionString isEqual:@"purchase"])
+                             {
+                                 [bottomSVJSPurchase.activityView startAnimating];
+                                 
+                                 [bottomSVJSPurchase performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
                              }
                          }];
     }

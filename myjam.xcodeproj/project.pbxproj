@@ -52,6 +52,10 @@
 		6114A50F16B18921009299EE /* CreateBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114A50916B187BE009299EE /* CreateBoxViewController.m */; };
 		6114A51116B1893C009299EE /* ShareBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114A50E16B187BE009299EE /* ShareBoxViewController.m */; };
 		6114A55C16B270F7009299EE /* MEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114A55B16B270F7009299EE /* MEvent.m */; };
+		61266C6116F6F3C60092BB83 /* BottomSwipeViewJShop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61266C5E16F6F13E0092BB83 /* BottomSwipeViewJShop.xib */; };
+		61266C6216F6F3DB0092BB83 /* BottomSwipeViewJSPurchase.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61266C5B16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.xib */; };
+		61266C6316F6F3ED0092BB83 /* BottomSwipeViewJSPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 61266C5A16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.m */; };
+		61266C6416F6F40F0092BB83 /* BottomSwipeViewJShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 61266C5916F6F13E0092BB83 /* BottomSwipeViewJShop.m */; };
 		6133680016C366B40088ADFF /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 613367FF16C366B40088ADFF /* CreateViewController.m */; };
 		6139618D16EED2610056B314 /* ad4.png in Resources */ = {isa = PBXBuildFile; fileRef = 613960F716EED2610056B314 /* ad4.png */; };
 		6139618E16EED2610056B314 /* added_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 613960F816EED2610056B314 /* added_cart.png */; };
@@ -547,6 +551,12 @@
 		6114A50E16B187BE009299EE /* ShareBoxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareBoxViewController.m; sourceTree = "<group>"; };
 		6114A55A16B270F7009299EE /* MEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEvent.h; sourceTree = "<group>"; };
 		6114A55B16B270F7009299EE /* MEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEvent.m; sourceTree = "<group>"; };
+		61266C5916F6F13E0092BB83 /* BottomSwipeViewJShop.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewJShop.m; sourceTree = "<group>"; };
+		61266C5A16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewJSPurchase.m; sourceTree = "<group>"; };
+		61266C5B16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSwipeViewJSPurchase.xib; sourceTree = "<group>"; };
+		61266C5C16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSwipeViewJSPurchase.h; sourceTree = "<group>"; };
+		61266C5D16F6F13E0092BB83 /* BottomSwipeViewJShop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSwipeViewJShop.h; sourceTree = "<group>"; };
+		61266C5E16F6F13E0092BB83 /* BottomSwipeViewJShop.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSwipeViewJShop.xib; sourceTree = "<group>"; };
 		613367FE16C366B40088ADFF /* CreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
 		613367FF16C366B40088ADFF /* CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
 		613960F716EED2610056B314 /* ad4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ad4.png; sourceTree = "<group>"; };
@@ -1978,6 +1988,12 @@
 		6181F47B168806260064FF7C /* BottomSwipeView */ = {
 			isa = PBXGroup;
 			children = (
+				61266C5916F6F13E0092BB83 /* BottomSwipeViewJShop.m */,
+				61266C5A16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.m */,
+				61266C5B16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.xib */,
+				61266C5C16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.h */,
+				61266C5D16F6F13E0092BB83 /* BottomSwipeViewJShop.h */,
+				61266C5E16F6F13E0092BB83 /* BottomSwipeViewJShop.xib */,
 				6181F47C168806660064FF7C /* BottomSwipeView.h */,
 				FF10D88716E9C41D00479199 /* BottomSwipeViewScanBox.xib */,
 				FF10D88816E9C41D00479199 /* BottomSwipeViewScanBox.h */,
@@ -2306,6 +2322,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61266C6216F6F3DB0092BB83 /* BottomSwipeViewJSPurchase.xib in Resources */,
+				61266C6116F6F3C60092BB83 /* BottomSwipeViewJShop.xib in Resources */,
 				FF10D8B516EA0E7100479199 /* BottomSwipeViewScanBox.xib in Resources */,
 				FF10D8B416EA0DB300479199 /* BottomSwipeViewCreateBox.xib in Resources */,
 				FF10D8B316EA0D8700479199 /* BottomSwipeViewFavBox.xib in Resources */,
@@ -2572,6 +2590,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61266C6416F6F40F0092BB83 /* BottomSwipeViewJShop.m in Sources */,
+				61266C6316F6F3ED0092BB83 /* BottomSwipeViewJSPurchase.m in Sources */,
 				FF10D89D16E9E1CA00479199 /* BottomSwipeViewCreateBox.m in Sources */,
 				FF10D89C16E9E17F00479199 /* BottomSwipeViewFavBox.m in Sources */,
 				FF10D89B16E9E12F00479199 /* BottomSwipeViewScanBox.m in Sources */,

@@ -13,12 +13,7 @@
 @interface JBoxViewController : NewsViewController
 
 @property (retain, nonatomic) NSString *selectedApp;
-@property (retain, nonatomic) NSString *selectedShop;
-@property (retain, nonatomic) NSString *selectedProduct;
 
-- (void) refreshTableItemsWithFilter:(NSString *)str andSearchedText:(NSString *)pattern;
 - (void) refreshTableItemsWithFilterApp:(NSString *)str andSearchedText:(NSString *)pattern;
-- (void) refreshTableItemsWithFilterShop:(NSString *)str andSearchedText:(NSString *)pattern;
-- (void) refreshTableItemsWithFilterProduct:(NSString *)str andSearchedText:(NSString *)pattern;
 
 @end

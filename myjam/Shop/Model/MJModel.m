@@ -9,7 +9,7 @@
 #import "MJModel.h"
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
-//#define TOKEN @"02522a2b2726fb0a03bb19f2d8d9524d"
+#define TOKEN @"02522a2b2726fb0a03bb19f2d8d9524d"
 
 @implementation MJModel
 

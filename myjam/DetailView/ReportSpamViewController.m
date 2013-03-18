@@ -83,12 +83,7 @@
 
 - (void)setupViews
 {
-    if (![self.qrcodeId isKindOfClass:[NSString class]]) {
-        self.qrcodeId = @"";
-    } if (![self.productId isKindOfClass:[NSString class]]) {
-        self.productId = @"";
-    }
-    NSLog(@"QRID :%@ PRO :%@",self.qrcodeId,self.productId);
+    NSLog(@"QRID :%@",self.qrcodeId);
     //setup info view
     self.providerLabel.text = self.qrProvider;
     self.titleLabel.text = self.qrTitle;
@@ -128,11 +123,7 @@
 - (void)setupReportTypeList
 {
     // Init the category data
-    if (![self.productId isEqual:@""]) {
-        [self retrieveReportTypeForProductFromAPI];
-    } else {
-        [self retrieveReportTypeForBoxFromAPI];
-    }
+    [self retrieveReportTypeFromAPI];
     // Set list for pickerView
     self.dataArray = [[NSMutableArray alloc] initWithArray:[self.reportTypes allKeys]];
     [self.dataArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
@@ -141,7 +132,7 @@
 #pragma mark -
 #pragma mark PickerView action button
 
-- (void)retrieveReportTypeForBoxFromAPI
+- (void)retrieveReportTypeFromAPI
 {
     NSString *flag = @"GET_REPORT_TYPES_NEWS";
     NSString *urlString = [NSString stringWithFormat:@"%@/api/report_abuse.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
@@ -158,39 +149,6 @@
         if ([status isEqualToString:@"ok"])
         {
             rep = [resultsDictionary objectForKey:@"report_types"];
-            
-            for (id row in rep)
-            {
-                [self.reportTypes setObject:[row objectForKey:@"type_id"] forKey:[row objectForKey:@"type_name"]];
-            }
-        }else{
-            CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Create Failed" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            alert.tag = kAlertNoConnection;
-            [alert show];
-            [alert release];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        
-    }
-}
-
-- (void)retrieveReportTypeForProductFromAPI
-{
-    NSString *proId = self.productId;
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/report_abuse_type.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
-    NSString *dataContent = [NSString stringWithFormat:@"{\"product_id\":\"%@\"}",proId];
-    NSDictionary *rep;
-    NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
-    
-    NSLog(@"resp: %@",response);
-    if([resultsDictionary count])
-    {
-        NSString *status = [resultsDictionary objectForKey:@"status"];
-        
-        if ([status isEqualToString:@"ok"])
-        {
-            rep = [resultsDictionary objectForKey:@"type_list"];
             
             for (id row in rep)
             {
@@ -227,11 +185,7 @@
         //go to processSubmitSpam
         [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
         NSLog(@"saved");
-        if (![self.productId isEqual:@""]) {
-            [self performSelector:@selector(processSubmitSpamForProduct) withObject:nil afterDelay:0.5];
-        } else {
-            [self performSelector:@selector(processSubmitSpamForBox) withObject:nil afterDelay:0.5];
-        }
+        [self performSelector:@selector(processSubmitSpam) withObject:nil afterDelay:0.5];
     }
 }
 
@@ -244,10 +198,7 @@
     [alert release];
 }
 
-#pragma mark -
-#pragma mark submitProcess
-
-- (void)processSubmitSpamForBox
+- (void)processSubmitSpam
 {
     NSString *flag = @"SUBMIT_REPORT_NEWS";
     NSString *urlString = [NSString stringWithFormat:@"%@/api/report_abuse.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
@@ -255,37 +206,6 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"flag\":\"%@\",\"qrcode_id\":\"%@\",\"type_id\":\"%@\",\"remarks\":\"%@\"}",
                              flag,
                              self.qrcodeId,
-                             self.reportTypeId,
-                             self.remarksTextView.text];
-    
-    NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
-    NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
-    
-    if([resultsDictionary count])
-    {
-        NSString *status = [resultsDictionary objectForKey:@"status"];
-        NSString *msg = [resultsDictionary objectForKey:@"message"];
-        
-        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Reporting Spam" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-        
-        if ([status isEqualToString:@"ok"])
-        {
-            NSLog(@"Success submit spam");
-            [self.navigationController popToRootViewControllerAnimated:NO];
-        }
-    }
-    [DejalBezelActivityView removeViewAnimated:YES];
-}
-
-- (void)processSubmitSpamForProduct
-{
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/report_abuse_submit.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
-    
-    NSString *dataContent = [NSString stringWithFormat:@"{\"product_id\":\"%@\",\"report_type\":\"%@\",\"report_remarks\":\"%@\"}",
-                             self.productId,
                              self.reportTypeId,
                              self.remarksTextView.text];
     

@@ -21,8 +21,6 @@
 - (void)viewDidLoad
 {
     self.selectedApp = @"";
-    self.selectedShop = @"";
-    self.selectedProduct = @"";
     [super viewDidLoad];
     [self loadData];
 }
@@ -37,8 +35,32 @@
 - (NSString *)returnAPIDataContent
 {
     NSLog(@"box scan datacontent");
-    return [NSString stringWithFormat:@"{\"page\":%d,\"perpage\":%d,\"news_category_id\":\"%@\",\"keyword\":\"%@\",\"app_type\":\"%@\",\"shop_category_id\":\"%@\",\"product_category_id\":\"%@\"}",self.pageCounter, kListPerpage, self.selectedCategories, self.searchedText,self.selectedApp,self.selectedShop,self.selectedProduct];
+    return [NSString stringWithFormat:@"{\"page\":%d,\"perpage\":%d,\"news_category_id\":\"%@\",\"keyword\":\"%@\",\"app_type\":\"%@\"}",self.pageCounter, kListPerpage, self.selectedCategories, self.searchedText,self.selectedApp];
 }
+
+#pragma mark -
+#pragma mark didSelectRow extended action
+
+//- (void)processRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//    NSLog(@"type is %@",[aQRcodeType objectAtIndex:indexPath.row]);
+//    if ([[aQRcodeType objectAtIndex:indexPath.row] isEqualToString:@"JAM-BU Gallery"]) {
+//        AGalleryViewController *gallery = [[AGalleryViewController alloc] init];
+//        gallery.qrcodeId = [[self.tableData objectAtIndex:indexPath.row] qrcodeId];
+//        AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        [mydelegate.boxNavController pushViewController:gallery animated:YES];
+//        [gallery release];
+//        
+//    }
+//    else{
+//        MoreViewController *detailView = [[MoreViewController alloc] init];
+//        detailView.qrcodeId = [[self.tableData objectAtIndex:indexPath.row] qrcodeId];
+//        AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        [mydelegate.boxNavController pushViewController:detailView animated:YES];
+//        [detailView release];
+//    }
+//}
 
 - (void)processRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -54,7 +76,8 @@
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
     NSLog(@"Filtering Scanbox list with searched text %@",str);
-    [self resetDataFilter];
+    self.selectedApp = @"";
+    self.selectedCategories = @"";
     self.selectedCategories = str;
     self.searchedText = @"";
     self.searchedText = pattern;
@@ -74,7 +97,8 @@
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
     NSLog(@"Filtering Scanbox list with searched app %@",str);
-    [self resetDataFilter];
+    self.selectedCategories = @"";
+    self.selectedApp = @"";
     self.selectedApp = str;
     self.searchedText = @"";
     self.searchedText = pattern;
@@ -86,52 +110,6 @@
     
     [DejalBezelActivityView removeViewAnimated:YES];
     
-}
-
-- (void) refreshTableItemsWithFilterShop:(NSString *)str andSearchedText:(NSString *)pattern
-{
-    //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
-    
-    NSLog(@"Filtering Scanbox list with searched app %@",str);
-    [self resetDataFilter];
-    self.selectedShop = str;
-    self.searchedText = @"";
-    self.searchedText = pattern;
-    self.pageCounter = 1;
-    [self.tableData removeAllObjects];
-    self.tableData = [[self loadMoreFromServer] mutableCopy];
-    [self.tableView reloadData];
-    [self.tableView setContentOffset:CGPointZero animated:YES];
-    
-    [DejalBezelActivityView removeViewAnimated:YES];
-    
-}
-
-- (void) refreshTableItemsWithFilterProduct:(NSString *)str andSearchedText:(NSString *)pattern
-{
-    //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
-    
-    NSLog(@"Filtering Scanbox list with searched app %@",str);
-    [self resetDataFilter];
-    self.selectedProduct = str;
-    self.searchedText = @"";
-    self.searchedText = pattern;
-    self.pageCounter = 1;
-    [self.tableData removeAllObjects];
-    self.tableData = [[self loadMoreFromServer] mutableCopy];
-    [self.tableView reloadData];
-    [self.tableView setContentOffset:CGPointZero animated:YES];
-    
-    [DejalBezelActivityView removeViewAnimated:YES];
-    
-}
-
-- (void)resetDataFilter
-{
-    self.selectedApp = @"";
-    self.selectedShop = @"";
-    self.selectedProduct = @"";
-    self.selectedCategories = @"";
 }
 
 

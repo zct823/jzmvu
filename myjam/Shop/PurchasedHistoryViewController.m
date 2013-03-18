@@ -340,6 +340,12 @@
     return kTableCellHeight;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section
+{
+    return 40;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     PurchasedHeaderView *header = [[[NSBundle mainBundle] loadNibNamed:@"PurchasedHeaderView" owner:self options:nil]objectAtIndex:0];

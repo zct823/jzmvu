@@ -439,7 +439,8 @@
 		61E099E316C2422000C012EF /* beep-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 61E099E216C2422000C012EF /* beep-beep.mp3 */; };
 		61E59C9716AE5753002E7DDC /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E59C9616AE5753002E7DDC /* EventKit.framework */; };
 		61E59C9916AE5F22002E7DDC /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E59C9816AE5F22002E7DDC /* EventKitUI.framework */; };
-		FF10D89B16E9E12F00479199 /* BottomSwipeViewScanBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D88916E9C41D00479199 /* BottomSwipeViewScanBox.m */; };
+		E0E4627916F6E25D00208F7A /* BottomSwipeViewScanBox.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E4627716F6E25D00208F7A /* BottomSwipeViewScanBox.m */; };
+		E0E4627A16F6E25D00208F7A /* BottomSwipeViewScanBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0E4627816F6E25D00208F7A /* BottomSwipeViewScanBox.xib */; };
 		FF10D89C16E9E17F00479199 /* BottomSwipeViewFavBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D88E16E9C45500479199 /* BottomSwipeViewFavBox.m */; };
 		FF10D89D16E9E1CA00479199 /* BottomSwipeViewCreateBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D88B16E9C43B00479199 /* BottomSwipeViewCreateBox.m */; };
 		FF10D8A416EA094F00479199 /* AddMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D89F16EA094E00479199 /* AddMailViewController.m */; };
@@ -452,7 +453,6 @@
 		FF10D8B216EA09DE00479199 /* BoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D8B116EA09DE00479199 /* BoxViewController.m */; };
 		FF10D8B316EA0D8700479199 /* BottomSwipeViewFavBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF10D88F16E9C45500479199 /* BottomSwipeViewFavBox.xib */; };
 		FF10D8B416EA0DB300479199 /* BottomSwipeViewCreateBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF10D88C16E9C43B00479199 /* BottomSwipeViewCreateBox.xib */; };
-		FF10D8B516EA0E7100479199 /* BottomSwipeViewScanBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF10D88716E9C41D00479199 /* BottomSwipeViewScanBox.xib */; };
 		FF10D8B916EAAA2F00479199 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D8B716EAAA2F00479199 /* MoreViewController.m */; };
 		FF10D8BA16EAAA2F00479199 /* MoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF10D8B816EAAA2F00479199 /* MoreViewController.xib */; };
 		FF19ACA316E73028002F36A1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF19ACA216E73028002F36A1 /* Social.framework */; };
@@ -1072,9 +1072,9 @@
 		61E099E216C2422000C012EF /* beep-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "beep-beep.mp3"; sourceTree = "<group>"; };
 		61E59C9616AE5753002E7DDC /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		61E59C9816AE5F22002E7DDC /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
-		FF10D88716E9C41D00479199 /* BottomSwipeViewScanBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSwipeViewScanBox.xib; sourceTree = "<group>"; };
-		FF10D88816E9C41D00479199 /* BottomSwipeViewScanBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSwipeViewScanBox.h; sourceTree = "<group>"; };
-		FF10D88916E9C41D00479199 /* BottomSwipeViewScanBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewScanBox.m; sourceTree = "<group>"; };
+		E0E4627616F6E25D00208F7A /* BottomSwipeViewScanBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomSwipeViewScanBox.h; sourceTree = "<group>"; };
+		E0E4627716F6E25D00208F7A /* BottomSwipeViewScanBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewScanBox.m; sourceTree = "<group>"; };
+		E0E4627816F6E25D00208F7A /* BottomSwipeViewScanBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomSwipeViewScanBox.xib; sourceTree = "<group>"; };
 		FF10D88A16E9C43B00479199 /* BottomSwipeViewCreateBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSwipeViewCreateBox.h; sourceTree = "<group>"; };
 		FF10D88B16E9C43B00479199 /* BottomSwipeViewCreateBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewCreateBox.m; sourceTree = "<group>"; };
 		FF10D88C16E9C43B00479199 /* BottomSwipeViewCreateBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSwipeViewCreateBox.xib; sourceTree = "<group>"; };
@@ -1978,10 +1978,10 @@
 		6181F47B168806260064FF7C /* BottomSwipeView */ = {
 			isa = PBXGroup;
 			children = (
+				E0E4627616F6E25D00208F7A /* BottomSwipeViewScanBox.h */,
+				E0E4627716F6E25D00208F7A /* BottomSwipeViewScanBox.m */,
+				E0E4627816F6E25D00208F7A /* BottomSwipeViewScanBox.xib */,
 				6181F47C168806660064FF7C /* BottomSwipeView.h */,
-				FF10D88716E9C41D00479199 /* BottomSwipeViewScanBox.xib */,
-				FF10D88816E9C41D00479199 /* BottomSwipeViewScanBox.h */,
-				FF10D88916E9C41D00479199 /* BottomSwipeViewScanBox.m */,
 				6181F47D168806660064FF7C /* BottomSwipeView.m */,
 				6181F47E168806660064FF7C /* BottomSwipeView.xib */,
 				2126907C16E3ADEA0054295E /* BottomSwipeViewShareBox.h */,
@@ -2306,7 +2306,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF10D8B516EA0E7100479199 /* BottomSwipeViewScanBox.xib in Resources */,
 				FF10D8B416EA0DB300479199 /* BottomSwipeViewCreateBox.xib in Resources */,
 				FF10D8B316EA0D8700479199 /* BottomSwipeViewFavBox.xib in Resources */,
 				61817CC216A01EA100A5ECD9 /* jambu-font.otf in Resources */,
@@ -2562,6 +2561,7 @@
 				61B4873316F020C200DB433B /* button_minus_dark.png in Resources */,
 				61B4873416F020C200DB433B /* button_plus_dark.png in Resources */,
 				614BA74016F3BB6300E5AA74 /* DetailProductViewController.xib in Resources */,
+				E0E4627A16F6E25D00208F7A /* BottomSwipeViewScanBox.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2574,7 +2574,6 @@
 			files = (
 				FF10D89D16E9E1CA00479199 /* BottomSwipeViewCreateBox.m in Sources */,
 				FF10D89C16E9E17F00479199 /* BottomSwipeViewFavBox.m in Sources */,
-				FF10D89B16E9E12F00479199 /* BottomSwipeViewScanBox.m in Sources */,
 				6114A51116B1893C009299EE /* ShareBoxViewController.m in Sources */,
 				6114A50F16B18921009299EE /* CreateBoxViewController.m in Sources */,
 				6181298E168309E30068C68B /* Reachability.m in Sources */,
@@ -2738,6 +2737,7 @@
 				6139640916EF8EFF0056B314 /* UIImageView+RemoteFile.m in Sources */,
 				6139640A16EF8EFF0056B314 /* WriteReviewViewController.m in Sources */,
 				614BA74616F3F46600E5AA74 /* MarqueeLabel.m in Sources */,
+				E0E4627916F6E25D00208F7A /* BottomSwipeViewScanBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -120,6 +120,8 @@ static int kImageTagStart = 1000;
     
     contentSwitch = @"2";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    NSLog(@"RunThread");
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
     
 }
 
@@ -142,6 +144,8 @@ static int kImageTagStart = 1000;
     
     contentSwitch = @"3";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    NSLog(@"RunThread");
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
     
 }
 
@@ -252,15 +256,15 @@ static int kImageTagStart = 1000;
     
     NSLog(@"data: %@",strData);
     
-//    [hm.nv refreshTableItemsWithFilter:strData];
-//    [box.scanv refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
-    if([contentSwitch isEqual:@"1"])
-    {
-        [box.scanv refreshTableItemsWithFilterApp:strData andSearchedText:self.searchTextField.text];
-    }else{
+    if([contentSwitch isEqual:@"0"]) {
         [box.scanv refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
+    }else if([contentSwitch isEqual:@"1"]) {
+        [box.scanv refreshTableItemsWithFilterApp:strData andSearchedText:self.searchTextField.text];
+    }else if([contentSwitch isEqual:@"2"]) {
+        [box.scanv refreshTableItemsWithFilterShop:strData andSearchedText:self.searchTextField.text];
+    }else if([contentSwitch isEqual:@"3"]) {
+        [box.scanv refreshTableItemsWithFilterProduct:strData andSearchedText:self.searchTextField.text];
     }
-//    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
 - (IBAction)clearButton:(id)sender
@@ -280,7 +284,7 @@ static int kImageTagStart = 1000;
 
 - (NSString *)returningDataContent
 {
-    return [NSString stringWithFormat:@"{\"flag\":\"SCAN_BOX_SWIPE_LIST\"}"];
+    return [NSString stringWithFormat:@"{\"flag\":\"SCAN_BOX_SWIPE_LIST3\"}"];
 }
 
 - (void)setupCatagoryList
@@ -319,6 +323,20 @@ static int kImageTagStart = 1000;
         setIdName = @"qrcode_type";
         setIdCount = @"total_qrcode";
     }
+    else if([contentSwitch isEqual:@"2"])
+    {
+        setList = @"shop_categories";
+        setId = @"category_id";
+        setIdName = @"category_name";
+        setIdCount = @"total_shop";
+    }
+    else if([contentSwitch isEqual:@"3"])
+    {
+        setList = @"product_categories";
+        setId = @"category_id";
+        setIdName = @"category_name";
+        setIdCount = @"total_product";
+    }
     
     
     if([resultsDictionary count])
@@ -352,8 +370,8 @@ static int kImageTagStart = 1000;
             // setup label and check image
             if (![categories isEqual:[NSNull null]])
             {
-                for (id row in categories) {
-                    
+                for (id row in categories)
+                {
                     if ((item%2) == 0) { // left column
                         imgFrame = CGRectMake(leftX, leftY + 2, imgWidth, imgWidth);
                         labelFrame = CGRectMake( leftX + imgWidth + 5,
@@ -424,20 +442,40 @@ static int kImageTagStart = 1000;
             }
             else
             {
-                isSearchDisabled = YES;
-                [self.searchTextField setEnabled:NO];
+                if ([contentSwitch isEqual:@"1"])
+                {
+                    isSearchDisabled = YES;
+                    [self.searchTextField setEnabled:NO];
                 
-                label = [[UILabel alloc] initWithFrame: CGRectMake(5, self.scroller.frame.size.height/2-30, self.scroller.frame.size.width-10, 44)];
-                [label setText:@"You don't have any apps yet."];
-                [label setTextColor: [UIColor whiteColor]];
-                [label setTextAlignment:NSTextAlignmentCenter];
-                [label setBackgroundColor:[UIColor clearColor]];
-                [label setFont:[UIFont systemFontOfSize:14]];
-                [label setNumberOfLines:0];
-                [self.contentView addSubview: label];
-                [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, self.scroller.frame.size.height)];
+                    label = [[UILabel alloc] initWithFrame: CGRectMake(5, self.scroller.frame.size.height/2-30, self.scroller.frame.size.width-10, 44)];
+                    [label setText:@"You don't have any apps yet."];
+                    [label setTextColor: [UIColor whiteColor]];
+                    [label setTextAlignment:NSTextAlignmentCenter];
+                    [label setBackgroundColor:[UIColor clearColor]];
+                    [label setFont:[UIFont systemFontOfSize:14]];
+                    [label setNumberOfLines:0];
+                    [self.contentView addSubview: label];
+                    [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, self.scroller.frame.size.height)];
+                }
+                else
+                {
+                    isSearchDisabled = YES;
+                    [self.searchTextField setEnabled:NO];
+                    
+                    label = [[UILabel alloc] initWithFrame: CGRectMake(5, self.scroller.frame.size.height/2-30, self.scroller.frame.size.width-10, 44)];
+                    [label setText:@"Selections on current tab is yet not available. Please try again later."];
+                    [label setTextColor: [UIColor whiteColor]];
+                    [label setTextAlignment:NSTextAlignmentCenter];
+                    [label setBackgroundColor:[UIColor clearColor]];
+                    [label setFont:[UIFont systemFontOfSize:14]];
+                    [label setNumberOfLines:0];
+                    [self.contentView addSubview: label];
+                    [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, self.scroller.frame.size.height)];
+                }
             }
-        }else{
+        }
+        else
+        {
             NSLog(@"Connection Failed");
             
             isSearchDisabled = YES;

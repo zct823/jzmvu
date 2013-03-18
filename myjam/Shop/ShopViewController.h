@@ -10,7 +10,7 @@
 #import "TBTabBar.h"
 #import "TBTabButton.h"
 
-#import "NewsViewController.h"
+//#import "NewsViewController.h"
 #import "ShopListViewController.h"
 #import "PurchasedHistoryViewController.h"
 @class ShopListViewController;
@@ -20,7 +20,7 @@
 }
 
 @property (retain, nonatomic) TBTabBar *tabBar;
-@property (retain, nonatomic) NewsViewController *nv;
+//@property (retain, nonatomic) NewsViewController *nv;
 @property (retain, nonatomic) ShopListViewController *sv;
 @property (retain, nonatomic) PurchasedHistoryViewController *phv;
 @property (retain, nonatomic) TBViewController *vc3;

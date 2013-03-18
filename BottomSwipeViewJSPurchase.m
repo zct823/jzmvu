@@ -29,7 +29,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 @implementation BottomSwipeViewJSPurchase
 
-@synthesize checkedCategories,contentSwitch,label,addNewFolder,animatedDistance,lblTagToSendOnTapRec,favFolderName,editFolder,
+@synthesize checkedCategories, sortCategories, contentSwitch,label,addNewFolder,animatedDistance,lblTagToSendOnTapRec,favFolderName,editFolder,
     replaceLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,7 +45,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self reloadCategories];
-    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 - (void)reloadCategories
@@ -69,7 +69,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self beginProcessData];
+//    [self beginProcessData];
 }
 
 - (IBAction)firstButton:(id)sender
@@ -112,6 +112,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     isSearchDisabled = NO;
     
     checkedCategories = [[NSMutableDictionary alloc] init];
+    sortCategories = [[NSMutableDictionary alloc] init];
     
     // Do any additional setup after loading the view from its nib.
     [self.scroller setContentSize:self.contentView.frame.size];
@@ -199,8 +200,10 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    BoxViewController *box = [mydelegate.boxNavController.viewControllers objectAtIndex:0];
+    ShopViewController *shop = [mydelegate.shopNavController.viewControllers objectAtIndex:0];
     NSMutableString *strData = [NSMutableString stringWithFormat:@""];
+    NSMutableString *sortData = [NSMutableString stringWithFormat:@""];
+    
     int i = 0;
     for (id row in checkedCategories) {
         if (i == 0) {
@@ -212,10 +215,20 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         i++;
     }
     
-    NSLog(@"data: %@",strData);
+    for (id row in sortCategories) {
+        if (i == 0) {
+            sortData = [NSString stringWithFormat:@"%@",row];
+        }else{
+            sortData = [NSString stringWithFormat:@"%@,%@",strData,row];
+        }
+        
+        i++;
+    }
     
+    NSLog(@"data: %@",strData);
+    [shop.phv refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text andOptions:sortData];
 //    [hm.nv refreshTableItemsWithFilter:strData];
-    [box.fbvc refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
+//    [box.fbvc refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
     
 //    [DejalBezelActivityView removeViewAnimated:YES];
 }
@@ -224,6 +237,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 {
     if (!isSearchDisabled) {
         [checkedCategories removeAllObjects];
+        [sortCategories removeAllObjects];
         self.searchTextField.text = @"";
     }
     
@@ -491,16 +505,19 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (BOOL)isAlreadyChecked:(int)key
 {
-    if ([checkedCategories objectForKey:[NSString stringWithFormat:@"%d",key-kImageTagStart]]) {
-        return YES;
+    if (contentSwitch == nil || [contentSwitch isEqual:@"0"])
+    {
+        if ([checkedCategories objectForKey:[NSString stringWithFormat:@"%d",key-kImageTagStart]]) {
+            return YES;
+        }
     }
-    
     return NO;
 }
 
 - (void)handleTapCategory:(id)sender
 {
     NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
+    int tag = [(UIGestureRecognizer *)sender view].tag;
     int imgTag = kImageTagStart + [(UIGestureRecognizer *)sender view].tag - kLabelTagStart;
     NSString *val = [NSString stringWithFormat:@"%d", imgTag-kImageTagStart];
     UIImageView *imgv = (UIImageView *)[self.view viewWithTag:imgTag];
@@ -520,19 +537,27 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     }
     else if([contentSwitch isEqual:@"1"])
     {
-        NSLog(@"Self.count: %d",self.count);
+        //        NSLog(@"Self.count: %d",self.count);
+        UILabel *tappedLabel = (UILabel *)[self.view viewWithTag:tag];
+        NSLog(@"tapped on : %@", tappedLabel.text);
         
-        if ([imgv isHidden])
+        // Only tick on one option
+        for (int i = kImageTagStart; i<=kImageTagStart+self.count; i++)
         {
-            [imgv setHidden:NO];
-            checkedCategories = self.count;
+            UIImageView *aImg = (UIImageView *)[self.view viewWithTag:i];
+            if (i != imgTag) {
+                [aImg setHidden:YES];
+            }else{
+                [aImg setHidden:NO];
+            }
         }
-        else
-        {
-            [imgv setHidden:YES];
-            checkedCategories = nil;
-        }
+        // Remove all object first
+        [sortCategories removeAllObjects];
+        
+        // Then set on the tap one
+        [sortCategories setObject:tappedLabel.text forKey:tappedLabel.text];
     }
+
 }
 
 #pragma mark -

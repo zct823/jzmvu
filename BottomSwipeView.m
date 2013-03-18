@@ -313,6 +313,7 @@ static int kImageTagStart = 1000;
 
 - (BOOL)isAlreadyChecked:(int)key
 {
+    
     if ([checkedCategories objectForKey:[NSString stringWithFormat:@"%d",key-kImageTagStart]]) {
         return YES;
     }

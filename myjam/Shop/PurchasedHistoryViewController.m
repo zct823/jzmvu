@@ -26,7 +26,7 @@
     self.searchedText = @"";
     self.selectedStatus = @"";
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable:) name:@"refreshPurchaseHistory" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable:) name:@"refreshPurchaseHistory" object:nil];
     
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     if (screenBounds.size.height == 568) {
@@ -38,7 +38,6 @@
     }
     
     [self loadData];
-    
     
 }
 

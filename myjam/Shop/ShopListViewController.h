@@ -20,4 +20,6 @@
 
 @property (strong, nonatomic) NSMutableArray *catArray;
 
+- (void) refreshTableItemsWithFilter:(NSString *)str andSearchedText:(NSString *)pattern andOptions:optionData;
+
 @end

@@ -14,7 +14,7 @@
 
 @implementation ShopViewController
 
-@synthesize nv, sv, vc3, vc2, phv, tabBar;
+@synthesize sv, vc3, vc2, phv, tabBar;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -153,6 +153,5 @@
     [phv release];
     [vc3 release];
     [vc2 release];
-    [nv release];
 }
 @end

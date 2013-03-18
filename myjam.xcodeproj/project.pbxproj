@@ -1988,11 +1988,11 @@
 		6181F47B168806260064FF7C /* BottomSwipeView */ = {
 			isa = PBXGroup;
 			children = (
+				61266C5D16F6F13E0092BB83 /* BottomSwipeViewJShop.h */,
 				61266C5916F6F13E0092BB83 /* BottomSwipeViewJShop.m */,
+				61266C5C16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.h */,
 				61266C5A16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.m */,
 				61266C5B16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.xib */,
-				61266C5C16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.h */,
-				61266C5D16F6F13E0092BB83 /* BottomSwipeViewJShop.h */,
 				61266C5E16F6F13E0092BB83 /* BottomSwipeViewJShop.xib */,
 				6181F47C168806660064FF7C /* BottomSwipeView.h */,
 				FF10D88716E9C41D00479199 /* BottomSwipeViewScanBox.xib */,

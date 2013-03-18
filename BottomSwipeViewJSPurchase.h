@@ -15,6 +15,7 @@
     BOOL isSearchDisabled;
 }
 @property (retain, nonatomic) NSMutableDictionary *checkedCategories;
+@property (retain, nonatomic) NSMutableDictionary *sortCategories;
 @property (retain, nonatomic) IBOutlet UIScrollView *scroller;
 @property (retain, nonatomic) IBOutlet UIView *contentView;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activityView;

@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MarqueeLabel.h"
+#import "RateView.h"
 
 @interface ProductHeaderView : UIView
+
+@property (retain, nonatomic) IBOutlet RateView *rateView;
 @property (retain, nonatomic) NSString *productId;
 @property (retain, nonatomic) IBOutlet UIView *imageCarouselView;
 @property (retain, nonatomic) IBOutlet UIButton *leftButton;

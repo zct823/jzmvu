@@ -18,14 +18,11 @@
 @synthesize productName = _productName;
 @synthesize productState = _productState;
 
-
-
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    if (self) {    
+        
     }
     return self;
 }
@@ -42,6 +39,7 @@
    
     [_buyButton1 release];
     [_productState release];
+    [_rateView release];
     [super dealloc];
     [_imageCarouselView release];
     [_leftButton release];

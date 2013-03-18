@@ -207,7 +207,7 @@
     
     if( [[[[[_productArray objectAtIndex:indexPath.section]
             valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_rating"] isEqual:@"0.0"]){
-//        cell.rateView1.hidden = TRUE;
+        cell.rateView1.hidden = FALSE;
     }
     else{
         cell.rateView1.rating = [[[[[_productArray objectAtIndex:indexPath.section]
@@ -346,8 +346,15 @@
     // [detailViewController release];
 }
 -(void)tapAction:(id)sender{
-    //[DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
+    [self performSelector:@selector(showProductDetail:) withObject:sender afterDelay:0.3];
+    
+    
+}
+
+- (void)showProductDetail:(id)sender
+{
     DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
     NSString *prodId = [[[[_productArray objectAtIndex:([sender tag]/3)] valueForKey:@"product_list"] objectAtIndex:([sender tag]%3)] valueForKey:@"product_id" ];
     detailViewController.productInfo = [[MJModel sharedInstance] getProductInfoFor:prodId];

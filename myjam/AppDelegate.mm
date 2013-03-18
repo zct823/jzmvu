@@ -682,7 +682,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
     if ([[localData objectForKey:@"isProfileUpdated"] isEqualToString:@"NO"])
     {
-        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Update Jambulite Profile" message:@"Do you want to update your Jambulite Profile?" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@" Jambulite Profile ",nil];
+        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Update Jambulite Profile" message:@"Do you want to update your Jambulite Profile?" delegate:self cancelButtonTitle:@"       Skip       " otherButtonTitles:@" Jambulite Profile ",nil];
         [alert show];
         [alert release];
         

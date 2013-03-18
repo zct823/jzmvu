@@ -31,7 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithHex:@"#E8E8E8"]];
+    [self.view setBackgroundColor:[UIColor colorWithHex:@"#F8F8F8"]];
 //    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
 //    [self.view insertSubview:backgroundView atIndex:0];
 	// Do any additional setup after loading the view.

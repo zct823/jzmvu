@@ -27,9 +27,9 @@
     _editable = NO;
     _imageViews = [[NSMutableArray alloc] init];
     _maxRating = 5;
-    _midMargin = 5;
+    _midMargin = 2;
     _leftMargin = 0;
-    _minImageSize = CGSizeMake(5, 5);
+    _minImageSize = CGSizeMake(7, 7);
     _delegate = nil;
     self.backgroundColor = [UIColor clearColor];
 }

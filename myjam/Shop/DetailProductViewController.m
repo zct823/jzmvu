@@ -50,7 +50,16 @@
     }
     headerView = [[[NSBundle mainBundle] loadNibNamed:@"ProductHeaderView" owner:self options:nil]objectAtIndex:0];
     self.tableView.tableHeaderView = headerView;
+    [headerView.rateView bringSubviewToFront:headerView.imageCarouselView];
     headerView.productName.text = [productInfo valueForKey:@"product_name"];
+    headerView.rateView.editable = FALSE;
+    headerView.rateView.selectedImage = [UIImage imageNamed:@"star.png"];
+    headerView.rateView.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
+    headerView.rateView.maxRating = 5;
+    
+    NSLog(@"rating %@",[productInfo valueForKey:@"product_rating"]);
+    
+    headerView.rateView.rating = [[productInfo valueForKey:@"product_rating"] doubleValue];
     headerView.productCat.text = [productInfo valueForKey:@"product_category"];
     headerView.shopName.text = [productInfo valueForKey:@"shop_name"];
     headerView.productPrice.text = [productInfo valueForKey:@"product_price"];

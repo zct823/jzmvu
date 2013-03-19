@@ -106,10 +106,13 @@
         if (viewController == vc1) {
             NSLog(@"ALL");
             mydelegate.swipeController = kAll;
+            mydelegate.swipeOptionString = @"home-all";
         } else if (viewController == vc2) {
             mydelegate.swipeController = kNews;
+            mydelegate.swipeOptionString = @"home-news";
         } else if (viewController == vc3) {
             mydelegate.swipeController = kPromotion;
+            mydelegate.swipeOptionString = @"home-promo";
         }
     }else{
         NSLog(@"Bottom view disabled");

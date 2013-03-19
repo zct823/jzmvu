@@ -10,6 +10,8 @@
 #import "GTabBar.h"
 #import "SidebarView.h"
 #import "BottomSwipeView.h"
+#import "BottomSwipeViewNews.h"
+#import "BottomSwipeViewPromo.h"
 #import "BottomSwipeViewScanBox.h"
 #import "BottomSwipeViewShareBox.h"
 #import "BottomSwipeViewFavBox.h"
@@ -34,7 +36,9 @@
 @property (nonatomic, retain) UINavigationController* otherNavController;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) SidebarView *sidebarController;
-@property (nonatomic, retain) BottomSwipeView *bottomController;
+@property (nonatomic, retain) BottomSwipeView *bottomSVAll;
+@property (nonatomic, retain) BottomSwipeViewNews *bottomSVNews;
+@property (nonatomic, retain) BottomSwipeViewPromo *bottomSVPromo;
 @property (nonatomic, retain) BottomSwipeViewScanBox *bottomSVScanBox;
 @property (nonatomic, retain) BottomSwipeViewShareBox *bottomSVShareBox;
 @property (nonatomic, retain) BottomSwipeViewFavBox *bottomSVFavBox;

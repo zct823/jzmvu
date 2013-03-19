@@ -142,12 +142,29 @@
     
     if ([self retrieveDataFromAPI])
     {
+        [self.contentView setHidden:NO];
         [self performSelectorOnMainThread:@selector(setupViews) withObject:nil waitUntilDone:NO];
     }else{
-//        [self setupErrorPage];
         NSLog(@"setupFailed");
+        [self displayRequestProblemError];
     }
 
+}
+
+# pragma mark -
+# pragma mark Error handle trigger
+
+- (void)displayRequestProblemError
+{
+    CGRect frame = CGRectMake(0, -70, self.view.bounds.size.width, self.view.bounds.size.height);
+    UILabel *label = [[UILabel alloc]initWithFrame:frame];
+    
+    label.text = @"Connection error. Please try again.";
+    label.textColor = [UIColor grayColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    
+    [self.view addSubview:label];
+    [self.contentView setHidden:YES];
 }
 
 - (void)setupViews

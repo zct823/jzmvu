@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BottomSwipeView : UIViewController<UITextFieldDelegate, UIGestureRecognizerDelegate>
+@interface BottomSwipeViewNews : UIViewController<UITextFieldDelegate, UIGestureRecognizerDelegate>
 {
 //    NSMutableDictionary *checkedCategories;
     BOOL isSearchDisabled;
 }
-@property (retain, nonatomic) NSMutableDictionary *checkedAllCategories;
+@property (retain, nonatomic) NSMutableDictionary *checkedNewsCategories;
 @property (retain, nonatomic) NSMutableArray *codeType;
 @property (retain, nonatomic) IBOutlet UIScrollView *scroller;
 @property (retain, nonatomic) IBOutlet UIView *contentView;

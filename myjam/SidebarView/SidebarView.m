@@ -440,6 +440,7 @@
         return [cartItems count];
     }
     else{
+        [self.tableView.tableHeaderView setHidden:YES];
         return 0;
     }
 }
@@ -452,7 +453,7 @@
         return ([[[cartItems objectAtIndex:section] valueForKey:@"item_list" ] count] + 2);
     }
     else{
-        [self.tableView.tableHeaderView setHidden:YES];
+        
         return 0;
     }
 }

@@ -73,19 +73,30 @@
                     placeholderImage:[UIImage imageNamed:@"ad4.png"]
                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
                                if (!error) {
-                                   
+                                   [self addURLImage];
                                }else{
 //                                   NSLog(@"error retrieve image: %@",error);
+                                   [self addURLImageDefault];
                                }
                                
                            }];
-            [self addURLImage];
+            
         }else{
 //            NSLog(@"Error retrieve api data");
             //            [imageView setImage:[UIImage imageNamed:@"ad4.png"]];
         }
     }
 
+}
+
+- (void)addURLImageDefault
+{
+    webURL = APP_API_URL;
+    UITapGestureRecognizer *urlTapRecognizer;
+    urlTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleClickAds)];
+    [imageView addGestureRecognizer:urlTapRecognizer];
+    
+    [urlTapRecognizer release];
 }
 
 - (void)addURLImage

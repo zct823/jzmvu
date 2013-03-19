@@ -38,11 +38,11 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 
 @synthesize window;
 @synthesize sidebarController;
-<<<<<<< HEAD
-@synthesize bottomController, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox, bottomSVJShop, bottomSVJSPurchase;
-=======
-@synthesize bottomSVAll, bottomSVNews, bottomSVPromo, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox;
->>>>>>> 37d8a8fb252b4f8a68369c45f04ff88e5d39c3fa
+//<<<<<<< HEAD
+//@synthesize bottomController, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox, bottomSVJShop, bottomSVJSPurchase;
+//=======
+@synthesize bottomSVAll, bottomSVNews, bottomSVPromo, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox,bottomSVJShop, bottomSVJSPurchase;
+//>>>>>>> 37d8a8fb252b4f8a68369c45f04ff88e5d39c3fa
 @synthesize sideBarOpen;
 @synthesize bottomViewOpen;
 @synthesize tabView;
@@ -271,7 +271,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     
     UISwipeGestureRecognizer *twoFingerSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUp)];
     [twoFingerSwipe setDirection:UISwipeGestureRecognizerDirectionUp];
-    [twoFingerSwipe setNumberOfTouchesRequired:2];
+    [twoFingerSwipe setNumberOfTouchesRequired:1];
     [self.window addGestureRecognizer:twoFingerSwipe];
     [twoFingerSwipe release];
     

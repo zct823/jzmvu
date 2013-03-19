@@ -83,7 +83,7 @@
         
     }
     
-    currentHeight = 0;
+    currentHeight = 30;
     headerView.shopName.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapCheckbox = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backToShop)];
     [headerView.shopName addGestureRecognizer:tapCheckbox];

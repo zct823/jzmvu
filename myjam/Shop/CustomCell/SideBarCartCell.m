@@ -36,6 +36,7 @@
     [_qtyLabel release];
     [_colorView release];
     [_sizeLabel release];
+    [_quantityLabel release];
     [super dealloc];
 }
 @end

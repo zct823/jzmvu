@@ -18,7 +18,7 @@
 #import "AboutViewController.h"
 #import "SettingsViewController.h"
 
-#define kTableCellHeight 80
+#define kTableCellHeight 110
 @interface SidebarView ()
 
 @end
@@ -35,7 +35,7 @@
                                                  name:@"reloadImage"
                                                object:nil];
     
-
+    
     return self;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,31 +49,31 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-        [self retrieveImageFromAPI];
-        
-        [self setUserInfo];
-
+    [self retrieveImageFromAPI];
+    
+    [self setUserInfo];
+    
     // To initiate Cart
- 
+    
 }
 
 
 
 - (void)viewDidLoad
 {
-       self.cartItems = [[MJModel sharedInstance] getCartList]  ;
+    self.cartItems = [[MJModel sharedInstance] getCartList]  ;
     [self updateTabBar];
- 
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
-
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 40)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(260/2-240/2, 0, 240, 40)];
+    imageView.image = [UIImage imageNamed:@"shopping_cart"];
+    [headerView addSubview:imageView];
+    self.tableView.tableHeaderView = headerView;
+    [imageView release];
+    [headerView release];
     
-    
-//    NSString *fullname = [[[NSUserDefaults standardUserDefaults] objectForKey:@"fullname"] copy];
-//    NSString *email = [[[NSUserDefaults standardUserDefaults] objectForKey:@"email"] copy];
-//    self.nameLabel.text = fullname;
-//    self.emailLabel.text = email;
     
     UISwipeGestureRecognizer *swipeRightRecognizer;
     swipeRightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight)];
@@ -197,14 +197,14 @@
     if ( objLname != [NSNull null]) {
         lname = [[[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"] copy];
     }
-//    NSString *lname = [[[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"] copy];
+    //    NSString *lname = [[[NSUserDefaults standardUserDefaults] objectForKey:@"last_name"] copy];
     NSString *email = [[[NSUserDefaults standardUserDefaults] objectForKey:@"email"] copy];
     NSString *mobile = [[[NSUserDefaults standardUserDefaults] objectForKey:@"mobile"] copy];
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@",fname,lname];
     self.emailLabel.text = email;
     self.mobileLabel.text = mobile;
     
-//    [fullname release];
+    //    [fullname release];
     [fname release];
     [lname release];
     [email release];
@@ -223,7 +223,7 @@
     [self setTableView:nil];
     [super viewDidUnload];
     self.contentView = nil;
-   
+    
 }
 
 - (void)showViewControllerWithLoadingView:(UIViewController *)vc
@@ -255,7 +255,7 @@
 - (void)pushController:(UIViewController *)controller
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    [DejalBezelActivityView activityViewForView:mydelegate.window withLabel:@"Please wait..." width:100];
+    //    [DejalBezelActivityView activityViewForView:mydelegate.window withLabel:@"Please wait..." width:100];
     [mydelegate handleTab5];
     [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
     [mydelegate.otherNavController pushViewController:controller animated:NO];
@@ -304,7 +304,7 @@
     NSLog(@"handleContact");
     
     ContactViewController *contact = [[ContactViewController alloc] init];
-//    [self pushController:contact];
+    //    [self pushController:contact];
     [self showViewControllerWithLoadingView:contact];
     [contact release];
 }
@@ -360,7 +360,7 @@
     
     SettingsViewController *settings = [[SettingsViewController alloc] init];
     [self showViewControllerWithLoadingView:settings];
-//    [self pushController:settings];
+    //    [self pushController:settings];
     [settings release];
 }
 
@@ -428,7 +428,7 @@
     [cartItems release];
     [_tableView release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-   
+    
     [super dealloc];
 }
 
@@ -437,7 +437,7 @@
     
     // Return the number of sections.
     if ([cartItems count] > 0 ){
-         return [cartItems count];
+        return [cartItems count];
     }
     else{
         return 0;
@@ -448,9 +448,11 @@
 {
     // Return the number of rows in the section.
     if ([[[cartItems objectAtIndex:section] valueForKey:@"item_list" ] count] >0 ){
-       return ([[[cartItems objectAtIndex:section] valueForKey:@"item_list" ] count] + 2);
+        [self.tableView.tableHeaderView setHidden:NO];
+        return ([[[cartItems objectAtIndex:section] valueForKey:@"item_list" ] count] + 2);
     }
     else{
+        [self.tableView.tableHeaderView setHidden:YES];
         return 0;
     }
 }
@@ -460,26 +462,27 @@
     static NSString *CellIdentifier = @"Cell";
     //if last row
     
-    if (indexPath.row == ([[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list" ] count]+1 )){
+    if (indexPath.row == ([[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list" ] count]+1 ))
+    {
         
         SideBarFooterCell *cell = (SideBarFooterCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
         {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SideBarFooterCell" owner:nil options:nil];
             cell = [nib objectAtIndex:0];
-       //     cell.adminFeeLabel.text = [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"admin_fee" ] componentsSeparatedByString:@":"] objectAtIndex:1] ;
+            //     cell.adminFeeLabel.text = [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"admin_fee" ] componentsSeparatedByString:@":"] objectAtIndex:1] ;
             cell.totalLabel.text = [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"grand_total" ] componentsSeparatedByString:@":"] objectAtIndex:1];
             cell.shopNameLabel.text =[[cartItems objectAtIndex:indexPath.section] valueForKey:@"shop_name" ] ;
             [cell.checkOutButton setTag:indexPath.section];
             [cell.checkOutButton addTarget:self action:@selector(checkOutTapped:) forControlEvents:UIControlEventTouchUpInside];
         }
-      //  [self createCellForIndex:indexPath cell:cell];
+        //  [self createCellForIndex:indexPath cell:cell];
         
         return cell;
     }
     //if first row
     else if(indexPath.row == 0 )
-    
+        
     {
         SidebarTableHeaderView *cell = (SidebarTableHeaderView*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
@@ -493,27 +496,27 @@
         return cell;
     }
     else{
-    
-    SideBarCartCell *cell = (SideBarCartCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SideBarCartCell" owner:nil options:nil];
-        cell = [nib objectAtIndex:0];
+        
+        SideBarCartCell *cell = (SideBarCartCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil)
+        {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SideBarCartCell" owner:nil options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        [self createCellForIndex:indexPath cell:cell];
+        return cell;
     }
-    [self createCellForIndex:indexPath cell:cell];
-    return cell;
-}
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == ([[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list" ] count] + 1 )){
-        return 150;
+        return 108;
     }
     else if(indexPath.row == 0){
-        return 80;
+        return 64;
     }
     else{
-       return kTableCellHeight;
+        return kTableCellHeight;
     }
     
 }
@@ -522,7 +525,7 @@
     NSLog(@"%@", cartItems);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (![[[[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list" ] objectAtIndex:indexPath.row-1]  valueForKey:@"product_name"] class ]isEqual:[NSNull class]]){
-      cell.productItem.text = [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list" ] objectAtIndex:indexPath.row-1]  valueForKey:@"product_name"];
+        cell.productItem.text = [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list" ] objectAtIndex:indexPath.row-1]  valueForKey:@"product_name"];
     }
     
     cell.priceLabel.text =  [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list" ]  objectAtIndex:indexPath.row-1] valueForKey:@"total_price"];
@@ -535,7 +538,32 @@
         [cell.colorView setBackgroundColor:[UIColor colorWithHex:[[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row-1] valueForKey:@"color_code"]]];
     }
     if ([[[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row-1] valueForKey:@"size_name"] isEqual:@""]){
-        cell.colorView.hidden=TRUE;
+        cell.sizeImageView.hidden=TRUE;
+        cell.sizeLabel.hidden = YES;
+        CGRect sFrame = cell.sizeLabel.frame;
+        
+//        cell.addButton.frame = CGRectMake(cell.addButton.frame.origin.x,
+//                                          cell.quantityLabel.frame.origin.y,
+//                                          cell.addButton.frame.size.width,
+//                                          cell.addButton.frame.size.height);
+//        cell.minusButton.frame = CGRectMake(cell.minusButton.frame.origin.x,
+//                                            cell.quantityLabel.frame.origin.y,
+//                                            cell.minusButton.frame.size.width,
+//                                            cell.minusButton.frame.size.height);
+//        cell.priceLabel.frame = CGRectMake(cell.priceLabel.frame.origin.x,
+//                                           cell.quantityLabel.frame.origin.y,
+//                                           cell.priceLabel.frame.size.width,
+//                                           cell.priceLabel.frame.size.height);
+        
+        
+        cell.quantityLabel.frame = CGRectMake(sFrame.origin.x,
+                                              sFrame.origin.y,
+                                              cell.quantityLabel.frame.size.width,
+                                              cell.quantityLabel.frame.size.height);
+        cell.qtyLabel.frame = CGRectMake(cell.qtyLabel.frame.origin.x,
+                                         sFrame.origin.y,
+                                         cell.qtyLabel.frame.size.width,
+                                         cell.qtyLabel.frame.size.height);
     }else{
         cell.sizeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_button.png",[[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row-1] valueForKey:@"size_name" ]]];
     }
@@ -613,11 +641,11 @@
      object:self];
 }
 - (void)updateTabBar {
-     int counter = 0;
+    int counter = 0;
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     for (id row in cartItems ){
         for (id items in [row valueForKey:@"item_list"]){
-           
+            
             counter = counter + [[items valueForKey:@"quantity"] intValue];
             
         }
@@ -627,30 +655,30 @@
         [mydelegate removeCustomBadge];
     }
     else{
-    [mydelegate setCustomBadgeWithText:[NSString stringWithFormat:@"%d",counter]];
+        [mydelegate setCustomBadgeWithText:[NSString stringWithFormat:@"%d",counter]];
     }
 }
 
 -(void)shoppingCartChange:(NSNotification *)notification{
     self.cartItems = [[MJModel sharedInstance] getCartList];
-  
+    
     [self updateTabBar];
-  
+    
     [self.tableView reloadData];
     
     
-   // [[[[[self tabBarController] tabBar] items] objectAtIndex:4] setBadgeValue:@"1"];
+    // [[[[[self tabBarController] tabBar] items] objectAtIndex:4] setBadgeValue:@"1"];
 }
 -(void)checkOutTapped:(id)sender{
     CheckoutViewController *detailViewController = [[CheckoutViewController alloc] initWithNibName:@"CheckoutViewController" bundle:nil];
     detailViewController.cartList = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCartListForRow:[NSNumber numberWithInteger:[sender tag]]] ];
     detailViewController.footerView = [[[NSBundle mainBundle] loadNibNamed:@"checkOutFooterView" owner:self options:nil]objectAtIndex:0];
     detailViewController.footerType = @"0";
-   
-
+    
+    
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:NO];
-
+    
     
     [mydelegate.tabView activateController:1];
     
@@ -666,5 +694,5 @@
     
     [mydelegate handleTab5];
     [detailViewController release];
-   }
+}
 @end

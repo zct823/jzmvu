@@ -18,5 +18,6 @@
 @property (retain, nonatomic) IBOutlet UILabel *qtyLabel;
 @property (retain, nonatomic) IBOutlet UIImageView *colorView;
 @property (retain, nonatomic) IBOutlet UILabel *sizeLabel;
+@property (retain, nonatomic) IBOutlet UILabel *quantityLabel;
 
 @end

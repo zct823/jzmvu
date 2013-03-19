@@ -49,10 +49,16 @@
     if (!self.refreshDisabled)
     {
         AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mydelegate.bottomController.checkedCategories removeAllObjects];;
-        mydelegate.bottomController.searchTextField.text = @"";
-        self.selectedCategories = @"";
-        self.searchedText = @"";
+        if (![mydelegate.bottomSVAll.searchTextField.text isKindOfClass:[NSString class]]) {
+            mydelegate.bottomSVAll.searchTextField.text = @"";
+        }
+        if (![self.selectedCategories isKindOfClass:[NSString class]]) {
+            self.selectedCategories = @"";
+        }
+        //[mydelegate.bottomSVNews.checkedCategorie removeAllObjects];
+        //mydelegate.bottomSVNews.searchTextField.text = @"";
+        //self.selectedCategories = @"";
+        //self.searchedText = @"";
         
         [self.tableData removeAllObjects];
 //        [aQRcodeType removeAllObjects];
@@ -118,8 +124,11 @@
 
 - (void)setupView
 {
-    self.selectedCategories = @"";
-    self.searchedText = @"";
+    //self.selectedCategories = @"";
+    //self.searchedText = @"";
+    if (![self.searchedText isKindOfClass:[NSString class]]) {
+        self.searchedText = @"";
+    }
     
     NSString *isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:@"islogin"]copy];
     

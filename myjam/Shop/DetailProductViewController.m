@@ -292,24 +292,15 @@
     //popDisabled = YES;
     
     ReportSpamViewController *detailView = [[ReportSpamViewController alloc] init];
-    detailView.qrcodeId = self.productId;
-    NSLog(@"detailView QRCodeID: %@",detailView.qrcodeId);
+    detailView.productId = self.productId;
     detailView.qrTitle = headerView.productName.text;
-    NSLog(@"detailView qrtitle: %@",detailView.qrTitle);
     detailView.qrProvider = headerView.shopName.text;
-    NSLog(@"detailView QRProvider: %@",detailView.qrProvider);
     detailView.qrDate = @"";
-    NSLog(@"detailView QRdate: %@",detailView.qrDate);
     detailView.qrAbstract = @"";
-    NSLog(@"detailView QRAbstract: %@",detailView.qrAbstract);
     detailView.qrType = headerView.productName.text;
-    NSLog(@"detailView QRType: %@",detailView.qrType);
     detailView.qrCategory = headerView.productCat.text;
-    NSLog(@"detailView QRCategory: %@",detailView.qrCategory);
     detailView.qrLabelColor = @"#ffffff";
-    NSLog(@"detailView QRLabelCOlor: %@",detailView.qrLabelColor);
     detailView.qrImage = [self.aImages objectAtIndex:0];
-    //NSLog(@"detailView QRimage: %@",detailView.qrcodeId);
     [self.navigationController pushViewController:detailView animated:YES];
     [detailView release];
     
@@ -779,14 +770,27 @@
         }
     }
 }
+
 -(void)submitReport:(id)sender{
-    ProductReportViewController *detailViewController = [[ProductReportViewController alloc] initWithNibName:@"ProductReportViewController" bundle:nil andProductId:self.productId];
     
+    ReportSpamViewController *detailView = [[ReportSpamViewController alloc] init];
+    detailView.productId = self.productId;
+    detailView.qrTitle = headerView.productName.text;
+    detailView.qrProvider = headerView.shopName.text;
+    detailView.qrDate = @"";
+    detailView.qrAbstract = @"";
+    detailView.qrType = headerView.productName.text;
+    detailView.qrCategory = headerView.productCat.text;
+    detailView.qrLabelColor = @"#ffffff";
+    detailView.qrImage = [self.aImages objectAtIndex:0];
+    [self.navigationController pushViewController:detailView animated:YES];
+    [detailView release];
     
-    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-    //[self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
+//    ProductReportViewController *detailViewController = [[ProductReportViewController alloc] initWithNibName:@"ProductReportViewController" bundle:nil andProductId:self.productId];
+//    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
+//    //[self.navigationController pushViewController:detailViewController animated:YES];
+//    [detailViewController release];
 }
 -(void)checkOut:(id)sender{
     CheckoutViewController *detailViewController = [[CheckoutViewController alloc] initWithNibName:@"CheckoutViewController" bundle:nil];

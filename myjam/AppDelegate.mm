@@ -38,7 +38,11 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 
 @synthesize window;
 @synthesize sidebarController;
+<<<<<<< HEAD
 @synthesize bottomController, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox, bottomSVJShop, bottomSVJSPurchase;
+=======
+@synthesize bottomSVAll, bottomSVNews, bottomSVPromo, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox;
+>>>>>>> 37d8a8fb252b4f8a68369c45f04ff88e5d39c3fa
 @synthesize sideBarOpen;
 @synthesize bottomViewOpen;
 @synthesize tabView;
@@ -55,7 +59,9 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     [tabView release];
     [bannerView release];
     [tutorial release];
-    [bottomController release];
+    [bottomSVAll release];
+    [bottomSVNews release];
+    [bottomSVPromo release];
     [bottomSVScanBox release];
     [bottomSVShareBox release];
     [bottomSVFavBox release];
@@ -151,7 +157,9 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 {
     [tabView.view removeFromSuperview];
     [sidebarController.view removeFromSuperview];
-    [bottomController.view removeFromSuperview];
+    [bottomSVAll.view removeFromSuperview];
+    [bottomSVNews.view removeFromSuperview];
+    [bottomSVPromo.view removeFromSuperview];
     [bottomSVScanBox.view removeFromSuperview];
     [bottomSVShareBox.view removeFromSuperview];
     [bottomSVFavBox.view removeFromSuperview];
@@ -160,7 +168,9 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     [bottomSVJSPurchase.view removeFromSuperview];
     [frontLayerView release];
     [tabView release];
-    [bottomController release];
+    [bottomSVAll release];
+    [bottomSVNews release];
+    [bottomSVPromo release];
     [bottomSVScanBox release];
     [sidebarController release];
     [homeNavController release];
@@ -181,7 +191,10 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     sidebarController = [[SidebarView alloc] init];
     
     // Bottom filter view
-    bottomController = [[BottomSwipeView alloc] init];
+    bottomSVAll = [[BottomSwipeView alloc] init];
+    bottomSVNews = [[BottomSwipeViewNews alloc] init];
+    bottomSVPromo = [[BottomSwipeViewPromo alloc] init];
+    
     bottomSVScanBox = [[BottomSwipeViewScanBox alloc] init];
     bottomSVShareBox = [[BottomSwipeViewShareBox alloc] init];
     bottomSVFavBox = [[BottomSwipeViewFavBox alloc] init];
@@ -235,7 +248,11 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     
     sidebarController.view.frame = CGRectMake(320.0f, 0.0f, sidebarController.view.frame.size.width, self.window.frame.size.height);
     
-    bottomController.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomController.view.frame.size.width, bottomController.view.frame.size.height);
+    bottomSVAll.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVAll.view.frame.size.width, bottomSVAll.view.frame.size.height);
+    
+    bottomSVNews.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVNews.view.frame.size.width, bottomSVNews.view.frame.size.height);
+    
+    bottomSVPromo.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVPromo.view.frame.size.width, bottomSVPromo.view.frame.size.height);
     
     bottomSVScanBox.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVScanBox.view.frame.size.width, bottomSVScanBox.view.frame.size.height);
     
@@ -317,7 +334,9 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         sideBarOpen = NO;
         [homeNavController.view setUserInteractionEnabled:YES];
         [bannerView setUserInteractionEnabled:YES];
-        [bottomController.view setHidden:NO];
+        [bottomSVAll.view setHidden:NO];
+        [bottomSVNews.view setHidden:NO];
+        [bottomSVPromo.view setHidden:NO];
         [bottomSVScanBox.view setHidden:NO];
         [bottomSVShareBox.view setHidden:NO];
         [bottomSVFavBox.view setHidden:NO];
@@ -345,7 +364,9 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         sideBarOpen = YES;
         [homeNavController.view setUserInteractionEnabled:NO];
         [bannerView setUserInteractionEnabled:NO];
-        [bottomController.view setHidden:YES];
+        [bottomSVAll.view setHidden:YES];
+        [bottomSVNews.view setHidden:YES];
+        [bottomSVPromo.view setHidden:YES];
         [bottomSVScanBox.view setHidden:YES];
         [bottomSVShareBox.view setHidden:YES];
         [bottomSVFavBox.view setHidden:YES];
@@ -391,9 +412,21 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         bottomViewOpen = NO;
         [UIView animateWithDuration:kAnimateDurationBottomView delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
          {
-             if (swipeOptionString == nil)
+             //if (swipeOptionString == nil)
+             //{
+                 //bottomController.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomController.view.frame.size.width, bottomController.view.frame.size.height);
+             //}
+             if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
              {
-                 bottomController.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomController.view.frame.size.width, bottomController.view.frame.size.height);
+                 bottomSVAll.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVAll.view.frame.size.width, bottomSVAll.view.frame.size.height);
+             }
+             else if ([swipeOptionString isEqual:@"home-news"])
+             {
+                 bottomSVNews.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVNews.view.frame.size.width, bottomSVNews.view.frame.size.height);
+             }
+             else if ([swipeOptionString isEqual:@"home-promo"])
+             {
+                 bottomSVPromo.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomSVPromo.view.frame.size.width, bottomSVPromo.view.frame.size.height);
              }
              else if ([swipeOptionString isEqual:@"scan"])
              {
@@ -422,9 +455,21 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
              
          }
                          completion:^(BOOL finished){
-                             if (swipeOptionString == nil)
+                             //if (swipeOptionString == nil)
+                             //{
+                                 //[bottomController.view removeFromSuperview];
+                             //}
+                             if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
                              {
-                                 [bottomController.view removeFromSuperview];
+                                 [bottomSVAll.view removeFromSuperview];
+                             }
+                             else if ([swipeOptionString isEqual:@"home-news"])
+                             {
+                                 [bottomSVNews.view removeFromSuperview];
+                             }
+                             else if ([swipeOptionString isEqual:@"home-promo"])
+                             {
+                                 [bottomSVPromo.view removeFromSuperview];
                              }
                              else if ([swipeOptionString isEqual:@"scan"])
                              {
@@ -461,10 +506,25 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 //        [tabView.view setUserInteractionEnabled:NO];
 
         bottomViewOpen = YES;
-        if (swipeOptionString == nil)
+        //if (swipeOptionString == nil)
+        //{
+            //[self.window addSubview:bottomController.view];
+            //[self.window bringSubviewToFront:bottomController.view];
+        //}
+        if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
         {
-            [self.window addSubview:bottomController.view];
-            [self.window bringSubviewToFront:bottomController.view];
+            [self.window addSubview:bottomSVAll.view];
+            [self.window bringSubviewToFront:bottomSVAll.view];
+        }
+        else if ([swipeOptionString isEqual:@"home-news"])
+        {
+            [self.window addSubview:bottomSVNews.view];
+            [self.window bringSubviewToFront:bottomSVNews.view];
+        }
+        else if ([swipeOptionString isEqual:@"home-promo"])
+        {
+            [self.window addSubview:bottomSVPromo.view];
+            [self.window bringSubviewToFront:bottomSVPromo.view];
         }
         else if ([swipeOptionString isEqual:@"scan"])
         {
@@ -500,9 +560,21 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         [UIView animateWithDuration:kAnimateDurationBottomView delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
          {
              // change here for 4 retina
-             if (swipeOptionString == nil)
+             //if (swipeOptionString == nil)
+             //{
+                 //bottomController.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomController.view.frame.size.height, bottomController.view.frame.size.width, bottomController.view.frame.size.height);
+             //}
+             if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
              {
-                 bottomController.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomController.view.frame.size.height, bottomController.view.frame.size.width, bottomController.view.frame.size.height);
+                 bottomSVAll.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomSVAll.view.frame.size.height, bottomSVAll.view.frame.size.width, bottomSVAll.view.frame.size.height);
+             }
+             else if ([swipeOptionString isEqual:@"home-news"])
+             {
+                 bottomSVNews.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomSVNews.view.frame.size.height, bottomSVNews.view.frame.size.width, bottomSVNews.view.frame.size.height);
+             }
+             else if ([swipeOptionString isEqual:@"home-promo"])
+             {
+                 bottomSVPromo.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomSVPromo.view.frame.size.height, bottomSVPromo.view.frame.size.width, bottomSVPromo.view.frame.size.height);
              }
              else if ([swipeOptionString isEqual:@"scan"])
              {
@@ -530,11 +602,29 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
              }
          }
                          completion:^(BOOL finished){
-                             if (swipeOptionString == nil)
-                             {
-                                 [bottomController.activityView startAnimating];
+                             //if (swipeOptionString == nil)
+                             //{
+                                 //[bottomController.activityView startAnimating];
                                  
-                                 [bottomController performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 //[bottomController performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                             //}
+                             if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
+                             {
+                                 [bottomSVAll.activityView startAnimating];
+                                 
+                                 [bottomSVAll performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                             }
+                             else if ([swipeOptionString isEqual:@"home-news"])
+                             {
+                                 [bottomSVNews.activityView startAnimating];
+                                 
+                                 [bottomSVNews performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                             }
+                             else if ([swipeOptionString isEqual:@"home-promo"])
+                             {
+                                 [bottomSVPromo.activityView startAnimating];
+                                 
+                                 [bottomSVPromo performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
                              }
                              else if ([swipeOptionString isEqual:@"scan"])
                              {

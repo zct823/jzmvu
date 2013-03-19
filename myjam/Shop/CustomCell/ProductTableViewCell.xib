@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">11G63b</string>
+		<string key="IBDocument.SystemVersion">12C2034</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -811,7 +811,142 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
+<<<<<<< HEAD
 			<int key="maxID">129</int>
+=======
+			<int key="maxID">123</int>
+		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">CustomHeader</string>
+					<string key="superclassName">UIView</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="catTitle">UILabel</string>
+						<string key="viewAll">UIButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="catTitle">
+							<string key="name">catTitle</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="viewAll">
+							<string key="name">viewAll</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/CustomHeader.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ProductTableViewCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="button2">UIButton</string>
+						<string key="button3">UIButton</string>
+						<string key="catLabel2">UILabel</string>
+						<string key="catNameLabel">UILabel</string>
+						<string key="customHeader">CustomHeader</string>
+						<string key="priceLabel1">UILabel</string>
+						<string key="priceLabel2">UILabel</string>
+						<string key="priceLabel3">UILabel</string>
+						<string key="productHeader">CustomHeader</string>
+						<string key="productLabel1">UILabel</string>
+						<string key="productLabel2">UILabel</string>
+						<string key="rateView1">RateView</string>
+						<string key="rateView3">RateView</string>
+						<string key="transView1">UIView</string>
+						<string key="transView2">UIView</string>
+						<string key="transView3">UIView</string>
+						<string key="viewAllButton">UIButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="button2">
+							<string key="name">button2</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="button3">
+							<string key="name">button3</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="catLabel2">
+							<string key="name">catLabel2</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="catNameLabel">
+							<string key="name">catNameLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="customHeader">
+							<string key="name">customHeader</string>
+							<string key="candidateClassName">CustomHeader</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="priceLabel1">
+							<string key="name">priceLabel1</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="priceLabel2">
+							<string key="name">priceLabel2</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="priceLabel3">
+							<string key="name">priceLabel3</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="productHeader">
+							<string key="name">productHeader</string>
+							<string key="candidateClassName">CustomHeader</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="productLabel1">
+							<string key="name">productLabel1</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="productLabel2">
+							<string key="name">productLabel2</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="rateView1">
+							<string key="name">rateView1</string>
+							<string key="candidateClassName">RateView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="rateView3">
+							<string key="name">rateView3</string>
+							<string key="candidateClassName">RateView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="transView1">
+							<string key="name">transView1</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="transView2">
+							<string key="name">transView2</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="transView3">
+							<string key="name">transView3</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="viewAllButton">
+							<string key="name">viewAllButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ProductTableViewCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">RateView</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/RateView.h</string>
+					</object>
+				</object>
+			</array>
+>>>>>>> 37d8a8fb252b4f8a68369c45f04ff88e5d39c3fa
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 me-tech. All rights reserved.
 //
 
-#import "BottomSwipeView.h"
+#import "BottomSwipeViewPromo.h"
 #import "AppDelegate.h"
 #import "ASIWrapper.h"
 #import <QuartzCore/QuartzCore.h>
@@ -15,11 +15,11 @@
 static int kLabelTagStart = 100;
 static int kImageTagStart = 1000;
 
-@interface BottomSwipeView ()
+@interface BottomSwipeViewPromo ()
 
 @end
 
-@implementation BottomSwipeView
+@implementation BottomSwipeViewPromo
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,7 +43,7 @@ static int kImageTagStart = 1000;
 
 - (void)reloadCategories
 {
-    NSLog(@"reload categories all");
+    NSLog(@"reload categories promo");
     [self.scroller setContentOffset:CGPointMake(0, 0) animated:NO];
     for (UIView *aView in [self.contentView subviews]) {
         if ([aView isKindOfClass:[UILabel class]] || [aView isKindOfClass:[UIImageView class]]) {
@@ -58,7 +58,7 @@ static int kImageTagStart = 1000;
     
     isSearchDisabled = NO;
     
-    self.checkedAllCategories = [[NSMutableDictionary alloc] init];
+    self.checkedPromoCategories = [[NSMutableDictionary alloc] init];
     
     // Do any additional setup after loading the view from its nib.
     [self.scroller setContentSize:self.contentView.frame.size];
@@ -150,7 +150,7 @@ static int kImageTagStart = 1000;
     HomeViewController *hm = [mydelegate.homeNavController.viewControllers objectAtIndex:0];
     NSMutableString *strData = [NSMutableString stringWithFormat:@""];
     int i = 0;
-    for (id row in self.checkedAllCategories) {
+    for (id row in self.checkedPromoCategories) {
         if (i == 0) {
             strData = [NSString stringWithFormat:@"%@",row];
         }else{
@@ -162,9 +162,9 @@ static int kImageTagStart = 1000;
     
     NSLog(@"data: %@",strData);
     
-    if (mydelegate.swipeController == kAll) {
-        [hm.av refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
-        NSLog(@"all");
+    if (mydelegate.swipeController == kPromotion) {
+        [hm.pv refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
+        NSLog(@"promo");
     }
     
     //    [DejalBezelActivityView removeViewAnimated:YES];
@@ -173,7 +173,7 @@ static int kImageTagStart = 1000;
 - (IBAction)clearButton:(id)sender
 {
     if (!isSearchDisabled) {
-        [self.checkedAllCategories removeAllObjects];
+        [self.checkedPromoCategories removeAllObjects];
         self.searchTextField.text = @"";
     }
     
@@ -182,7 +182,7 @@ static int kImageTagStart = 1000;
 
 - (void)setupCatagoryList
 {
-    NSLog(@"setupCatagoryList. checked %d",[self.checkedAllCategories count]);
+    NSLog(@"setupCatagoryList. checked %d",[self.checkedPromoCategories count]);
     
     NSDictionary *categories;
     NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_category.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
@@ -305,12 +305,7 @@ static int kImageTagStart = 1000;
 
 - (BOOL)isAlreadyChecked:(int)key
 {
-<<<<<<< HEAD
-    
-    if ([checkedCategories objectForKey:[NSString stringWithFormat:@"%d",key-kImageTagStart]]) {
-=======
-    if ([self.checkedAllCategories objectForKey:[NSString stringWithFormat:@"%d",key-kImageTagStart]]) {
->>>>>>> 37d8a8fb252b4f8a68369c45f04ff88e5d39c3fa
+    if ([self.checkedPromoCategories objectForKey:[NSString stringWithFormat:@"%d",key-kImageTagStart]]) {
         return YES;
     }
     
@@ -326,11 +321,11 @@ static int kImageTagStart = 1000;
     UIImageView *imgv = (UIImageView *)[self.view viewWithTag:imgTag];
     if ([imgv isHidden]) {
         [imgv setHidden:NO];
-        [self.checkedAllCategories setObject:val forKey:val];
+        [self.checkedPromoCategories setObject:val forKey:val];
     }
     else{
         [imgv setHidden:YES];
-        [self.checkedAllCategories removeObjectForKey:val];
+        [self.checkedPromoCategories removeObjectForKey:val];
     }
 }
 

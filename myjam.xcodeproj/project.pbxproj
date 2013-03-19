@@ -133,8 +133,6 @@
 		613961D216EED2610056B314 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 6139613C16EED2610056B314 /* home.png */; };
 		613961D316EED2610056B314 /* home2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6139613D16EED2610056B314 /* home2.png */; };
 		613961D416EED2610056B314 /* home_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6139613E16EED2610056B314 /* home_selected.png */; };
-		613961D516EED2610056B314 /* htc_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 6139613F16EED2610056B314 /* htc_image.png */; };
-		613961D616EED2610056B314 /* htc_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6139614016EED2610056B314 /* htc_logo.png */; };
 		613961D716EED2610056B314 /* ic_action_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 6139614116EED2610056B314 /* ic_action_search.png */; };
 		613961D816EED2610056B314 /* ic_launcher.png in Resources */ = {isa = PBXBuildFile; fileRef = 6139614216EED2610056B314 /* ic_launcher.png */; };
 		613961D916EED2610056B314 /* ifollow_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6139614316EED2610056B314 /* ifollow_btn.png */; };
@@ -641,8 +639,6 @@
 		6139613C16EED2610056B314 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		6139613D16EED2610056B314 /* home2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home2.png; sourceTree = "<group>"; };
 		6139613E16EED2610056B314 /* home_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_selected.png; sourceTree = "<group>"; };
-		6139613F16EED2610056B314 /* htc_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = htc_image.png; sourceTree = "<group>"; };
-		6139614016EED2610056B314 /* htc_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = htc_logo.png; sourceTree = "<group>"; };
 		6139614116EED2610056B314 /* ic_action_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_action_search.png; sourceTree = "<group>"; };
 		6139614216EED2610056B314 /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_launcher.png; sourceTree = "<group>"; };
 		6139614316EED2610056B314 /* ifollow_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ifollow_btn.png; sourceTree = "<group>"; };
@@ -1228,11 +1224,11 @@
 		610B4E1C164BABF800790E9E /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				FF10D8AD16EA09C500479199 /* HomeViewController.h */,
+				FF10D8AE16EA09C500479199 /* HomeViewController.m */,
 				6180D8671649F43000D9C74D /* HomeViewController.xib */,
 				FF10D8B016EA09DE00479199 /* BoxViewController.h */,
 				FF10D8B116EA09DE00479199 /* BoxViewController.m */,
-				FF10D8AD16EA09C500479199 /* HomeViewController.h */,
-				FF10D8AE16EA09C500479199 /* HomeViewController.m */,
 				6180D86F1649F8B600D9C74D /* ScanQRViewController.h */,
 				617F43251665B003001042A7 /* ScanQRViewController.mm */,
 				6180D8711649F8B600D9C74D /* ScanQRViewController.xib */,
@@ -1322,8 +1318,6 @@
 				6139613C16EED2610056B314 /* home.png */,
 				6139613D16EED2610056B314 /* home2.png */,
 				6139613E16EED2610056B314 /* home_selected.png */,
-				6139613F16EED2610056B314 /* htc_image.png */,
-				6139614016EED2610056B314 /* htc_logo.png */,
 				6139614116EED2610056B314 /* ic_action_search.png */,
 				6139614216EED2610056B314 /* ic_launcher.png */,
 				6139614316EED2610056B314 /* ifollow_btn.png */,
@@ -2478,8 +2472,6 @@
 				613961D216EED2610056B314 /* home.png in Resources */,
 				613961D316EED2610056B314 /* home2.png in Resources */,
 				613961D416EED2610056B314 /* home_selected.png in Resources */,
-				613961D516EED2610056B314 /* htc_image.png in Resources */,
-				613961D616EED2610056B314 /* htc_logo.png in Resources */,
 				613961D716EED2610056B314 /* ic_action_search.png in Resources */,
 				613961D816EED2610056B314 /* ic_launcher.png in Resources */,
 				613961D916EED2610056B314 /* ifollow_btn.png in Resources */,

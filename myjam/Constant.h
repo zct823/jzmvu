@@ -9,6 +9,13 @@
 #ifndef myjam_Constant_h
 #define myjam_Constant_h
 
+// Page index tracker
+#define kHomeTab        0
+#define kShopTab        1
+#define kScannerTab     2
+#define kBoxTab         3
+#define kOthersTab      4
+
 #define SELECTED_VIEW_CONTROLLER_TAG 98456345
 #define NOTIFICATION_IMAGE_VIEW_TAG 98456346
 

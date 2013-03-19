@@ -46,6 +46,9 @@
     
     AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     
+    // Mark current page
+    myDelegate.pageIndex = kShopTab;
+    
     myDelegate.swipeBottomEnabled = YES;
     myDelegate.swipeOptionString = @"shop";
     

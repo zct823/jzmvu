@@ -28,9 +28,9 @@
 {
     // Manually change the selected tabButton
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [mydelegate.tabView activateController:0];
+    [mydelegate.tabView activateController:mydelegate.pageIndex];
     for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
-        if (i == 0) {
+        if (i == mydelegate.pageIndex) {
             [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
         } else {
             [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];

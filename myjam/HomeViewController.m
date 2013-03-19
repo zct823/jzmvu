@@ -132,8 +132,11 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-//    [self switchViewController:vc1];
+    // Mark current page
+    mydelegate.pageIndex = kHomeTab;
+
     [tabBar showDefaults];
     [self animateAds];
     
@@ -160,7 +163,6 @@
             [localData setObject:[NSString stringWithFormat:@"%d",++countI] forKey:counterKey];
         }
         else{
-            AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [mydelegate showUpdateProfileDialog];
         }
     }

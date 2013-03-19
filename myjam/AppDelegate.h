@@ -56,7 +56,7 @@
 
 @property int indexTemp;
 @property int swipeController;
-
+@property int pageIndex;
 
 @property BOOL isSetupDone;
 @property BOOL sideBarOpen;

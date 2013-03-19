@@ -103,6 +103,7 @@
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [mydelegate.bannerView animateFunction];
+    mydelegate.pageIndex = kScannerTab;
 }
 
 - (void)viewWillAppear:(BOOL)animated

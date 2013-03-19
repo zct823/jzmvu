@@ -52,6 +52,10 @@
 		6114A50F16B18921009299EE /* CreateBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114A50916B187BE009299EE /* CreateBoxViewController.m */; };
 		6114A51116B1893C009299EE /* ShareBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114A50E16B187BE009299EE /* ShareBoxViewController.m */; };
 		6114A55C16B270F7009299EE /* MEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6114A55B16B270F7009299EE /* MEvent.m */; };
+		612007DD16F80071005227FB /* BottomSwipeViewNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 612007D616F7FF87005227FB /* BottomSwipeViewNews.m */; };
+		612007DE16F80071005227FB /* BottomSwipeViewPromo.m in Sources */ = {isa = PBXBuildFile; fileRef = 612007D916F7FF87005227FB /* BottomSwipeViewPromo.m */; };
+		612007DF16F800C4005227FB /* BottomSwipeViewNews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 612007D716F7FF87005227FB /* BottomSwipeViewNews.xib */; };
+		612007E016F800C4005227FB /* BottomSwipeViewPromo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 612007DA16F7FF87005227FB /* BottomSwipeViewPromo.xib */; };
 		61266C6116F6F3C60092BB83 /* BottomSwipeViewJShop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61266C5E16F6F13E0092BB83 /* BottomSwipeViewJShop.xib */; };
 		61266C6216F6F3DB0092BB83 /* BottomSwipeViewJSPurchase.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61266C5B16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.xib */; };
 		61266C6316F6F3ED0092BB83 /* BottomSwipeViewJSPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 61266C5A16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.m */; };
@@ -551,6 +555,12 @@
 		6114A50E16B187BE009299EE /* ShareBoxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareBoxViewController.m; sourceTree = "<group>"; };
 		6114A55A16B270F7009299EE /* MEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEvent.h; sourceTree = "<group>"; };
 		6114A55B16B270F7009299EE /* MEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEvent.m; sourceTree = "<group>"; };
+		612007D516F7FF87005227FB /* BottomSwipeViewNews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSwipeViewNews.h; sourceTree = "<group>"; };
+		612007D616F7FF87005227FB /* BottomSwipeViewNews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewNews.m; sourceTree = "<group>"; };
+		612007D716F7FF87005227FB /* BottomSwipeViewNews.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSwipeViewNews.xib; sourceTree = "<group>"; };
+		612007D816F7FF87005227FB /* BottomSwipeViewPromo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSwipeViewPromo.h; sourceTree = "<group>"; };
+		612007D916F7FF87005227FB /* BottomSwipeViewPromo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewPromo.m; sourceTree = "<group>"; };
+		612007DA16F7FF87005227FB /* BottomSwipeViewPromo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSwipeViewPromo.xib; sourceTree = "<group>"; };
 		61266C5916F6F13E0092BB83 /* BottomSwipeViewJShop.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewJShop.m; sourceTree = "<group>"; };
 		61266C5A16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewJSPurchase.m; sourceTree = "<group>"; };
 		61266C5B16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSwipeViewJSPurchase.xib; sourceTree = "<group>"; };
@@ -1988,6 +1998,12 @@
 		6181F47B168806260064FF7C /* BottomSwipeView */ = {
 			isa = PBXGroup;
 			children = (
+				612007D516F7FF87005227FB /* BottomSwipeViewNews.h */,
+				612007D616F7FF87005227FB /* BottomSwipeViewNews.m */,
+				612007D716F7FF87005227FB /* BottomSwipeViewNews.xib */,
+				612007D816F7FF87005227FB /* BottomSwipeViewPromo.h */,
+				612007D916F7FF87005227FB /* BottomSwipeViewPromo.m */,
+				612007DA16F7FF87005227FB /* BottomSwipeViewPromo.xib */,
 				61266C5D16F6F13E0092BB83 /* BottomSwipeViewJShop.h */,
 				61266C5916F6F13E0092BB83 /* BottomSwipeViewJShop.m */,
 				61266C5C16F6F13E0092BB83 /* BottomSwipeViewJSPurchase.h */,
@@ -2322,6 +2338,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				612007DF16F800C4005227FB /* BottomSwipeViewNews.xib in Resources */,
+				612007E016F800C4005227FB /* BottomSwipeViewPromo.xib in Resources */,
 				61266C6216F6F3DB0092BB83 /* BottomSwipeViewJSPurchase.xib in Resources */,
 				61266C6116F6F3C60092BB83 /* BottomSwipeViewJShop.xib in Resources */,
 				FF10D8B516EA0E7100479199 /* BottomSwipeViewScanBox.xib in Resources */,
@@ -2590,6 +2608,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				612007DD16F80071005227FB /* BottomSwipeViewNews.m in Sources */,
+				612007DE16F80071005227FB /* BottomSwipeViewPromo.m in Sources */,
 				61266C6416F6F40F0092BB83 /* BottomSwipeViewJShop.m in Sources */,
 				61266C6316F6F3ED0092BB83 /* BottomSwipeViewJSPurchase.m in Sources */,
 				FF10D89D16E9E1CA00479199 /* BottomSwipeViewCreateBox.m in Sources */,

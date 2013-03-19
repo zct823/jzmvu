@@ -56,7 +56,7 @@
             if ([[[self.sizesForColor objectAtIndex:i] valueForKey:@"stock_balance"] isEqual:[NSNumber numberWithInt:0]]){
                  
                 imageView.backgroundColor = [UIColor colorWithHex:[[[self.colorChoices objectAtIndex:0]objectAtIndex:i] valueForKey:@"color_code"]] ;
-                [imageView.layer setBorderColor: [[UIColor grayColor] CGColor]];
+                [imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
                 [imageView.layer setBorderWidth: 1.0];
                 if ([self.colorChoices count]>1){
                 imageView.image = [UIImage imageNamed:@"cross.png"];
@@ -70,11 +70,11 @@
                 imageView.backgroundColor = [UIColor colorWithHex:[[[self.colorChoices objectAtIndex:0]objectAtIndex:i] valueForKey:@"color_code"]] ;
                 if (self.color == i){
                    [imageView.layer setBorderColor: [[UIColor redColor] CGColor]];
-                    [imageView.layer setBorderWidth: 4.0];
+                    [imageView.layer setBorderWidth: 2.0];
                 }
                 else{
-                    [imageView.layer setBorderColor: [[UIColor grayColor] CGColor]];
-                    [imageView.layer setBorderWidth: 2.0];
+                    [imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
+                    [imageView.layer setBorderWidth: 1.0];
                 }
                
                 
@@ -93,7 +93,7 @@
             if (![[[[self.colorChoices objectAtIndex:1]objectAtIndex:i] valueForKey:@"stock_balance"]isEqual:[NSNumber numberWithInt:0]]){
                 
             imageView.backgroundColor = [UIColor colorWithHex:[[[self.colorChoices objectAtIndex:0]objectAtIndex:i] valueForKey:@"color_code"]] ;
-            [imageView.layer setBorderColor: [[UIColor grayColor] CGColor]];
+            [imageView.layer setBorderColor: [[UIColor redColor] CGColor]];
             [imageView.layer setBorderWidth: 2.0];
             }
             }

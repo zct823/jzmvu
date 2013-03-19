@@ -20,6 +20,20 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        //TITLE
+        self.title = @"Review";
+        FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
+        titleView.text = self.title;
+        titleView.textAlignment = NSTextAlignmentCenter;
+        titleView.backgroundColor = [UIColor clearColor];
+        titleView.textColor = [UIColor whiteColor];
+        [titleView sizeToFit];
+        self.navigationItem.titleView = titleView;
+        [titleView release];
+        
+        
+        
     }
     return self;
 }
@@ -27,6 +41,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Setup screen for retina 4
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    
+    if (screenBounds.size.height == 568) {
+        // code for 4-inch screen
+        self.view.frame = CGRectMake(0,0,self.view.bounds.size.width, 568);
+    } else {
+        // code for 3.5-inch screen
+        self.view.frame = CGRectMake(0,0,self.view.bounds.size.width, 480);
+    }
+
+    self.scroller = (TPKeyboardAvoidingScrollView *)self.view;
+    
+    [self.scroller setContentSize:self.scrollView.frame.size];
+    [self.scroller addSubview:self.scrollView];
+    
+        
+    self.productReview.layer.borderWidth = 1.0f;
+    self.productReview.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.productReview.layer.cornerRadius = 8.0f;
+    
+    
     self.rateView.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
     self.rateView.selectedImage = [UIImage imageNamed:@"star.png"];
     self.rateView.editable = YES;
@@ -35,10 +71,28 @@
     self.ratingValue = [_productInfo valueForKey:@"rating"];
     self.rateView.rating = [[_productInfo valueForKey:@"rating"] intValue];
     self.productName.text = [_productInfo valueForKey:@"product_name"];
+    NSLog(@"Product Name: %@",self.productName.text);
     self.shopName.text = [_productInfo valueForKey:@"shop_name"];
+    
+    MarqueeLabel *shopeName = [[MarqueeLabel alloc] initWithFrame:CGRectMake(181, 79, 119, 21) rate:20.0f andFadeLength:10.0f];
+    shopeName.marqueeType = MLContinuous;
+    shopeName.animationCurve = UIViewAnimationOptionCurveLinear;
+    shopeName.numberOfLines = 1;
+    shopeName.opaque = NO;
+    shopeName.enabled = YES;
+    shopeName.textAlignment = NSTextAlignmentLeft;
+    shopeName.textColor = [UIColor blackColor];
+    shopeName.backgroundColor = [UIColor whiteColor];
+    shopeName.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+    shopeName.text = self.productName.text;
+    [self.scrollView addSubview:shopeName];
+    [shopeName release];
+    
     self.productReview.text = [_productInfo valueForKey:@"comment"];
-    self.scrollView.contentSize = self.scrollView.frame.size;
-    self.scrollView.frame = self.view.frame;
+    //self.view.contentSize = self.view.frame.size;
+    //self.scrollView.frame = self.view.frame;
+    //self.scrollView.frame = CGRectMake(0, 100, self.view.bounds.size.width, self.view.bounds.size.height);
+    //self.view.frame = CGRectMake(0, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
     CGSize expectedLabelSize  = [[_productInfo valueForKey:@"product_name"] sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(180.0, self.productName.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
     
     
@@ -47,7 +101,7 @@
     self.productName.frame = newFrame;
    
     self.lineMiddle.frame = CGRectMake(120 ,self.lineMiddle.frame.origin.y,200-expectedLabelSize.width, 1);
- 
+    
     [self.view addSubview:self.scrollView];
     
     // Do any additional setup after loading the view from its nib.

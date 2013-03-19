@@ -36,6 +36,21 @@
     self.productLabel.text = _productName;
     self.shopNameLabel.text = shopName;
     [self setNavBarTitle:@"Review"];
+    
+    MarqueeLabel *shopeName = [[MarqueeLabel alloc] initWithFrame:CGRectMake(192, 59, 115, 21) rate:20.0f andFadeLength:10.0f];
+    shopeName.marqueeType = MLContinuous;
+    shopeName.animationCurve = UIViewAnimationOptionCurveLinear;
+    shopeName.numberOfLines = 1;
+    shopeName.opaque = NO;
+    shopeName.enabled = YES;
+    shopeName.textAlignment = NSTextAlignmentLeft;
+    shopeName.textColor = [UIColor blackColor];
+    shopeName.backgroundColor = [UIColor whiteColor];
+    shopeName.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+    shopeName.text = self.productLabel.text;
+    [self.view addSubview:shopeName];
+    [shopeName release];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

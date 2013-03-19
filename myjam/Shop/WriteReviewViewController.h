@@ -1,4 +1,4 @@
-//
+﻿//
 //  WriteReviewViewController.h
 //  myjam
 //
@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TPKeyboardAvoidingScrollView.h"
 #import "MJModel.h"
 #import "CoreViewController.h"
 #import "RateView.h"
 #import "AppDelegate.h"
+#import "MarqueeLabel.h"
+
+
 @interface WriteReviewViewController : CoreViewController<UITextViewDelegate,RateViewDelegate>
 @property (retain, nonatomic) NSDictionary *productInfo;
 @property (retain, nonatomic) NSString *ratingValue;
@@ -20,8 +24,11 @@
 
 @property (retain, nonatomic) IBOutlet UILabel *productName;
 @property (retain, nonatomic) IBOutlet UITextView *productReview;
-@property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
+//@property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (retain, nonatomic) IBOutlet RateView *rateView;
+
+@property (nonatomic, retain) IBOutlet UIView *scrollView;
+@property (nonatomic, retain) TPKeyboardAvoidingScrollView *scroller;
 
 - (IBAction)submitReview:(id)sender;
 - (IBAction)visitShop:(id)sender;

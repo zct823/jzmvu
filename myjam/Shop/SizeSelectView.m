@@ -72,11 +72,11 @@
                 
                 if (self.size == i){
                     [imageView.layer setBorderColor: [[UIColor redColor] CGColor]];
-                     [imageView.layer setBorderWidth: 4.0];
+                     [imageView.layer setBorderWidth: 2.0];
                 }
                 else{
                 [imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
-                     [imageView.layer setBorderWidth: 2.0];
+                     [imageView.layer setBorderWidth: 1.0];
                     }
                
             }
@@ -142,18 +142,32 @@
   //  if (self.nonSelectedImage == nil) return;
     
   //  float desiredImageWidth = (self.frame.size.width - (self.leftMargin*2)- (self.midMargin*self.imageViews.count))/self.imageViews.count;
+    //CGSize tempWidth = CGSizeMake(0,0);
+    
     float imageWidth = MAX(self.minImageSize.width, self.frame.size.width);
     float imageHeight = MAX(self.minImageSize.height, self.frame.size.height);
-    CGSize tempWidth = CGSizeMake(0,0);
+    CGFloat x = 0;
+    CGSize expectedLabelSize = CGSizeMake(0,0);
     for (int i = 0 ; i < self.imageViews.count ; i++){
+        if (i != 0) {
+            x += self.leftMargin + expectedLabelSize.width;
+        }
         UILabel *imageView = [self.imageViews objectAtIndex:i];
-        CGSize expectedLabelSize = [[NSString stringWithFormat:@" %@ ",[[[self.sizeChoices objectAtIndex:0] objectAtIndex:i] valueForKey:@"size_name"]]  sizeWithFont:[UIFont fontWithName:@"Verdana" size:24.0] constrainedToSize:CGSizeMake(imageWidth, imageHeight) lineBreakMode:UILineBreakModeWordWrap];
-        CGRect imageFrame = CGRectMake(tempWidth.width, 0, expectedLabelSize.width, imageHeight);
-        tempWidth.width = tempWidth.width + self.leftMargin + self.midMargin+expectedLabelSize.width;
-        NSLog(@"%f",tempWidth.width);
         
-        imageView.frame = imageFrame;
+        [imageView setText:[[[self.sizeChoices objectAtIndex:0] objectAtIndex:i] valueForKey:@"size_name"]];
+        [imageView setBackgroundColor:[UIColor whiteColor]];
+        [imageView setFont:[UIFont fontWithName:@"Verdana" size:24.0] ];
+        [imageView setNumberOfLines:1];
+        [imageView sizeToFit];
+        [imageView setTextAlignment:NSTextAlignmentCenter];
+        imageWidth = MAX(40, imageView.frame.size.width);
+        expectedLabelSize.width = imageWidth;
+        imageView.frame = CGRectMake(x, 0, imageWidth, imageHeight);
         
+//        expectedLabelSize = [[NSString stringWithFormat:@"%@",[[[self.sizeChoices objectAtIndex:0] objectAtIndex:i] valueForKey:@"size_name"]]  sizeWithFont:[UIFont fontWithName:@"Verdana" size:24.0] constrainedToSize:CGSizeMake(imageWidth, imageHeight) lineBreakMode:UILineBreakModeWordWrap];
+        //CGRect imageFrame = CGRectMake(tempWidth.width, 0, 30, imageHeight);
+//        tempWidth.width = tempWidth.width + self.leftMargin + self.midMargin + expectedLabelSize.width;
+//        NSLog(@"size :%f %f",expectedLabelSize.width, x);
     }
 }
 -(void) setSizeChoicesNum:(int)sizeChoicesNum{

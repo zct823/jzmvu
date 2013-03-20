@@ -57,11 +57,13 @@
 @property int indexTemp;
 @property int swipeController;
 @property int pageIndex;
+@property BOOL isCheckoutFromSideBar;
 
 @property BOOL isSetupDone;
 @property BOOL sideBarOpen;
 @property BOOL bottomViewOpen;
 @property BOOL swipeBottomEnabled;
+
 
 - (void)setupViews;
 - (void)handleTab5;

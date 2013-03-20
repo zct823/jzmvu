@@ -249,16 +249,16 @@
         NSString *status = [resultsDictionary objectForKey:@"status"];
         NSString *msg = [resultsDictionary objectForKey:@"message"];
         
-        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Address Profile" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-        
         if ([status isEqualToString:@"ok"]) {
-            NSLog(@"Success submit address");
+            msg = @"Success submit address.";
+            NSLog(@"%@",msg);
             UJliteProfileViewController *ujlite = [[UJliteProfileViewController alloc] init];
             [ujlite reloadView];
             [self.navigationController popViewControllerAnimated:YES];
         }
+        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Address Profile" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
     }
     [DejalBezelActivityView removeViewAnimated:YES];
 }

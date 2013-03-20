@@ -324,7 +324,7 @@
             [localData setObject:email forKey:@"email"];
             [localData setObject:mobile forKey:@"mobile"];
             [localData setObject:[NSString stringWithFormat:@"YES"] forKey:@"islogin"];
-            [localData setObject:@"NO" forKey:@"isReloadNewsNeeded"];
+//            [localData setObject:@"NO" forKey:@"isReloadNewsNeeded"];
             [localData setObject:@"YES" forKey:@"isDisplayTutorial"];
             
             if (![fname length]) {

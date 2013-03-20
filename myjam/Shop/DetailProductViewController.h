@@ -34,6 +34,8 @@
     
 }
 @property (retain, nonatomic) NSString *productId;
+@property (retain, nonatomic) NSString *orderId;
+
 @property (retain, nonatomic) NSString *cartId;
 @property (retain, nonatomic) ProductHeaderView *headerView;
 @property (retain, nonatomic) IBOutlet UITableView *tableView;

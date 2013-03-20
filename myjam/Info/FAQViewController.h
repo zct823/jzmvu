@@ -1,4 +1,4 @@
-//
+﻿//
 //  FAQViewController.h
 //  myjam
 //
@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TPKeyboardAvoidingScrollView.h"
 
-@interface FAQViewController : UIViewController
+@interface FAQViewController : UIViewController <UIScrollViewDelegate>
+
+@property (nonatomic, retain) TPKeyboardAvoidingScrollView *scroller;
+@property (nonatomic, retain) IBOutlet UIView *contentView;
 
 @end

@@ -128,7 +128,10 @@
 - (void)setupReportTypeList
 {
     // Init the category data
-    if (![self.productId isEqual:@""]) {
+    if (![self.orderItemId isEqual:@""]) {
+        [self retrieveReportTypeForPurchasedItemFromAPI];
+    }
+    else if (![self.productId isEqual:@""]) {
         [self retrieveReportTypeForProductFromAPI];
     } else {
         [self retrieveReportTypeForBoxFromAPI];
@@ -164,7 +167,7 @@
                 [self.reportTypes setObject:[row objectForKey:@"type_id"] forKey:[row objectForKey:@"type_name"]];
             }
         }else{
-            CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Create Failed" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Report" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             alert.tag = kAlertNoConnection;
             [alert show];
             [alert release];
@@ -197,7 +200,7 @@
                 [self.reportTypes setObject:[row objectForKey:@"type_id"] forKey:[row objectForKey:@"type_name"]];
             }
         }else{
-            CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Create Failed" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Report" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             alert.tag = kAlertNoConnection;
             [alert show];
             [alert release];
@@ -206,6 +209,40 @@
     
     }
 }
+
+- (void)retrieveReportTypeForPurchasedItemFromAPI
+{
+//    NSString *proId = self.productId;
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/report_abuse_type.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
+    NSString *dataContent = [NSString stringWithFormat:@"{\"order_item_id\":\"%@\"}",self.orderItemId];
+    NSDictionary *rep;
+    NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
+    NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
+    
+    NSLog(@"resp: %@",response);
+    if([resultsDictionary count])
+    {
+        NSString *status = [resultsDictionary objectForKey:@"status"];
+        
+        if ([status isEqualToString:@"ok"])
+        {
+            rep = [resultsDictionary objectForKey:@"type_list"];
+            
+            for (id row in rep)
+            {
+                [self.reportTypes setObject:[row objectForKey:@"type_id"] forKey:[row objectForKey:@"type_name"]];
+            }
+        }else{
+            CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Report" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            alert.tag = kAlertNoConnection;
+            [alert show];
+            [alert release];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    }
+}
+
 
 #pragma mark -
 #pragma mark submitSpam

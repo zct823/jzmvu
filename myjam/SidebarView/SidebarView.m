@@ -49,6 +49,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [self reloadCartList];
     [self retrieveImageFromAPI];
     
     [self setUserInfo];
@@ -57,12 +58,15 @@
     
 }
 
-
+- (void)reloadCartList
+{
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"cartChanged"object:self];
+}
 
 - (void)viewDidLoad
 {
-    self.cartItems = [[MJModel sharedInstance] getCartList]  ;
-    [self updateTabBar];
+//    self.cartItems = [[MJModel sharedInstance] getCartList]  ;
+//    [self updateTabBar];
     
     [super viewDidLoad];
     
@@ -400,7 +404,7 @@
             [localData setObject:@"" forKey:@"email"];
             [localData setObject:@"" forKey:@"mobile"];
             [localData setObject:@"NO" forKey:@"islogin"];
-            [localData setObject:@"YES" forKey:@"isReloadNewsNeeded"];
+//            [localData setObject:@"YES" forKey:@"isReloadNewsNeeded"];
             [localData synchronize];
             [mydelegate handleTab5];
             [mydelegate.tabView activateController:0];
@@ -678,6 +682,7 @@
     
     
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    mydelegate.isCheckoutFromSideBar = YES;
     [mydelegate.shopNavController pushViewController:detailViewController animated:NO];
     
     

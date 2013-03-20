@@ -122,6 +122,7 @@
 						<double key="IBUIContentInset.bottom">50</double>
 						<double key="IBUIContentInset.left">0.0</double>
 						<double key="IBUIContentInset.right">0.0</double>
+						<bool key="IBUIBounces">NO</bool>
 						<bool key="IBUIBouncesZoom">NO</bool>
 						<int key="IBUISeparatorStyle">1</int>
 						<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>

@@ -44,6 +44,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.scroller = (TPKeyboardAvoidingScrollView *)self.view;
+    
+    [self.scroller setContentSize:self.scrollView.frame.size];
+    [self.scroller addSubview:self.scrollView];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

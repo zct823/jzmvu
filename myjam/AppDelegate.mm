@@ -217,11 +217,11 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     otherNavController = [[UINavigationController alloc] initWithRootViewController:createVC];
     
     // Init TabBarItem
-    GTabTabItem *tabItem1 = [[GTabTabItem alloc] initWithFrame:CGRectMake(0, 0, 64, 39) normalState:@"home" toggledState:@"home_selected"];
-	GTabTabItem *tabItem2 = [[GTabTabItem alloc] initWithFrame:CGRectMake(64, 0, 64, 39) normalState:@"footer_shop_icon_disabled" toggledState:@"shop_selected"];
-	GTabTabItem *tabItem3 = [[GTabTabItem alloc] initWithFrame:CGRectMake(128, 0, 64, 39) normalState:@"scan" toggledState:@"scan_selected"];
-	GTabTabItem *tabItem4 = [[GTabTabItem alloc] initWithFrame:CGRectMake(192, 0, 64, 39) normalState:@"box" toggledState:@"box_selected"];
-	GTabTabItem *tabItem5 = [[GTabTabItem alloc] initWithFrame:CGRectMake(256, 0, 64, 39) normalState:@"more2" toggledState:@"more2"];
+    GTabTabItem *tabItem1 = [[GTabTabItem alloc] initWithFrame:CGRectMake(0, 0, 64, 39) normalState:@"home_selected" toggledState:@"home"];
+	GTabTabItem *tabItem2 = [[GTabTabItem alloc] initWithFrame:CGRectMake(64, 0, 64, 39) normalState:@"shop_selected" toggledState:@"shop"];
+	GTabTabItem *tabItem3 = [[GTabTabItem alloc] initWithFrame:CGRectMake(128, 0, 64, 39) normalState:@"scan_selected" toggledState:@"scan"];
+	GTabTabItem *tabItem4 = [[GTabTabItem alloc] initWithFrame:CGRectMake(192, 0, 64, 39) normalState:@"box_selected" toggledState:@"box"];
+	GTabTabItem *tabItem5 = [[GTabTabItem alloc] initWithFrame:CGRectMake(256, 0, 64, 39) normalState:@"more" toggledState:@"more"];
     
     // Disable Tabbutton2
     tabItem2.userInteractionEnabled = YES;

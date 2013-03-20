@@ -17,6 +17,7 @@
 @property (retain, nonatomic) TPKeyboardAvoidingScrollView *scroller;
 @property (retain, nonatomic) IBOutlet UIView *contentView;
 
+@property (nonatomic, retain) NSString *orderItemId;
 @property (nonatomic, retain) NSString *productId;
 @property (nonatomic, retain) NSString *qrcodeId;
 @property (nonatomic, retain) NSString *qrTitle;

@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad
 {
+    [self.tableView setBounces:NO];
     [super viewDidLoad];
     [self refresh];
 }

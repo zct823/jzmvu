@@ -76,20 +76,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    NSLog(@"vdidapp");
-    NSString *reloadNeeded = [[[NSUserDefaults standardUserDefaults] objectForKey:@"isReloadNewsNeeded"]copy];
-    
-    NSString *isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:@"islogin"]copy];
-    
-    // check if login again, then refresh
-    if ([reloadNeeded isEqualToString:@"YES"] && [isLogin isEqualToString:@"NO"])
-    {
-        NSLog(@"isReloadNewsNeeded");
-        [self refreshTableItemsWithFilter:@""];
-        NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
-        [localData setObject:[NSString stringWithFormat:@"NO"] forKey:@"isReloadNewsNeeded"];
-        [localData synchronize];
-    }
+
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

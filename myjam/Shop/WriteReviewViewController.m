@@ -153,6 +153,7 @@
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"CommentWritten"
          object:self];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 
 }

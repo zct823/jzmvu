@@ -105,13 +105,26 @@
 //    if (index == 4) {
 //        return;
 //    }
-    
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	for (int i = 0; i < [tabViewControllers count]; i++) {
         
         BOOL doesContain = [self.view.subviews containsObject:[[tabViewControllers objectAtIndex:i] view]];
 		if (i == index) {
             if (!doesContain) {
                 [self.view addSubview:[[tabViewControllers objectAtIndex:i] view]];
+            }
+            
+            if (i == 1) {
+                NSLog(@"shop hardcoded clicked");
+                if (mydelegate.isCheckoutFromSideBar == YES) {
+                    mydelegate.isCheckoutFromSideBar = NO;
+                }else{
+                    [mydelegate.shopNavController popToRootViewControllerAnimated:NO];
+                }
+            }else if(i == 0)
+            {
+                NSLog(@"home hardcoded clicked");
+                [mydelegate.homeNavController popToRootViewControllerAnimated:NO];
             }
 //			[[tabViewControllers objectAtIndex:i] view].hidden = NO;
 		} else {

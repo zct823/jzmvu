@@ -28,7 +28,7 @@
         [titleView sizeToFit];
         self.navigationItem.titleView = titleView;
         [titleView release];
-
+        
     }
     return self;
 }
@@ -37,6 +37,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.scroller = (TPKeyboardAvoidingScrollView *)self.view;
+    
+    [self.scroller setContentSize:self.contentView.frame.size];
+    [self.scroller addSubview:self.contentView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

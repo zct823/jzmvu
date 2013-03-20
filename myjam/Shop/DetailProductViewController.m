@@ -81,6 +81,8 @@
         
         [self retrieveImages:[[productInfo valueForKey:@"product_image"] objectAtIndex:i] ];
         
+        
+        
     }
     
     currentHeight = 30;
@@ -762,6 +764,7 @@
             return row;
         }
     }
+    return nil;
 }
 -(NSDictionary*)getSizeInfo:(NSArray*)info forId:(NSString*)sizeId{
     for (NSDictionary *row in info ){
@@ -769,11 +772,14 @@
             return row;
         }
     }
+    return nil;
 }
 
 -(void)submitReport:(id)sender{
     
     ReportSpamViewController *detailView = [[ReportSpamViewController alloc] init];
+    detailView.orderItemId = self.orderId;
+    NSLog(@"%@ -- ", detailView.orderItemId);
     detailView.productId = self.productId;
     detailView.qrTitle = headerView.productName.text;
     detailView.qrProvider = headerView.shopName.text;

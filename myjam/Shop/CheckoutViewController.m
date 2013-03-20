@@ -27,14 +27,14 @@
         [titleView sizeToFit];
         self.navigationItem.titleView = titleView;
         [titleView release];
-
+        
         self.navigationItem.backBarButtonItem =
         [[[UIBarButtonItem alloc] initWithTitle:@"Back"
                                           style:UIBarButtonItemStyleBordered
                                          target:nil
                                          action:nil] autorelease];
         
-         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shoppingCartChange:) name:@"cartChangedFromView" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shoppingCartChange:) name:@"cartChangedFromView" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(PurchaseVerification:)
                                                      name:@"PurchaseVerification"
@@ -51,14 +51,14 @@
      postNotificationName:@"cartChanged"
      object:self];
     if ([_cartList count] >0){
-    footerView.totalPrice.text =[[[[_cartList objectAtIndex:0]valueForKey:@"total"] componentsSeparatedByString:@":"] objectAtIndex:1];
-   // footerView.adminFeeLabel.text = [[[[_cartList objectAtIndex:0] valueForKey:@"admin_fee"]componentsSeparatedByString:@":"] objectAtIndex:1];
-    if ([self.footerType isEqual:@"1"]){
-        footerView.shopNameLabel.text = [[_cartList objectAtIndex:0] valueForKey:@"shop_name"];
-        footerView.deliveryLabel.text = [[_cartList objectAtIndex:0] valueForKey:@"delivery_fee"];
-        footerView.gTotalLabel.text
-        = [[[[_cartList objectAtIndex:0] valueForKey:@"grand_total"] componentsSeparatedByString:@":"] objectAtIndex:1];
-    }
+        footerView.totalPrice.text =[[[[_cartList objectAtIndex:0]valueForKey:@"total"] componentsSeparatedByString:@":"] objectAtIndex:1];
+        // footerView.adminFeeLabel.text = [[[[_cartList objectAtIndex:0] valueForKey:@"admin_fee"]componentsSeparatedByString:@":"] objectAtIndex:1];
+        if ([self.footerType isEqual:@"1"]){
+            footerView.shopNameLabel.text = [[_cartList objectAtIndex:0] valueForKey:@"shop_name"];
+            footerView.deliveryLabel.text = [[_cartList objectAtIndex:0] valueForKey:@"delivery_fee"];
+            footerView.gTotalLabel.text
+            = [[[[_cartList objectAtIndex:0] valueForKey:@"grand_total"] componentsSeparatedByString:@":"] objectAtIndex:1];
+        }
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Cart is empty. Please add an item." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
@@ -70,9 +70,7 @@
 }
 - (void)viewDidLoad
 {
-    
-    
-   self.shopName.text = [[_cartList objectAtIndex:0] valueForKey:@"shop_name"];
+    self.shopName.text = [[_cartList objectAtIndex:0] valueForKey:@"shop_name"];
     if ([self.footerType isEqual:@"1"]){
         [footerView.checkOutButton addTarget:self action:@selector(checkOutPressed:) forControlEvents:UIControlEventTouchUpInside];
         footerView.jambuFeePrice.text = [[_cartList objectAtIndex:0] valueForKey:@"admin_fee"];
@@ -84,10 +82,10 @@
     [footerView.deliveryButton addTarget:self action:@selector(deliveryOptions:) forControlEvents:UIControlEventTouchUpInside];
     
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -102,7 +100,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
+    
     // Return the number of sections.
     return [_cartList count];
 }
@@ -130,10 +128,10 @@
 }
 - (void)createCellForIndex:(NSIndexPath *)indexPath cell:(CartItemViewCell *)cell
 {
-
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.productName.text = [[[[_cartList objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row] valueForKey:@"product_name"];
-     cell.priceLabel.text = [[[[_cartList objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row] valueForKey:@"total_price"];
+    cell.priceLabel.text = [[[[_cartList objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row] valueForKey:@"total_price"];
     cell.qtyLabel.text = [[[[_cartList objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row] valueForKey:@"quantity"];
     if ([[[[[_cartList objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row] valueForKey:@"color_code"] isEqual:@""]){
         cell.colorView.hidden = true;
@@ -147,7 +145,7 @@
         cell.sizeLabel.hidden=TRUE;
     }else{
         cell.sizeLabel.text = [[[[_cartList objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row] valueForKey:@"size_name" ];
-       
+        
     }
     
     if (![[[[[_cartList objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row] valueForKey:@"product_image"]isKindOfClass: [NSNull class]])
@@ -173,12 +171,12 @@
     NSString *newQty ;
     if (([sender tag] % 2) == 0){
         newQty = [NSString stringWithFormat:@"%d",([[[[[_cartList objectAtIndex:0] valueForKey:@"item_list"] objectAtIndex:([sender tag]/2)]  valueForKey:@"quantity" ]intValue] + 1) ];
-      
+        
     }
     else{
         if (![[[[[_cartList objectAtIndex:0] valueForKey:@"item_list"] objectAtIndex:([sender tag] / 2)] valueForKey:@"product_name"] isEqual:@"0"]){
             
-              newQty = [NSString stringWithFormat:@"%d",([[[[[_cartList objectAtIndex:0] valueForKey:@"item_list"] objectAtIndex:([sender tag]/2)]  valueForKey:@"quantity" ]intValue] - 1) ];
+            newQty = [NSString stringWithFormat:@"%d",([[[[[_cartList objectAtIndex:0] valueForKey:@"item_list"] objectAtIndex:([sender tag]/2)]  valueForKey:@"quantity" ]intValue] - 1) ];
             
         } else{
             UIAlertView *alert = [[UIAlertView alloc]
@@ -203,12 +201,12 @@
         alert.tag = [sender tag];
         [alert show];
         [alert release];
-    
+        
     }
     else{
         [self changeQuantity:newQty fromId:[sender tag]];
     }
-   
+    
     
 }
 
@@ -216,7 +214,7 @@
 { if (buttonIndex == 0)
 {
     
-[self changeQuantity:@"0" fromId: alertView.tag];
+    [self changeQuantity:@"0" fromId: alertView.tag];
 }}
 
 -(void)changeQuantity:(NSString*)qty fromId:(NSInteger)tag{
@@ -254,18 +252,18 @@
     [_shopLogo release];
     [_shopName release];
     [paymentStatus release];
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 - (void)viewDidUnload {
     [self setShopLogo:nil];
     [self setShopName:nil];
-   
+    
     [self setShopLogo:nil];
     [super viewDidUnload];
 }
 -(void)shoppingCartChange:(NSNotification *)notification{
-
+    
     self.cartList = [[MJModel sharedInstance] getCartListForCartId:[[_cartList objectAtIndex:0] valueForKey:@"cart_id"]];
     //[NSString stringWithFormat:@"%d",[[[cartItems objectAtIndex:0] valueForKey:@"item_list" ] count] ]
     [self.tableView reloadData];
@@ -279,12 +277,12 @@
         if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[respond valueForKey:@"url"] ]]){
             
         }
-                     }
+    }
     else{
         
-     //   UIAlertView *alertView = [[UIAlertView alloc]]
+        //   UIAlertView *alertView = [[UIAlertView alloc]]
     }
-  
+    
 }
 -(void)PurchaseVerification:(NSNotification *) notification{
     NSDictionary *purchaseStatus = [[MJModel sharedInstance] getPurchaseStatus:[[_cartList objectAtIndex:0] valueForKey:@"cart_id"]];
@@ -292,9 +290,9 @@
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         ShopViewController *sv1 =[[mydelegate.shopNavController viewControllers] objectAtIndex:0];
         [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
-         [[NSNotificationCenter defaultCenter ] postNotificationName:@"refreshPurchaseHistory" object:self];
+        [[NSNotificationCenter defaultCenter ] postNotificationName:@"refreshPurchaseHistory" object:self];
         
-//        [sv1 switchViewController:sv1.vc3];
+        //        [sv1 switchViewController:sv1.vc3];
         [sv1.tabBar showViewControllerAtIndex:1];
         
         [mydelegate.shopNavController popToRootViewControllerAnimated:YES];
@@ -304,7 +302,7 @@
         [alertView show];
         [alertView release];
     }
-   
+    
     
 }
 @end

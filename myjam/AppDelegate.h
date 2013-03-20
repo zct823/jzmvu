@@ -64,7 +64,8 @@
 @property BOOL bottomViewOpen;
 @property BOOL swipeBottomEnabled;
 
-
+- (void)openSidebar;
+- (void)closeSidebar;
 - (void)setupViews;
 - (void)handleTab5;
 - (void)handleSwipeUp;

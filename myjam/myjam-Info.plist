@@ -50,7 +50,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>&quot;jambu-font.otf&quot;</string>
+		<string>"jambu-font.otf"</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

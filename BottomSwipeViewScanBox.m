@@ -224,8 +224,8 @@ static int kImageTagStart = 1000;
     [self bringBottomViewDown];
     
     if (!isSearchDisabled) {
-//        [self performSelectorOnMainThread:@selector(processCategoryFilter) withObject:nil waitUntilDone:NO];
-//        [self processCategoryFilter];
+        //        [self performSelectorOnMainThread:@selector(processCategoryFilter) withObject:nil waitUntilDone:NO];
+        //        [self processCategoryFilter];
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [DejalBezelActivityView activityViewForView:mydelegate.window withLabel:@"Loading ..." width:100];
         
@@ -254,15 +254,15 @@ static int kImageTagStart = 1000;
     
     NSLog(@"data: %@",strData);
     
-//    [hm.nv refreshTableItemsWithFilter:strData];
-//    [box.scanv refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
+    //    [hm.nv refreshTableItemsWithFilter:strData];
+    //    [box.scanv refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
     if([contentSwitch isEqual:@"1"])
     {
         [box.scanv refreshTableItemsWithFilterApp:strData andSearchedText:self.searchTextField.text];
     }else{
         [box.scanv refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
     }
-//    [DejalBezelActivityView removeViewAnimated:YES];
+    //    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
 - (IBAction)clearButton:(id)sender
@@ -377,7 +377,7 @@ static int kImageTagStart = 1000;
                                                 labelWidth,
                                                 labelHeight);
                         leftY += labelHeight + verticalGap;
-                    
+                        
                     }
                     else{
                         imgFrame = CGRectMake(rightX, rightY + 2, imgWidth, imgWidth);
@@ -387,7 +387,7 @@ static int kImageTagStart = 1000;
                                                 labelHeight);
                         rightY += labelHeight + verticalGap;
                     }
-                
+                    
                     UIImageView *imgView = [[UIImageView alloc] initWithFrame:imgFrame]; //create ImageView
                     
                     if([contentSwitch isEqual:@"1"]){
@@ -397,43 +397,50 @@ static int kImageTagStart = 1000;
                         imgView.tag = kImageTagStart + [[row objectForKey:setId] intValue];
                     }
                     imgView.image = [UIImage imageNamed:@"checkbox_on"];
-                
-                
+                    
+                    
                     // If already checked before no need to set hidden
                     if (![self isAlreadyChecked:imgView.tag]) {
                         [imgView setHidden:YES];
                     }
-                
+                    
                     label = [[UILabel alloc] initWithFrame: labelFrame];
                     
                     
                     if([contentSwitch isEqual:@"1"]){
-                         [label setTag:kLabelTagStart + item];
+                        [label setTag:kLabelTagStart + item];
                     }else{
                         [label setTag:kLabelTagStart + [[row objectForKey:setId] intValue]];
                     }
                     
                     [label setText: [NSString stringWithFormat:@"%@ (%@)",[row objectForKey:setIdName], [row objectForKey:setIdCount]]];
-                    [label setTextColor: [UIColor whiteColor]];
+                    
                     [label setBackgroundColor:[UIColor clearColor]];
                     [label setFont:[UIFont systemFontOfSize:12]];
                     [label setNumberOfLines:0];
                     [label sizeToFit];
-                
-                    label.userInteractionEnabled = YES;
+                    
+                    if ([row objectForKey:setIdCount] == 0) {
+                        [label setTextColor:[UIColor darkGrayColor]];
+                        
+                    }else{
+                        label.userInteractionEnabled = YES;
+                        [label setTextColor: [UIColor whiteColor]];
+                    }
+                    
                     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapCategory:)];
                     [label addGestureRecognizer:tapRecognizer];
-                
+                    
                     // add img checkbox and label to contentView
                     [self.contentView addSubview: imgView];
                     [self.contentView addSubview: label];
-                
+                    
                     item++;
                     [tapRecognizer release];
                     [imgView release];
                     [label release];
                 }
-            
+                
                 // set scrollerview to fit size of catogery list
                 totalHeight += leftY;
                 [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, totalHeight)];
@@ -444,7 +451,7 @@ static int kImageTagStart = 1000;
                 {
                     isSearchDisabled = YES;
                     [self.searchTextField setEnabled:NO];
-                
+                    
                     label = [[UILabel alloc] initWithFrame: CGRectMake(5, self.scroller.frame.size.height/2-30, self.scroller.frame.size.width-10, 44)];
                     [label setText:@"You don't have any apps yet."];
                     [label setTextColor: [UIColor whiteColor]];
@@ -545,7 +552,7 @@ static int kImageTagStart = 1000;
 }
 
 - (void)dealloc {
-//    [checkedCategories release];
+    //    [checkedCategories release];
     [_scroller release];
     [_contentView release];
     [_activityView release];

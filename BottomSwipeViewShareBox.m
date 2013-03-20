@@ -13,7 +13,7 @@
 #import "BoxViewController.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
-static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
+static const CGFloat MINIMUM_SCROLL_FRACTION = 0.7;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
@@ -422,8 +422,11 @@ static int kImageTagStart = 1000;
 -(void) textFieldDidBeginEditing:(UITextField *)textField
 {
     //    textField.contentInset = UIEdgeInsetsZero;
-    CGRect textFieldRect = [self.view.window convertRect:textField.frame fromView:textField];
-    CGRect viewRect = [self.view.window convertRect:self.view.frame fromView:self.view];
+//    self.view.frame = CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height);
+    originFrame = self.view.frame;
+    
+    CGRect textFieldRect = [self.view convertRect:textField.frame fromView:textField];
+    CGRect viewRect = [self.view convertRect:self.view.frame fromView:self.view];
     
     CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
     CGFloat numerator = midline - viewRect.origin.y - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
@@ -457,8 +460,8 @@ static int kImageTagStart = 1000;
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     
-    [self.view setFrame:viewFrame];
-    
+//    [self.view setFrame:viewFrame];
+    self.view.frame = CGRectMake(0, self.view.bounds.size.height+40, self.view.frame.size.width, self.view.frame.size.height);
     [UIView commitAnimations];
 }
 
@@ -470,7 +473,9 @@ static int kImageTagStart = 1000;
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     
-    [self.view setFrame:viewFrame];
+//    [self.view setFrame:viewFrame];
+    self.view.frame = originFrame;
+    
     [UIView commitAnimations];
 }
 

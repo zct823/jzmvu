@@ -933,7 +933,7 @@
 		61806092166715F800B4A198 /* JambuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JambuCell.h; sourceTree = "<group>"; };
 		61806093166715F800B4A198 /* JambuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JambuCell.m; sourceTree = "<group>"; };
 		618060951667161A00B4A198 /* JambuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JambuCell.xib; path = myjam/JambuCell.xib; sourceTree = "<group>"; };
-		6180D83E1649F24600D9C74D /* JAM-BU Beta v1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JAM-BU Beta v1.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6180D83E1649F24600D9C74D /* JAM-BU v1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JAM-BU v1.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6180D8421649F24600D9C74D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6180D8441649F24600D9C74D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6180D8461649F24600D9C74D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1771,7 +1771,7 @@
 		6180D83F1649F24600D9C74D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6180D83E1649F24600D9C74D /* JAM-BU Beta v1.0.app */,
+				6180D83E1649F24600D9C74D /* JAM-BU v1.0.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2244,7 +2244,7 @@
 			);
 			name = myjam;
 			productName = myjam;
-			productReference = 6180D83E1649F24600D9C74D /* JAM-BU Beta v1.0.app */;
+			productReference = 6180D83E1649F24600D9C74D /* JAM-BU v1.0.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2779,8 +2779,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "160EEA6E-4BE5-4475-A08E-32AB14C4CAAB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "160EEA6E-4BE5-4475-A08E-32AB14C4CAAB";
+				PROVISIONING_PROFILE = "4B0091FA-35BB-400B-A054-37299A31D27F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4B0091FA-35BB-400B-A054-37299A31D27F";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2802,8 +2802,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "160EEA6E-4BE5-4475-A08E-32AB14C4CAAB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "160EEA6E-4BE5-4475-A08E-32AB14C4CAAB";
+				PROVISIONING_PROFILE = "4B0091FA-35BB-400B-A054-37299A31D27F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4B0091FA-35BB-400B-A054-37299A31D27F";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

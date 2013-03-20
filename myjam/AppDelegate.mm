@@ -321,7 +321,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     
     UISwipeGestureRecognizer *twoFingerSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUp)];
     [twoFingerSwipe setDirection:UISwipeGestureRecognizerDirectionUp];
-    [twoFingerSwipe setNumberOfTouchesRequired:2];
+    [twoFingerSwipe setNumberOfTouchesRequired:1];
     [self.window addGestureRecognizer:twoFingerSwipe];
     [twoFingerSwipe release];
     
@@ -372,6 +372,65 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     }
 }
 
+- (void)closeSidebar
+{
+    sideBarOpen = NO;
+    [homeNavController.view setUserInteractionEnabled:YES];
+    [bannerView setUserInteractionEnabled:YES];
+    [bottomSVAll.view setHidden:NO];
+    [bottomSVNews.view setHidden:NO];
+    [bottomSVPromo.view setHidden:NO];
+    [bottomSVScanBox.view setHidden:NO];
+    [bottomSVShareBox.view setHidden:NO];
+    [bottomSVFavBox.view setHidden:NO];
+    [bottomSVCreateBox.view setHidden:NO];
+    [bottomSVJShop.view setHidden:NO];
+    [bottomSVJSPurchase.view setHidden:NO];
+    
+    [UIView animateWithDuration:kAnimateDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
+     {
+         tabView.view.frame = CGRectMake(0, 0.0f, self.window.frame.size.width, self.window.frame.size.height);
+         bannerView.frame = CGRectMake(0, self.window.frame.size.height-39-bannerHeight, self.window.frame.size.width, bannerHeight);
+         sidebarController.view.frame = CGRectMake(320.0f, 0.0f, sidebarController.view.frame.size.width, self.window.frame.size.height);
+         
+     }
+                     completion:^(BOOL finished){}];
+    
+    [frontLayerView removeFromSuperview];
+    [DejalBezelActivityView removeViewAnimated:YES];
+}
+
+- (void)openSidebar
+{
+    [self.tabView.view addSubview:frontLayerView];
+    
+    sideBarOpen = YES;
+    [homeNavController.view setUserInteractionEnabled:NO];
+    [bannerView setUserInteractionEnabled:NO];
+    [bottomSVAll.view setHidden:YES];
+    [bottomSVNews.view setHidden:YES];
+    [bottomSVPromo.view setHidden:YES];
+    [bottomSVScanBox.view setHidden:YES];
+    [bottomSVShareBox.view setHidden:YES];
+    [bottomSVFavBox.view setHidden:YES];
+    [bottomSVCreateBox.view setHidden:YES];
+    [bottomSVJShop.view setHidden:YES];
+    [bottomSVJSPurchase.view setHidden:YES];
+    
+    // Reset scrollview to top
+    //        CGPoint topOffset = CGPointMake(0,0);
+    // [sidebarController.scroller setContentOffset:topOffset animated:NO];
+    
+    [UIView animateWithDuration:kAnimateDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
+     {
+         tabView.view.frame = CGRectMake(-260.0f, 0.0f, self.window.frame.size.width, self.window.frame.size.height);
+         bannerView.frame = CGRectMake(-260, self.window.frame.size.height-39-bannerHeight, self.window.frame.size.width, bannerHeight);
+         sidebarController.view.frame = CGRectMake(60.0f, 0.0f, sidebarController.view.frame.size.width, self.window.frame.size.height);
+         
+     }
+                     completion:^(BOOL finished){}];
+}
+
 // Handle sidebar
 - (void)handleTab5
 {
@@ -381,61 +440,10 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     
     if ([self sideBarOpen])
     {
-        sideBarOpen = NO;
-        [homeNavController.view setUserInteractionEnabled:YES];
-        [bannerView setUserInteractionEnabled:YES];
-        [bottomSVAll.view setHidden:NO];
-        [bottomSVNews.view setHidden:NO];
-        [bottomSVPromo.view setHidden:NO];
-        [bottomSVScanBox.view setHidden:NO];
-        [bottomSVShareBox.view setHidden:NO];
-        [bottomSVFavBox.view setHidden:NO];
-        [bottomSVCreateBox.view setHidden:NO];
-        [bottomSVJShop.view setHidden:NO];
-        [bottomSVJSPurchase.view setHidden:NO];
-        
-        [UIView animateWithDuration:kAnimateDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
-         {
-             tabView.view.frame = CGRectMake(0, 0.0f, self.window.frame.size.width, self.window.frame.size.height);
-             bannerView.frame = CGRectMake(0, self.window.frame.size.height-39-bannerHeight, self.window.frame.size.width, bannerHeight);
-             sidebarController.view.frame = CGRectMake(320.0f, 0.0f, sidebarController.view.frame.size.width, self.window.frame.size.height);
-             
-         }
-         completion:^(BOOL finished){}];
-        
-        [frontLayerView removeFromSuperview];
-        [DejalBezelActivityView removeViewAnimated:YES];
+        [self closeSidebar];
         
     }else{
-//        [self.tabView activateController:0];
-//        [self.tabView activateTabItem:0];
-        [self.tabView.view addSubview:frontLayerView];
-
-        sideBarOpen = YES;
-        [homeNavController.view setUserInteractionEnabled:NO];
-        [bannerView setUserInteractionEnabled:NO];
-        [bottomSVAll.view setHidden:YES];
-        [bottomSVNews.view setHidden:YES];
-        [bottomSVPromo.view setHidden:YES];
-        [bottomSVScanBox.view setHidden:YES];
-        [bottomSVShareBox.view setHidden:YES];
-        [bottomSVFavBox.view setHidden:YES];
-        [bottomSVCreateBox.view setHidden:YES];
-        [bottomSVJShop.view setHidden:YES];
-        [bottomSVJSPurchase.view setHidden:YES];
-        
-        // Reset scrollview to top
-//        CGPoint topOffset = CGPointMake(0,0);
-       // [sidebarController.scroller setContentOffset:topOffset animated:NO];
-        
-        [UIView animateWithDuration:kAnimateDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^
-         {
-            tabView.view.frame = CGRectMake(-260.0f, 0.0f, self.window.frame.size.width, self.window.frame.size.height);
-             bannerView.frame = CGRectMake(-260, self.window.frame.size.height-39-bannerHeight, self.window.frame.size.width, bannerHeight);
-            sidebarController.view.frame = CGRectMake(60.0f, 0.0f, sidebarController.view.frame.size.width, self.window.frame.size.height);
-             
-        }
-        completion:^(BOOL finished){}];
+        [self openSidebar];
     }
 }
 

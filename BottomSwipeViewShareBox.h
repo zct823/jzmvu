@@ -13,6 +13,7 @@
     //    NSMutableDictionary *checkedCategories;
     BOOL isSearchDisabled;
     CGFloat animatedDistance;
+    CGRect originFrame;
 }
 @property (retain, nonatomic) NSMutableDictionary *checkedCategories;
 @property (retain, nonatomic) IBOutlet UIScrollView *scroller;

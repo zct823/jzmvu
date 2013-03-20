@@ -214,7 +214,7 @@
         //save address
         [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
         NSLog(@"saved");
-        [self performSelector:@selector(processSaveAddress) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(processSaveAddress) withObject:nil afterDelay:0.2];
     }
 }
 

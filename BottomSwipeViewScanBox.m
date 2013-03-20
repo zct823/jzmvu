@@ -76,7 +76,7 @@ static int kImageTagStart = 1000;
     
     contentSwitch = @"0";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
 }
 
 - (IBAction)secondButton:(id)sender
@@ -98,7 +98,7 @@ static int kImageTagStart = 1000;
     
     contentSwitch = @"1";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
 }
 
 - (IBAction)thirdButton:(id)sender
@@ -120,7 +120,7 @@ static int kImageTagStart = 1000;
     
     contentSwitch = @"2";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
     
 }
 
@@ -143,7 +143,7 @@ static int kImageTagStart = 1000;
     
     contentSwitch = @"3";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
     
 }
 

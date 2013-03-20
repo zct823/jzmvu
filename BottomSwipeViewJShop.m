@@ -86,7 +86,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     contentSwitch = @"0";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
 }
 
 - (IBAction)secondButton:(id)sender
@@ -104,7 +104,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     contentSwitch = @"1";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
 }
 
 - (void)beginProcessData

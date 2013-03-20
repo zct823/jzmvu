@@ -656,61 +656,61 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
                              //{
                                  //[bottomController.activityView startAnimating];
                                  
-                                 //[bottomController performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 //[bottomController performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              //}
                              if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
                              {
                                  [bottomSVAll.activityView startAnimating];
                                  
-                                 [bottomSVAll performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 [bottomSVAll performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                              else if ([swipeOptionString isEqual:@"home-news"])
                              {
                                  [bottomSVNews.activityView startAnimating];
                                  
-                                 [bottomSVNews performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 [bottomSVNews performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                              else if ([swipeOptionString isEqual:@"home-promo"])
                              {
                                  [bottomSVPromo.activityView startAnimating];
                                  
-                                 [bottomSVPromo performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 [bottomSVPromo performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                              else if ([swipeOptionString isEqual:@"scan"])
                              {
                                  [bottomSVScanBox.activityView startAnimating];
                              
-                                 [bottomSVScanBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 [bottomSVScanBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                              else if ([swipeOptionString isEqual:@"share"])
                              {
                                  [bottomSVShareBox.activityView startAnimating];
                                  
-                                 [bottomSVShareBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 [bottomSVShareBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                              else if ([swipeOptionString isEqual:@"favourite"])
                              {
                                  [bottomSVFavBox.activityView startAnimating];
                                  
-                                 [bottomSVFavBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 [bottomSVFavBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                              else if ([swipeOptionString isEqual:@"create"])
                              {
                                  [bottomSVCreateBox.activityView startAnimating];
                                  
-                                 [bottomSVCreateBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 [bottomSVCreateBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                              else if ([swipeOptionString isEqual:@"shop"])
                              {
                                  [bottomSVJShop.activityView startAnimating];
                                  
-                                 [bottomSVJShop performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 [bottomSVJShop performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                              else if ([swipeOptionString isEqual:@"purchase"])
                              {
                                  [bottomSVJSPurchase.activityView startAnimating];
                                  
-                                 [bottomSVJSPurchase performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+                                 [bottomSVJSPurchase performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                          }];
     }

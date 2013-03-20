@@ -111,7 +111,7 @@
     
     [self.uiTableView setHidden:YES];
     
-    [self performSelector:@selector(loadData:) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(loadData:) withObject:nil afterDelay:0.2];
     
     [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:1.0];
 }
@@ -125,7 +125,7 @@
     
     [self animateDBAV:@"Saving ..."];
     
-    [self performSelector:@selector(loadData:) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(loadData:) withObject:nil afterDelay:0.2];
     
 }
 
@@ -364,7 +364,7 @@
         {
             NSLog(@"Success change");
             [self loadAfterSaved];
-            [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.5];
+            [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.2];
         }
         else if([msg isEqualToString:@"Request timed out."])
         {
@@ -372,7 +372,7 @@
             [alert show];
             [alert release];
             
-            [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.5];
+            [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.2];
         }
     }
     
@@ -402,7 +402,7 @@
         {
             NSLog(@"Success change");
             [self loadAfterSaved];
-            [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.5];
+            [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.2];
         }
         else if([msg isEqualToString:@"Request timed out."])
         {
@@ -410,7 +410,7 @@
             [alert show];
             [alert release];
 
-            [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.5];
+            [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.2];
         }
     }
     
@@ -435,7 +435,7 @@
     [appDel.otherNavController pushViewController:cpVC animated:YES];
     [cpVC release];
     
-    [self performSelector:@selector(deAnimateDBAV) withObject:self afterDelay:0.5];
+    [self performSelector:@selector(deAnimateDBAV) withObject:self afterDelay:0.2];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

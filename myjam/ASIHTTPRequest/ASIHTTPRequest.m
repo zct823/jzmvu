@@ -4748,7 +4748,7 @@ static NSOperationQueue *sharedQueue = nil;
 /* Always called on main thread */
 + (void)hideNetworkActivityIndicatorAfterDelay
 {
-	[self performSelector:@selector(hideNetworkActivityIndicatorIfNeeeded) withObject:nil afterDelay:0.5];
+	[self performSelector:@selector(hideNetworkActivityIndicatorIfNeeeded) withObject:nil afterDelay:0.2];
 }
 
 + (void)hideNetworkActivityIndicatorIfNeeeded

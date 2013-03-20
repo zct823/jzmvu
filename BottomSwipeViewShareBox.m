@@ -78,8 +78,8 @@ static int kImageTagStart = 1000;
     btn2.backgroundColor = [UIColor clearColor];
     
     contentSwitch = @"0";
-    [self performSelector:@selector(reloadCategories) withObject:self afterDelay:0.5f];
-    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+    [self performSelector:@selector(reloadCategories) withObject:self afterDelay:0.2f];
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
 }
 
 - (IBAction)secondButton:(id)sender
@@ -93,8 +93,8 @@ static int kImageTagStart = 1000;
     btn2.backgroundColor = [UIColor blackColor];
     
     contentSwitch = @"1";
-    [self performSelector:@selector(reloadCategories) withObject:self afterDelay:0.5f];
-    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.5f];
+    [self performSelector:@selector(reloadCategories) withObject:self afterDelay:0.2f];
+    [self performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
 }
 
 - (void)beginProcessData

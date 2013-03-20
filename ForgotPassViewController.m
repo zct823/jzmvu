@@ -184,7 +184,7 @@
     
     [self performSelector:@selector(hantarEmailKeRumahApi)];
     
-    [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.2];
 }
 
 - (NSString *)tetapanRumahApi

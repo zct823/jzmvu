@@ -108,7 +108,7 @@
         //saved feedback
         [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
         NSLog(@"saved");
-        [self performSelector:@selector(processSavedFeedback) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(processSavedFeedback) withObject:nil afterDelay:0.2];
     }
 }
 

@@ -274,9 +274,9 @@
         [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
         NSLog(@"saved");
         if (![self.productId isEqual:@""]) {
-            [self performSelector:@selector(processSubmitSpamForProduct) withObject:nil afterDelay:0.5];
+            [self performSelector:@selector(processSubmitSpamForProduct) withObject:nil afterDelay:0.2];
         } else {
-            [self performSelector:@selector(processSubmitSpamForBox) withObject:nil afterDelay:0.5];
+            [self performSelector:@selector(processSubmitSpamForBox) withObject:nil afterDelay:0.2];
         }
     }
 }

@@ -234,7 +234,7 @@
     }
     else {
         //save address
-        [self performSelector:@selector(saveChangeAddress) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(saveChangeAddress) withObject:nil afterDelay:0.2];
     }
 }
 

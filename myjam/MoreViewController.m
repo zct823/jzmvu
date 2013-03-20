@@ -198,7 +198,7 @@
         
         if ([currentStatus isEqual: @"ok"])
         {
-            [self performSelector:@selector(backToHomeVC) withObject:self afterDelay:0.5];
+            [self performSelector:@selector(backToHomeVC) withObject:self afterDelay:0.2];
         }
     }
     
@@ -256,7 +256,7 @@
     [self.activity setHidden:NO];
     [self.label setText:@"Loading ..."];
     
-    [self performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(reloadData) withObject:nil afterDelay:0.2];
     
 }
 

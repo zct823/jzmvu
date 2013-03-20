@@ -534,7 +534,7 @@
         if ([status isEqualToString:@"ok"]) {
             NSLog(@"Successfully set primary address!");
             [DejalBezelActivityView activityViewForView:self.view withLabel:@"Saving ..." width:100];
-            [self performSelector:@selector(reloadView) withObject:nil afterDelay:0.5];
+            [self performSelector:@selector(reloadView) withObject:nil afterDelay:0.2];
         }
         else {
             CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Jambulite Profile" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

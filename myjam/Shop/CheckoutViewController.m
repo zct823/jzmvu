@@ -28,6 +28,12 @@
         self.navigationItem.titleView = titleView;
         [titleView release];
 
+        self.navigationItem.backBarButtonItem =
+        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                          style:UIBarButtonItemStyleBordered
+                                         target:nil
+                                         action:nil] autorelease];
+        
          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shoppingCartChange:) name:@"cartChangedFromView" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(PurchaseVerification:)

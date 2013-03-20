@@ -29,7 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self performSelectorInBackground:@selector(changeImaged) withObject:self];
+//    [self performSelectorInBackground:@selector(changeImaged) withObject:self];
+    [self changeImaged];
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Please wait..." width:100];
     // Do any additional setup after loading the view from its nib.
 }
@@ -127,6 +128,10 @@
         else [NSString stringWithFormat:@"{\"status\":\"error\"}"];
     }
     NSLog(@"%@",[asiRequest responseString]);
+    
+    [url release];
+    [asiRequest release];
+    [imgData release];
 }
 
 - (void)didReceiveMemoryWarning

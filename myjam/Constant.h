@@ -21,6 +21,8 @@
 
 #define APP_API_URL @"http://www.jam-bu.com"
 
+//#define APP_API_URL @"http://jambudev.me-tech.com.my"
+
 #define SCAN_URL @"www.jam-bu.com"
 
 #define kOPTION_FB          1

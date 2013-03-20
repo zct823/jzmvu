@@ -107,6 +107,8 @@
 //}
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"vwa shop");
+    [self.navigationController popToRootViewControllerAnimated:NO];
     [DejalBezelActivityView removeViewAnimated:YES];
 }
 

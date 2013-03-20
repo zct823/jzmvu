@@ -70,25 +70,25 @@
        [self.view setBounds:CGRectMake(0, 90, self.view.bounds.size.width, self.view.bounds.size.height)];
     }
     
-    self.cityLabel.text = [addressInfo valueForKey:@"delivery_city"];
-    self.addressLabel.text =[addressInfo valueForKey:@"delivery_address"] ;
-    self.postcodeLabel.text = [addressInfo valueForKey:@"delivery_postcode"];
-    if (![[addressInfo valueForKey:@"delivery_state_code"] isEqualToString:@""]){
-        [self setStateLabel];
-          }
-    else{
-        self.stateSelection = @"KUL";
-        [self.stateButton setTitle:@"Kuala Lumpur" forState:UIControlStateNormal];
-
-    }
-    if (![[addressInfo valueForKey:@"delivery_country_code"] isEqualToString:@""]){
-        [self setCountryLabel];
-       
-    }
-    else{
-        self.countrySelection  = @"MY";
-        [self.countryButton setTitle:@"Malaysia" forState:UIControlStateNormal];
-    }
+//    self.cityLabel.text = [addressInfo valueForKey:@"delivery_city"];
+//    self.addressLabel.text =[addressInfo valueForKey:@"delivery_address"] ;
+//    self.postcodeLabel.text = [addressInfo valueForKey:@"delivery_postcode"];
+//    if (![[addressInfo valueForKey:@"delivery_state_code"] isEqualToString:@""]){
+//        [self setStateLabel];
+//          }
+//    else{
+//        self.stateSelection = @"KUL";
+//        [self.stateButton setTitle:@"Kuala Lumpur" forState:UIControlStateNormal];
+//
+//    }
+//    if (![[addressInfo valueForKey:@"delivery_country_code"] isEqualToString:@""]){
+//        [self setCountryLabel];
+//       
+//    }
+//    else{
+//        self.countrySelection  = @"MY";
+//        [self.countryButton setTitle:@"Malaysia" forState:UIControlStateNormal];
+//    }
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
     [tap release];

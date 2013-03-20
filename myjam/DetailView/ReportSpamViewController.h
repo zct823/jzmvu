@@ -19,6 +19,7 @@
 
 @property (nonatomic, retain) NSString *orderItemId;
 @property (nonatomic, retain) NSString *productId;
+@property (nonatomic, retain) NSString *newsId;
 @property (nonatomic, retain) NSString *qrcodeId;
 @property (nonatomic, retain) NSString *qrTitle;
 @property (nonatomic, retain) NSString *qrProvider;

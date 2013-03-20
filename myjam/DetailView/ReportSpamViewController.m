@@ -43,6 +43,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
     
     [self setupViews];
@@ -88,7 +89,13 @@
     } if (![self.productId isKindOfClass:[NSString class]]) {
         self.productId = @"";
     }
-    NSLog(@"QRID :%@ PRO :%@",self.qrcodeId,self.productId);
+    if (![self.newsId isKindOfClass:[NSString class]]) {
+        self.newsId = @"";
+    }
+    if (![self.orderItemId isKindOfClass:[NSString class]]) {
+        self.orderItemId = @"";
+    }
+    NSLog(@"QRID :%@ PRO :%@,%@,%@",self.qrcodeId,self.productId,self.newsId, self.orderItemId);
     //setup info view
     self.providerLabel.text = self.qrProvider;
     self.titleLabel.text = self.qrTitle;
@@ -129,11 +136,14 @@
 {
     // Init the category data
     if (![self.orderItemId isEqual:@""]) {
+        NSLog(@"1");
         [self retrieveReportTypeForPurchasedItemFromAPI];
     }
     else if (![self.productId isEqual:@""]) {
+        NSLog(@"2");
         [self retrieveReportTypeForProductFromAPI];
     } else {
+        NSLog(@"3");
         [self retrieveReportTypeForBoxFromAPI];
     }
     // Set list for pickerView
@@ -146,21 +156,20 @@
 
 - (void)retrieveReportTypeForBoxFromAPI
 {
-    NSString *flag = @"GET_REPORT_TYPES_NEWS";
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/report_abuse.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
-    NSString *dataContent = [NSString stringWithFormat:@"{\"flag\":\"%@\"}",flag];
+//    NSString *flag = @"GET_REPORT_TYPES_NEWS";
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/report_abuse_type.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
+    NSString *dataContent = [NSString stringWithFormat:@"{\"news_id\":\"%@\"}",self.newsId];
     NSDictionary *rep;
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
-    NSLog(@"resp: %@",response);
     if([resultsDictionary count])
     {
         NSString *status = [resultsDictionary objectForKey:@"status"];
         
         if ([status isEqualToString:@"ok"])
         {
-            rep = [resultsDictionary objectForKey:@"report_types"];
+            rep = [resultsDictionary objectForKey:@"type_list"];
             
             for (id row in rep)
             {

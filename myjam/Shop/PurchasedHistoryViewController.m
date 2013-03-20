@@ -45,6 +45,7 @@
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = YES;
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -336,16 +337,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    [self performSelector:@selector(showDetailsProductForIndexPath:) withObject:indexPath afterDelay:0.1];
+}
+
+- (void)showDetailsProductForIndexPath:(NSIndexPath *)indexPath
+{
     DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
     detailViewController.productInfo = [[MJModel sharedInstance] getPuchasedInfoForId:[[[self.purchasedHistoryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] valueForKey:@"order_item_id"]];
-//    NSLog(@"--- %@",detailViewController.productInfo);
+    //    NSLog(@"--- %@",detailViewController.productInfo);
     detailViewController.buyButton = [[NSString alloc] initWithString:@"not-ok"];
     detailViewController.orderId = [[[self.purchasedHistoryArray objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]valueForKey:@"order_item_id"];
     detailViewController.productId = [[[self.purchasedHistoryArray objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]valueForKey:@"product_id"];
     NSLog(@"--- %@",detailViewController.orderId);
     detailViewController.purchasedString = @"purchased";
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
 }

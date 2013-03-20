@@ -232,6 +232,7 @@
     
     ReportSpamViewController *detailView = [[ReportSpamViewController alloc] init];
     detailView.qrcodeId = self.qrcodeId;
+    detailView.newsId = self.newsId;
     detailView.qrTitle = self.detailsData.appTitle;
     detailView.qrProvider = self.detailsData.contentProvider;
     detailView.qrDate = self.detailsData.date;
@@ -704,6 +705,7 @@
                 self.detailsData.labelColor = [resultsDictionary objectForKey:@"color"];
                 self.detailsData.contentProvider = [resultsDictionary objectForKey:@"fullname"];
                 self.detailsData.contentProviderUID = [resultsDictionary objectForKey:@"userid"];
+                self.newsId = [resultsDictionary objectForKey:@"news_id"];
                 self.detailsData.appTitle = [resultsDictionary objectForKey:@"app_title"];
                 self.detailsData.date = [resultsDictionary objectForKey:@"date"];
                 self.detailsData.abstract = [resultsDictionary objectForKey:@"description"];

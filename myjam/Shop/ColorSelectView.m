@@ -27,7 +27,7 @@
     _imageViews = [[NSMutableArray alloc] init];
     _colorChoices = [[NSMutableArray alloc] init];
     _colorChoicesNum = 5;
-    _midMargin = 3;
+    _midMargin = 8;
     _leftMargin = 0;
     _minImageSize = CGSizeMake(5, 5);
     _sizesForColor = [[NSMutableArray alloc] init];

@@ -246,13 +246,23 @@
       
     }
 }
+
 -(void)tapAction:(id)sender{
+    
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    
+    //  [detailViewController release];
+    [self performSelector:@selector(showShopProducts:) withObject:sender afterDelay:0.3];
+}
+
+- (void)showShopProducts:(id)sender
+{
     ShopDetailListingViewController *detailViewController = [[ShopDetailListingViewController alloc] init];
-   detailViewController.productArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getTopListOfItemsFor:[[catAllArray objectAtIndex:[sender tag]]valueForKey:@"shop_id"]]];
+    detailViewController.productArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getTopListOfItemsFor:[[catAllArray objectAtIndex:[sender tag]]valueForKey:@"shop_id"]]];
     detailViewController.shopInfo = [[NSDictionary alloc] initWithObjectsAndKeys: [[catAllArray objectAtIndex:[sender tag]]valueForKey:@"shop_id"],@"shop_id",[[catAllArray objectAtIndex:[sender tag]]valueForKey:@"shop_name"], @"shop_name", [[catAllArray objectAtIndex:[sender tag]]valueForKey:@"shop_top_seller"],@"shop_top_seller", nil];
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-  //  [detailViewController release];
+    //  [detailViewController release];
     NSLog(@"tapped: %d",[sender tag]);
 }
 /*

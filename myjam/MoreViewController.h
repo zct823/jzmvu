@@ -36,6 +36,7 @@
 
 @property BOOL noInternetConnection;
 @property (retain, nonatomic) UILabel *providerLabel;
+@property (nonatomic, retain) NSString *newsId;
 @property (nonatomic, retain) NSString *qrcodeId;
 @property (nonatomic, retain) MData *detailsData;
 @property (retain, nonatomic) UIScrollView *scroller;

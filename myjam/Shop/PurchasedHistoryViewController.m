@@ -41,6 +41,12 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    mydelegate.swipeBottomEnabled = YES;
+}
+
 -(NSMutableArray *)groupByOrderId:(NSMutableArray *)orders
 {
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];

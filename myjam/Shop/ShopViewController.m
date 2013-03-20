@@ -105,6 +105,13 @@
 //   // [tabBar showDefaults];
 //
 //}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    mydelegate.swipeBottomEnabled = YES;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     NSLog(@"vwa shop");

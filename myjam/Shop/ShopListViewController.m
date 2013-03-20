@@ -33,6 +33,12 @@
     [self refresh];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    mydelegate.swipeBottomEnabled = YES;
+}
+
 - (void)refresh {
     [self.activityIndicator startAnimating];
     [self performSelector:@selector(addItem) withObject:nil afterDelay:0.0];

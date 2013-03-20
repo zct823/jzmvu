@@ -28,12 +28,18 @@
 
 - (void)viewDidLoad
 {
-    [self.tableView setBounces:NO];
+//    [self.tableView setBounces:NO];
     [super viewDidLoad];
     [self refresh];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
+{
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    mydelegate.swipeBottomEnabled = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = YES;

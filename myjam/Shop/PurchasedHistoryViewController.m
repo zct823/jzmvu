@@ -41,10 +41,16 @@
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    mydelegate.swipeBottomEnabled = NO;
 }
 
 -(NSMutableArray *)groupByOrderId:(NSMutableArray *)orders

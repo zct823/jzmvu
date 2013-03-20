@@ -216,13 +216,63 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     boxNavController = [[UINavigationController alloc] initWithRootViewController:boxVC];
     otherNavController = [[UINavigationController alloc] initWithRootViewController:createVC];
     
+//    // Init TabBarItem
+//    GTabTabItem *tabItem1 = [[GTabTabItem alloc] initWithFrame:CGRectMake(0, 0, 64, 39) normalState:@"home_selected" toggledState:@"home"];
+//	GTabTabItem *tabItem2 = [[GTabTabItem alloc] initWithFrame:CGRectMake(64, 0, 64, 39) normalState:@"shop_selected" toggledState:@"shop"];
+//	GTabTabItem *tabItem3 = [[GTabTabItem alloc] initWithFrame:CGRectMake(128, 0, 64, 39) normalState:@"scan_selected" toggledState:@"scan"];
+//	GTabTabItem *tabItem4 = [[GTabTabItem alloc] initWithFrame:CGRectMake(192, 0, 64, 39) normalState:@"box_selected" toggledState:@"box"];
+//	GTabTabItem *tabItem5 = [[GTabTabItem alloc] initWithFrame:CGRectMake(256, 0, 64, 39) normalState:@"more" toggledState:@"more"];
     // Init TabBarItem
-    GTabTabItem *tabItem1 = [[GTabTabItem alloc] initWithFrame:CGRectMake(0, 0, 64, 39) normalState:@"home_selected" toggledState:@"home"];
-	GTabTabItem *tabItem2 = [[GTabTabItem alloc] initWithFrame:CGRectMake(64, 0, 64, 39) normalState:@"shop_selected" toggledState:@"shop"];
-	GTabTabItem *tabItem3 = [[GTabTabItem alloc] initWithFrame:CGRectMake(128, 0, 64, 39) normalState:@"scan_selected" toggledState:@"scan"];
-	GTabTabItem *tabItem4 = [[GTabTabItem alloc] initWithFrame:CGRectMake(192, 0, 64, 39) normalState:@"box_selected" toggledState:@"box"];
-	GTabTabItem *tabItem5 = [[GTabTabItem alloc] initWithFrame:CGRectMake(256, 0, 64, 39) normalState:@"more" toggledState:@"more"];
+    NSString *normalStateTB1 = nil;
+    NSString *normalStateTB2 = nil;
+    NSString *normalStateTB3 = nil;
+    NSString *normalStateTB4 = nil;
+    NSString *normalStateTB5 = nil;
+    NSString *toggledStateTB1 = nil;
+    NSString *toggledStateTB2 = nil;
+    NSString *toggledStateTB3 = nil;
+    NSString *toggledStateTB4 = nil;
+    NSString *toggledStateTB5 = nil;
     
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    
+    if (screenBounds.size.height == 568)
+    {
+        // code for 4-inch screen
+        NSLog(@"Set On 4inch button");
+        normalStateTB1 = @"home";
+        toggledStateTB1 = @"home_selected";
+        normalStateTB2 = @"shop";
+        toggledStateTB2 = @"shop_selected";
+        normalStateTB3 = @"scan";
+        toggledStateTB3 = @"scan_selected";
+        normalStateTB4 = @"box";
+        toggledStateTB4 = @"box_selected";
+        normalStateTB5 = @"more2";
+        toggledStateTB5 = @"more2";
+    }
+    else
+    {
+        // code for 3.5-inch screen
+        NSLog(@"Set On 3.5inch button");
+        normalStateTB1 = @"home_lr";
+        toggledStateTB1 = @"home_selected_lr";
+        normalStateTB2 = @"shop_lr";
+        toggledStateTB2 = @"shop_selected_lr";
+        normalStateTB3 = @"scan_lr";
+        toggledStateTB3 = @"scan_selected_lr";
+        normalStateTB4 = @"box_lr";
+        toggledStateTB4 = @"box_selected_lr";
+        normalStateTB5 = @"more2_lr";
+        toggledStateTB5 = @"more2_lr";
+    }
+    
+    GTabTabItem *tabItem1 = [[GTabTabItem alloc] initWithFrame:CGRectMake(0, 0, 64, 39) normalState:normalStateTB1 toggledState:toggledStateTB1];
+	GTabTabItem *tabItem2 = [[GTabTabItem alloc] initWithFrame:CGRectMake(64, 0, 64, 39) normalState:normalStateTB2 toggledState:toggledStateTB2];
+	GTabTabItem *tabItem3 = [[GTabTabItem alloc] initWithFrame:CGRectMake(128, 0, 64, 39) normalState:normalStateTB3 toggledState:toggledStateTB3];
+	GTabTabItem *tabItem4 = [[GTabTabItem alloc] initWithFrame:CGRectMake(192, 0, 64, 39) normalState:normalStateTB4 toggledState:toggledStateTB4];
+	GTabTabItem *tabItem5 = [[GTabTabItem alloc] initWithFrame:CGRectMake(256, 0, 64, 39) normalState:normalStateTB5 toggledState:toggledStateTB5];
+
     // Disable Tabbutton2
     tabItem2.userInteractionEnabled = YES;
     

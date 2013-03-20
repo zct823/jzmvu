@@ -18,8 +18,16 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-          self.navigationItem.title = @"JAM-BU Shop";
         // Custom initialization
+        self.title = @"Store Location";
+        FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
+        titleView.text = self.title;
+        titleView.textAlignment = NSTextAlignmentCenter;
+        titleView.backgroundColor = [UIColor clearColor];
+        titleView.textColor = [UIColor whiteColor];
+        [titleView sizeToFit];
+        self.navigationItem.titleView = titleView;
+        [titleView release];
     }
     return self;
 }
@@ -36,11 +44,16 @@
 }
 
 - (void)viewDidLoad
-{   
+{
     self.shopAddInfo = [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance]getAddressForStore:shopId]];
     [self refreshScroller];
     [self.shopLogo setImageWithURL:[NSURL URLWithString:[shopAddInfo valueForKey:@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
-    [shopAddress loadHTMLString:[shopAddInfo valueForKey:@"shop_info"] baseURL:nil];
+    
+    //modification to add font
+    
+    NSString *setContent = [NSString stringWithFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title></title></head><body style='font-family:Verdana; font-size:12px; text-align:justify;'>%@</body></html>",[shopAddInfo valueForKey:@"shop_info"]];
+    
+    [shopAddress loadHTMLString:setContent baseURL:nil];
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -83,9 +96,9 @@
 }
 - (IBAction)visitShop:(id)sender {
     
-
+    
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-   
+    
     for (int i=0 ; i< [mydelegate.shopNavController.viewControllers count]; i++){
         NSLog(@"%@",[[mydelegate.shopNavController.viewControllers objectAtIndex:i] class] );
         
@@ -101,16 +114,16 @@
         
     }
     
-
+    
     
 }
 
 - (IBAction)facebookPressed:(id)sender {
-[self shareImageOnFBwith:[self.shopAddInfo  valueForKey:@"qrcode_id"] andImage:self.shopLogo.image];
+    [self shareImageOnFBwith:[self.shopAddInfo  valueForKey:@"qrcode_id"] andImage:self.shopLogo.image];
 }
 
 - (IBAction)twitterPressed:(id)sender {
-[self shareImageOnTwitterFor:[self.shopAddInfo  valueForKey:@"qrcode_id"] andImage:self.shopLogo.image];
+    [self shareImageOnTwitterFor:[self.shopAddInfo  valueForKey:@"qrcode_id"] andImage:self.shopLogo.image];
 }
 
 - (IBAction)emailPressed:(id)sender {

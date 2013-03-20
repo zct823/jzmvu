@@ -422,8 +422,8 @@ static int kImageTagStart = 1000;
 -(void) textFieldDidBeginEditing:(UITextField *)textField
 {
     //    textField.contentInset = UIEdgeInsetsZero;
-    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
-    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    CGRect textFieldRect = [self.view.window convertRect:textField.frame fromView:textField];
+    CGRect viewRect = [self.view.window convertRect:self.view.frame fromView:self.view];
     
     CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
     CGFloat numerator = midline - viewRect.origin.y - MINIMUM_SCROLL_FRACTION * viewRect.size.height;

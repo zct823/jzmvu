@@ -22,7 +22,9 @@
 @property (retain, nonatomic) IBOutlet UILabel *catLabel3;
 @property (retain, nonatomic) IBOutlet UILabel *catLabel2;
 @property (retain, nonatomic) IBOutlet UILabel *catLabel;
-
+@property (retain, nonatomic) IBOutlet UIView *transView2;
+@property (retain, nonatomic) IBOutlet UIView *transView3;
+@property (retain, nonatomic) IBOutlet UIView *transView1;
 
 
 

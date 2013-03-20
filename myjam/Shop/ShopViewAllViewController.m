@@ -116,13 +116,39 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     // Configure the cell...
     //  cell.topLabel1.text =
-    cell.catLabel1.text = [[catAllArray objectAtIndex:(3*indexPath.row+0)]  valueForKey:@"shop_name"];
+//    cell.catLabel1.text = [[catAllArray objectAtIndex:(3*indexPath.row+0)]  valueForKey:@"shop_name"];
+    
+    MarqueeLabel *shopNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
+    shopNameLabel.marqueeType = MLContinuous;
+    shopNameLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+    shopNameLabel.numberOfLines = 1;
+    shopNameLabel.opaque = NO;
+    shopNameLabel.enabled = YES;
+    shopNameLabel.textAlignment = UITextAlignmentLeft;
+    shopNameLabel.textColor = [UIColor blackColor];
+    shopNameLabel.backgroundColor = [UIColor clearColor];
+    shopNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+    shopNameLabel.text = [[catAllArray objectAtIndex:(3*indexPath.row+0)]  valueForKey:@"shop_name"];
+    [cell.transView1 addSubview:shopNameLabel];
+    [shopNameLabel release];
     
     if([[[catAllArray  objectAtIndex:(3*indexPath.row+0)] valueForKey:@"shop_top_seller"]isEqual:@"Y"]){
         cell.topLabel1.hidden=NO;
     }
-    cell.shopLabel1.text =[[catAllArray objectAtIndex:(3*indexPath.row+0)] valueForKey:@"shop_category"];
-  
+//    cell.shopLabel1.text =[[catAllArray objectAtIndex:(3*indexPath.row+0)] valueForKey:@"shop_category"];
+    MarqueeLabel *shopNameCategory = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 16, 90, 18) rate:20.0f andFadeLength:10.0f];
+    shopNameCategory.marqueeType = MLContinuous;
+    shopNameCategory.animationCurve = UIViewAnimationOptionCurveLinear;
+    shopNameCategory.numberOfLines = 1;
+    shopNameCategory.opaque = NO;
+    shopNameCategory.enabled = YES;
+    shopNameCategory.textAlignment = UITextAlignmentLeft;
+    shopNameCategory.textColor = [UIColor blackColor];
+    shopNameCategory.backgroundColor = [UIColor clearColor];
+    shopNameCategory.font = [UIFont fontWithName:@"Helvetica" size:10];
+    shopNameCategory.text = [[catAllArray objectAtIndex:(3*indexPath.row+0)] valueForKey:@"shop_category"];
+    [cell.transView1 addSubview:shopNameCategory];
+    [shopNameCategory release];
  
     cell.button1.tag = 3*indexPath.row+0;
  [cell.button1 setBackgroundImageWithURL:[NSURL URLWithString:[[catAllArray objectAtIndex:(3*indexPath.row+0)]  valueForKey:@"shop_logo"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
@@ -135,8 +161,38 @@
             cell.topLabel2.hidden=NO;
         }
 
-        cell.catLabel2.text = [[catAllArray  objectAtIndex:(3*indexPath.row+1)] valueForKey:@"shop_name"];
-        cell.shopLabel2.text =[[catAllArray objectAtIndex:(3*indexPath.row+1)] valueForKey:@"shop_category"];
+//        cell.catLabel2.text = [[catAllArray  objectAtIndex:(3*indexPath.row+1)] valueForKey:@"shop_name"];
+//        cell.shopLabel2.text =[[catAllArray objectAtIndex:(3*indexPath.row+1)] valueForKey:@"shop_category"];
+        MarqueeLabel *shopNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
+        shopNameLabel.marqueeType = MLContinuous;
+        shopNameLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        shopNameLabel.numberOfLines = 1;
+        shopNameLabel.opaque = NO;
+        shopNameLabel.enabled = YES;
+        shopNameLabel.textAlignment = UITextAlignmentLeft;
+        shopNameLabel.textColor = [UIColor blackColor];
+        shopNameLabel.backgroundColor = [UIColor clearColor];
+        shopNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+        shopNameLabel.text = [[catAllArray objectAtIndex:(3*indexPath.row+1)]  valueForKey:@"shop_name"];
+        [cell.transView2 addSubview:shopNameLabel];
+        [shopNameLabel release];
+        
+        if([[[catAllArray  objectAtIndex:(3*indexPath.row+0)] valueForKey:@"shop_top_seller"]isEqual:@"Y"]){
+            cell.topLabel1.hidden=NO;
+        }
+
+        MarqueeLabel *shopNameCategory = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 16, 90, 18) rate:20.0f andFadeLength:10.0f];
+        shopNameCategory.marqueeType = MLContinuous;
+        shopNameCategory.animationCurve = UIViewAnimationOptionCurveLinear;
+        shopNameCategory.numberOfLines = 1;
+        shopNameCategory.opaque = NO;
+        shopNameCategory.enabled = YES;
+        shopNameCategory.textAlignment = UITextAlignmentLeft;
+        shopNameCategory.textColor = [UIColor blackColor];
+        shopNameCategory.backgroundColor = [UIColor clearColor];
+        shopNameCategory.font = [UIFont fontWithName:@"Helvetica" size:10];
+        shopNameCategory.text = [[catAllArray objectAtIndex:(3*indexPath.row+1)] valueForKey:@"shop_category"];
+        [cell.transView2 addSubview:shopNameCategory];
         
         [cell.button2 setBackgroundImageWithURL:[NSURL URLWithString:[[catAllArray objectAtIndex:(3*indexPath.row+1)]  valueForKey:@"shop_logo"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
         [cell.button2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -144,8 +200,39 @@
     if(3*indexPath.row+2 < [catAllArray count])
     {
         cell.button3.tag = 3*indexPath.row+2;
-        cell.catLabel3.text = [[catAllArray objectAtIndex:(3*indexPath.row+2)] valueForKey:@"shop_name"];
-        cell.shopLabel3.text =[[catAllArray objectAtIndex:(3*indexPath.row+2)] valueForKey:@"shop_category"];
+//        cell.catLabel3.text = [[catAllArray objectAtIndex:(3*indexPath.row+2)] valueForKey:@"shop_name"];
+//        cell.shopLabel3.text =[[catAllArray objectAtIndex:(3*indexPath.row+2)] valueForKey:@"shop_category"];
+        MarqueeLabel *shopNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
+        shopNameLabel.marqueeType = MLContinuous;
+        shopNameLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        shopNameLabel.numberOfLines = 1;
+        shopNameLabel.opaque = NO;
+        shopNameLabel.enabled = YES;
+        shopNameLabel.textAlignment = UITextAlignmentLeft;
+        shopNameLabel.textColor = [UIColor blackColor];
+        shopNameLabel.backgroundColor = [UIColor clearColor];
+        shopNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+        shopNameLabel.text = [[catAllArray objectAtIndex:(3*indexPath.row+2)]  valueForKey:@"shop_name"];
+        [cell.transView3 addSubview:shopNameLabel];
+        [shopNameLabel release];
+        
+        if([[[catAllArray  objectAtIndex:(3*indexPath.row+0)] valueForKey:@"shop_top_seller"]isEqual:@"Y"]){
+            cell.topLabel1.hidden=NO;
+        }
+        
+        MarqueeLabel *shopNameCategory = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 16, 90, 18) rate:20.0f andFadeLength:10.0f];
+        shopNameCategory.marqueeType = MLContinuous;
+        shopNameCategory.animationCurve = UIViewAnimationOptionCurveLinear;
+        shopNameCategory.numberOfLines = 1;
+        shopNameCategory.opaque = NO;
+        shopNameCategory.enabled = YES;
+        shopNameCategory.textAlignment = UITextAlignmentLeft;
+        shopNameCategory.textColor = [UIColor blackColor];
+        shopNameCategory.backgroundColor = [UIColor clearColor];
+        shopNameCategory.font = [UIFont fontWithName:@"Helvetica" size:10];
+        shopNameCategory.text = [[catAllArray objectAtIndex:(3*indexPath.row+2)] valueForKey:@"shop_category"];
+        [cell.transView3 addSubview:shopNameCategory];
+        
         if([[[catAllArray  objectAtIndex:(3*indexPath.row+2)] valueForKey:@"shop_top_seller"] isEqual:@"Y"]){
             cell.topLabel3.hidden=NO;
         }

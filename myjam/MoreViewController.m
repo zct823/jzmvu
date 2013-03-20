@@ -773,12 +773,29 @@
                     if (couString.length == 0){couString = @"";}
                     if (urllString.length == 0){urllString = @"";}
                     
+                    
+                    NSMutableString *addressFull = [[NSMutableString alloc] init];
+                    if ([addString length] > 0) {
+                        [addressFull appendString:addString];
+                    }
+                    if ([citString length] > 0) {
+                        [addressFull appendFormat:@"\n%@",citString];
+                    }
+                    if ([staString length] > 0) {
+                        [addressFull appendFormat:@"\n%@",staString];
+                    }
+                    if ([posString length] > 0) {
+                        [addressFull appendFormat:@"\n%@",posString];
+                    }
+                    if ([couString length] > 0) {
+                        [addressFull appendFormat:@"\n%@",couString];
+                    }
+                    
                     self.detailsData.subTitleString = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"contact_name"]]; //subtitle
                     
-                    self.detailsData.fullText = [NSString stringWithFormat:@"Organization: \n%@\n\nMobile Number: \n%@\n\nPhone Number: \n%@\n\nEmail: \n%@\n\nAddress: \n%@\n%@\n%@\n%@\n%@\n\nURL: \n%@\n",
-                                                 orgString,mobString,phoString,emaString,addString,
-                                                 citString, staString, posString, couString, urllString];
-                    
+                    self.detailsData.fullText = [NSString stringWithFormat:@"Organization: \n%@\n\nMobile Number: \n%@\n\nPhone Number: \n%@\n\nEmail: \n%@\n\nAddress: \n%@\n\nURL: \n%@\n",
+                                                 orgString,mobString,phoString,emaString,addressFull, urllString];
+                    [addressFull release];
                     [aContact setName:[resultsDictionary objectForKey:@"contact_name"]];
                     [aContact setOrganization:[resultsDictionary objectForKey:@"contact_organization"]];
                     [aContact setAddress:[resultsDictionary objectForKey:@"contact_address"]];

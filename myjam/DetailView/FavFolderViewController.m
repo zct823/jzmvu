@@ -140,6 +140,7 @@
     }
     else
     {
+        [self saveDataToServer:currentCellTag withCurrentFav:self.purrFav];
         NSLog(@"Continue button will trigger NSNotificationCenter");
         [self performSelector:@selector(setMessageForSuccess) withObject:self afterDelay:0.0f];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"notifyClose" object:self];
@@ -363,10 +364,12 @@
         self.oldIndexPath=indexPath;
         
     }
+    
+    currentCellTag = (id)cell.tag;
 
     NSLog(@"Cell Tag: %@ & Current Fav: %@",(id)cell.tag,self.purrFav);
     
-    [self saveDataToServer:(id)cell.tag withCurrentFav:self.purrFav];
+//    [self saveDataToServer:(id)cell.tag withCurrentFav:self.purrFav];
     
 }
 

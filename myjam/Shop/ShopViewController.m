@@ -54,7 +54,7 @@
     
     //--- end activating SwipeBottomBox
     
-    [tabBar showDefaults];
+//    [tabBar showDefaults];
 }
 
 - (void)viewDidLoad
@@ -109,12 +109,14 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    mydelegate.swipeBottomEnabled = YES;
+    mydelegate.swipeBottomEnabled = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     NSLog(@"vwa shop");
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    mydelegate.swipeBottomEnabled = YES;
 //    [self.navigationController popToRootViewControllerAnimated:NO];
     [DejalBezelActivityView removeViewAnimated:YES];
 }

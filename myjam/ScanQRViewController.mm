@@ -36,7 +36,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
+        
         FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
         titleView.text = @"JAM-BU Scan";
         titleView.textAlignment = NSTextAlignmentCenter;
@@ -90,9 +90,9 @@
     
     [scanNavController setNavigationBarHidden:YES];
     [self.view addSubview:scanNavController.view];
-
+    
     [widController release];
-
+    
 }
 
 //- (IBAction)scanButton:(id)sender {
@@ -108,10 +108,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    
     NSLog(@"viewWillAppearScan");
     [self.loadingActivityView startAnimating];
-//    [self openScanner];
+    //    [self openScanner];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -160,7 +160,7 @@
     }
     
     return NO;
-
+    
 }
 
 - (NSString *)getQRCodeIdFromScanString:(NSString *)str
@@ -194,9 +194,9 @@
 #pragma mark ZXingDelegateMethods
 - (void)zxingController:(ZXingWidgetController*)controller didScanResult:(NSString *)resultString
 {
-//    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
-//    [self.view bringSubviewToFront:self.loadingActivityView];
-//    [self.view bringSubviewToFront:self.waitLabel];
+    //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    //    [self.view bringSubviewToFront:self.loadingActivityView];
+    //    [self.view bringSubviewToFront:self.waitLabel];
     
     MoreViewController *more = [[MoreViewController alloc] init];
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -210,82 +210,82 @@
     }
     
     NSLog(@"str %@",resultString);
-    NSString *qrcodeId = @"0";
+//    NSString *qrcodeId = @"0";
     
-    qrcodeId = [self getQRCodeIdFromScanString:resultString];
+    //    qrcodeId = [self getQRCodeIdFromScanString:resultString];
     
-//    NSLog(@"str %@",resultString);
-//    NSString *qrcodeId;
-//    BOOL isInternalQR = NO;
-//
-//    // Process if preview jambu qrcode http://jambu/preview
-//    if ([resultString isEqualToString:[NSString stringWithFormat: @"%@/preview",APP_API_URL]])
-//    {
-//        ErrorViewController *errorPage = [[ErrorViewController alloc] init];
-//        errorPage.errorOption = kERROR_NOT_SAVED;
-//        [mydelegate.scanNavController pushViewController:errorPage animated:YES];
-//        [errorPage release];
-//        
-//        return;
-//    }
-//    
-//    // Process if jam-bu qrcode
-//    NSArray *splittedURL = [resultString componentsSeparatedByString:@"/"];
-//    if ([splittedURL count] >= 5) { // Is URL with "/" seperated
-//        // Check if jam-bu link
-//        if ([[splittedURL objectAtIndex:2] isEqualToString:SCAN_URL] && [[splittedURL objectAtIndex:3] isEqualToString:@"scan"])
-//        {
-//            isInternalQR = YES;
-//            qrcodeId = [splittedURL lastObject];
-//        }
-//    }
-//    
-//    // Process alien qrcode
-//    if (!isInternalQR) {
-//        NSLog(@"External QR code");
-//        
-//        qrcodeId = [self performResultAction:resultString];
-//        if ([qrcodeId isEqualToString:@"0000"]) { // 0000 indicates calendar qrcode
-//            
-//            // skip for map since it is processed directly in MKReverse delegate
-//            return;
-//        }
-//        else if ([qrcodeId isEqualToString:@"error"])
-//        {
-//            // Redirect to error page
-//            ErrorViewController *errorPage = [[ErrorViewController alloc] init];
-//            errorPage.errorOption = kERROR_QR_NOT_COMPATIBLE;
-//            [mydelegate.scanNavController pushViewController:errorPage animated:YES];
-//            [errorPage release];
-//            
-//            return;
-//        }
-//    
-//    }
+    NSLog(@"str %@",resultString);
+    NSString *qrcodeId;
+    BOOL isInternalQR = NO;
+    
+    // Process if preview jambu qrcode http://jambu/preview
+    if ([resultString isEqualToString:[NSString stringWithFormat: @"%@/preview",APP_API_URL]])
+    {
+        ErrorViewController *errorPage = [[ErrorViewController alloc] init];
+        errorPage.errorOption = kERROR_NOT_SAVED;
+        [mydelegate.scanNavController pushViewController:errorPage animated:YES];
+        [errorPage release];
+        
+        return;
+    }
+    
+    // Process if jam-bu qrcode
+    NSArray *splittedURL = [resultString componentsSeparatedByString:@"/"];
+    if ([splittedURL count] >= 5) { // Is URL with "/" seperated
+        // Check if jam-bu link
+        if ([[splittedURL objectAtIndex:2] isEqualToString:SCAN_URL] && [[splittedURL objectAtIndex:3] isEqualToString:@"scan"])
+        {
+            isInternalQR = YES;
+            qrcodeId = [splittedURL lastObject];
+        }
+    }
+    
+    // Process alien qrcode
+    if (!isInternalQR) {
+        NSLog(@"External QR code");
+        
+        qrcodeId = [self performResultAction:resultString];
+        if ([qrcodeId isEqualToString:@"0000"]) { // 0000 indicates calendar qrcode
+            
+            // skip for map since it is processed directly in MKReverse delegate
+            return;
+        }
+        else if ([qrcodeId isEqualToString:@"error"])
+        {
+            // Redirect to error page
+            ErrorViewController *errorPage = [[ErrorViewController alloc] init];
+            errorPage.errorOption = kERROR_QR_NOT_COMPATIBLE;
+            [mydelegate.scanNavController pushViewController:errorPage animated:YES];
+            [errorPage release];
+            
+            return;
+        }
+        
+    }
     
     if ([qrcodeId integerValue]) {
         // Store qrcode in server / scan list
-//        if ([self addScanToServer:qrcodeId])
-//        {
-        more.qrcodeId = qrcodeId;
-        [mydelegate.boxNavController pushViewController:more animated:YES];
-        [mydelegate.tabView activateController:3];
-        [more release];
-        
-        // Manually change the selected tabButton
-        for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
-            if (i == 3) {
-                [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
-            } else {
-                [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
+        if ([self addScanToServer:qrcodeId])
+        {
+            more.qrcodeId = qrcodeId;
+            [mydelegate.boxNavController pushViewController:more animated:YES];
+            [mydelegate.tabView activateController:3];
+            [more release];
+            
+            // Manually change the selected tabButton
+            for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
+                if (i == 3) {
+                    [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
+                } else {
+                    [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
+                }
             }
-        }
-//        }
-    }else{
-        NSLog(@"Error occured.");
     }
-    
-    NSLog(@"qrcodeid : %@",qrcodeId);
+}else{
+    NSLog(@"Error occured.");
+}
+
+NSLog(@"qrcodeid : %@",qrcodeId);
 }
 
 - (void)zxingControllerDidCancel:(ZXingWidgetController*)controller {
@@ -311,10 +311,10 @@
         
         if (resultString == nil || [resultString length] < 1) {
             return @"error";
-        }else if ([resultString hasPrefix:@"BEGIN:VEVENT"]){ 
+        }else if ([resultString hasPrefix:@"BEGIN:VEVENT"]){
             // process calendar
             return [self processScanEvent:resultString];
-
+            
         }else{
             // Others scan result treat as plain text
             return [self processPlainText:resultString];
@@ -336,7 +336,7 @@
         }else{
             return @"error";
         }
-    
+        
     }else{
         return @"error";
     }
@@ -370,7 +370,7 @@
         }
     }
     return qrcodeId;
-
+    
 }
 
 - (NSString *)processScanEvent:(NSString *)text
@@ -382,7 +382,7 @@
     MEvent *event = [[MEvent alloc] init];
     
     NSLog(@"%@",rawKeyValue);
-        for (NSString *line in rawKeyValue)
+    for (NSString *line in rawKeyValue)
     {
         NSArray *keyVal = [line componentsSeparatedByString:@":"];
         NSString *key = [keyVal objectAtIndex:0];
@@ -399,7 +399,7 @@
             [event setDescription:value];
         }
         else if ([key isEqualToString:@"DTSTART"]) {
-
+            
             NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"yyyyMMdd'T'HHmmss'Z'"];
             NSDate *aDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@",value]];
@@ -426,7 +426,7 @@
                              event.endDate,
                              event.endTime,
                              event.location];
-
+    
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
     NSLog(@"abc: %@, def:%@",dataContent, response);
@@ -447,7 +447,7 @@
         }
     }
     return qrcodeId;
-
+    
 }
 
 - (NSString *)timeToString:(NSDate *)time
@@ -481,7 +481,7 @@
     NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_contact.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
     
     NSString *address = [[NSString stringWithFormat:@"%@",[vcard.addresses objectAtIndex:0]]
-                                     stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+                         stringByReplacingOccurrencesOfString:@"\\" withString:@""];
     
     NSString *dataContent = [NSString stringWithFormat:@"{\"app_title\":\"Alien\",\"contact_name\":\"%@\",\"contact_mobile_phone_number\":\"%@\",\"contact_address\":\"%@\",\"external\":\"1\"}",
                              [NSString stringWithFormat:@"%@",[vcard.names objectAtIndex:0]],
@@ -573,11 +573,11 @@
     MKPlacemark * myPlacemark = placemark;
     
     NSString *aAddress = [NSString stringWithFormat:@"%@, %@, %@, %@ %@",
-                         [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressStreetKey],
-                         [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressCityKey],
-                         [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressStateKey],
-                         [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressZIPKey],
-                         [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressCountryKey]];
+                          [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressStreetKey],
+                          [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressCityKey],
+                          [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressStateKey],
+                          [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressZIPKey],
+                          [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressCountryKey]];
     
     NSLog(@"result address %@", aAddress);
     
@@ -603,7 +603,7 @@
             
         }
     }
-
+    
     
     if ([qrcodeId integerValue]) {
         // Store qrcode in server / scan list

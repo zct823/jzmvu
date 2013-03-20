@@ -476,7 +476,7 @@
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SideBarFooterCell" owner:nil options:nil];
             cell = [nib objectAtIndex:0];
             //     cell.adminFeeLabel.text = [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"admin_fee" ] componentsSeparatedByString:@":"] objectAtIndex:1] ;
-            cell.totalLabel.text = [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"grand_total" ] componentsSeparatedByString:@":"] objectAtIndex:1];
+            cell.totalLabel.text = [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"total" ] componentsSeparatedByString:@":"] objectAtIndex:1];
             cell.shopNameLabel.text =[[cartItems objectAtIndex:indexPath.section] valueForKey:@"shop_name" ] ;
             [cell.checkOutButton setTag:indexPath.section];
             [cell.checkOutButton addTarget:self action:@selector(checkOutTapped:) forControlEvents:UIControlEventTouchUpInside];

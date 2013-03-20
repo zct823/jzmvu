@@ -494,7 +494,7 @@
     
     NSString *dataContent = [NSString stringWithFormat:@"{\"app_title\":\"%@\",\"category_id\":\"%@\",\"social_type\":\"%@\",\"social_name\":\"%@\",\"social_url\":\"%@\"}",
                              self.appTitleTextField.text,
-                             self.categoryId,
+                             [self.categories objectForKey:self.categoryTextField.text],
                              self.socialType,
                              self.nameTextField.text,
                              self.urlTextField.text];

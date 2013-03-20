@@ -109,13 +109,13 @@
 								</object>
 								<reference key="IBUIHighlightedColor" ref="1024240587"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="470691592">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="650783298">
 									<string key="name">Verdana</string>
 									<string key="family">Verdana</string>
 									<int key="traits">0</int>
 									<double key="pointSize">13</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="737743719">
+								<object class="NSFont" key="IBUIFont" id="161066153">
 									<string key="NSName">Verdana</string>
 									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
@@ -138,8 +138,8 @@
 								<reference key="IBUITextColor" ref="934792853"/>
 								<reference key="IBUIHighlightedColor" ref="1024240587"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<reference key="IBUIFontDescription" ref="470691592"/>
-								<reference key="IBUIFont" ref="737743719"/>
+								<reference key="IBUIFontDescription" ref="650783298"/>
+								<reference key="IBUIFont" ref="161066153"/>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 							<object class="IBUIButton" id="25986574">
@@ -218,8 +218,8 @@
 								<reference key="IBUITextColor" ref="934792853"/>
 								<reference key="IBUIHighlightedColor" ref="1024240587"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<reference key="IBUIFontDescription" ref="470691592"/>
-								<reference key="IBUIFont" ref="737743719"/>
+								<reference key="IBUIFontDescription" ref="650783298"/>
+								<reference key="IBUIFont" ref="161066153"/>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 							<object class="IBUILabel" id="564586929">
@@ -279,8 +279,8 @@
 									<bytes key="NSWhite">MCAwAA</bytes>
 								</object>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<reference key="IBUIFontDescription" ref="470691592"/>
-								<reference key="IBUIFont" ref="737743719"/>
+								<reference key="IBUIFontDescription" ref="650783298"/>
+								<reference key="IBUIFont" ref="161066153"/>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>

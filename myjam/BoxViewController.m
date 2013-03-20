@@ -131,7 +131,6 @@
 {
     
     AppDelegate *mainVC = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    
     mainVC.swipeBottomEnabled = NO;
 }
 

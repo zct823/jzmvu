@@ -169,7 +169,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [self.navigationController popToRootViewControllerAnimated:NO];
+//    [self.navigationController popToRootViewControllerAnimated:NO];
     
     AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     

@@ -15,6 +15,9 @@
 @class MoreViewController;
 
 @interface FavFolderViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+    int currentCellTag;
+}
 
 @property (nonatomic,assign) MoreViewController *delegate;
 @property (nonatomic,strong) IBOutlet UITableView *tableView;

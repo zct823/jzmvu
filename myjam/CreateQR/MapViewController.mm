@@ -589,7 +589,7 @@
     
     NSString *dataContent = [NSString stringWithFormat:@"{\"app_title\":\"%@\",\"category_id\":\"%@\",\"map_name\":\"%@\",\"map_description\":\"%@\",\"map_address\":\"%@\",\"map_city\":\"%@\",\"map_postcode\":\"%@\",\"map_state\":\"%@\",\"map_country\":\"%@\"}",
                              self.appTitleTextField.text,
-                             self.categoryId,
+                             [self.categories objectForKey:self.categoryTextField.text],
                              self.mapNameTextField.text,
                              self.mapDescTextField.text,
                              self.addressTextField.text,

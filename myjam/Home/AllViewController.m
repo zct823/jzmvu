@@ -119,7 +119,7 @@
 {
     [self.activityIndicator startAnimating];
     //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
-    [self performSelectorInBackground:@selector(setupView) withObject:nil];
+    [self performSelector:@selector(setupView) withObject:nil afterDelay:0.1];
 }
 
 - (void)setupView

@@ -54,41 +54,40 @@
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<object class="NSCustomResource" key="IBUIImage">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">htc_logo.png</string>
-										</object>
 									</object>
 									<object class="IBUILabel" id="393632043">
 										<reference key="NSNextResponder" ref="653750287"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{103, 27}, {160, 21}}</string>
+										<string key="NSFrame">{{91, 10}, {209, 56}}</string>
 										<reference key="NSSuperview" ref="653750287"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<int key="IBUIContentMode">7</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">HTC Expert</string>
+										<string key="IBUIText">Product</string>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MCAwLjcxMzcyNTQ5MDIgMC41ODgyMzUyOTQxAA</bytes>
 										</object>
 										<nil key="IBUIHighlightedColor"/>
 										<int key="IBUIBaselineAdjustment">0</int>
+										<int key="IBUINumberOfLines">3</int>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<string key="name">Verdana-Bold</string>
 											<string key="family">Verdana</string>
 											<int key="traits">2</int>
-											<double key="pointSize">16</double>
+											<double key="pointSize">15</double>
 										</object>
 										<object class="NSFont" key="IBUIFont">
 											<string key="NSName">Verdana-Bold</string>
-											<double key="NSSize">16</double>
+											<double key="NSSize">15</double>
 											<int key="NSfFlags">16</int>
 										</object>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+										<double key="preferredMaxLayoutWidth">209</double>
 									</object>
 								</array>
 								<string key="NSFrameSize">{320, 77}</string>
@@ -291,10 +290,6 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">htc_logo.png</string>
-			<string key="NS.object.0">{164, 165}</string>
-		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

@@ -2840,7 +2840,7 @@
 					"-lsqlite3.0",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "JAM-BU Beta v1.0";
+				PRODUCT_NAME = "JAM-BU v1.0";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
@@ -2877,7 +2877,7 @@
 					"-lsqlite3.0",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "JAM-BU Beta v1.0";
+				PRODUCT_NAME = "JAM-BU v1.0";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;

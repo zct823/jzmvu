@@ -137,7 +137,7 @@
     // Mark current page
     mydelegate.pageIndex = kHomeTab;
 
-    [tabBar showDefaults];
+//    [tabBar showDefaults];
     [self animateAds];
     
     [DejalBezelActivityView removeViewAnimated:YES];

@@ -58,7 +58,7 @@
     
     //--- end activating SwipeBottomBox
     
-    [tabBar showDefaults];
+//    [tabBar showDefaults];
 }
 
 - (void)animateAds

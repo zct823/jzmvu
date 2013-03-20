@@ -37,12 +37,14 @@
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = NO;
+    [self refresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = YES;
+//    [self refresh];
 }
 
 - (void)refresh {

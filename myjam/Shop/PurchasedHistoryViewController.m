@@ -37,7 +37,7 @@
         kDisplayPerscreen = 3;
     }
     
-    [self loadData];
+    
     
 }
 
@@ -46,6 +46,7 @@
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = YES;
     [DejalBezelActivityView removeViewAnimated:YES];
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

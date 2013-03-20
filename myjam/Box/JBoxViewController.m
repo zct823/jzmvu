@@ -23,7 +23,17 @@
     self.selectedApp = @"";
     self.selectedShop = @"";
     self.selectedProduct = @"";
+    self.selectedCategories = @"";
+    self.searchedText = @"";
+    self.selectedShop = @"";
+    self.selectedProduct = @"";
+    
     [super viewDidLoad];
+    [self loadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [self loadData];
 }
 

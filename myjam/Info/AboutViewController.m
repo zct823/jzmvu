@@ -55,7 +55,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [mydelegate handleTab5];
+//    [mydelegate handleTab5];
+    [mydelegate openSidebar];
 }
 
 - (void)didReceiveMemoryWarning

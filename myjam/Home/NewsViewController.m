@@ -76,7 +76,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-
+     [self.activityIndicator startAnimating];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

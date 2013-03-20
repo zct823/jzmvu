@@ -68,7 +68,7 @@
 				<bool key="IBUIBouncesZoom">NO</bool>
 			</object>
 			<object class="IBUIView" id="191373211">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUITextField" id="376693541">
@@ -406,7 +406,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 501}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="1068347967"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>

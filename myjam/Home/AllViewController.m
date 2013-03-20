@@ -24,7 +24,8 @@
 {
     NSLog(@"viewDidLoad All");
     [super viewDidLoad];
-    
+    self.selectedCategories = @"";
+    self.searchedText = @"";
     //    aQRcodeType = [[NSMutableArray alloc] init];
     
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
@@ -39,7 +40,7 @@
     UIPanGestureRecognizer *slideRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:nil];
     slideRecognizer.delegate = self;
     [self.tableView addGestureRecognizer:slideRecognizer];
-    //    [self loadData];
+    [self loadData];
     
     
 }
@@ -90,6 +91,7 @@
 //        [localData setObject:[NSString stringWithFormat:@"NO"] forKey:@"isReloadNewsNeeded"];
 //        [localData synchronize];
 //    }
+//    [self loadData];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

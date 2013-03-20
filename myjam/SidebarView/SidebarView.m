@@ -260,7 +260,8 @@
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     //    [DejalBezelActivityView activityViewForView:mydelegate.window withLabel:@"Please wait..." width:100];
-    [mydelegate handleTab5];
+//    [mydelegate handleTab5];
+    [mydelegate closeSidebar];
     [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
     [mydelegate.otherNavController pushViewController:controller animated:NO];
     [mydelegate.tabView activateController:4];

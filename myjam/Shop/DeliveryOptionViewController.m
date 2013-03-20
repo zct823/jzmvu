@@ -33,6 +33,12 @@
         self.navigationItem.titleView = titleView;
         [titleView release];
         // Custom initialization
+        
+        self.navigationItem.backBarButtonItem =
+        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                          style:UIBarButtonItemStyleBordered
+                                         target:nil
+                                         action:nil] autorelease];
     }
     return self;
 }
@@ -43,6 +49,11 @@
     self.scrollView.contentSize = self.scrollView.frame.size;
     self.scrollView.frame = self.view.frame;
     [self.view addSubview:self.scrollView];
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        // code for 4-inch screen
+        [self.view setBounds:CGRectMake(0, 90, self.view.bounds.size.width, self.view.bounds.size.height)];
+    }
 
     addressInfo = [[NSMutableDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getSavedAddressFor:cartId]];
 

@@ -143,6 +143,7 @@
     }
     if ([[[[[_cartList objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row] valueForKey:@"size_name"] isEqual:@""]){
         cell.sizeLabel.hidden=TRUE;
+        [cell.aSizeLabel setHidden:YES];
     }else{
         cell.sizeLabel.text = [[[[_cartList objectAtIndex:indexPath.section] valueForKey:@"item_list"] objectAtIndex:indexPath.row] valueForKey:@"size_name" ];
         

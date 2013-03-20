@@ -18,6 +18,7 @@
 @property (retain, nonatomic) IBOutlet UIImageView *colorView;
 @property (retain, nonatomic) IBOutlet UIImageView *sizeImageView;
 @property (retain, nonatomic) IBOutlet UILabel *sizeLabel;
+@property (retain, nonatomic) IBOutlet UILabel *aSizeLabel;
 
 
 @end

@@ -37,6 +37,7 @@
     [_colorView release];
     [_sizeImageView release];
     [_sizeLabel release];
+    [_aSizeLabel release];
     [super dealloc];
 }
 @end

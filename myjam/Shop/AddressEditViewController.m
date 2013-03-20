@@ -63,6 +63,13 @@
     self.scrollView.contentSize = self.scrollView.frame.size;
     self.scrollView.frame = self.view.frame;
     [self.view addSubview:self.scrollView];
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    
+    if (screenBounds.size.height == 568) {
+        // code for 4-inch screen
+       [self.view setBounds:CGRectMake(0, 90, self.view.bounds.size.width, self.view.bounds.size.height)];
+    }
+    
     self.cityLabel.text = [addressInfo valueForKey:@"delivery_city"];
     self.addressLabel.text =[addressInfo valueForKey:@"delivery_address"] ;
     self.postcodeLabel.text = [addressInfo valueForKey:@"delivery_postcode"];

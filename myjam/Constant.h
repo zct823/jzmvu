@@ -19,9 +19,9 @@
 #define SELECTED_VIEW_CONTROLLER_TAG 98456345
 #define NOTIFICATION_IMAGE_VIEW_TAG 98456346
 
-//#define APP_API_URL @"http://www.jam-bu.com"
+#define APP_API_URL @"http://www.jam-bu.com"
 
-#define APP_API_URL @"http://jambudev.me-tech.com.my"
+//#define APP_API_URL @"http://jambudev.me-tech.com.my"
 
 #define SCAN_URL @"www.jam-bu.com"
 

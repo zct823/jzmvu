@@ -35,7 +35,6 @@
                                           style:UIBarButtonItemStyleBordered
                                          target:nil
                                          action:nil] autorelease];
-
     }
     return self;
 }
@@ -45,11 +44,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.scroller = (TPKeyboardAvoidingScrollView *)self.view;
+//    self.scroller = (TPKeyboardAvoidingScrollView *)self.view;
+//    [self.scroller setContentSize:self.contentView.frame.size];
+//    [self.scroller addSubview:self.contentView];
     
-    [self.scroller setContentSize:self.scrollView.frame.size];
-    [self.scroller addSubview:self.scrollView];
+    NSString *urlAddress = @"http://jam-bu.com/api/content/about.php";
     
+    //Create a URL object.
+    NSURL *url = [NSURL URLWithString:urlAddress];
+    
+    //URL Requst Object
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    
+    //Load the request in the UIWebView.
+    [self.webView loadRequest:requestObj];
+    [[self.webView scrollView] setBounces:NO];
+    //[self.scroller setContentSize:self.scrollView.frame.size];
+    [self.view addSubview:self.webView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

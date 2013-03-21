@@ -473,6 +473,10 @@
     {
         if ([self.detailsData.linkURL length])
         {
+            if (![self.detailsData.linkURL hasPrefix:@"http://"]) {
+                self.detailsData.linkURL = [NSString stringWithFormat:@"http://%@",self.detailsData.linkURL];
+            }
+            
             [self.viewMoreLabel setHidden:NO];
             self.viewMoreLabel.userInteractionEnabled = YES;
             UITapGestureRecognizer *urlTapRecognizer;

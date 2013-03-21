@@ -12,6 +12,7 @@
 @interface AboutViewController : UIViewController <UIScrollViewDelegate>
 
 @property (nonatomic,retain) TPKeyboardAvoidingScrollView *scroller;
-@property (nonatomic,retain) IBOutlet UIView *scrollView;
+@property (nonatomic,retain) IBOutlet UIView *contentView;
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
 
 @end

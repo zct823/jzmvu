@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "TPKeyboardAvoidingScrollView.h"
 
-@interface FAQViewController : UIViewController <UIScrollViewDelegate>
+@interface FAQViewController : UIViewController <UIScrollViewDelegate, UIWebViewDelegate>
 
 @property (nonatomic, retain) TPKeyboardAvoidingScrollView *scroller;
 @property (nonatomic, retain) IBOutlet UIView *contentView;
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
 
 @end

@@ -461,7 +461,7 @@ static int kImageTagStart = 1000;
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     
 //    [self.view setFrame:viewFrame];
-    self.view.frame = CGRectMake(0, self.view.bounds.size.height+40, self.view.frame.size.width, self.view.frame.size.height);
+    self.view.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-PORTRAIT_KEYBOARD_HEIGHT-70, self.view.frame.size.width, self.view.frame.size.height);
     [UIView commitAnimations];
 }
 

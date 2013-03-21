@@ -130,8 +130,8 @@
     NSLog(@"%@",[asiRequest responseString]);
     
     [url release];
-    [asiRequest release];
-    [imgData release];
+//    [asiRequest release];
+//    [imgData release];
 }
 
 - (void)didReceiveMemoryWarning

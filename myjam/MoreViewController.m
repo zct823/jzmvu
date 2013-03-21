@@ -1305,7 +1305,7 @@
     [_imageCarouselView release];
     [_leftButton release];
     [_rightButton release];
-    [_shareView release];
+//    [_shareView release];
     [_viewMoreLabel release];
     [_shareFBButton release];
     [_shareTwitterButton release];

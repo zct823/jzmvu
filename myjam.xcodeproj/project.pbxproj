@@ -414,6 +414,10 @@
 		61A1840016E658B4006C6F31 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61A183FC16E658B4006C6F31 /* PhotoViewController.xib */; };
 		61B03CE416BBC84900117CEB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B03CDA16BBC84900117CEB /* RegisterViewController.m */; };
 		61B03CE516BBC84900117CEB /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B03CDB16BBC84900117CEB /* RegisterViewController.xib */; };
+		61B0DD3616FB196200FDEDED /* DeliverySelSavAddresses.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B0DD3116FB196200FDEDED /* DeliverySelSavAddresses.m */; };
+		61B0DD3716FB196200FDEDED /* DeliverySelSavAddresses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B0DD3216FB196200FDEDED /* DeliverySelSavAddresses.xib */; };
+		61B0DD3816FB196200FDEDED /* DeliverySelSavAddrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B0DD3416FB196200FDEDED /* DeliverySelSavAddrViewController.m */; };
+		61B0DD3916FB196200FDEDED /* DeliverySelSavAddrViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B0DD3516FB196200FDEDED /* DeliverySelSavAddrViewController.xib */; };
 		61B16E2716B9807100E521F2 /* TutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B16E2616B9807100E521F2 /* TutorialView.m */; };
 		61BEED4116BF5697003083BA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 61BEED3F16BF5697003083BA /* icon.png */; };
 		61BEED4216BF5697003083BA /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61BEED4016BF5697003083BA /* icon@2x.png */; };
@@ -1038,6 +1042,12 @@
 		61B03CD916BBC84900117CEB /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		61B03CDA16BBC84900117CEB /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		61B03CDB16BBC84900117CEB /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		61B0DD3016FB196200FDEDED /* DeliverySelSavAddresses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeliverySelSavAddresses.h; path = myjam/Shop/DeliverySelSavAddresses.h; sourceTree = SOURCE_ROOT; };
+		61B0DD3116FB196200FDEDED /* DeliverySelSavAddresses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeliverySelSavAddresses.m; path = myjam/Shop/DeliverySelSavAddresses.m; sourceTree = SOURCE_ROOT; };
+		61B0DD3216FB196200FDEDED /* DeliverySelSavAddresses.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DeliverySelSavAddresses.xib; path = myjam/Shop/DeliverySelSavAddresses.xib; sourceTree = SOURCE_ROOT; };
+		61B0DD3316FB196200FDEDED /* DeliverySelSavAddrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeliverySelSavAddrViewController.h; path = myjam/Shop/DeliverySelSavAddrViewController.h; sourceTree = SOURCE_ROOT; };
+		61B0DD3416FB196200FDEDED /* DeliverySelSavAddrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeliverySelSavAddrViewController.m; path = myjam/Shop/DeliverySelSavAddrViewController.m; sourceTree = SOURCE_ROOT; };
+		61B0DD3516FB196200FDEDED /* DeliverySelSavAddrViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DeliverySelSavAddrViewController.xib; path = myjam/Shop/DeliverySelSavAddrViewController.xib; sourceTree = SOURCE_ROOT; };
 		61B16E2516B9807100E521F2 /* TutorialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialView.h; path = Tutorial/TutorialView.h; sourceTree = "<group>"; };
 		61B16E2616B9807100E521F2 /* TutorialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialView.m; path = Tutorial/TutorialView.m; sourceTree = "<group>"; };
 		61BEED3F16BF5697003083BA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -1389,6 +1399,12 @@
 		6139632616EF8EFF0056B314 /* Shop */ = {
 			isa = PBXGroup;
 			children = (
+				61B0DD3016FB196200FDEDED /* DeliverySelSavAddresses.h */,
+				61B0DD3116FB196200FDEDED /* DeliverySelSavAddresses.m */,
+				61B0DD3216FB196200FDEDED /* DeliverySelSavAddresses.xib */,
+				61B0DD3316FB196200FDEDED /* DeliverySelSavAddrViewController.h */,
+				61B0DD3416FB196200FDEDED /* DeliverySelSavAddrViewController.m */,
+				61B0DD3516FB196200FDEDED /* DeliverySelSavAddrViewController.xib */,
 				6139632716EF8EFF0056B314 /* AddressEditViewController.h */,
 				6139632816EF8EFF0056B314 /* AddressEditViewController.m */,
 				6139632916EF8EFF0056B314 /* AddressEditViewController.xib */,
@@ -2550,6 +2566,8 @@
 				6120090116F9A94C005227FB /* XX_button.png in Resources */,
 				6120090216F9A94C005227FB /* XXL_button.png in Resources */,
 				6120090316F9A94C005227FB /* yes_btn.png in Resources */,
+				61B0DD3716FB196200FDEDED /* DeliverySelSavAddresses.xib in Resources */,
+				61B0DD3916FB196200FDEDED /* DeliverySelSavAddrViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2730,6 +2748,8 @@
 				6139640916EF8EFF0056B314 /* UIImageView+RemoteFile.m in Sources */,
 				6139640A16EF8EFF0056B314 /* WriteReviewViewController.m in Sources */,
 				614BA74616F3F46600E5AA74 /* MarqueeLabel.m in Sources */,
+				61B0DD3616FB196200FDEDED /* DeliverySelSavAddresses.m in Sources */,
+				61B0DD3816FB196200FDEDED /* DeliverySelSavAddrViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

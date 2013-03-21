@@ -234,7 +234,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     NSString *toggledStateTB4 = nil;
     NSString *toggledStateTB5 = nil;
     
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    screenBounds = [[UIScreen mainScreen] bounds];
     
     if (screenBounds.size.height == 568)
     {
@@ -374,6 +374,12 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 
 - (void)closeSidebar
 {
+    if (showCamera && screenBounds.size.height != 568) {
+        [self.tabView activateController:kScannerTab];
+        showCamera = NO;
+        [blackView removeFromSuperview];
+    }
+    
     sideBarOpen = NO;
     [homeNavController.view setUserInteractionEnabled:YES];
     [bannerView setUserInteractionEnabled:YES];
@@ -402,6 +408,18 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 
 - (void)openSidebar
 {
+    
+    if (self.pageIndex == kScannerTab && screenBounds.size.height != 568) {
+        [self.tabView activateController:kHomeTab];
+        
+        blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, self.window.frame.size.height-44-39-20)];
+        [blackView setBackgroundColor:[UIColor blackColor]];
+        [self.tabView.view addSubview:blackView];
+        [blackView release];
+        
+        showCamera = YES;
+    }
+    
     [self.tabView.view addSubview:frontLayerView];
     
     sideBarOpen = YES;

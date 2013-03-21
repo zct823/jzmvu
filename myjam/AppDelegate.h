@@ -29,6 +29,9 @@
 	GTabBar *tabView;
     UIView *frontLayerView;
     int LayerOption;
+    BOOL showCamera;
+    UIView *blackView;
+    CGRect screenBounds;
 }
 
 @property (nonatomic, retain) UINavigationController* shopNavController;

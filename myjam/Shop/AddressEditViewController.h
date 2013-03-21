@@ -16,6 +16,11 @@
 #import "ASIWrapper.h" // FOR COUNTING
 
 @interface AddressEditViewController : CoreViewController<UIPickerViewDelegate, UITextViewDelegate>
+{
+    UIPickerView *myPickerView;
+    UIPickerView *myPickerView2;
+    UIView *pickerToolbar;
+}
 
 @property (nonatomic, retain) NSDictionary *addressInfo;
 @property (nonatomic, retain) NSString *countrySelection;

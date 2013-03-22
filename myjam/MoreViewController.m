@@ -447,6 +447,11 @@
         [aDescriptionView addSubview:self.description];
         [self.description release];
         NSLog(@"here");
+        
+        if ([self.detailsData.qrcodeType isEqualToString:@"Contact"] || [self.detailsData.qrcodeType isEqualToString:@"Calendar"])
+        {
+            currentHeight += 40;
+        }
     }
     
     NSLog(@"xxx %@",self.description.text);

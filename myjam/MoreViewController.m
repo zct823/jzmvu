@@ -1123,7 +1123,7 @@
         }];
         
     }else{
-        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"JAM-BU Share" message:[NSString stringWithFormat:@"Please add your %@ account in IOS Device Settings",type] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"JAM-BU Share" message:[NSString stringWithFormat:@"Please add your %@ account in IOS Device Settings and allow JAM-BU to access your %@ information.",type,type] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         [alert release];
     }

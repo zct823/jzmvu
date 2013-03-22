@@ -236,7 +236,7 @@
     
     [DejalBezelActivityView activityViewForView:myDel.window withLabel:@"Please wait..." width:100];
     
-    [self performSelector:@selector(pushController:) withObject:vc afterDelay:0.6];
+    [self performSelector:@selector(pushController:) withObject:vc afterDelay:0.2];
 }
 
 - (void)showLoadingView
@@ -261,7 +261,7 @@
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     //    [DejalBezelActivityView activityViewForView:mydelegate.window withLabel:@"Please wait..." width:100];
 //    [mydelegate handleTab5];
-    [mydelegate closeSidebar];
+    
     [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
     [mydelegate.otherNavController pushViewController:controller animated:NO];
     [mydelegate.tabView activateController:4];
@@ -275,6 +275,8 @@
             [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
         }
     }
+    
+    [mydelegate closeSidebar];
 }
 
 - (void)pushProfileViewController
@@ -296,6 +298,8 @@
             [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
         }
     }
+    
+    [mydelegate closeSidebar];
 }
 
 - (void)handleSwipeRight

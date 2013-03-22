@@ -61,6 +61,7 @@
 @property int swipeController;
 @property int pageIndex;
 @property BOOL isCheckoutFromSideBar;
+@property BOOL isMustCloseSidebar;
 
 @property BOOL isSetupDone;
 @property BOOL sideBarOpen;

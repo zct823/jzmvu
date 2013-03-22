@@ -293,7 +293,7 @@
         [myPickerView setHidden:YES];
     }else{
         [myPickerView2 setHidden:YES];
-        if ([self.stateButton.titleLabel.text isEqualToString:@"Select a state from the list                                                                                                  "]) {
+        if ([self.stateButton.titleLabel.text isEqualToString:@"Select a Country from the list                                                                                                  "]) {
             [self.countryButton setTitle:[[[addressInfo valueForKey:@"country_list"] objectAtIndex:0] valueForKey:@"country_name"] forState:UIControlStateNormal];
             countrySelection = [[[addressInfo valueForKey:@"country_list"] objectAtIndex:0] valueForKey:@"country_code"];
         }
@@ -424,6 +424,12 @@
 }
 #pragma mark-
 #pragma mark Textview delegate
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    [textView resignFirstResponder];
+}
+
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
     if (myPickerView.hidden == NO) {

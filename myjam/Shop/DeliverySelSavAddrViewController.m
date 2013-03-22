@@ -127,9 +127,7 @@
                     
                 }
                 
-                [self.scrollView setContentSize:CGSizeMake(self.mainContentView.frame.size.width, self.mainContentView.frame.size.height+kickStartAddrY-200)];
-                [self.mainContentView setFrame:CGRectMake(0, 0, self.mainContentView.frame.size.width, self.mainContentView.frame.size.height+kickStartAddrY-200)];
-                [self.scrollView addSubview:self.mainContentView];
+                
                 
                 [self.nextBtnView setFrame:CGRectMake(0, kickStartAddrY+110, self.nextBtnView.bounds.size.width, self.nextBtnView.bounds.size.height)];
                 [self.nextBtnView setUserInteractionEnabled:YES];
@@ -137,6 +135,11 @@
                 [self.nextBtnView addGestureRecognizer:tapOnNext];
                 
                 [self.mainContentView addSubview:self.nextBtnView];
+                
+                [self.scrollView setContentSize:CGSizeMake(self.mainContentView.frame.size.width, self.mainContentView.frame.size.height+kickStartAddrY-200)];
+                [self.mainContentView setFrame:CGRectMake(0, 0, self.mainContentView.frame.size.width, self.mainContentView.frame.size.height+kickStartAddrY-200+self.nextBtnView.bounds.size.height)];
+                
+                [self.scrollView addSubview:self.mainContentView];
                 [tapOnNext release];
             }
         }

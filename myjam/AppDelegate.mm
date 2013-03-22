@@ -80,7 +80,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-
+    
     [self initViews];
     
     [self.window makeKeyAndVisible];
@@ -92,7 +92,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 - (void)initViews
 {
     // local cache dictionaries
-     NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
     
     // if internetconnection is good
     if ([ConnectionClass connected])
@@ -111,7 +111,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         
         // Everytime launch show tutorial until 500 times
         // from 1-5 times, if click home, then show tutorial again. after 5th launched, show only once
-//        NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
+        //        NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
         NSString *counterKey = [NSString stringWithFormat:@"counter%@",[localData objectForKey:@"tokenString"]];
         
         NSString *counter = [localData objectForKey:counterKey];
@@ -125,7 +125,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
             else{
                 [localData setObject:@"NO" forKey:@"isDisplayTutorial"];
             }
-
+            
         }
         
         NSString *isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:@"islogin"]copy];
@@ -216,12 +216,12 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     boxNavController = [[UINavigationController alloc] initWithRootViewController:boxVC];
     otherNavController = [[UINavigationController alloc] initWithRootViewController:createVC];
     
-//    // Init TabBarItem
-//    GTabTabItem *tabItem1 = [[GTabTabItem alloc] initWithFrame:CGRectMake(0, 0, 64, 39) normalState:@"home_selected" toggledState:@"home"];
-//	GTabTabItem *tabItem2 = [[GTabTabItem alloc] initWithFrame:CGRectMake(64, 0, 64, 39) normalState:@"shop_selected" toggledState:@"shop"];
-//	GTabTabItem *tabItem3 = [[GTabTabItem alloc] initWithFrame:CGRectMake(128, 0, 64, 39) normalState:@"scan_selected" toggledState:@"scan"];
-//	GTabTabItem *tabItem4 = [[GTabTabItem alloc] initWithFrame:CGRectMake(192, 0, 64, 39) normalState:@"box_selected" toggledState:@"box"];
-//	GTabTabItem *tabItem5 = [[GTabTabItem alloc] initWithFrame:CGRectMake(256, 0, 64, 39) normalState:@"more" toggledState:@"more"];
+    //    // Init TabBarItem
+    //    GTabTabItem *tabItem1 = [[GTabTabItem alloc] initWithFrame:CGRectMake(0, 0, 64, 39) normalState:@"home_selected" toggledState:@"home"];
+    //	GTabTabItem *tabItem2 = [[GTabTabItem alloc] initWithFrame:CGRectMake(64, 0, 64, 39) normalState:@"shop_selected" toggledState:@"shop"];
+    //	GTabTabItem *tabItem3 = [[GTabTabItem alloc] initWithFrame:CGRectMake(128, 0, 64, 39) normalState:@"scan_selected" toggledState:@"scan"];
+    //	GTabTabItem *tabItem4 = [[GTabTabItem alloc] initWithFrame:CGRectMake(192, 0, 64, 39) normalState:@"box_selected" toggledState:@"box"];
+    //	GTabTabItem *tabItem5 = [[GTabTabItem alloc] initWithFrame:CGRectMake(256, 0, 64, 39) normalState:@"more" toggledState:@"more"];
     // Init TabBarItem
     NSString *normalStateTB1 = nil;
     NSString *normalStateTB2 = nil;
@@ -272,7 +272,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 	GTabTabItem *tabItem3 = [[GTabTabItem alloc] initWithFrame:CGRectMake(128, 0, 64, 39) normalState:normalStateTB3 toggledState:toggledStateTB3];
 	GTabTabItem *tabItem4 = [[GTabTabItem alloc] initWithFrame:CGRectMake(192, 0, 64, 39) normalState:normalStateTB4 toggledState:toggledStateTB4];
 	GTabTabItem *tabItem5 = [[GTabTabItem alloc] initWithFrame:CGRectMake(256, 0, 64, 39) normalState:normalStateTB5 toggledState:toggledStateTB5];
-
+    
     // Disable Tabbutton2
     tabItem2.userInteractionEnabled = YES;
     
@@ -321,7 +321,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     
     UISwipeGestureRecognizer *twoFingerSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUp)];
     [twoFingerSwipe setDirection:UISwipeGestureRecognizerDirectionUp];
-    [twoFingerSwipe setNumberOfTouchesRequired:1];
+    [twoFingerSwipe setNumberOfTouchesRequired:2];
     [self.window addGestureRecognizer:twoFingerSwipe];
     [twoFingerSwipe release];
     
@@ -453,7 +453,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 - (void)handleTab5
 {
     NSLog(@"handleSideBar");
-    
+    [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
     LayerOption = kCloseSideBar;
     
     if ([self sideBarOpen])
@@ -482,7 +482,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
         NSLog(@"Swipedbottom disabled");
         return;
     }
-
+    
     if ([self bottomViewOpen])
     {
         bottomViewOpen = NO;
@@ -490,7 +490,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
          {
              //if (swipeOptionString == nil)
              //{
-                 //bottomController.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomController.view.frame.size.width, bottomController.view.frame.size.height);
+             //bottomController.view.frame = CGRectMake(0.0f, self.window.frame.size.height, bottomController.view.frame.size.width, bottomController.view.frame.size.height);
              //}
              if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
              {
@@ -533,7 +533,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
                          completion:^(BOOL finished){
                              //if (swipeOptionString == nil)
                              //{
-                                 //[bottomController.view removeFromSuperview];
+                             //[bottomController.view removeFromSuperview];
                              //}
                              if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
                              {
@@ -572,20 +572,20 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
                                  [bottomSVJSPurchase.view removeFromSuperview];
                              }
                          }];
-//        [tabView.view setUserInteractionEnabled:YES];
+        //        [tabView.view setUserInteractionEnabled:YES];
         [homeNavController.view setUserInteractionEnabled:YES];
         [frontLayerView removeFromSuperview];
         
     }else{
         [self.tabView.view addSubview:frontLayerView];
         [homeNavController.view setUserInteractionEnabled:NO];
-//        [tabView.view setUserInteractionEnabled:NO];
-
+        //        [tabView.view setUserInteractionEnabled:NO];
+        
         bottomViewOpen = YES;
         //if (swipeOptionString == nil)
         //{
-            //[self.window addSubview:bottomController.view];
-            //[self.window bringSubviewToFront:bottomController.view];
+        //[self.window addSubview:bottomController.view];
+        //[self.window bringSubviewToFront:bottomController.view];
         //}
         if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
         {
@@ -638,7 +638,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
              // change here for 4 retina
              //if (swipeOptionString == nil)
              //{
-                 //bottomController.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomController.view.frame.size.height, bottomController.view.frame.size.width, bottomController.view.frame.size.height);
+             //bottomController.view.frame = CGRectMake(0.0f, self.window.frame.size.height-bottomController.view.frame.size.height, bottomController.view.frame.size.width, bottomController.view.frame.size.height);
              //}
              if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
              {
@@ -680,9 +680,9 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
                          completion:^(BOOL finished){
                              //if (swipeOptionString == nil)
                              //{
-                                 //[bottomController.activityView startAnimating];
-                                 
-                                 //[bottomController performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
+                             //[bottomController.activityView startAnimating];
+                             
+                             //[bottomController performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              //}
                              if ([swipeOptionString isEqual:@"home-all"] || swipeOptionString == nil)
                              {
@@ -705,7 +705,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
                              else if ([swipeOptionString isEqual:@"scan"])
                              {
                                  [bottomSVScanBox.activityView startAnimating];
-                             
+                                 
                                  [bottomSVScanBox performSelector:@selector(setupCatagoryList) withObject:self afterDelay:0.2f];
                              }
                              else if ([swipeOptionString isEqual:@"share"])
@@ -751,7 +751,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     [self.window addSubview:loginNav.view];
     [loginvc release];
     [loginNav.view release];
-
+    
 }
 
 #pragma mark -
@@ -878,17 +878,19 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     // attempt to extract a token from the url
-   
+    
     if ([url isEqual:[NSURL URLWithString:@"jambu://www.jam-bu.com/" ]]){
         if ([[[[self shopNavController] topViewController] class] isEqual:[CheckoutViewController class]])
         {
+            self.isReturnFromPayment = YES;
             [[NSNotificationCenter defaultCenter]  postNotificationName:@"PurchaseVerification" object:self];
+            NSLog(@"entered here");
             
         }
-
+        
     }
     else{
-    return [FBSession.activeSession handleOpenURL:url];
+        return [FBSession.activeSession handleOpenURL:url];
     }
     
     return YES;
@@ -937,7 +939,7 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -951,15 +953,17 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     if ([ConnectionClass connected]) {
-         NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
+        [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
+        NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
         NSLog(@"get connected!");
+        
         if ([[localData objectForKey:@"noConnection"] isEqualToString:@"YES"]) {
             [localData setObject:@"NO" forKey:@"noConnection"];
             [localData synchronize];
             [self initViews];
         }
     }
-//    [self initViews];
+    //    [self initViews];
     
     [FBSession.activeSession handleDidBecomeActive]; //fb login
     

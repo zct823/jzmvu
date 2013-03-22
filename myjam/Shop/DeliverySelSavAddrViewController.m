@@ -34,6 +34,12 @@
         [titleView sizeToFit];
         self.navigationItem.titleView = titleView;
         [titleView release];
+        
+        self.navigationItem.backBarButtonItem =
+        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                          style:UIBarButtonItemStyleBordered
+                                         target:nil
+                                         action:nil] autorelease];
     }
     return self;
 }
@@ -121,7 +127,7 @@
                     
                     [self.mainContentView addSubview:dssaUIV];
                     
-                    [self.mainContentView addSubview:self.nextBtnView];
+//                    [self.mainContentView addSubview:self.nextBtnView];
                     [dssaUIV release];
                     [tapOnAddress release];
                     

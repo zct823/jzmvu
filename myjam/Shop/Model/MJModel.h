@@ -33,6 +33,7 @@
 -(NSDictionary*)submitDeliveryOptionFor:(NSString*)cartId withOption:(NSString*)optId;
 -(NSDictionary*) getCategoryForBottomView;
 -(NSDictionary*)getPurchasedHistoryItems;
+-(NSDictionary*) getPurchaseStatus:(NSString*)cartId;
 -(NSDictionary*)getCheckoutUrlForId:(NSString*)cartId;
 -(NSDictionary*)getPuchasedInfoForId:(NSString*)orderItemId;
 -(NSDictionary*)getAddressForStore:(NSString*)storeId;

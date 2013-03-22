@@ -34,12 +34,6 @@
                                          target:nil
                                          action:nil] autorelease];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shoppingCartChange:) name:@"cartChangedFromView" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(PurchaseVerification:)
-                                                     name:@"PurchaseVerification"
-                                                   object:nil];
-        
         // Custom initialization
     }
     return self;
@@ -70,6 +64,17 @@
 }
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    NSLog(@"vdl checkout");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shoppingCartChange:) name:@"cartChangedFromView" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PurchaseVerification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(PurchaseVerification:)
+                                                 name:@"PurchaseVerification"
+                                               object:nil];
+
+    
     self.shopName.text = [[_cartList objectAtIndex:0] valueForKey:@"shop_name"];
     if ([self.footerType isEqual:@"1"]){
         [footerView.checkOutButton addTarget:self action:@selector(checkOutPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -81,7 +86,7 @@
     [self updatePage];
     [footerView.deliveryButton addTarget:self action:@selector(deliveryOptions:) forControlEvents:UIControlEventTouchUpInside];
     
-    [super viewDidLoad];
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -274,7 +279,7 @@
 -(void)checkOutPressed:(id)sender{
     NSDictionary *respond = [[MJModel sharedInstance]getCheckoutUrlForId:[[_cartList objectAtIndex:0]valueForKey:@"cart_id"]];
     if ([[respond valueForKey:@"status" ] isEqual:@"ok"]){
-        self.paymentStatus =@"processing";
+        self.paymentStatus = @"processing";
         if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[respond valueForKey:@"url"] ]]){
             
         }
@@ -285,18 +290,28 @@
     }
     
 }
+
 -(void)PurchaseVerification:(NSNotification *) notification{
+    
+    
+    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (mydelegate.isReturnFromPayment == NO) {
+        return;
+    }
+    
+    mydelegate.isReturnFromPayment = NO;
     NSDictionary *purchaseStatus = [[MJModel sharedInstance] getPurchaseStatus:[[_cartList objectAtIndex:0] valueForKey:@"cart_id"]];
+    NSLog(@"PurchaseVerification get called!");
     if ([[purchaseStatus valueForKey:@"status"] isEqualToString:@"Paid"]){
-        AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         ShopViewController *sv1 =[[mydelegate.shopNavController viewControllers] objectAtIndex:0];
         [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
         [[NSNotificationCenter defaultCenter ] postNotificationName:@"refreshPurchaseHistory" object:self];
-        
+        mydelegate.isShowPurchaseHistory = YES;
         //        [sv1 switchViewController:sv1.vc3];
+        [mydelegate.shopNavController popToRootViewControllerAnimated:YES];
         [sv1.tabBar showViewControllerAtIndex:1];
         
-        [mydelegate.shopNavController popToRootViewControllerAnimated:YES];
+//        [mydelegate.shopNavController popToRootViewControllerAnimated:YES];
     }
     else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Failure" message:@"Purchase failed. Please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];

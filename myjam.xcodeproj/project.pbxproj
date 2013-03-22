@@ -248,8 +248,6 @@
 		613963DF16EF8EFF0056B314 /* DeliveryChoiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6139636A16EF8EFF0056B314 /* DeliveryChoiceViewController.xib */; };
 		613963E016EF8EFF0056B314 /* DeliveryDayChoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139636C16EF8EFF0056B314 /* DeliveryDayChoiceViewController.m */; };
 		613963E116EF8EFF0056B314 /* DeliveryDayChoiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6139636D16EF8EFF0056B314 /* DeliveryDayChoiceViewController.xib */; };
-		613963E216EF8EFF0056B314 /* DeliveryOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139636F16EF8EFF0056B314 /* DeliveryOptionViewController.m */; };
-		613963E316EF8EFF0056B314 /* DeliveryOptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6139637016EF8EFF0056B314 /* DeliveryOptionViewController.xib */; };
 		613963E416EF8EFF0056B314 /* DetailProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139637216EF8EFF0056B314 /* DetailProductViewController.m */; };
 		613963E716EF8EFF0056B314 /* MJModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139637916EF8EFF0056B314 /* MJModel.m */; };
 		613963E816EF8EFF0056B314 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139637B16EF8EFF0056B314 /* Shop.m */; };
@@ -773,9 +771,6 @@
 		6139636B16EF8EFF0056B314 /* DeliveryDayChoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliveryDayChoiceViewController.h; sourceTree = "<group>"; };
 		6139636C16EF8EFF0056B314 /* DeliveryDayChoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliveryDayChoiceViewController.m; sourceTree = "<group>"; };
 		6139636D16EF8EFF0056B314 /* DeliveryDayChoiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliveryDayChoiceViewController.xib; sourceTree = "<group>"; };
-		6139636E16EF8EFF0056B314 /* DeliveryOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliveryOptionViewController.h; sourceTree = "<group>"; };
-		6139636F16EF8EFF0056B314 /* DeliveryOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliveryOptionViewController.m; sourceTree = "<group>"; };
-		6139637016EF8EFF0056B314 /* DeliveryOptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliveryOptionViewController.xib; sourceTree = "<group>"; };
 		6139637116EF8EFF0056B314 /* DetailProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailProductViewController.h; sourceTree = "<group>"; };
 		6139637216EF8EFF0056B314 /* DetailProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailProductViewController.m; sourceTree = "<group>"; };
 		6139637816EF8EFF0056B314 /* MJModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJModel.h; sourceTree = "<group>"; };
@@ -1434,9 +1429,6 @@
 				6139636B16EF8EFF0056B314 /* DeliveryDayChoiceViewController.h */,
 				6139636C16EF8EFF0056B314 /* DeliveryDayChoiceViewController.m */,
 				6139636D16EF8EFF0056B314 /* DeliveryDayChoiceViewController.xib */,
-				6139636E16EF8EFF0056B314 /* DeliveryOptionViewController.h */,
-				6139636F16EF8EFF0056B314 /* DeliveryOptionViewController.m */,
-				6139637016EF8EFF0056B314 /* DeliveryOptionViewController.xib */,
 				6139637116EF8EFF0056B314 /* DetailProductViewController.h */,
 				6139637216EF8EFF0056B314 /* DetailProductViewController.m */,
 				614BA73F16F3BB6300E5AA74 /* DetailProductViewController.xib */,
@@ -2409,7 +2401,6 @@
 				613963DD16EF8EFF0056B314 /* CustomTableHeader.xib in Resources */,
 				613963DF16EF8EFF0056B314 /* DeliveryChoiceViewController.xib in Resources */,
 				613963E116EF8EFF0056B314 /* DeliveryDayChoiceViewController.xib in Resources */,
-				613963E316EF8EFF0056B314 /* DeliveryOptionViewController.xib in Resources */,
 				613963EC16EF8EFF0056B314 /* ProductHeaderView.xib in Resources */,
 				613963EE16EF8EFF0056B314 /* ProductRatingListViewController.xib in Resources */,
 				613963F016EF8EFF0056B314 /* ProductReportViewController.xib in Resources */,
@@ -2722,7 +2713,6 @@
 				613963DC16EF8EFF0056B314 /* CustomTableHeader.m in Sources */,
 				613963DE16EF8EFF0056B314 /* DeliveryChoiceViewController.m in Sources */,
 				613963E016EF8EFF0056B314 /* DeliveryDayChoiceViewController.m in Sources */,
-				613963E216EF8EFF0056B314 /* DeliveryOptionViewController.m in Sources */,
 				613963E416EF8EFF0056B314 /* DetailProductViewController.m in Sources */,
 				613963E716EF8EFF0056B314 /* MJModel.m in Sources */,
 				613963E816EF8EFF0056B314 /* Shop.m in Sources */,

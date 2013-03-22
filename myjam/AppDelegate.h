@@ -62,6 +62,9 @@
 @property int pageIndex;
 @property BOOL isCheckoutFromSideBar;
 @property BOOL isMustCloseSidebar;
+@property BOOL isFromScannerTab;
+@property BOOL isReturnFromPayment;
+@property BOOL isShowPurchaseHistory;
 
 @property BOOL isSetupDone;
 @property BOOL sideBarOpen;

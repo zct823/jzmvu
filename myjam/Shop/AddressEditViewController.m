@@ -2,27 +2,30 @@
 //  AddressEditViewController.m
 //  myjam
 //
-//  Created by Azad Johari on 2/3/13.
+//  Created by ME-Tech Mac User 2 on 2/15/13.
 //  Copyright (c) 2013 me-tech. All rights reserved.
 //
 
 #import "AddressEditViewController.h"
-#import "DeliverySelSavAddrViewController.h"
+#import "CustomAlertView.h"
+#import "ASIWrapper.h"
+#import "TPKeyboardAvoidingScrollView.h"
+
+#define kFrameHeightOnKeyboardUp 475.0f
 
 @interface AddressEditViewController ()
 
 @end
 
 @implementation AddressEditViewController
-@synthesize addressInfo, stateSelection, countrySelection,stateButton, countryButton;
-
-#pragma mark -
-#pragma mark -Lifecycle methods
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        // Custom initialization
+        
+        //TITLE
         self.title = @"Checkout";
         FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
         titleView.text = self.title;
@@ -32,38 +35,26 @@
         [titleView sizeToFit];
         self.navigationItem.titleView = titleView;
         [titleView release];
-        // Custom initialization
+        
+        self.navigationItem.backBarButtonItem =
+        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                          style:UIBarButtonItemStyleBordered
+                                         target:nil
+                                         action:nil] autorelease];
     }
     return self;
 }
 
-- (void)setStateLabel
-{
-    for (int i = 0; i <[[addressInfo valueForKey:@"state_list"] count]; i++ ){
-        if ([[addressInfo valueForKey:@"delivery_state_code"] isEqual:[[[addressInfo valueForKey:@"state_list"] objectAtIndex:i] valueForKey:@"state_code"]]){
-            [stateButton setTitle:[[[addressInfo valueForKey:@"state_list"] objectAtIndex:i] valueForKey:@"state_name"] forState:UIControlStateNormal];
-            self.stateSelection =[[[addressInfo valueForKey:@"state_list"] objectAtIndex:i] valueForKey:@"state_code"];
-            break;
-        }
-        
-    }
-}
-- (void)setCountryLabel
-{
-    for (int i = 0; i <[[addressInfo valueForKey:@"country_list"] count]; i++ ){
-        if ([[addressInfo valueForKey:@"delivery_country_code"] isEqual:[[[addressInfo valueForKey:@"country_list"] objectAtIndex:i] valueForKey:@"country_code"]]){
-            [countryButton setTitle:[[[addressInfo valueForKey:@"country_list"] objectAtIndex:i] valueForKey:@"country_name"] forState:UIControlStateNormal];
-            self.countrySelection =[[[addressInfo valueForKey:@"country_list"] objectAtIndex:i] valueForKey:@"country_code"];
-            return;
-        }
-        
-    }
-}
 - (void)viewDidLoad
 {
-    self.scrollView.contentSize = self.scrollView.frame.size;
-    self.scrollView.frame = self.view.frame;
-    [self.view addSubview:self.scrollView];
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    
+    // Init scrollview
+    self.scroller = (TPKeyboardAvoidingScrollView *)self.view;
+    [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, kFrameHeightOnKeyboardUp+44)];
+    [self.scroller addSubview:self.contentView];
+    
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     
     if (screenBounds.size.height == 568) {
@@ -71,117 +62,98 @@
         [self.view setBounds:CGRectMake(0, 90, self.view.bounds.size.width, self.view.bounds.size.height)];
     }
     
+    self.dictStates = [[NSMutableDictionary alloc] init];
+    self.dictCountries = [[NSMutableDictionary alloc] init];
+    
+    //declare and set data
+    [self setupCategoryList];
+    
+    // textfield delegate
+    self.addressTextField.delegate = self;
+    self.cityTextField.delegate = self;
+    self.postcodeTextField.delegate = self;
+    self.stateTextField.delegate = self;
+    self.countryTextField.delegate = self;
+    
+    self.contentView.frame = CGRectMake(0, 0.0f, self.contentView.frame.size.width, kFrameHeightOnKeyboardUp+44);
+    
+    [self.saveButton addTarget:self action:@selector(saveAddress) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.dictStates = [[NSMutableDictionary alloc] init];
+    self.dictCountries = [[NSMutableDictionary alloc] init];
+    // Setup pickerview
+    self.statePickerView = [[UIPickerView alloc] init];
+    self.countryPickerView = [[UIPickerView alloc] init];
+    // Set pickerview delegate
+    self.statePickerView.delegate = self;
+    self.countryPickerView.delegate = self;
+    self.statePickerView.dataSource = self;
+    self.countryPickerView.dataSource = self;
+    // Set the picker's frame.
+    self.statePickerView.showsSelectionIndicator = YES;
+    self.countryPickerView.showsSelectionIndicator = YES;
+    // Set tag
+    self.statePickerView.tag = 1;
+    self.countryPickerView.tag = 2;
+    
     // Toolbar for pickerView
-    pickerToolbar = [[UIView alloc] initWithFrame:CGRectMake(0, 180-40, 320, 40)];
-    [pickerToolbar setBackgroundColor:[UIColor blackColor]];
-    [pickerToolbar setAlpha:0.9];
-//    pickerToolbar.barStyle = UIBarStyleBlack;
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    toolbar.barStyle = UIBarStyleBlack;
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
-    button.clipsToBounds = YES;
-    button.layer.cornerRadius = 12.0f;
-//    [button.layer setBorderWidth:2];
-//    [button.layer setBorderColor:[[UIColor whiteColor] CGColor]];
-    button.backgroundColor = [UIColor colorWithHex:@"#0066FF"];
-    [button setTintColor:[UIColor clearColor]];
-    [button setShowsTouchWhenHighlighted:YES];
-    [button addTarget:self
-               action:@selector(aPickerDoneClicked:)
-     forControlEvents:UIControlEventTouchDown];
-    [button setTitle:@"Done" forState:UIControlStateNormal];
-    button.frame = CGRectMake(320-80-10, 5, 80, 30);
-    [pickerToolbar addSubview:button];
-//    [button release];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked:)];
     
-//    UIBarButtonItem *aDoneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:nil];
+    UIBarButtonItem *spacer = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
     
-//    aDoneButton
+    [toolbar setItems:[NSArray arrayWithObjects: spacer, doneButton, nil]];
     
-//    UIBarButtonItem *aSpacer = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
+    self.stateTextField.inputAccessoryView = toolbar;
+    self.countryTextField.inputAccessoryView = toolbar;
+    //set list of pickerView
+    self.stateTextField.inputView = self.statePickerView;
+    self.countryTextField.inputView = self.countryPickerView;
     
-//    [pickerToolbar setItems:[NSArray arrayWithObjects:aSpacer, aDoneButton, nil]];
-//    [aDoneButton release];
-//    [aSpacer release];
-    pickerToolbar.hidden = YES;
-    
-    myPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 180, 320, 200)];
-    myPickerView.delegate = self;
-    myPickerView.tag = 0;
-    myPickerView.showsSelectionIndicator = YES;
-    myPickerView.hidden = YES;
-    //    myPickerView.inputAccessoryView = pickerToolbar;
-    
-    [self.view addSubview:pickerToolbar];
-    [self.view addSubview:myPickerView];
-    [myPickerView release];
-    [pickerToolbar release];
-//
-    myPickerView2 = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 180, 320, 200)];
-    myPickerView2.delegate = self;
-    myPickerView2.tag = 1;
-    myPickerView2.showsSelectionIndicator = YES;
-    myPickerView2.hidden = YES;
-    //    myPickerView.inputAccessoryView = pickerToolbar;
-    
-    [self.view addSubview:myPickerView2];
-    [myPickerView2 release];
-    
-    
-    //    self.cityLabel.text = [addressInfo valueForKey:@"delivery_city"];
-    //    self.addressLabel.text =[addressInfo valueForKey:@"delivery_address"] ;
-    //    self.postcodeLabel.text = [addressInfo valueForKey:@"delivery_postcode"];
-//    if (![[addressInfo valueForKey:@"delivery_state_code"] isEqualToString:@""]){
-//        [self setStateLabel];
-//          }
-//    else{
-//        self.stateSelection = @"KUL";
-//        [self.stateButton setTitle:@"Kuala Lumpur" forState:UIControlStateNormal];
-//
-//    }
-//    if (![[addressInfo valueForKey:@"delivery_country_code"] isEqualToString:@""]){
-//        [self setCountryLabel];
-//
-//    }
-//    else{
-//        self.countrySelection  = @"MY";
-//        [self.countryButton setTitle:@"Malaysia" forState:UIControlStateNormal];
-//    }
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tap];
-    [tap release];
-    
-    //*** REPLACING SELECT SAVED ADDRESSESS WITH PROGRAMMATICALLY ONE ***//
-    
-    [self counterOfAddress];
-    
-    UILabel *addrLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, self.scrollView.bounds.size.width, 20)];
-    addrLabel.font = [UIFont boldSystemFontOfSize:15];
-    addrLabel.textAlignment = NSTextAlignmentCenter;
-    addrLabel.textColor = [UIColor colorWithHex:@"#E01B46"];
-    addrLabel.backgroundColor = [UIColor clearColor];
-    addrLabel.text = [NSString stringWithFormat:@"Select Saved Addresses(%d)",self.count];
-    addrLabel.userInteractionEnabled = YES;
+    //UILabel *addrLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, 320, 50)];
+    self.addrLabel.font = [UIFont boldSystemFontOfSize:15];
+    self.addrLabel.textAlignment = NSTextAlignmentCenter;
+    self.addrLabel.textColor = [UIColor colorWithHex:@"#E01B46"];
+    self.addrLabel.backgroundColor = [UIColor clearColor];
+    self.addrLabel.text = [NSString stringWithFormat:@"Select Saved Addresses(%d)",self.count];
+    self.addrLabel.userInteractionEnabled = YES;
     UIGestureRecognizer *addrLabelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(addrLabelTapSelector)];
     
-    [addrLabel addGestureRecognizer:addrLabelTap];
+    [self.addrLabel addGestureRecognizer:addrLabelTap];
+}
+
+- (void)setupCategoryList
+{
+    // Init the category data
+    [self getDataFromAddressInfo];
     
-    [self.scrollView addSubview:addrLabel];
-    [addrLabel release];
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    // Set list for pickerView
+    //NSLog(@"dictstates :%@",self.dictStates);
+        self.stateArray = [[NSMutableArray alloc] initWithArray:[self.dictStates allKeys]];
+        [self.stateArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        self.countryArray = [[NSMutableArray alloc] initWithArray:[self.dictCountries allKeys]];
+        [self.countryArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+
 }
 
 - (void)addrLabelTapSelector
+{
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    [self performSelector:@selector(listAddress) withObject:nil afterDelay:0.2];
+}
+
+- (void)listAddress
 {
     //*** TO HOOK UP WITH ADDRLABEL ***//
     
     if (self.count != 0)
     {
-        [self.scrollView endEditing:YES];
+        [self.view endEditing:YES];
         
         DeliverySelSavAddrViewController *detailViewController = [[DeliverySelSavAddrViewController alloc] init];
-        detailViewController.getCartID =_cartId;
+        detailViewController.getCartID = self.cartId;
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         
         [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
@@ -192,54 +164,209 @@
         [alert show];
         [alert release];
     }
-    
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
--(void)counterOfAddress
+#pragma mark -
+#pragma mark PickerView action button
+
+- (void)getDataFromAddressInfo
 {
-    NSLog(@"Counting");
+    NSDictionary *states;
+    NSDictionary *countries;
+    NSLog(@"address :%@",self.addressInfo);
     
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/settings_jambulite_profile.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
-    
-    NSString *paramString = [NSString stringWithFormat:@"{\"flag\":\"%@\"}",@"DEFAULT"];
-    
-    NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:paramString];
-    
-    NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
-    
-    NSDictionary *content;
-    self.count = 0;
-    NSLog(@"resultsdict %@",resultsDictionary);
-    
-    if([resultsDictionary count])
-    {
-        NSString *status = [resultsDictionary objectForKey:@"status"];
-        
-        if ([status isEqualToString:@"ok"])
+        if (![[self.addressInfo objectForKey:@"state_list"] isKindOfClass:[NSNull class]] && [[self.addressInfo objectForKey:@"status"] isEqualToString:@"ok"])
         {
-            if (! [[resultsDictionary objectForKey:@"address"] isKindOfClass:[NSString class]])
-            {
-                content = [resultsDictionary objectForKey:@"address"];
-                
-                for (id row in content)
+            states = [self.addressInfo objectForKey:@"state_list"];
+            for (id row in states) {
+                [self.dictStates setObject:[row objectForKey:@"state_code"] forKey:[row objectForKey:@"state_name"]];
+            }
+            countries = [self.addressInfo objectForKey:@"country_list"];
+            for (id row in countries) {
+                [self.dictCountries setObject:[row objectForKey:@"country_code"] forKey:[row objectForKey:@"country_name"]];
+            }
+            self.addressTextField.text = [self.addressInfo objectForKey:@"delivery_address"];
+            self.cityTextField.text = [self.addressInfo objectForKey:@"delivery_city"];
+            self.postcodeTextField.text = [self.addressInfo objectForKey:@"delivery_postcode"];
+            self.count = [[self.addressInfo objectForKey:@"saved_address_count"] integerValue];
+            
+            for (int i = 0; i <[[self.addressInfo valueForKey:@"state_list"] count]; i++ ){
+                if ([[self.addressInfo valueForKey:@"delivery_state_code"] isEqual:[[[self.addressInfo valueForKey:@"state_list"] objectAtIndex:i] valueForKey:@"state_code"]])
                 {
-                    self.count++;
+                    self.stateTextField.text = [[[self.addressInfo valueForKey:@"state_list"] objectAtIndex:i] valueForKey:@"state_name"];
+                    self.stateId =[[[self.addressInfo valueForKey:@"state_list"] objectAtIndex:i] valueForKey:@"state_code"];
+                    break;
                 }
             }
+            for (int i = 0; i <[[self.addressInfo objectForKey:@"country_list"] count]; i++ ){
+                if ([[self.addressInfo objectForKey:@"delivery_country_code"] isEqual:[[[self.addressInfo objectForKey:@"country_list"] objectAtIndex:i] objectForKey:@"country_code"]])
+                {
+                    self.countryTextField.text = [[[self.addressInfo objectForKey:@"country_list"] objectAtIndex:i] objectForKey:@"country_name"];
+                    self.countryId =[[[self.addressInfo objectForKey:@"country_list"] objectAtIndex:i] objectForKey:@"country_code"];
+                    return;
+                }
+            }
+        }else{
+            CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Create Failed" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            alert.tag = kAlertNoConnection;
+            [alert show];
+            [alert release];
+            [self.navigationController popViewControllerAnimated:YES];
         }
+}
+
+- (IBAction)pickerDoneClicked:(id)sender
+{
+    NSLog(@"curr :%d",self.currTag);
+    if (self.currTag == 1) {
+        if (![self.stateTextField.text length]) {
+            self.stateTextField.text = [self.stateArray objectAtIndex:0];
+        }
+        //self.stateId = [self.dictStates objectForKey:self.stateTextField.text];
+        self.stateId = self.stateTextField.text;
+        [self.stateTextField resignFirstResponder];
+    } else if (self.currTag == 2) {
+        if (![self.countryTextField.text length]) {
+            self.countryTextField.text = [self.countryArray objectAtIndex:0];
+        }
+        //self.countryId = [self.dictCountries objectForKey:self.countryTextField.text];
+        self.countryId = self.countryTextField.text;
+        [self.countryTextField resignFirstResponder];
     }
 }
 
+#pragma mark -
+#pragma mark saveAddress
 
-
--(void)dismissKeyboard
+- (void)saveAddress
 {
-    UITextView *activeTextView = nil;
-    if ([_addressLabel isFirstResponder]) activeTextView = _addressLabel;
-    else if ([_postcodeLabel isFirstResponder]) activeTextView = _postcodeLabel;
-    else if ([_cityLabel isFirstResponder]) activeTextView = _cityLabel;
-    if (activeTextView) [activeTextView resignFirstResponder];
+    [self.view endEditing:YES];
+    
+    if ([self.addressTextField.text length] == 0) {
+        reqFieldName = @"Address";
+        [self triggerRequiredAlert];
+    }
+    else if ([self.postcodeTextField.text length] == 0)
+    {
+        reqFieldName = @"Postcode";
+        [self triggerRequiredAlert];
+    }
+    else if ([self.stateTextField.text length] == 0)
+    {
+        reqFieldName = @"State";
+        [self triggerRequiredAlert];
+    }
+    else if ([self.countryTextField.text length] == 0)
+    {
+        reqFieldName = @"Country";
+        [self triggerRequiredAlert];
+    }
+    else {
+        //save address
+        [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+        NSLog(@"saved");
+        [self performSelector:@selector(processSaveAddress) withObject:nil afterDelay:0.2];
+    }
 }
+
+- (void)triggerRequiredAlert
+{
+    NSString *reqMsg = [NSString stringWithFormat:@"%@ is required.",reqFieldName];
+    
+    CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Address Profile" message:reqMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+}
+
+- (void)processSaveAddress
+{
+    NSDictionary *status = [[MJModel sharedInstance] submitAddressForCart:self.cartId forAddress:self.addressTextField.text  inCity:self.cityTextField.text withPostcode:self.postcodeTextField.text inState:self.stateId inCountry:self.countryId];
+    NSLog(@"cartID :%@, add :%@, city :%@,  pcode :%@, state :%@, country :%@",self.cartId,self.addressTextField.text,self.cityTextField.text,self.postcodeTextField.text,self.stateId,self.countryId);
+    
+    if ([[status valueForKey:@"status" ] isEqual:@"ok"]){
+        NSDictionary *dictTemp = [[MJModel sharedInstance] getDeliveryInfoFor:self.cartId];
+        
+        if ([[dictTemp valueForKey:@"delivery_option_list"] count] ==1){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"An error has occured. Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alertView show];
+            [alertView release];
+            
+        }else{
+            
+            DeliveryChoiceViewController *detailViewController = [[DeliveryChoiceViewController alloc] initWithNibName:@"DeliveryChoiceViewController" bundle:nil andCartId:self.cartId];
+            
+            AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            
+            [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
+            [detailViewController release];
+        }
+    }
+    else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"An error has occured. Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alertView show];
+        [alertView release];
+    }
+    [DejalBezelActivityView removeViewAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark UIPickerView Delegate
+// Number of components.
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+
+// Total rows in our component.
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    if (pickerView.tag == 1) {
+        return [self.stateArray count];
+    }
+    else
+        return [self.countryArray count];
+}
+
+// Display each row's data.
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    if (pickerView.tag == 1) {
+        return [self.stateArray objectAtIndex: row];
+    }
+    else
+        return [self.countryArray objectAtIndex: row];
+}
+
+// Do something with the selected row.
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    
+    NSLog(@"option selected %d", row);
+    if (pickerView.tag == 1) {
+        self.stateTextField.text = [self.stateArray objectAtIndex:row];
+    }
+    else
+        self.countryTextField.text = [self.countryArray objectAtIndex:row];
+}
+
+#pragma mark -
+#pragma mark textField delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, kFrameHeightOnKeyboardUp)];
+    [self.scroller adjustOffsetToIdealIfNeeded];
+    self.currTag = textField.tag;
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, kFrameHeightOnKeyboardUp+44)];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -247,209 +374,32 @@
 }
 
 - (void)dealloc {
-    [_scrollView release];
-    [_addressLabel release];
-    [_cityLabel release];
-    [_postcodeLabel release];
-    [stateButton release];
-    [countryButton release];
-    [addressInfo release];
-    [_SelectAddressButton release];
+    [_addressTextField release];
+    [_cityTextField release];
+    [_postcodeTextField release];
+    [_stateTextField release];
+    [_countryTextField release];
+    [_dictStates release];
+    [_dictCountries release];
+    [_stateId release];
+    [_countryId release];
+    [_saveButton release];
+    [_cartId release];
     [super dealloc];
 }
+
 - (void)viewDidUnload {
-    [self setScrollView:nil];
-    [self setAddressLabel:nil];
-    [self setCityLabel:nil];
-    [self setPostcodeLabel:nil];
-    [self setStateButton:nil];
-    [self setCountryButton:nil];
-    [self setSelectAddressButton:nil];
+    [self setAddressTextField:nil];
+    [self setCityTextField:nil];
+    [self setPostcodeTextField:nil];
+    [self setStateTextField:nil];
+    [self setCountryTextField:nil];
+    [self setDictStates:nil];
+    [self setDictCountries:nil];
+    [self setStateId:nil];
+    [self setCountryId:nil];
+    [self setSaveButton:nil];
     [super viewDidUnload];
-    
 }
-
-#pragma mark -
-#pragma mark -IBaction for 3 buttons
-
-- (IBAction)stateTapped:(id)sender {
-    [myPickerView setHidden:NO];
-    [pickerToolbar setHidden:NO];
-}
-
-- (IBAction)countryTapped:(id)sender {
-    [myPickerView2 setHidden:NO];
-    [pickerToolbar setHidden:NO];
-}
-
-- (void)aPickerDoneClicked:(id)sender
-{
-    if (myPickerView.hidden == NO) {
-        if ([self.stateButton.titleLabel.text isEqualToString:@"Select a state from the list                                                                                                  "]) {
-            [self.stateButton setTitle:[[[addressInfo valueForKey:@"state_list"] objectAtIndex:0] valueForKey:@"state_name"]  forState:UIControlStateNormal];
-            stateSelection =[[[addressInfo valueForKey:@"state_list"] objectAtIndex:0] valueForKey:@"state_code"];
-        }
-        
-        [myPickerView setHidden:YES];
-    }else{
-        [myPickerView2 setHidden:YES];
-        if ([self.stateButton.titleLabel.text isEqualToString:@"Select a Country from the list                                                                                                  "]) {
-            [self.countryButton setTitle:[[[addressInfo valueForKey:@"country_list"] objectAtIndex:0] valueForKey:@"country_name"] forState:UIControlStateNormal];
-            countrySelection = [[[addressInfo valueForKey:@"country_list"] objectAtIndex:0] valueForKey:@"country_code"];
-        }
-
-    }
-    [pickerToolbar setHidden:YES];
-    
-    NSLog(@"test");
-}
-
-- (IBAction)selectAddress:(id)sender {
-    DeliveryOptionViewController *detailViewController = [[DeliveryOptionViewController alloc] init];
-    detailViewController.cartId =_cartId;
-    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-}
-- (void)createAlertViewFor:(NSString*)labelName {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[NSString stringWithFormat:@"%@ is required",labelName] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    [alert show];
-    [alert release];
-}
-
-- (IBAction)nextTapped:(id)sender {
-    
-    if ([self.addressLabel.text isEqualToString:@""]){
-        [self createAlertViewFor:@"Address"];
-        
-        
-    } else if ([self.postcodeLabel.text isEqualToString:@""]){
-        [self createAlertViewFor:@"Postcode"];
-        
-    } else{
-        NSDictionary *status = [[MJModel sharedInstance] submitAddressForCart:_cartId forAddress:self.addressLabel.text  inCity:self.cityLabel.text withPostcode:_postcodeLabel.text inState:stateSelection inCountry:countrySelection];
-        
-        if ([[status valueForKey:@"status" ] isEqual:@"ok"]){
-            NSDictionary *dictTemp = [[MJModel sharedInstance] getDeliveryInfoFor:_cartId];
-            
-            if ([[dictTemp valueForKey:@"delivery_option_list"] count] ==1){
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"An error has occured. Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                [alertView show];
-                [alertView release];
-                
-            }else{
-                DeliveryChoiceViewController *detailViewController = [[DeliveryChoiceViewController alloc] initWithNibName:@"DeliveryChoiceViewController" bundle:nil andCartId:_cartId];
-                
-                
-                
-                AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                
-                [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-                [detailViewController release];
-            }
-        }
-        else{
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"An error has occured. Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alertView show];
-            [alertView release];
-        }
-        
-        //[self.navigationController pushViewController:detailViewController animated:YES];
-        
-    }
-    
-    
-}
-
-#pragma mark -
-#pragma mark -UIPickerView delegate
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    if (pickerView.tag == 0){
-        [self.stateButton setTitle:[[[addressInfo valueForKey:@"state_list"] objectAtIndex:row] valueForKey:@"state_name"]  forState:UIControlStateNormal];
-        stateSelection =[[[addressInfo valueForKey:@"state_list"] objectAtIndex:row] valueForKey:@"state_code"];
-        
-        
-    }
-    else if (pickerView.tag == 1){
-        [self.countryButton setTitle:[[[addressInfo valueForKey:@"country_list"] objectAtIndex:row] valueForKey:@"country_name"] forState:UIControlStateNormal];
-        countrySelection = [[[addressInfo valueForKey:@"country_list"] objectAtIndex:row] valueForKey:@"country_code"];
-        
-        
-    }
-    
-    //    pickerView.hidden = TRUE;
-    
-}
-
-// tell the picker how many rows are available for a given component
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
-    if (pickerView.tag == 0){
-        return [[addressInfo valueForKey:@"state_list"] count];
-    }
-    else if (pickerView.tag == 1){
-        return [[addressInfo valueForKey:@"country_list"] count];
-    }
-    
-    return 0;
-}
-
-// tell the picker how many components it will have
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-// tell the picker the title for a given component
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString *title = nil;
-    if (pickerView.tag == 0){
-        title = [[[addressInfo valueForKey:@"state_list"] objectAtIndex:row] valueForKey:@"state_name"];
-        
-    }
-    else if (pickerView.tag == 1)
-    {
-        title = [[[addressInfo valueForKey:@"country_list"] objectAtIndex:row] valueForKey:@"country_name"];
-    }
-    
-    
-    return title;
-}
-
-// tell the picker the width of each row for a given component
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    int sectionWidth = 300;
-    
-    return sectionWidth;
-}
-#pragma mark-
-#pragma mark Textview delegate
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    [textView resignFirstResponder];
-}
-
--(void)textViewDidBeginEditing:(UITextView *)textView
-{
-    if (myPickerView.hidden == NO) {
-        [myPickerView setHidden:YES];
-    }else if (myPickerView2.hidden == NO){
-        [myPickerView2 setHidden:YES];
-    }
-    
-    if (pickerToolbar.hidden == NO) {
-        [pickerToolbar setHidden:YES];
-    }
-}
-
-
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if([text isEqualToString:@"\n"])
-        [textView resignFirstResponder];
-    return YES;
-}
-
 
 @end

@@ -114,17 +114,28 @@
                 [self.view addSubview:[[tabViewControllers objectAtIndex:i] view]];
             }
             
-            if (i == 1) {
+            if (i == kShopTab) {
                 NSLog(@"shop hardcoded clicked");
                 if (mydelegate.isCheckoutFromSideBar == YES) {
                     mydelegate.isCheckoutFromSideBar = NO;
+                }else if(mydelegate.isShowPurchaseHistory == YES){
+                    mydelegate.isShowPurchaseHistory = NO;
                 }else{
                     [mydelegate.shopNavController popToRootViewControllerAnimated:NO];
                 }
-            }else if(i == 0)
+            }else if(i == kHomeTab)
             {
                 NSLog(@"home hardcoded clicked");
+                
                 [mydelegate.homeNavController popToRootViewControllerAnimated:NO];
+            }else if(i == kBoxTab)
+            {
+                NSLog(@"Box hardcoded clicked");
+                if (mydelegate.isFromScannerTab == YES) {
+                    mydelegate.isFromScannerTab = NO;
+                }else{
+                    [mydelegate.boxNavController popToRootViewControllerAnimated:NO];
+                }
             }
 //			[[tabViewControllers objectAtIndex:i] view].hidden = NO;
 		} else {

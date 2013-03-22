@@ -1311,7 +1311,7 @@
     [_leftButton release];
     [_rightButton release];
 //    [_shareView release];
-    [_viewMoreLabel release];
+//    [_viewMoreLabel release];
     [_shareFBButton release];
     [_shareTwitterButton release];
     [_providerLabel release];

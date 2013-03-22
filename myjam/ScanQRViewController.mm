@@ -200,7 +200,7 @@
     
     MoreViewController *more = [[MoreViewController alloc] init];
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
+    mydelegate.isFromScannerTab = YES;
     if (![ConnectionClass connected]) {
         more.noInternetConnection = YES;
         [mydelegate.scanNavController pushViewController:more animated:YES];

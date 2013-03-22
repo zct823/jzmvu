@@ -86,25 +86,47 @@
 
 + (CLLocationCoordinate2D) getLocationFromAddressString:(NSString*) addressStr
 {
-    NSString *urlStr = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@&output=csv",
-                        [addressStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    NSString *urlStr = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@&output=csv",
+//                        [addressStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    NSString *locationStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlStr] encoding:NSUTF8StringEncoding error:nil];
+//    NSArray *items = [locationStr componentsSeparatedByString:@","];
+//    
+//    double lat = 0.0;
+//    double lon = 0.0;
+//    
+//    if([items count] >= 4 && [[items objectAtIndex:0] isEqualToString:@"200"]) {
+//        lat = [[items objectAtIndex:2] doubleValue];
+//        lon = [[items objectAtIndex:3] doubleValue];
+//    }
+//    else {
+//        NSLog(@"Address, %@ not found: Error %@",addressStr, [items objectAtIndex:0]);
+//    }
     
-    NSString *locationStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlStr] encoding:NSUTF8StringEncoding error:nil];
-    NSArray *items = [locationStr componentsSeparatedByString:@","];
+//    double latitude = 0.0;
+//    double longitude = 0.0;
     
-    double lat = 0.0;
-    double lon = 0.0;
+    NSString *esc_addr =  [addressStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *req = [NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", esc_addr];
     
-    if([items count] >= 4 && [[items objectAtIndex:0] isEqualToString:@"200"]) {
-        lat = [[items objectAtIndex:2] doubleValue];
-        lon = [[items objectAtIndex:3] doubleValue];
-    }
-    else {
-        NSLog(@"Address, %@ not found: Error %@",addressStr, [items objectAtIndex:0]);
-    }
+    NSDictionary *googleResponse = [[NSString stringWithContentsOfURL: [NSURL URLWithString: req] encoding: NSUTF8StringEncoding error: nil] objectFromJSONString];
+    
+    NSLog(@"%@",googleResponse);
+    
+    NSDictionary    *resultsDict = [googleResponse valueForKey:  @"results"];   // get the results dictionary
+    NSDictionary   *geometryDict = [resultsDict valueForKey: @"geometry"];   // geometry dictionary within the  results dictionary
+    NSDictionary   *locationDict = [geometryDict valueForKey: @"location"];   // location dictionary within the geometry dictionary
+    
+    NSArray *latArray = [locationDict valueForKey: @"lat"];
+    NSString *latString = [latArray lastObject];     // (one element) array entries provided by the json parser
+    
+    NSArray *lngArray = [locationDict valueForKey: @"lng"];
+    NSString *lngString = [lngArray lastObject];     // (one element) array entries provided by the json parser
+
+    
     CLLocationCoordinate2D location;
-    location.latitude = lat;
-    location.longitude = lon;
+    location.latitude = [latString doubleValue];
+    location.longitude = [lngString doubleValue];
     
     return location;
 }

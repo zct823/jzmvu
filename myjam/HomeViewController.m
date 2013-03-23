@@ -133,7 +133,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
+    mydelegate.swipeBottomEnabled = YES;
     // Mark current page
     mydelegate.pageIndex = kHomeTab;
 

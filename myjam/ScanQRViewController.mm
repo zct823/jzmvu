@@ -190,6 +190,59 @@
     return @"error";
 }
 
+- (NSString *)checkQRCodeType:(NSString *)qrcodeid
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_type.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
+    NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",qrcodeid];
+    
+    NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
+    NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
+    NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
+    NSLog(@"dict %@",resultsDictionary);
+    
+    if([resultsDictionary count])
+    {
+        NSString *status = [resultsDictionary objectForKey:@"status"];
+        if ([status isEqualToString:@"ok"])
+        {
+            NSString *type = [resultsDictionary objectForKey:@"qrcode_type"];
+            
+            if ([type isEqualToString:@"Product"]) {
+                NSString *productid = [resultsDictionary objectForKey:@"product_id"];
+                return productid;
+            }
+            
+        }
+    }
+    
+    return @"0"; // normal qrcode, other than product
+}
+
+
+//- (void)processRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSString *productId = [self checkQRCodeType:[[self.tableData objectAtIndex:indexPath.row] qrcodeId]];
+//    
+//    if ([productId intValue] > 0)
+//    {
+//        // type of product
+//        DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
+//        //        NSString *prodId = productId;
+//        detailViewController.productInfo = [[MJModel sharedInstance] getProductInfoFor:productId];
+//        detailViewController.buyButton =  [[NSString alloc] initWithString:@"ok"];
+//        detailViewController.productId = [productId mutableCopy];
+//        AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        [mydelegate.boxNavController pushViewController:detailViewController animated:YES];
+//    }
+//    else{
+//        MoreViewController *detailView = [[MoreViewController alloc] init];
+//        detailView.qrcodeId = [[self.tableData objectAtIndex:indexPath.row] qrcodeId];
+//        AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        [mydelegate.boxNavController pushViewController:detailView animated:YES];
+//        [detailView release];
+//    }
+//}
+
 #pragma mark -
 #pragma mark ZXingDelegateMethods
 - (void)zxingController:(ZXingWidgetController*)controller didScanResult:(NSString *)resultString
@@ -210,7 +263,7 @@
     }
     
     NSLog(@"str %@",resultString);
-//    NSString *qrcodeId = @"0";
+    //    NSString *qrcodeId = @"0";
     
     //    qrcodeId = [self getQRCodeIdFromScanString:resultString];
     
@@ -267,11 +320,26 @@
         // Store qrcode in server / scan list
         if ([self addScanToServer:qrcodeId])
         {
-            more.qrcodeId = qrcodeId;
-            [mydelegate.boxNavController pushViewController:more animated:YES];
-            [mydelegate.tabView activateController:3];
-            [more release];
             
+            NSString *productId = [self checkQRCodeType:qrcodeId];
+            
+            if ([productId intValue] > 0)
+            {
+                // type of product
+                DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
+                //        NSString *prodId = productId;
+                detailViewController.productInfo = [[MJModel sharedInstance] getProductInfoFor:productId];
+                detailViewController.buyButton =  [[NSString alloc] initWithString:@"ok"];
+                detailViewController.productId = [productId mutableCopy];
+                [mydelegate.boxNavController pushViewController:detailViewController animated:YES];
+            }
+            else{
+            
+                more.qrcodeId = qrcodeId;
+                [mydelegate.boxNavController pushViewController:more animated:YES];
+                [more release];
+            }
+            [mydelegate.tabView activateController:3];
             // Manually change the selected tabButton
             for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
                 if (i == 3) {
@@ -280,12 +348,12 @@
                     [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
                 }
             }
+        }
+    }else{
+        NSLog(@"Error occured.");
     }
-}else{
-    NSLog(@"Error occured.");
-}
-
-NSLog(@"qrcodeid : %@",qrcodeId);
+    
+    NSLog(@"qrcodeid : %@",qrcodeId);
 }
 
 - (void)zxingControllerDidCancel:(ZXingWidgetController*)controller {

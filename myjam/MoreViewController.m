@@ -46,18 +46,18 @@
     return self;
 }
 
-- (id) init
-{
-    self = [super init];
-    
-    if(!self)return nil;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNSNCNotify:) name:@"notifyClose" object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNSNCNotify:) name:@"notifyUnfollowProcess" object:nil];
-
-    return self;
-}
+//- (id) init
+//{
+//    self = [super init];
+//    
+//    if(!self)return nil;
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNSNCNotify:) name:@"notifyClose" object:nil];
+//
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNSNCNotify:) name:@"notifyUnfollowProcess" object:nil];
+//
+//    return self;
+//}
 
 - (void)setNSNCNotify:(NSNotification *)notification
 {
@@ -75,6 +75,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNSNCNotify:) name:@"notifyClose" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNSNCNotify:) name:@"notifyUnfollowProcess" object:nil];
     
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -677,24 +681,24 @@
 {
     BOOL success = YES;
     NSLog(@"start retrieving..");
-    NSString *productId = [self checkQRCodeType:self.qrcodeId];
-//    NSString *productId = @"82";
-    if ([productId intValue] > 0) { // type of product
-        popDisabled = NO;
-        DetailProductViewController *detailViewController = [[DetailProductViewController alloc] init];
-        detailViewController.productInfo = [[MJModel sharedInstance] getProductInfoFor:productId];
-        detailViewController.productId = [productId mutableCopy];
-        NSLog(@"prod id %@",detailViewController.productId);
-        detailViewController.buyButton =  [[NSString alloc] initWithString:@"ok"];
-        AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [self.navigationController popToRootViewControllerAnimated:NO];
-        [mydelegate.boxNavController pushViewController:detailViewController animated:NO];
-//        [self.navigationController pushViewController:detailViewController animated:YES];
-        [detailViewController release];
-        
-        return NO;
-    }
-    else{
+//    NSString *productId = [self checkQRCodeType:self.qrcodeId];
+//
+//    if ([productId intValue] > 0) { // type of product
+//        popDisabled = NO;
+//        DetailProductViewController *detailViewController = [[DetailProductViewController alloc] init];
+//        detailViewController.productInfo = [[MJModel sharedInstance] getProductInfoFor:productId];
+//        detailViewController.productId = [productId mutableCopy];
+//        NSLog(@"prod id %@",detailViewController.productId);
+//        detailViewController.buyButton =  [[NSString alloc] initWithString:@"ok"];
+//        AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        [mydelegate.boxNavController popToRootViewControllerAnimated:NO];
+//        [mydelegate.boxNavController pushViewController:detailViewController animated:NO];
+////        [self.navigationController pushViewController:detailViewController animated:YES];
+//        [detailViewController release];
+//        
+//        return NO;
+//    }
+//    else{
     
         NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_details.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
         NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",self.qrcodeId];
@@ -916,11 +920,11 @@
         
         [resultsDictionary release];
         
-        if (success == NO && [productId intValue] > 0) {
+        if (success == NO) {
             errorMessage = [resultsDictionary objectForKey:@"message"];
             popDisabled = NO;
         }
-    }
+//    }
     
     return success;
 }
@@ -1301,9 +1305,9 @@
 
     [super dealloc];
 
-    [_titleLabel release];
+//    [_titleLabel release];
     [_dateLabel release];
-    [_description release];
+//    [_description release];
     [_labelColorView release];
     [_typeLabel release];
     [_categoryLabel release];
@@ -1314,7 +1318,7 @@
 //    [_viewMoreLabel release];
     [_shareFBButton release];
     [_shareTwitterButton release];
-    [_providerLabel release];
+//    [_providerLabel release];
     [_shareEmailButton release];
 //    [_aDescriptionView release];
     [_detailsData release];
@@ -1323,27 +1327,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
-- (void)viewDidUnload {
-    [self setTitleLabel:nil];
-    [self setDateLabel:nil];
-    [self setDescription:nil];
-    [self setLabelColorView:nil];
-    [self setTypeLabel:nil];
-    [self setCategoryLabel:nil];
-    [self setImageCarouselView:nil];
-    [self setLeftButton:nil];
-    [self setRightButton:nil];
-    [self setShareView:nil];
-    [self setViewMoreLabel:nil];
-    [self setShareFBButton:nil];
-    [self setShareTwitterButton:nil];
-    [self setProviderLabel:nil];
-    [self setShareEmailButton:nil];
-//    [self setADescriptionView:nil];
-    [self setBlankView:nil];
-    [self setImageSliderView:nil];
-    [super viewDidUnload];
-}
+
 
 
 @end

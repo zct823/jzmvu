@@ -277,15 +277,18 @@
 
 
 -(IBAction)readReviews{
-    ProductRatingListViewController *detailViewController = [[ProductRatingListViewController alloc] initWithNibName:@"ProductRatingListViewController" bundle:nil];
+//    ProductRatingListViewController *detailViewController = [[ProductRatingListViewController alloc] initWithNibName:@"ProductRatingListViewController" bundle:nil];
+    
+    ProductRatingListViewController *detailViewController = [[ProductRatingListViewController alloc] init];
+    
     detailViewController.reviewList = [[MJModel sharedInstance] getProductReviewFor:_productId inPage:@"1"];
     
     detailViewController.productName = [productInfo valueForKey:@"product_name"];
     detailViewController.productId =[[ NSString alloc] initWithString:_productId];
     detailViewController.shopName = [productInfo valueForKey:@"shop_name"];
-    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-    //[self.navigationController pushViewController:detailViewController animated:YES];
+//    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
+    [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
 }
 

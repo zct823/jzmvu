@@ -14,7 +14,9 @@
 
 @end
 
-@implementation DeliverySelSavAddrViewController
+@implementation DeliverySelSavAddrViewController {
+    int addrIdSetPrime;
+}
 
 @synthesize getCartID;
 
@@ -111,23 +113,29 @@
                     dssaUIV.addressState.text = [row objectForKey:@"state"];
                     dssaUIV.addressCountry.text = [row objectForKey:@"country"];
                     [dssaUIV.setAsPrimary setHidden:YES];
-                    [dssaUIV.selectedBtn setUserInteractionEnabled:YES];
+                    
                     [dssaUIV setTag:[[row objectForKey:@"addressId"] intValue]];
                     UITapGestureRecognizer *tapOnAddress = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectedAddress:)];
-                    
                     [dssaUIV addGestureRecognizer:tapOnAddress];
+                    
+                    //[dssaUIV.selectedBtn setUserInteractionEnabled:YES];
+                    //[dssaUIV.selectedBtn setTag:[[row objectForKey:@"addressId"] intValue]];
+                    //UITapGestureRecognizer *setPrimary = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setPrime:)];
+                    //[dssaUIV.selectedBtn addGestureRecognizer:setPrimary];
+                    dssaUIV.selectedBtn.tag = [[row objectForKey:@"addressId"] intValue];
+                    [dssaUIV.selectedBtn addTarget:self action:@selector(setPrime:) forControlEvents:UIControlEventTouchUpInside];
+                    
                     if ([[row objectForKey:@"addressIsPrimary"] isEqual:@"Y"])
                     {
                         [dssaUIV.selectedBtn setImage:[UIImage imageNamed:@"checkbox_active"] forState:UIControlStateNormal];
                         [dssaUIV.bgColor setBackgroundColor:[UIColor colorWithHex:@"#aab44e"]];
-                        [dssaUIV.selectedBtn addGestureRecognizer:tapOnAddress];
                         [dssaUIV.setAsPrimary setHidden:NO];
                         self.tagID = [[row objectForKey:@"addressId"] intValue];
                     }
                     
                     [self.mainContentView addSubview:dssaUIV];
                     
-//                    [self.mainContentView addSubview:self.nextBtnView];
+                    [self.mainContentView addSubview:self.nextBtnView];
                     [dssaUIV release];
                     [tapOnAddress release];
                     
@@ -150,9 +158,63 @@
             }
         }
     }
+}
+
+- (void)setPrime:(id)sender
+{
+    UIButton* aid = (UIButton*) sender;
+    NSLog(@"tag=%d",aid.tag);
+    NSString *flag = @"SET_PRIMARY_ADDRESS";
+    addrIdSetPrime = aid.tag;
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/settings_jambulite_profile.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
+    NSString *dataContent = [NSString stringWithFormat:@"{\"flag\":\"%@\",\"addressId\":\"%ld\"}",
+                             flag,
+                             (long)aid.tag];
     
+    NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
+    NSLog(@"request %@\n%@\n\nresponse dataSetPrime: %@", urlString, dataContent, response);
+    NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
+    NSLog(@"dict %@",resultsDictionary);
     
-    
+    if([resultsDictionary count])
+    {
+        NSString *status = [resultsDictionary objectForKey:@"status"];
+        NSString *msg = [resultsDictionary objectForKey:@"message"];
+        
+        if ([status isEqualToString:@"ok"]) {
+            NSLog(@"Successfully set primary address!");
+            [DejalBezelActivityView activityViewForView:self.view withLabel:@"Saving ..." width:100];
+            [self performSelector:@selector(setViewPrime) withObject:nil afterDelay:0.2];
+        }
+        else {
+            CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Jambulite Profile" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+        }
+    }
+    NSLog(@"end saved");
+}
+
+- (void)setViewPrime
+{
+    for (UIView *aView in [self.mainContentView subviews]) {
+        if ([aView isKindOfClass:[DeliverySelSavAddresses class]]) {
+            
+            DeliverySelSavAddresses *kView = (DeliverySelSavAddresses *) aView;
+            
+            if (kView.tag == addrIdSetPrime ) {
+                //[kView.bgColor setBackgroundColor:[UIColor colorWithHex:@"#aab44e"]];
+                [kView.selectedBtn setImage:[UIImage imageNamed:@"checkbox_active"] forState:UIControlStateNormal];
+                [kView.setAsPrimary setHidden:NO];
+            }else{
+                //[kView.bgColor setBackgroundColor:[UIColor colorWithHex:@"#e40045"]];
+                [kView.selectedBtn setImage:[UIImage imageNamed:@"checkbox_inactive"] forState:UIControlStateNormal];
+                [kView.setAsPrimary setHidden:YES];
+            }
+            
+        }
+    }
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
 - (void)selectedAddress:(id)sender
@@ -170,10 +232,12 @@
             
             if (kView.tag == clickedTag ) {
                 [kView.bgColor setBackgroundColor:[UIColor colorWithHex:@"#aab44e"]];
-                [kView.selectedBtn setImage:[UIImage imageNamed:@"checkbox_active"] forState:UIControlStateNormal];
+                //[kView.selectedBtn setImage:[UIImage imageNamed:@"checkbox_active"] forState:UIControlStateNormal];
+                //[kView.setAsPrimary setHidden:NO];
             }else{
                 [kView.bgColor setBackgroundColor:[UIColor colorWithHex:@"#e40045"]];
-                [kView.selectedBtn setImage:[UIImage imageNamed:@"checkbox_inactive"] forState:UIControlStateNormal];
+                //[kView.selectedBtn setImage:[UIImage imageNamed:@"checkbox_inactive"] forState:UIControlStateNormal];
+                //[kView.setAsPrimary setHidden:YES];
             }
             
         }
@@ -183,7 +247,7 @@
 
 - (void)goToNextView
 {
-    NSLog(@"gotonextview");
+    NSLog(@"gotonextview addID:%d",self.tagID);
     
     NSString *urlString = [NSString stringWithFormat:@"%@/api/shop_cart_delivery_address_submit.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
     

@@ -275,8 +275,9 @@
             [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
         }
     }
-    
+    mydelegate.isMustCloseSidebar = YES;
     [mydelegate closeSidebar];
+    
 }
 
 - (void)pushProfileViewController

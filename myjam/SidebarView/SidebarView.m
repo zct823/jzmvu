@@ -65,8 +65,6 @@
 
 - (void)viewDidLoad
 {
-//    self.cartItems = [[MJModel sharedInstance] getCartList]  ;
-//    [self updateTabBar];
     
     [super viewDidLoad];
     
@@ -681,6 +679,13 @@
     // [[[[[self tabBarController] tabBar] items] objectAtIndex:4] setBadgeValue:@"1"];
 }
 -(void)checkOutTapped:(id)sender{
+    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [DejalBezelActivityView activityViewForView:mydelegate.window withLabel:@"Loading ..." width:100];
+    [self performSelector:@selector(processCheckOut:) withObject:sender afterDelay:0.1];
+}
+
+- (void)processCheckOut:(id)sender
+{
     CheckoutViewController *detailViewController = [[CheckoutViewController alloc] initWithNibName:@"CheckoutViewController" bundle:nil];
     detailViewController.cartList = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCartListForRow:[NSNumber numberWithInteger:[sender tag]]] ];
     detailViewController.footerView = [[[NSBundle mainBundle] loadNibNamed:@"checkOutFooterView" owner:self options:nil]objectAtIndex:0];
@@ -706,5 +711,7 @@
     
     [mydelegate handleTab5];
     [detailViewController release];
+    
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
 @end

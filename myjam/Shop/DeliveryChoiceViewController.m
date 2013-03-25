@@ -91,6 +91,12 @@
 
 }
 - (IBAction)nextButtonTapped:(id)sender {
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    [self performSelector:@selector(goToNextpage) withObject:nil afterDelay:0.1];
+}
+
+- (void)goToNextpage
+{
     NSDictionary *status = [NSDictionary dictionaryWithDictionary:[[MJModel sharedInstance]submitDeliveryOptionFor:_cartId withOption:self.deliverChoice]];
     if ([[status valueForKey:@"status" ] isEqual:@"ok"]){
         CheckoutViewController *detailViewController = [[CheckoutViewController alloc] initWithNibName:@"CheckoutViewController" bundle:nil];
@@ -102,6 +108,8 @@
         
     }
     
+    [DejalBezelActivityView removeViewAnimated:YES];
+
 }
   
 @end

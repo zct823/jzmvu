@@ -411,7 +411,8 @@
 {
     
     // Get qrcodeId and push to details view
-    [self performSelectorOnMainThread:@selector(processRowAtIndexPath:) withObject:indexPath waitUntilDone:NO];
+//    [self performSelectorOnMainThread:@selector(processRowAtIndexPath:) withObject:indexPath waitUntilDone:NO];
+    [self processRowAtIndexPath:indexPath];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

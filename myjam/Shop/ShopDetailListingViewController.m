@@ -348,7 +348,7 @@
 -(void)tapAction:(id)sender{
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
-    [self performSelector:@selector(showProductDetail:) withObject:sender afterDelay:0.3];
+    [self performSelector:@selector(showProductDetail:) withObject:sender afterDelay:0.1];
     
     
 }
@@ -367,14 +367,23 @@
 }
 
 - (IBAction)locateStore:(id)sender {
+    
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    [self performSelector:@selector(showStore) withObject:nil afterDelay:0.1];
+}
+
+- (void)showStore
+{
     ShopAddressViewController *detailViewController = [[ShopAddressViewController alloc] init];
     NSLog(@"%@",_shopInfo);
     detailViewController.shopId = [_shopInfo valueForKey:@"shop_id"];
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-    // [detailViewController release];
     
+    [detailViewController release];
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
+
 -(void)dealloc{
     [super dealloc];
     [_shopInfo release];

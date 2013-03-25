@@ -757,6 +757,7 @@
     }
     
 }
+
 -(void)showCart:(id)sender{
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate handleTab5];
@@ -802,6 +803,13 @@
 //    [detailViewController release];
 }
 -(void)checkOut:(id)sender{
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    [self performSelector:@selector(processCheckout) withObject:nil afterDelay:0.0];
+    
+}
+
+- (void)processCheckout
+{
     CheckoutViewController *detailViewController = [[CheckoutViewController alloc] initWithNibName:@"CheckoutViewController" bundle:nil];
     if ([cartId isEqualToString:@""]){
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -829,8 +837,10 @@
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
     }
-    
+    [detailViewController release];
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
+
 -(void)continueShopping:(id)sender{
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController popViewControllerAnimated:YES];

@@ -245,14 +245,21 @@
     }
 }
 -(void)deliveryOptions:(id)sender{
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    [self performSelector:@selector(processToDeliveryAddressPage) withObject:nil afterDelay:0.1];
+}
+
+- (void)processToDeliveryAddressPage
+{
     AddressEditViewController *detailViewController = [[AddressEditViewController alloc] initWithNibName:@"AddressEditViewController" bundle:nil];
     detailViewController.addressInfo = [[MJModel sharedInstance] getDeliveryDetailforCart:[[_cartList objectAtIndex:0] valueForKey:@"cart_id"]];
     detailViewController.cartId = [[_cartList objectAtIndex:0] valueForKey:@"cart_id"];
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-    //[self.navigationController pushViewController:detailViewController animated:YES];
+    [DejalBezelActivityView removeViewAnimated:YES];
     [detailViewController release];
 }
+
 - (void)dealloc {
     [tableView release];
     [_shopLogo release];
@@ -284,10 +291,6 @@
             
         }
     }
-    else{
-        
-        //   UIAlertView *alertView = [[UIAlertView alloc]]
-    }
     
 }
 
@@ -314,7 +317,7 @@
 //        [mydelegate.shopNavController popToRootViewControllerAnimated:YES];
     }
     else{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Failure" message:@"Purchase failed. Please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        CustomAlertView *alertView = [[CustomAlertView alloc] initWithTitle:@"Failure" message:@"Purchase failed. Please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [alertView show];
         [alertView release];
     }

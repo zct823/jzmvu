@@ -446,14 +446,25 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
          sidebarController.view.frame = CGRectMake(60.0f, 0.0f, sidebarController.view.frame.size.width, self.window.frame.size.height);
          
      }
-                     completion:^(BOOL finished){}];
+                     completion:^(BOOL finished){
+                         [DejalBezelActivityView activityViewForView:self.window withLabel:@"Loading ..." width:100];
+                         [self performSelector:@selector(updateCart) withObject:nil afterDelay:0.5];
+                         
+                     
+                     }];
+}
+
+- (void)updateCart
+{
+    [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
 // Handle sidebar
 - (void)handleTab5
 {
     NSLog(@"handleSideBar");
-    [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
+//    [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
     LayerOption = kCloseSideBar;
     
     if ([self sideBarOpen])

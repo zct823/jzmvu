@@ -37,6 +37,9 @@
 #define kTime 2
 #define kDate 1
 
+// fb app id
+#define kAppID @"125580110956338"
+
 // in create pages
 #define kAlertSave 100
 #define kAlertNoConnection 200

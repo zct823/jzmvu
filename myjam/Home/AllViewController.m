@@ -47,6 +47,11 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     if (!self.refreshDisabled)
     {
         AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -73,25 +78,6 @@
     }else{
         self.refreshDisabled = NO;
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-//    NSLog(@"vdidapp");
-//    NSString *reloadNeeded = [[[NSUserDefaults standardUserDefaults] objectForKey:@"isReloadNewsNeeded"]copy];
-//    
-//    NSString *isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:@"islogin"]copy];
-//    
-//    // check if login again, then refresh
-//    if ([reloadNeeded isEqualToString:@"YES"] && [isLogin isEqualToString:@"NO"])
-//    {
-//        NSLog(@"isReloadNewsNeeded");
-//        [self refreshTableItemsWithFilter:@""];
-//        NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
-//        [localData setObject:[NSString stringWithFormat:@"NO"] forKey:@"isReloadNewsNeeded"];
-//        [localData synchronize];
-//    }
-//    [self loadData];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -121,7 +107,10 @@
 {
     [self.activityIndicator startAnimating];
     //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
-    [self performSelector:@selector(setupView) withObject:nil afterDelay:0.1];
+//    [self performSelector:@selector(setupView) withObject:nil afterDelay:0.0];
+//    [self setupView];
+    [self performSelectorInBackground:@selector(setupView) withObject:nil];
+    
 }
 
 - (void)setupView
@@ -145,8 +134,12 @@
         
         self.tableData = [list mutableCopy];
     }
-    [self.tableView reloadData];
-    [self.activityIndicator stopAnimating];
+    
+    if ([self.tableData count]) {
+        [self.tableView reloadData];
+        [self.activityIndicator stopAnimating];
+    }
+    
 }
 
 #pragma mark -

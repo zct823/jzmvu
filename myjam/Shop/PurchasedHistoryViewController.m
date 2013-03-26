@@ -134,6 +134,7 @@
             
             
         }
+        
         [self.tableView reloadData];
         [self.activityIndicator stopAnimating];
         [self.activityIndicatorView setHidden:YES];
@@ -359,7 +360,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return kTableCellHeight;
+    return kTableCellHeightX;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView

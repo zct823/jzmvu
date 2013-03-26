@@ -286,7 +286,8 @@
 //    else{
     if ([self retrieveDataFromAPI])
     {
-        [self performSelectorOnMainThread:@selector(setupViews) withObject:nil waitUntilDone:YES];
+//        [self performSelectorOnMainThread:@selector(setupViews) withObject:nil waitUntilDone:YES];
+        [self setupViews];
     }else{
 //        [self performSelector:@selector(setupErrorPage) withObject:nil afterDelay:0.0];
         [self setupErrorPage];

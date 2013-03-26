@@ -45,7 +45,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    
+    [self.activityIndicator startAnimating];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+     
     if (!self.refreshDisabled)
     {
         AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -61,7 +66,7 @@
         //self.searchedText = @"";
         
         [self.tableData removeAllObjects];
-//        [aQRcodeType removeAllObjects];
+        //        [aQRcodeType removeAllObjects];
         [self.tableView reloadData];
         [self.loadingLabel setText:@"Loading ..."];
         [self.activityIndicator setHidden:NO];
@@ -72,11 +77,6 @@
     }else{
         self.refreshDisabled = NO;
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-     [self.activityIndicator startAnimating];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -106,8 +106,8 @@
 {
     [self.activityIndicator startAnimating];
 //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
-//    [self performSelectorInBackground:@selector(setupView) withObject:nil];
-    [self performSelector:@selector(setupView) withObject:nil afterDelay:0.1];
+    [self performSelectorInBackground:@selector(setupView) withObject:nil];
+//    [self performSelector:@selector(setupView) withObject:nil afterDelay:0.1];
 }
 
 - (void)setupView
@@ -132,8 +132,11 @@
         
         self.tableData = [list mutableCopy];
     }
-    [self.tableView reloadData];
-    [self.activityIndicator stopAnimating];
+    if ([self.tableData count]) {
+        [self.tableView reloadData];
+        [self.activityIndicator stopAnimating];
+    }
+    
 }
 
 #pragma mark -

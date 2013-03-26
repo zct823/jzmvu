@@ -7,7 +7,7 @@
 //
 
 #import "ProductViewAllViewController.h"
-#define kTableCellHeight 170
+#define kTableCellHeightM 170
 @interface ProductViewAllViewController ()
 
 @end
@@ -135,7 +135,7 @@
         return 44;
     }
     else{
-    return kTableCellHeight;
+    return kTableCellHeightM;
 }
 }
 - (void)createCellForIndex:(NSIndexPath *)indexPath cell:(ProductTableViewCell *)cell

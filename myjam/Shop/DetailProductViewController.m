@@ -7,7 +7,7 @@
 //
 
 #import "DetailProductViewController.h"
-#define kTableCellHeight 70
+#define kTableCellHeightC 70
 @interface DetailProductViewController ()
 
 @end
@@ -418,7 +418,7 @@
         }
     }
     
-    return kTableCellHeight;
+    return kTableCellHeightC;
 }
 
 - (void)setupBuyCell:(NSString *)CellIdentifier tableView:(UITableView *)tableView
@@ -755,7 +755,7 @@
             }
         }
     }
-    
+    return nil;
 }
 
 -(void)showCart:(id)sender{

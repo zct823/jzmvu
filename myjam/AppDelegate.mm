@@ -34,15 +34,12 @@ static CGFloat bannerHeight = 34;
 
 @implementation AppDelegate
 
-NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessionStateChangedNotification"; //fb login
+NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSessionStateChangedNotification"; //fb login
 
 @synthesize window;
 @synthesize sidebarController;
-//<<<<<<< HEAD
-//@synthesize bottomController, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox, bottomSVJShop, bottomSVJSPurchase;
-//=======
 @synthesize bottomSVAll, bottomSVNews, bottomSVPromo, bottomSVScanBox, bottomSVShareBox, bottomSVFavBox, bottomSVCreateBox,bottomSVJShop, bottomSVJSPurchase;
-//>>>>>>> 37d8a8fb252b4f8a68369c45f04ff88e5d39c3fa
+
 @synthesize sideBarOpen;
 @synthesize bottomViewOpen;
 @synthesize tabView;
@@ -973,10 +970,11 @@ NSString *const FBSessionStateChangedNotification = @"com.me-tech.jambu:FBSessio
             [localData synchronize];
             [self initViews];
         }
+        
+        [FBSettings publishInstall:kAppID];
+        [FBSession.activeSession handleDidBecomeActive]; //fb login
     }
-    //    [self initViews];
-    
-    [FBSession.activeSession handleDidBecomeActive]; //fb login
+
     
 }
 

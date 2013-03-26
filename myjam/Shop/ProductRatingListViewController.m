@@ -7,7 +7,7 @@
 //
 
 #import "ProductRatingListViewController.h"
-#define kTableCellHeight 100
+#define kTableCellHeightA 100
 @interface ProductRatingListViewController ()
 
 @end
@@ -16,15 +16,15 @@
 @synthesize tableView,shopName;
 
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        
-        // Custom initialization
-    }
-    return self;
-}
+//- (id)initWithStyle:(UITableViewStyle)style
+//{
+//    self = [super initWithStyle:style];
+//    if (self) {
+//        
+//        // Custom initialization
+//    }
+//    return self;
+//}
 
 - (void)viewDidLoad
 {

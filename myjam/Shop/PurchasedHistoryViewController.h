@@ -15,7 +15,7 @@
 #import "NSString+StripeHTML.h"
 #import "PullRefreshTableViewController.h"
 #define kListPerpage        5
-#define kTableCellHeight    120
+#define kTableCellHeightX    120
 //#define kDisplayPerscreen   3 // commented to support retina 4
 #define kExtraCellHeight    54
 

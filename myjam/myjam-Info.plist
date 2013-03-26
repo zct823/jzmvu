@@ -14,7 +14,7 @@
 		<string>icon.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.me-tech.jambu</string>
+	<string>com.threezquare.jambu</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -29,7 +29,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.me-tech.jambu</string>
+			<string>com.threezquare.jambu</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>jambu</string>
@@ -45,12 +45,12 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>FacebookAppID</key>
-	<string>196006050543271</string>
+	<string>125580110956338</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>"jambu-font.otf"</string>
+		<string>&quot;jambu-font.otf&quot;</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

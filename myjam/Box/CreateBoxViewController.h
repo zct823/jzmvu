@@ -13,6 +13,7 @@
 
 @property (retain, nonatomic) NSString *selectedApp;
 
-- (void)refreshTableItemsWithFilterApp:(NSString *)str andSearchedText:(NSString *)pattern;
+- (void) refreshTableItemsWithFilter:(NSString *)str andSearchedText:(NSString *)pattern;
+
 
 @end

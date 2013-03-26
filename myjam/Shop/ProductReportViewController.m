@@ -22,10 +22,10 @@
     }
     return self;
 }
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andProductId:(NSString *)productId {
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andProductId:(NSString *)productid {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-      self.productId = productId;
+      self.productId = productid;
         //self.navigationItem.title = @"Report";
         self.title = @"Report";
         FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];

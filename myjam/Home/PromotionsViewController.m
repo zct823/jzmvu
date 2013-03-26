@@ -31,10 +31,10 @@
     return [NSString stringWithFormat:@"{\"page\":%d,\"perpage\":%d,\"category_id\":\"%@\",\"search\":\"%@\",\"feed_type\":\"%@\"}",self.pageCounter, kListPerpage, self.selectedCategories, self.searchedText,feed_type];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    
-}
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    
+//}
 
 #pragma mark -
 #pragma mark didSelectRow extended action

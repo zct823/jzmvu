@@ -18,7 +18,7 @@
 #import "AboutViewController.h"
 #import "SettingsViewController.h"
 
-#define kTableCellHeight 110
+#define kTableCellHeightA 110
 @interface SidebarView ()
 
 @end
@@ -525,7 +525,7 @@
         return 64;
     }
     else{
-        return kTableCellHeight;
+        return kTableCellHeightA;
     }
     
 }

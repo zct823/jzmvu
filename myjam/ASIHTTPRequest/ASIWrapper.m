@@ -17,7 +17,7 @@
     [request addRequestHeader:@"Content-Type" value:@"application/json"];
     [request appendPostData:[dataContent dataUsingEncoding:NSUTF8StringEncoding]];
     [request setRequestMethod:@"POST"];
-    [request setTimeOutSeconds:5];
+    [request setTimeOutSeconds:4];
     [request startSynchronous];
     
     NSError *error = [request error];

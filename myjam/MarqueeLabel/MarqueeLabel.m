@@ -798,6 +798,7 @@ NSString *const kMarqueeLabelShouldAnimateNotification = @"MarqueeLabelShouldAni
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.subLabel removeFromSuperview];
+    [super dealloc];
 }
 
 

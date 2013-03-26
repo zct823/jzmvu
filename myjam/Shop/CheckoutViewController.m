@@ -7,7 +7,7 @@
 //
 
 #import "CheckoutViewController.h"
-#define kTableCellHeight 150
+#define kTableCellHeightB 150
 @interface CheckoutViewController ()
 
 @end
@@ -168,7 +168,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return kTableCellHeight;
+    return kTableCellHeightB;
 }
 
 #pragma mark - Table view delegate

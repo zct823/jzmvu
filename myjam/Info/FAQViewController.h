@@ -11,7 +11,6 @@
 
 @interface FAQViewController : UIViewController <UIScrollViewDelegate, UIWebViewDelegate>
 
-@property (nonatomic, retain) TPKeyboardAvoidingScrollView *scroller;
 @property (nonatomic, retain) IBOutlet UIView *contentView;
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
 

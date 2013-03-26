@@ -126,13 +126,15 @@
     if ([isLogin isEqualToString:@"YES"]) {
         
         self.pageCounter = 1;
-        NSArray *list = [self loadMoreFromServer];
+//        NSArray *list = [self loadMoreFromServer];
+//        
+//        if ([list count] > 0) {
+//            [self.tableData addObjectsFromArray:list];
+//        }
+//        
+//        self.tableData = [list mutableCopy];
         
-        if ([list count] > 0) {
-            [self.tableData addObjectsFromArray:list];
-        }
-        
-        self.tableData = [list mutableCopy];
+        self.tableData = [self loadMoreFromServer];
     }
     
     if ([self.tableData count]) {

@@ -7,7 +7,7 @@
 //
 
 #import "ProductRatingListViewController.h"
-#define kTableCellHeightA 100
+#define kTableCellHeight 100
 @interface ProductRatingListViewController ()
 
 @end
@@ -16,19 +16,33 @@
 @synthesize tableView,shopName;
 
 
-//- (id)initWithStyle:(UITableViewStyle)style
-//{
-//    self = [super initWithStyle:style];
-//    if (self) {
-//        
-//        // Custom initialization
-//    }
-//    return self;
-//}
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    screenBounds = [[UIScreen mainScreen] bounds];
+    
+    if (screenBounds.size.height == 568)
+    {
+        [self.tableView setFrame:CGRectMake(0, 80, 320, 415)];
+        [self.tableView setBounds:CGRectMake(0, 80, 320, 415)];
+    }
+    else
+    {
+        [self.tableView setFrame:CGRectMake(0, 80, 320, 415)];
+        [self.tableView setBounds:CGRectMake(0, 80, 320, 415)];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commentWritten:)
                                                  name:@"CommentWritten"
@@ -56,6 +70,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,7 +84,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
     // Return the number of sections.
     return 1;
 }
@@ -84,10 +99,36 @@
 
     }
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UILabel *setFooterBtn = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    
+    setFooterBtn.textAlignment = NSTextAlignmentLeft;
+    setFooterBtn.textColor = [UIColor whiteColor];
+    setFooterBtn.backgroundColor = [UIColor colorWithHex:@"#e40045"];
+    setFooterBtn.text = @"     Rate & Write Review";
+    setFooterBtn.font = [UIFont fontWithName:@"Verdana" size:17];
+    
+    UITapGestureRecognizer *tapOnRWR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToRWR)];
+    [footerView addGestureRecognizer:tapOnRWR];
+    [footerView setUserInteractionEnabled:YES];
+    [footerView addSubview: setFooterBtn];
+    
+    return footerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 44.0f;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return kTableCellHeight;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
      static NSString *CellIdentifier = @"Cell";
@@ -180,6 +221,15 @@
     // [detailViewController release];
 }
 
+- (void)goToRWR
+{
+    NSLog(@"RWR Tapped");
+    WriteReviewViewController *detailViewController = [[WriteReviewViewController alloc] init];
+    detailViewController.productInfo =[[MJModel sharedInstance]getReviewInfoFor:self.productId];
+    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
+}
+
 - (IBAction)viewShop:(id)sender {
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     for (int i=0 ; i< [mydelegate.shopNavController.viewControllers count]; i++){
@@ -191,8 +241,7 @@
    
             [mydelegate.shopNavController popToViewController:[mydelegate.shopNavController.viewControllers objectAtIndex:i] animated:YES];
             break;
-
-    }
+        }
         
     
     }

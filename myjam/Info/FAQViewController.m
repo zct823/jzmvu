@@ -38,10 +38,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    //self.scroller = (TPKeyboardAvoidingScrollView *)self.view;
-    
-    //[self.scroller setContentSize:self.contentView.frame.size];
-    //[self.scroller addSubview:self.contentView];
+    self.webView.delegate = self;
     
     NSString *urlAddress = @"http://jam-bu.com/api/content/faq.php";
     
@@ -58,10 +55,14 @@
     [self.view addSubview:self.webView];
 }
 
-//- (void)webViewDidFinishLoad:(UIWebView *)wView {
-//    [wView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '50%'"];
-//    [wView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.zoom= '0.5'"];
-//}
+-(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
+    if ( inType == UIWebViewNavigationTypeLinkClicked ) {
+        [[UIApplication sharedApplication] openURL:[inRequest URL]];
+        return NO;
+    }
+    
+    return YES;
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 {

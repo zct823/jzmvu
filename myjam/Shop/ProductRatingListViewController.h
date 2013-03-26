@@ -1,4 +1,4 @@
-//
+﻿//
 //  ProductRatingListViewController.h
 //  myjam
 //
@@ -13,7 +13,11 @@
 #import "MJModel.h"
 #import "CoreViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+
 @interface ProductRatingListViewController : CoreViewController <UITableViewDataSource, UITableViewDelegate>
+{
+    CGRect screenBounds;
+}
 @property (nonatomic, strong) NSMutableArray *reviewList;
 @property (retain, nonatomic) IBOutlet UILabel *productLabel;
 @property (nonatomic, strong) NSString *productName;

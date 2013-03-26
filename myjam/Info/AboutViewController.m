@@ -44,9 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-//    self.scroller = (TPKeyboardAvoidingScrollView *)self.view;
-//    [self.scroller setContentSize:self.contentView.frame.size];
-//    [self.scroller addSubview:self.contentView];
+    self.webView.delegate = self;
     
     NSString *urlAddress = @"http://jam-bu.com/api/content/about.php";
     
@@ -62,6 +60,27 @@
     //[self.scroller setContentSize:self.scrollView.frame.size];
     [self.view addSubview:self.webView];
 }
+
+-(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
+    if ( inType == UIWebViewNavigationTypeLinkClicked ) {
+        NSLog(@"NO :%@",inRequest);
+        [[UIApplication sharedApplication] openURL:[inRequest URL]];
+        return NO;
+    }
+    
+    return YES;
+}
+
+//-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
+//{
+//    NSURL *requestURL =[ [ request URL ] retain ];
+//    if ( ( [ [ requestURL scheme ] isEqualToString: @"http" ] || [ [ requestURL scheme ] isEqualToString: @"https" ] || [ [ requestURL scheme ] isEqualToString: @"mailto" ])
+//        && ( navigationType == UIWebViewNavigationTypeLinkClicked ) ) {
+//        return ![ [ UIApplication sharedApplication ] openURL: [ requestURL autorelease ] ];
+//    }
+//    [ requestURL release ];
+//    return YES;
+//}
 
 - (void)viewWillDisappear:(BOOL)animated
 {

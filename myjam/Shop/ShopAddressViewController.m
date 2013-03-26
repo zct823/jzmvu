@@ -49,9 +49,10 @@
     [self refreshScroller];
     [self.shopLogo setImageWithURL:[NSURL URLWithString:[shopAddInfo valueForKey:@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
     
+    [[self.shopAddress scrollView] setBounces:NO];
     //modification to add font
     
-    NSString *setContent = [NSString stringWithFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title></title></head><body style='font-family:Verdana; font-size:12px; text-align:justify;'>%@</body></html>",[shopAddInfo valueForKey:@"shop_info"]];
+    NSString *setContent = [NSString stringWithFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title></title></head><body style='font-family:Arial; font-size:12px; text-align:justify;'>%@</body></html>",[shopAddInfo valueForKey:@"shop_info"]];
     
     [shopAddress loadHTMLString:setContent baseURL:nil];
     

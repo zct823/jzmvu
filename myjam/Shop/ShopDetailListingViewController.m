@@ -168,10 +168,10 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     // Configure the cell...
     //  cell.topLabel1.text =
-//    cell.catLabel1.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_name"];
-//    
-//    
-//    cell.productLabel1.text =[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_category"];
+    //    cell.catLabel1.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_name"];
+    //
+    //
+    //    cell.productLabel1.text =[[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:0] valueForKey:@"product_category"];
     
     MarqueeLabel *productNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
     productNameLabel.marqueeType = MLContinuous;
@@ -229,8 +229,8 @@
     if ([[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] count] >1){
         
         
-//        cell.catLabel2.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_name"];
-//        cell.productLabel2.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_category"];
+        //        cell.catLabel2.text = [[[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_name"];
+        //        cell.productLabel2.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_category"];
         cell.priceLabel2.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:1] valueForKey:@"product_price"];
         
         MarqueeLabel *productNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
@@ -282,8 +282,8 @@
         
     }
     if ([[[_productArray objectAtIndex:indexPath.section] valueForKey:@"product_list"] count] >2){
-//        cell.catLabel3.text = [[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_name"];
-//        cell.productLabel3.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_category"];
+        //        cell.catLabel3.text = [[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_name"];
+        //        cell.productLabel3.text =[[[[_productArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_category"];
         
         MarqueeLabel *productNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
         productNameLabel.marqueeType = MLContinuous;
@@ -337,14 +337,22 @@
 #pragma mark - Table view delegate
 
 -(void)viewAll:(id)sender{
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    
+    [self performSelector:@selector(showAllProducts:) withObject:sender afterDelay:0.1];
+}
+
+- (void)showAllProducts:(id)sender
+{
     ProductViewAllViewController *detailViewController = [[ProductViewAllViewController alloc] initWith:_shopInfo andCat:[[_productArray objectAtIndex:[sender tag] ]valueForKey:@"category_name"]];
     
     detailViewController.productAllArray =[[MJModel sharedInstance] getFullListOfProductsFor:[_shopInfo valueForKey:@"shop_id"] inCat:[[_productArray objectAtIndex:[sender tag]] valueForKey:@"category_id"] andPage:@"1"];
     
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-    // [detailViewController release];
+    [detailViewController release];
 }
+
 -(void)tapAction:(id)sender{
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     

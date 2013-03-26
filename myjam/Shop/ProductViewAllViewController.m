@@ -19,7 +19,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        self.navigationItem.title = @"JAM-BU Shop";
+        //        self.navigationItem.title = @"JAM-BU Shop";
         self.title = @"JAM-BU Shop";
         FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
         titleView.text = self.title;
@@ -29,7 +29,7 @@
         [titleView sizeToFit];
         self.navigationItem.titleView = titleView;
         [titleView release];
-
+        
         
         self.navigationItem.backBarButtonItem =
         [[[UIBarButtonItem alloc] initWithTitle:@"Back"
@@ -41,11 +41,11 @@
 }
 -(id)initWith:(NSDictionary*)shopInfo andCat:(NSString*)catName{
     
-   self = [super initWithNibName:@"ProductViewAllViewController" bundle:nil];
+    self = [super initWithNibName:@"ProductViewAllViewController" bundle:nil];
     if (self){
         self.shopInfo = shopInfo;
         self.catName = catName;
-                
+        
         
         // ...
     }
@@ -59,9 +59,9 @@
 
 - (void)viewDidLoad
 {   /* UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self action:@selector(aMethod:) forControlEvents:UIControlEventTouchDown];
-    [button setTitle:@"Show View" forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, 435, 320, 44.0);*/
+     [button addTarget:self action:@selector(aMethod:) forControlEvents:UIControlEventTouchDown];
+     [button setTitle:@"Show View" forState:UIControlStateNormal];
+     button.frame = CGRectMake(0, 435, 320, 44.0);*/
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     //[mydelegate.window addSubview:button];
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
@@ -87,9 +87,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
+    
     // Return the number of rows in the section.
-    if ( ([productAllArray count] % 0) == 0){
+    if ( ([productAllArray count] % 3) == 0){
         return ([productAllArray count]/3)+1;
     }
     else{
@@ -114,20 +114,20 @@
         
         return cell;
     }
-      
+    
     else{
         
-    ProductTableViewCell *cell = (ProductTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ProductTableViewCell" owner:nil options:nil];
-        cell = [nib objectAtIndex:0];
+        ProductTableViewCell *cell = (ProductTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil)
+        {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ProductTableViewCell" owner:nil options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        // Configure the cell...
+        [self createCellForIndex:indexPath cell:cell];
+        return cell;
     }
-    // Configure the cell...
-    [self createCellForIndex:indexPath cell:cell];
-    return cell;
-}
-
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -135,100 +135,191 @@
         return 44;
     }
     else{
-    return kTableCellHeightM;
-}
+        return kTableCellHeightM;
+    }
 }
 - (void)createCellForIndex:(NSIndexPath *)indexPath cell:(ProductTableViewCell *)cell
 {
     if (indexPath.row ==1){
         UILabel *catNameLabelTemp = [[UILabel alloc] init];
-     
-          CGSize expectedLabelSize  = [self.catName sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(150.0, cell.catNameLabel.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
         
-
+        CGSize expectedLabelSize  = [self.catName sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(150.0, cell.catNameLabel.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
+        
+        
         CGRect newFrame = cell.catNameLabel.frame;
         newFrame.size.width = expectedLabelSize.width;
         cell.catNameLabel.text = catName;
         cell.catNameLabel.frame = newFrame;
         [catNameLabelTemp release];
-       cell.viewAllButton.hidden = YES;
+        cell.viewAllButton.hidden = YES;
         cell.middleLine.frame = CGRectMake(expectedLabelSize.width+50,cell.middleLine.frame.origin.y,300-expectedLabelSize.width-50, 1);
-
+        
     }else{
         cell.productHeader.hidden = YES;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-   // Configure the cell...
+    // Configure the cell...
     //  cell.topLabel1.text =
-    cell.catLabel1.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]  valueForKey:@"product_name"];
+    MarqueeLabel *productNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
+    productNameLabel.marqueeType = MLContinuous;
+    productNameLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+    productNameLabel.numberOfLines = 1;
+    productNameLabel.opaque = NO;
+    productNameLabel.enabled = YES;
+    productNameLabel.textAlignment = UITextAlignmentLeft;
+    productNameLabel.textColor = [UIColor blackColor];
+    productNameLabel.backgroundColor = [UIColor clearColor];
+    productNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+    productNameLabel.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]  valueForKey:@"product_name"];
+    [cell.transView1 addSubview:productNameLabel];
+    [productNameLabel release];
     
-     cell.productLabel1.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]   valueForKey:@"product_category"];
+    MarqueeLabel *categoryLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 14, 90, 18) rate:20.0f andFadeLength:10.0f];
+    categoryLabel.marqueeType = MLContinuous;
+    categoryLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+    categoryLabel.numberOfLines = 1;
+    categoryLabel.opaque = NO;
+    categoryLabel.enabled = YES;
+    categoryLabel.textAlignment = UITextAlignmentLeft;
+    categoryLabel.textColor = [UIColor blackColor];
+    categoryLabel.backgroundColor = [UIColor clearColor];
+    categoryLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+    categoryLabel.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]   valueForKey:@"product_category"];
+    [cell.transView1 addSubview:categoryLabel];
+    [categoryLabel release];
+    
     cell.priceLabel1.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]   valueForKey:@"product_price"];
-    cell.transView1.hidden = NO;
-
-    if ([[[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]   valueForKey:@"product_rating"]  isEqual:@"0.0"]){
-        cell.rateView1.hidden = TRUE;
-    }else{
-    cell.rateView1.editable = FALSE;
-    cell.rateView1.selectedImage = [UIImage imageNamed:@"star.png"];
-    cell.rateView1.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
-    cell.rateView1.maxRating = 5;
-    cell.rateView1.rating = (int)[[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]   valueForKey:@"product_rating"] ;
+    cell.buttonTap1.tag =  3*indexPath.section+0;
+    [cell.transView1 setHidden:NO];
+    
+    if( [[[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]   valueForKey:@"product_rating"]  isEqual:@"0.0"]){
+        cell.rateView1.hidden = FALSE;
+    }
+    else{
+        cell.rateView1.rating = [[[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]   valueForKey:@"product_rating"] intValue];
+        cell.rateView1.editable = FALSE;
+        cell.rateView1.selectedImage = [UIImage imageNamed:@"star.png"];
+        cell.rateView1.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
+        cell.rateView1.maxRating = 5;
+        cell.transView1.hidden = FALSE;
     }
     cell.button1.tag = 3*(indexPath.row-1)+0;
     [cell.button1 setBackgroundImageWithURL:[NSURL URLWithString:[[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)] valueForKey:@"product_image"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
-     [cell.button1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
-    if(3*(indexPath.row-1)+1 < [productAllArray count])
-    {
-    cell.catLabel2.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]  valueForKey:@"product_name"];
-     cell.transView2.hidden = NO;
-    cell.productLabel2.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]   valueForKey:@"product_category"];
+    [cell.button1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+
+    if (3*(indexPath.row-1)+1 < [productAllArray count]){
+        
+        MarqueeLabel *productNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
+        productNameLabel.marqueeType = MLContinuous;
+        productNameLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        productNameLabel.numberOfLines = 1;
+        productNameLabel.opaque = NO;
+        productNameLabel.enabled = YES;
+        productNameLabel.textAlignment = UITextAlignmentLeft;
+        productNameLabel.textColor = [UIColor blackColor];
+        productNameLabel.backgroundColor = [UIColor clearColor];
+        productNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+        productNameLabel.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]  valueForKey:@"product_name"];
+        [cell.transView2 addSubview:productNameLabel];
+        [productNameLabel release];
+        
+        MarqueeLabel *categoryLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 14, 90, 18) rate:20.0f andFadeLength:10.0f];
+        categoryLabel.marqueeType = MLContinuous;
+        categoryLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        categoryLabel.numberOfLines = 1;
+        categoryLabel.opaque = NO;
+        categoryLabel.enabled = YES;
+        categoryLabel.textAlignment = UITextAlignmentLeft;
+        categoryLabel.textColor = [UIColor blackColor];
+        categoryLabel.backgroundColor = [UIColor clearColor];
+        categoryLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+        categoryLabel.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]   valueForKey:@"product_category"];
+        [cell.transView2 addSubview:categoryLabel];
+        [categoryLabel release];
+        
         cell.priceLabel2.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]   valueForKey:@"product_price"];
-         cell.button2.tag = 3*(indexPath.row-1)+1;
-        [cell.button2 setBackgroundImageWithURL:[NSURL URLWithString:[[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)] valueForKey:@"product_image"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
-        [cell.button2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
-        if ([[[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]   valueForKey:@"product_rating"]  isEqual:@"0.0"]){
-            cell.rateView2.hidden = TRUE;
-        } else{
-        cell.rateView2.editable = FALSE;
-        cell.rateView2.selectedImage = [UIImage imageNamed:@"star.png"];
-        cell.rateView2.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
-        cell.rateView2.maxRating = 5;
-            cell.rateView2.rating = (int)[[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]   valueForKey:@"product_rating"] ;}
+        cell.buttonTap2.tag =  3*indexPath.section+1;
+        [cell.transView2 setHidden:NO];
         
-    if(3*(indexPath.row-1)+2 < [productAllArray count])
-    {
-        cell.catLabel3.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]  valueForKey:@"product_name"];
-        
-        cell.productLabel3.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_category"];
-        cell.priceLabel3.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_price"];
-                [cell.button3 setBackgroundImageWithURL:[NSURL URLWithString:[[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)] valueForKey:@"product_image"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
-         cell.transView3.hidden = NO;
-         cell.button3.tag = 3*(indexPath.row-1)+2;
-        if ([[[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_rating"]  isEqual:@"0.0"]){
-            cell.rateView3.hidden = TRUE;
+        if( [[[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]   valueForKey:@"product_rating"]  isEqual:@"0.0"]){
+            cell.rateView2.hidden = FALSE;
         }
         else{
-        cell.rateView3.editable = FALSE;
-        cell.rateView3.selectedImage = [UIImage imageNamed:@"star.png"];
-        cell.rateView3.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
-        cell.rateView3.maxRating = 5;
-            cell.rateView3.rating =(int)[[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_rating"] ;}
+            cell.rateView2.rating = [[[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]   valueForKey:@"product_rating"] intValue];
+            cell.rateView2.editable = FALSE;
+            cell.rateView2.selectedImage = [UIImage imageNamed:@"star.png"];
+            cell.rateView2.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
+            cell.rateView2.maxRating = 5;
+            cell.transView2.hidden = FALSE;
+        }
+        cell.button2.tag = 3*(indexPath.row-1)+1;
+        [cell.button2 setBackgroundImageWithURL:[NSURL URLWithString:[[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)] valueForKey:@"product_image"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
+        [cell.button2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
         
+        
+    }
+    if (3*(indexPath.row-1)+2 < [productAllArray count]){
+        //        cell.catLabel3.text = [[[[productAllArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_name"];
+        //        cell.productLabel3.text =[[[[productAllArray objectAtIndex:indexPath.section]valueForKey:@"product_list"] objectAtIndex:2] valueForKey:@"product_category"];
+        
+        MarqueeLabel *productNameLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 18) rate:20.0f andFadeLength:10.0f];
+        productNameLabel.marqueeType = MLContinuous;
+        productNameLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        productNameLabel.numberOfLines = 1;
+        productNameLabel.opaque = NO;
+        productNameLabel.enabled = YES;
+        productNameLabel.textAlignment = UITextAlignmentLeft;
+        productNameLabel.textColor = [UIColor blackColor];
+        productNameLabel.backgroundColor = [UIColor clearColor];
+        productNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+        productNameLabel.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]  valueForKey:@"product_name"];
+        [cell.transView3 addSubview:productNameLabel];
+        [productNameLabel release];
+        
+        MarqueeLabel *categoryLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 14, 90, 18) rate:20.0f andFadeLength:10.0f];
+        categoryLabel.marqueeType = MLContinuous;
+        categoryLabel.animationCurve = UIViewAnimationOptionCurveLinear;
+        categoryLabel.numberOfLines = 1;
+        categoryLabel.opaque = NO;
+        categoryLabel.enabled = YES;
+        categoryLabel.textAlignment = UITextAlignmentLeft;
+        categoryLabel.textColor = [UIColor blackColor];
+        categoryLabel.backgroundColor = [UIColor clearColor];
+        categoryLabel.font = [UIFont fontWithName:@"Helvetica" size:10];
+        categoryLabel.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_category"];
+        [cell.transView3 addSubview:categoryLabel];
+        [categoryLabel release];
+        
+        cell.priceLabel3.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_price"];
+        cell.buttonTap3.tag =  3*indexPath.section+2;
+        [cell.transView3 setHidden:NO];
+        
+        if( [[[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_rating"]  isEqual:@"0.0"]){
+            cell.rateView3.hidden = FALSE;
+        }
+        else{
+            cell.rateView3.rating = [[[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_rating"] intValue];
+            cell.rateView3.editable = FALSE;
+            cell.rateView3.selectedImage = [UIImage imageNamed:@"star.png"];
+            cell.rateView3.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
+            cell.rateView3.maxRating = 5;
+            cell.transView3.hidden = FALSE;
+        }
+        cell.button3.tag = 3*(indexPath.row-1)+2;
+        [cell.button3 setBackgroundImageWithURL:[NSURL URLWithString:[[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)] valueForKey:@"product_image"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
         [cell.button3 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-   }
 }
 -(void)tapAction:(id)sender{
     DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
     NSLog(@"%@",productAllArray);
     NSString *prodId = [[productAllArray  objectAtIndex:[sender tag] ] valueForKey:@"product_id" ];
     detailViewController.productInfo = [[MJModel sharedInstance] getProductInfoFor:prodId];
-     detailViewController.buyButton =  [[NSString alloc] initWithString:@"ok"];
+    detailViewController.buyButton =  [[NSString alloc] initWithString:@"ok"];
     detailViewController.productId = [prodId mutableCopy];
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-
+    
 }
 - (IBAction)locateStore:(id)sender {
     ShopAddressViewController *detailViewController = [[ShopAddressViewController alloc] init];

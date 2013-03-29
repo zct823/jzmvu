@@ -7,7 +7,7 @@
 //
 
 #import "ProductViewAllViewController.h"
-#define kTableCellHeightM 170
+#define kTableCellHeightM 130
 @interface ProductViewAllViewController ()
 
 @end
@@ -20,22 +20,22 @@
     if (self) {
         // Custom initialization
         //        self.navigationItem.title = @"JAM-BU Shop";
-        self.title = @"JAM-BU Shop";
-        FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
-        titleView.text = self.title;
-        titleView.textAlignment = NSTextAlignmentCenter;
-        titleView.backgroundColor = [UIColor clearColor];
-        titleView.textColor = [UIColor whiteColor];
-        [titleView sizeToFit];
-        self.navigationItem.titleView = titleView;
-        [titleView release];
-        
-        
-        self.navigationItem.backBarButtonItem =
-        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                          style:UIBarButtonItemStyleBordered
-                                         target:nil
-                                         action:nil] autorelease];
+//        self.title = @"JAM-BU Shop";
+//        FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
+//        titleView.text = self.title;
+//        titleView.textAlignment = NSTextAlignmentCenter;
+//        titleView.backgroundColor = [UIColor clearColor];
+//        titleView.textColor = [UIColor whiteColor];
+//        [titleView sizeToFit];
+//        self.navigationItem.titleView = titleView;
+//        [titleView release];
+//        
+//        
+//        self.navigationItem.backBarButtonItem =
+//        [[[UIBarButtonItem alloc] initWithTitle:@"Back"
+//                                          style:UIBarButtonItemStyleBordered
+//                                         target:nil
+//                                         action:nil] autorelease];
     }
     return self;
 }
@@ -58,12 +58,24 @@
 }
 
 - (void)viewDidLoad
-{   /* UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-     [button addTarget:self action:@selector(aMethod:) forControlEvents:UIControlEventTouchDown];
-     [button setTitle:@"Show View" forState:UIControlStateNormal];
-     button.frame = CGRectMake(0, 435, 320, 44.0);*/
-    AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    //[mydelegate.window addSubview:button];
+{
+    self.title = @"JAM-BU Shop";
+    FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
+    titleView.text = self.title;
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.textColor = [UIColor whiteColor];
+    [titleView sizeToFit];
+    self.navigationItem.titleView = titleView;
+    [titleView release];
+    
+    
+    self.navigationItem.backBarButtonItem =
+    [[[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                      style:UIBarButtonItemStyleBordered
+                                     target:nil
+                                     action:nil] autorelease];
+    
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
     [tempImageView setFrame:self.tableView.frame];
     
@@ -117,10 +129,10 @@
     
     else{
         
-        ProductTableViewCell *cell = (ProductTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        ProductTableViewCellwoCat *cell = (ProductTableViewCellwoCat*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
         {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ProductTableViewCell" owner:nil options:nil];
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ProductTableViewCellwoCat" owner:nil options:nil];
             cell = [nib objectAtIndex:0];
         }
         // Configure the cell...
@@ -138,8 +150,10 @@
         return kTableCellHeightM;
     }
 }
-- (void)createCellForIndex:(NSIndexPath *)indexPath cell:(ProductTableViewCell *)cell
+- (void)createCellForIndex:(NSIndexPath *)indexPath cell:(ProductTableViewCellwoCat *)cell
 {
+    [cell.transView2 setHidden:YES];
+    [cell.transView3 setHidden:YES];
     if (indexPath.row ==1){
         UILabel *catNameLabelTemp = [[UILabel alloc] init];
         
@@ -154,8 +168,6 @@
         cell.viewAllButton.hidden = YES;
         cell.middleLine.frame = CGRectMake(expectedLabelSize.width+50,cell.middleLine.frame.origin.y,300-expectedLabelSize.width-50, 1);
         
-    }else{
-        cell.productHeader.hidden = YES;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     // Configure the cell...
@@ -189,8 +201,8 @@
     [categoryLabel release];
     
     cell.priceLabel1.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]   valueForKey:@"product_price"];
-    cell.buttonTap1.tag =  3*indexPath.section+0;
-    [cell.transView1 setHidden:NO];
+    //cell.buttonTap1.tag =  3*indexPath.section+0;
+    //[cell.transView1 setHidden:NO];
     
     if( [[[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]   valueForKey:@"product_rating"]  isEqual:@"0.0"]){
         cell.rateView1.hidden = FALSE;
@@ -203,9 +215,9 @@
         cell.rateView1.maxRating = 5;
         cell.transView1.hidden = FALSE;
     }
-    cell.button1.tag = 3*(indexPath.row-1)+0;
+    cell.buttonTap1.tag = 3*(indexPath.row-1)+0;
     [cell.button1 setBackgroundImageWithURL:[NSURL URLWithString:[[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)] valueForKey:@"product_image"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
-    [cell.button1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.buttonTap1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
 
     if (3*(indexPath.row-1)+1 < [productAllArray count]){
         
@@ -238,7 +250,7 @@
         [categoryLabel release];
         
         cell.priceLabel2.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]   valueForKey:@"product_price"];
-        cell.buttonTap2.tag =  3*indexPath.section+1;
+        //cell.buttonTap2.tag =  3*indexPath.section+1;
         [cell.transView2 setHidden:NO];
         
         if( [[[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]   valueForKey:@"product_rating"]  isEqual:@"0.0"]){
@@ -252,9 +264,9 @@
             cell.rateView2.maxRating = 5;
             cell.transView2.hidden = FALSE;
         }
-        cell.button2.tag = 3*(indexPath.row-1)+1;
+        cell.buttonTap2.tag = 3*(indexPath.row-1)+1;
         [cell.button2 setBackgroundImageWithURL:[NSURL URLWithString:[[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)] valueForKey:@"product_image"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
-        [cell.button2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.buttonTap2 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
         
         
     }
@@ -291,7 +303,7 @@
         [categoryLabel release];
         
         cell.priceLabel3.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_price"];
-        cell.buttonTap3.tag =  3*indexPath.section+2;
+        //cell.buttonTap3.tag =  3*indexPath.section+2;
         [cell.transView3 setHidden:NO];
         
         if( [[[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]   valueForKey:@"product_rating"]  isEqual:@"0.0"]){
@@ -305,12 +317,19 @@
             cell.rateView3.maxRating = 5;
             cell.transView3.hidden = FALSE;
         }
-        cell.button3.tag = 3*(indexPath.row-1)+2;
+        cell.buttonTap3.tag = 3*(indexPath.row-1)+2;
         [cell.button3 setBackgroundImageWithURL:[NSURL URLWithString:[[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)] valueForKey:@"product_image"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon"]];
-        [cell.button3 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.buttonTap3 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 -(void)tapAction:(id)sender{
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
+    
+    [self performSelector:@selector(showProductDetail:) withObject:sender afterDelay:0.1];
+}
+
+-(void)showProductDetail:(id)sender {
+    
     DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
     NSLog(@"%@",productAllArray);
     NSString *prodId = [[productAllArray  objectAtIndex:[sender tag] ] valueForKey:@"product_id" ];
@@ -319,8 +338,8 @@
     detailViewController.productId = [prodId mutableCopy];
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
-    
 }
+
 - (IBAction)locateStore:(id)sender {
     ShopAddressViewController *detailViewController = [[ShopAddressViewController alloc] init];
     // NSLog(@"%@",_shopInfo);
@@ -329,6 +348,11 @@
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
     // [detailViewController release];
     
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [DejalBezelActivityView removeViewAnimated:YES];
 }
 
 -(void) dealloc{

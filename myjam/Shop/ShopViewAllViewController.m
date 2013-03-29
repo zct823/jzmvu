@@ -114,6 +114,11 @@
 - (void)createCellForIndex:(NSIndexPath *)indexPath cell:(ShopTableViewCellwoCat *)cell
 {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [cell.transView1 setHidden:YES];
+    [cell.transView2 setHidden:YES];
+    [cell.transView3 setHidden:YES];
+    
     // Configure the cell...
     //  cell.topLabel1.text =
 //    cell.catLabel1.text = [[catAllArray objectAtIndex:(3*indexPath.row+0)]  valueForKey:@"shop_name"];
@@ -129,6 +134,7 @@
     shopNameLabel.backgroundColor = [UIColor clearColor];
     shopNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
     shopNameLabel.text = [[catAllArray objectAtIndex:(3*indexPath.row+0)]  valueForKey:@"shop_name"];
+    [cell.transView1 setHidden:NO];
     [cell.transView1 addSubview:shopNameLabel];
     [shopNameLabel release];
     
@@ -174,6 +180,7 @@
         shopNameLabel.backgroundColor = [UIColor clearColor];
         shopNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
         shopNameLabel.text = [[catAllArray objectAtIndex:(3*indexPath.row+1)]  valueForKey:@"shop_name"];
+        [cell.transView2 setHidden:NO];
         [cell.transView2 addSubview:shopNameLabel];
         [shopNameLabel release];
         
@@ -213,6 +220,7 @@
         shopNameLabel.backgroundColor = [UIColor clearColor];
         shopNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
         shopNameLabel.text = [[catAllArray objectAtIndex:(3*indexPath.row+2)]  valueForKey:@"shop_name"];
+        [cell.transView3 setHidden:NO];
         [cell.transView3 addSubview:shopNameLabel];
         [shopNameLabel release];
         

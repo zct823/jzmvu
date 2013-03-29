@@ -392,6 +392,11 @@
     [DejalBezelActivityView removeViewAnimated:YES];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [DejalBezelActivityView removeViewAnimated:YES];
+}
+
 -(void)dealloc{
     [super dealloc];
     [_shopInfo release];

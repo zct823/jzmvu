@@ -167,6 +167,9 @@
     [cell.transView1 setHidden:YES];
     [cell.transView2 setHidden:YES];
     [cell.transView3 setHidden:YES];
+    cell.button1.userInteractionEnabled = NO;
+    cell.button2.userInteractionEnabled = NO;
+    cell.button3.userInteractionEnabled = NO;
     
     cell.contentView.backgroundColor = [UIColor clearColor];
     CGSize expectedLabelSize  = [[[_catArray objectAtIndex:indexPath.section] valueForKey:@"category_name"] sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(150.0, cell.catNameLabel.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];

@@ -434,6 +434,8 @@
 		61E099E316C2422000C012EF /* beep-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 61E099E216C2422000C012EF /* beep-beep.mp3 */; };
 		61E59C9716AE5753002E7DDC /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E59C9616AE5753002E7DDC /* EventKit.framework */; };
 		61E59C9916AE5F22002E7DDC /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E59C9816AE5F22002E7DDC /* EventKitUI.framework */; };
+		61EF563A17052C30008706C7 /* ProductTableViewCellwoCat.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EF563817052C30008706C7 /* ProductTableViewCellwoCat.m */; };
+		61EF563B17052C30008706C7 /* ProductTableViewCellwoCat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61EF563917052C30008706C7 /* ProductTableViewCellwoCat.xib */; };
 		FF10D89B16E9E12F00479199 /* BottomSwipeViewScanBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D88916E9C41D00479199 /* BottomSwipeViewScanBox.m */; };
 		FF10D89C16E9E17F00479199 /* BottomSwipeViewFavBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D88E16E9C45500479199 /* BottomSwipeViewFavBox.m */; };
 		FF10D89D16E9E1CA00479199 /* BottomSwipeViewCreateBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D88B16E9C43B00479199 /* BottomSwipeViewCreateBox.m */; };
@@ -1067,6 +1069,9 @@
 		61E099E216C2422000C012EF /* beep-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "beep-beep.mp3"; sourceTree = "<group>"; };
 		61E59C9616AE5753002E7DDC /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		61E59C9816AE5F22002E7DDC /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		61EF563717052C30008706C7 /* ProductTableViewCellwoCat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTableViewCellwoCat.h; sourceTree = "<group>"; };
+		61EF563817052C30008706C7 /* ProductTableViewCellwoCat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTableViewCellwoCat.m; sourceTree = "<group>"; };
+		61EF563917052C30008706C7 /* ProductTableViewCellwoCat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductTableViewCellwoCat.xib; sourceTree = "<group>"; };
 		FF10D88716E9C41D00479199 /* BottomSwipeViewScanBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSwipeViewScanBox.xib; sourceTree = "<group>"; };
 		FF10D88816E9C41D00479199 /* BottomSwipeViewScanBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSwipeViewScanBox.h; sourceTree = "<group>"; };
 		FF10D88916E9C41D00479199 /* BottomSwipeViewScanBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewScanBox.m; sourceTree = "<group>"; };
@@ -1385,6 +1390,9 @@
 		6139632616EF8EFF0056B314 /* Shop */ = {
 			isa = PBXGroup;
 			children = (
+				61EF563717052C30008706C7 /* ProductTableViewCellwoCat.h */,
+				61EF563817052C30008706C7 /* ProductTableViewCellwoCat.m */,
+				61EF563917052C30008706C7 /* ProductTableViewCellwoCat.xib */,
 				61B0DD3016FB196200FDEDED /* DeliverySelSavAddresses.h */,
 				61B0DD3116FB196200FDEDED /* DeliverySelSavAddresses.m */,
 				61B0DD3216FB196200FDEDED /* DeliverySelSavAddresses.xib */,
@@ -2547,6 +2555,7 @@
 				6120090316F9A94C005227FB /* yes_btn.png in Resources */,
 				61B0DD3716FB196200FDEDED /* DeliverySelSavAddresses.xib in Resources */,
 				61B0DD3916FB196200FDEDED /* DeliverySelSavAddrViewController.xib in Resources */,
+				61EF563B17052C30008706C7 /* ProductTableViewCellwoCat.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2728,6 +2737,7 @@
 				614BA74616F3F46600E5AA74 /* MarqueeLabel.m in Sources */,
 				61B0DD3616FB196200FDEDED /* DeliverySelSavAddresses.m in Sources */,
 				61B0DD3816FB196200FDEDED /* DeliverySelSavAddrViewController.m in Sources */,
+				61EF563A17052C30008706C7 /* ProductTableViewCellwoCat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2777,8 +2787,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "5C6740B0-4D7E-4048-AFC4-B5BFF85DDA66";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C6740B0-4D7E-4048-AFC4-B5BFF85DDA66";
+				PROVISIONING_PROFILE = "903FD5B4-270A-46D9-A8B1-26DB7047788E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "903FD5B4-270A-46D9-A8B1-26DB7047788E";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2800,8 +2810,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "5C6740B0-4D7E-4048-AFC4-B5BFF85DDA66";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C6740B0-4D7E-4048-AFC4-B5BFF85DDA66";
+				PROVISIONING_PROFILE = "903FD5B4-270A-46D9-A8B1-26DB7047788E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "903FD5B4-270A-46D9-A8B1-26DB7047788E";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

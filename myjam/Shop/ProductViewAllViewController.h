@@ -8,6 +8,7 @@
 
 #import "PullRefreshTableViewController.h"
 #import "ProductTableViewCell.h"
+#import "ProductTableViewCellwoCat.h"
 #import "ShopHeaderView.h"
 #import "CustomTableHeader.h"
 #import "DetailProductViewController.h"

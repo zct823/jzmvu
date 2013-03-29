@@ -649,21 +649,11 @@
 						<string key="objectName">View - 1view</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">69</int>
-						<reference key="object" ref="884125414"/>
-						<reference key="parent" ref="490906591"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">73</int>
 						<reference key="object" ref="921608121"/>
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="490906591"/>
 						<string key="objectName">View - 2view</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">74</int>
-						<reference key="object" ref="290179742"/>
-						<reference key="parent" ref="490906591"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">78</int>
@@ -675,6 +665,16 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">79</int>
 						<reference key="object" ref="601871725"/>
+						<reference key="parent" ref="490906591"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">74</int>
+						<reference key="object" ref="290179742"/>
+						<reference key="parent" ref="490906591"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">69</int>
+						<reference key="object" ref="884125414"/>
 						<reference key="parent" ref="490906591"/>
 					</object>
 				</array>

@@ -13,7 +13,6 @@
 
 @interface TBTabBar()
 
-@property (retain) NSMutableArray *buttons;
 @property (retain) NSMutableArray *buttonData;
 @property (retain) NSMutableArray *statusLights;
 

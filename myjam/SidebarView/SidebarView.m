@@ -17,6 +17,7 @@
 #import "FeedbackViewController.h"
 #import "AboutViewController.h"
 #import "SettingsViewController.h"
+#import "JBuddyViewController.h"
 
 #define kTableCellHeightA 110
 @interface SidebarView ()
@@ -82,6 +83,11 @@
     [swipeRightRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
     [[self tableView] addGestureRecognizer:swipeRightRecognizer];
     [swipeRightRecognizer release];
+    
+    self.buddyLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapBuddyRecoginzer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleBuddyList)];
+    [self.buddyLabel addGestureRecognizer:tapBuddyRecoginzer];
+    [tapBuddyRecoginzer release];
     
     self.contactLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapContactRecoginzer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleContact)];
@@ -223,6 +229,7 @@
     [self setNameLabel:nil];
     [self setEmailLabel:nil];
     [self setTableView:nil];
+    [self setBuddyLabel:nil];
     [super viewDidUnload];
     self.contentView = nil;
     
@@ -278,28 +285,51 @@
     
 }
 
-- (void)pushProfileViewController
-{
-    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
-    
-    SettingsViewController *settings = [[SettingsViewController alloc] init];
-    settings.updateProfile = YES;
-    [mydelegate.otherNavController pushViewController:settings animated:NO];
-    [mydelegate.tabView activateController:4];
-    
-    
-    // Manually change the selected tabButton
-    for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
-        if (i == 4) {
-            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
-        } else {
-            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
-        }
-    }
-    
-    [mydelegate closeSidebar];
-}
+//- (void)pushProfileViewController
+//{
+//    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
+//    
+//    SettingsViewController *settings = [[SettingsViewController alloc] init];
+//    settings.updateProfile = YES;
+//    [mydelegate.otherNavController pushViewController:settings animated:NO];
+//    [mydelegate.tabView activateController:4];
+//    
+//    
+//    // Manually change the selected tabButton
+//    for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
+//        if (i == 4) {
+//            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
+//        } else {
+//            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
+//        }
+//    }
+//    
+//    [mydelegate closeSidebar];
+//}
+//
+//- (void)pushBuddyListViewController
+//{
+//    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
+//    
+//    JBuddyViewController *buddyList = [[JBuddyViewController alloc] init];
+//
+//    [mydelegate.otherNavController pushViewController:buddyList animated:NO];
+//    [mydelegate.tabView activateController:4];
+//    
+//    
+//    // Manually change the selected tabButton
+//    for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
+//        if (i == 4) {
+//            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
+//        } else {
+//            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
+//        }
+//    }
+//    
+//    [mydelegate closeSidebar];
+//}
 
 - (void)handleSwipeRight
 {
@@ -372,6 +402,15 @@
     [settings release];
 }
 
+- (void)handleBuddyList
+{
+    NSLog(@"handleBuddy");
+    
+    JBuddyViewController *buddyListVc = [[JBuddyViewController alloc] init];
+    [self showViewControllerWithLoadingView:buddyListVc];
+    [buddyListVc release];
+}
+
 - (void)handleAbout
 {
     AboutViewController *about = [[AboutViewController alloc] init];
@@ -437,6 +476,7 @@
     [_tableView release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+    [_buddyLabel release];
     [super dealloc];
 }
 

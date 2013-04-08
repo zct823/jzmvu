@@ -16,6 +16,7 @@
     id<TBTabBarDelegate> delegate;
 }
 
+@property (retain) NSMutableArray *buttons;
 @property (assign) id<TBTabBarDelegate> delegate;
 
 -(id)initWithItems:(NSArray *)items;

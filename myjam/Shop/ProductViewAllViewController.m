@@ -76,12 +76,12 @@
                                      target:nil
                                      action:nil] autorelease];
     
-    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
-    [tempImageView setFrame:self.tableView.frame];
-    
-    self.tableView.backgroundView = tempImageView;
-    [tempImageView release];
-    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 70, 0)];
+//    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
+//    [tempImageView setFrame:self.tableView.frame];
+//    
+//    self.tableView.backgroundView = tempImageView;
+//    [tempImageView release];
+//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 70, 0)];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }

@@ -428,14 +428,36 @@
 		61BEED6516BF9BA9003083BA /* ShowSocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61BEED5816BF9BA9003083BA /* ShowSocialViewController.xib */; };
 		61BEED6616BF9BA9003083BA /* SocialViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 61BEED5A16BF9BA9003083BA /* SocialViewController.mm */; };
 		61BEED6716BF9BA9003083BA /* SocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61BEED5B16BF9BA9003083BA /* SocialViewController.xib */; };
+		61C3BBAC170D1FBA004FD778 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C3BBAA170D1FB9004FD778 /* ChatViewController.m */; };
+		61C3BBAD170D1FBA004FD778 /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61C3BBAB170D1FBA004FD778 /* ChatViewController.xib */; };
+		61C3BBB5170D3CE5004FD778 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C3BBB2170D3CE5004FD778 /* HPGrowingTextView.m */; };
+		61C3BBB6170D3CE5004FD778 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C3BBB4170D3CE5004FD778 /* HPTextViewInternal.m */; };
+		61C3BBBA170D6399004FD778 /* SMMessageViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C3BBB9170D6399004FD778 /* SMMessageViewTableCell.m */; };
+		61C3BBBD170D65E3004FD778 /* aqua.png in Resources */ = {isa = PBXBuildFile; fileRef = 61C3BBBB170D65E3004FD778 /* aqua.png */; };
+		61C3BBBE170D65E3004FD778 /* orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 61C3BBBC170D65E3004FD778 /* orange.png */; };
+		61C3BBC1170D6903004FD778 /* buddy_no.png in Resources */ = {isa = PBXBuildFile; fileRef = 61C3BBBF170D6903004FD778 /* buddy_no.png */; };
+		61C3BBC2170D6903004FD778 /* buddy_yes.png in Resources */ = {isa = PBXBuildFile; fileRef = 61C3BBC0170D6903004FD778 /* buddy_yes.png */; };
 		61D5F63416BA61F300110825 /* ConnectionClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 61D5F63316BA61F300110825 /* ConnectionClass.m */; };
 		61D5F63816BA6B4100110825 /* ErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61D5F63716BA6B4100110825 /* ErrorViewController.m */; };
-		61E099E116C23CF900C012EF /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E099E016C23CF900C012EF /* Twitter.framework */; };
+		61E099E116C23CF900C012EF /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E099E016C23CF900C012EF /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		61E099E316C2422000C012EF /* beep-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 61E099E216C2422000C012EF /* beep-beep.mp3 */; };
 		61E59C9716AE5753002E7DDC /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E59C9616AE5753002E7DDC /* EventKit.framework */; };
 		61E59C9916AE5F22002E7DDC /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E59C9816AE5F22002E7DDC /* EventKitUI.framework */; };
 		61EF563A17052C30008706C7 /* ProductTableViewCellwoCat.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EF563817052C30008706C7 /* ProductTableViewCellwoCat.m */; };
 		61EF563B17052C30008706C7 /* ProductTableViewCellwoCat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61EF563917052C30008706C7 /* ProductTableViewCellwoCat.xib */; };
+		61EF5641170546BA008706C7 /* JBuddyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EF563F170546BA008706C7 /* JBuddyViewController.m */; };
+		61EF5642170546BA008706C7 /* JBuddyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5640170546BA008706C7 /* JBuddyViewController.xib */; };
+		61EF564817054753008706C7 /* ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EF564617054753008706C7 /* ChatListViewController.m */; };
+		61EF564917054753008706C7 /* ChatListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61EF564717054753008706C7 /* ChatListViewController.xib */; };
+		61EF565217058334008706C7 /* BuddyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EF565117058334008706C7 /* BuddyCell.m */; };
+		61EF5654170583A7008706C7 /* BuddyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5653170583A7008706C7 /* BuddyCell.xib */; };
+		61FE922317094C2D008C0F44 /* BuddyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61FE922117094C2D008C0F44 /* BuddyListViewController.xib */; };
+		61FE922417094D3D008C0F44 /* BuddyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FE922017094C2D008C0F44 /* BuddyListViewController.m */; };
+		61FE922E1709800D008C0F44 /* AddBuddyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61FE922C1709800D008C0F44 /* AddBuddyViewController.xib */; };
+		61FE923017098273008C0F44 /* buddy_search_jambu.png in Resources */ = {isa = PBXBuildFile; fileRef = 61FE922F17098273008C0F44 /* buddy_search_jambu.png */; };
+		61FE9234170AC669008C0F44 /* NewChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FE9232170AC669008C0F44 /* NewChatViewController.m */; };
+		61FE9235170AC669008C0F44 /* NewChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61FE9233170AC669008C0F44 /* NewChatViewController.xib */; };
+		61FE9238170BDD8B008C0F44 /* AddBuddyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FE922B1709800D008C0F44 /* AddBuddyViewController.m */; };
 		FF10D89B16E9E12F00479199 /* BottomSwipeViewScanBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D88916E9C41D00479199 /* BottomSwipeViewScanBox.m */; };
 		FF10D89C16E9E17F00479199 /* BottomSwipeViewFavBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D88E16E9C45500479199 /* BottomSwipeViewFavBox.m */; };
 		FF10D89D16E9E1CA00479199 /* BottomSwipeViewCreateBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D88B16E9C43B00479199 /* BottomSwipeViewCreateBox.m */; };
@@ -452,7 +474,7 @@
 		FF10D8B516EA0E7100479199 /* BottomSwipeViewScanBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF10D88716E9C41D00479199 /* BottomSwipeViewScanBox.xib */; };
 		FF10D8B916EAAA2F00479199 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF10D8B716EAAA2F00479199 /* MoreViewController.m */; };
 		FF10D8BA16EAAA2F00479199 /* MoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF10D8B816EAAA2F00479199 /* MoreViewController.xib */; };
-		FF19ACA316E73028002F36A1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF19ACA216E73028002F36A1 /* Social.framework */; };
+		FF19ACA316E73028002F36A1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF19ACA216E73028002F36A1 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FF2425F216E71D4F00A11682 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2425F116E71D4F00A11682 /* FacebookSDK.framework */; };
 		FF622EA916E861C100CEAD00 /* CustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = FF622EA816E861C100CEAD00 /* CustomBadge.m */; };
 /* End PBXBuildFile section */
@@ -1061,6 +1083,19 @@
 		61BEED5916BF9BA9003083BA /* SocialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialViewController.h; sourceTree = "<group>"; };
 		61BEED5A16BF9BA9003083BA /* SocialViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SocialViewController.mm; sourceTree = "<group>"; };
 		61BEED5B16BF9BA9003083BA /* SocialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialViewController.xib; sourceTree = "<group>"; };
+		61C3BBA9170D1FB9004FD778 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatViewController.h; path = JBuddy/ChatViewController.h; sourceTree = "<group>"; };
+		61C3BBAA170D1FB9004FD778 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatViewController.m; path = JBuddy/ChatViewController.m; sourceTree = "<group>"; };
+		61C3BBAB170D1FBA004FD778 /* ChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChatViewController.xib; path = JBuddy/ChatViewController.xib; sourceTree = "<group>"; };
+		61C3BBB1170D3CE5004FD778 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPGrowingTextView.h; sourceTree = "<group>"; };
+		61C3BBB2170D3CE5004FD778 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
+		61C3BBB3170D3CE5004FD778 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
+		61C3BBB4170D3CE5004FD778 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
+		61C3BBB8170D6399004FD778 /* SMMessageViewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMessageViewTableCell.h; sourceTree = "<group>"; };
+		61C3BBB9170D6399004FD778 /* SMMessageViewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMessageViewTableCell.m; sourceTree = "<group>"; };
+		61C3BBBB170D65E3004FD778 /* aqua.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aqua.png; sourceTree = "<group>"; };
+		61C3BBBC170D65E3004FD778 /* orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orange.png; sourceTree = "<group>"; };
+		61C3BBBF170D6903004FD778 /* buddy_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buddy_no.png; sourceTree = "<group>"; };
+		61C3BBC0170D6903004FD778 /* buddy_yes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buddy_yes.png; sourceTree = "<group>"; };
 		61D5F63216BA61F300110825 /* ConnectionClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectionClass.h; path = Connection/ConnectionClass.h; sourceTree = "<group>"; };
 		61D5F63316BA61F300110825 /* ConnectionClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectionClass.m; path = Connection/ConnectionClass.m; sourceTree = "<group>"; };
 		61D5F63616BA6B4100110825 /* ErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorViewController.h; sourceTree = "<group>"; };
@@ -1072,6 +1107,25 @@
 		61EF563717052C30008706C7 /* ProductTableViewCellwoCat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTableViewCellwoCat.h; sourceTree = "<group>"; };
 		61EF563817052C30008706C7 /* ProductTableViewCellwoCat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTableViewCellwoCat.m; sourceTree = "<group>"; };
 		61EF563917052C30008706C7 /* ProductTableViewCellwoCat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductTableViewCellwoCat.xib; sourceTree = "<group>"; };
+		61EF563E170546BA008706C7 /* JBuddyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBuddyViewController.h; sourceTree = "<group>"; };
+		61EF563F170546BA008706C7 /* JBuddyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBuddyViewController.m; sourceTree = "<group>"; };
+		61EF5640170546BA008706C7 /* JBuddyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JBuddyViewController.xib; sourceTree = "<group>"; };
+		61EF564517054753008706C7 /* ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatListViewController.h; path = JBuddy/ChatListViewController.h; sourceTree = "<group>"; };
+		61EF564617054753008706C7 /* ChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatListViewController.m; path = JBuddy/ChatListViewController.m; sourceTree = "<group>"; };
+		61EF564717054753008706C7 /* ChatListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChatListViewController.xib; path = JBuddy/ChatListViewController.xib; sourceTree = "<group>"; };
+		61EF565017058334008706C7 /* BuddyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyCell.h; path = BuddyCustomCell/BuddyCell.h; sourceTree = "<group>"; };
+		61EF565117058334008706C7 /* BuddyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyCell.m; path = BuddyCustomCell/BuddyCell.m; sourceTree = "<group>"; };
+		61EF5653170583A7008706C7 /* BuddyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BuddyCell.xib; path = BuddyCustomCell/BuddyCell.xib; sourceTree = "<group>"; };
+		61FE921F17094C2D008C0F44 /* BuddyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyListViewController.h; path = JBuddy/BuddyListViewController.h; sourceTree = "<group>"; };
+		61FE922017094C2D008C0F44 /* BuddyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyListViewController.m; path = JBuddy/BuddyListViewController.m; sourceTree = "<group>"; };
+		61FE922117094C2D008C0F44 /* BuddyListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BuddyListViewController.xib; path = JBuddy/BuddyListViewController.xib; sourceTree = "<group>"; };
+		61FE922A1709800D008C0F44 /* AddBuddyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBuddyViewController.h; path = JBuddy/AddBuddyViewController.h; sourceTree = "<group>"; };
+		61FE922B1709800D008C0F44 /* AddBuddyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBuddyViewController.m; path = JBuddy/AddBuddyViewController.m; sourceTree = "<group>"; };
+		61FE922C1709800D008C0F44 /* AddBuddyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddBuddyViewController.xib; path = JBuddy/AddBuddyViewController.xib; sourceTree = "<group>"; };
+		61FE922F17098273008C0F44 /* buddy_search_jambu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buddy_search_jambu.png; sourceTree = "<group>"; };
+		61FE9231170AC668008C0F44 /* NewChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewChatViewController.h; path = JBuddy/NewChatViewController.h; sourceTree = "<group>"; };
+		61FE9232170AC669008C0F44 /* NewChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewChatViewController.m; path = JBuddy/NewChatViewController.m; sourceTree = "<group>"; };
+		61FE9233170AC669008C0F44 /* NewChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewChatViewController.xib; path = JBuddy/NewChatViewController.xib; sourceTree = "<group>"; };
 		FF10D88716E9C41D00479199 /* BottomSwipeViewScanBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSwipeViewScanBox.xib; sourceTree = "<group>"; };
 		FF10D88816E9C41D00479199 /* BottomSwipeViewScanBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSwipeViewScanBox.h; sourceTree = "<group>"; };
 		FF10D88916E9C41D00479199 /* BottomSwipeViewScanBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSwipeViewScanBox.m; sourceTree = "<group>"; };
@@ -1219,6 +1273,9 @@
 				6180D8A6164A4BE200D9C74D /* BoxViewController.xib */,
 				613367FE16C366B40088ADFF /* CreateViewController.h */,
 				613367FF16C366B40088ADFF /* CreateViewController.m */,
+				61EF563E170546BA008706C7 /* JBuddyViewController.h */,
+				61EF563F170546BA008706C7 /* JBuddyViewController.m */,
+				61EF5640170546BA008706C7 /* JBuddyViewController.xib */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -1226,6 +1283,11 @@
 		612007E816F9A948005227FB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				61C3BBBF170D6903004FD778 /* buddy_no.png */,
+				61C3BBC0170D6903004FD778 /* buddy_yes.png */,
+				61C3BBBB170D65E3004FD778 /* aqua.png */,
+				61C3BBBC170D65E3004FD778 /* orange.png */,
+				61FE922F17098273008C0F44 /* buddy_search_jambu.png */,
 				612007E916F9A94B005227FB /* ad4.png */,
 				612007EA16F9A94B005227FB /* added_cart.png */,
 				612007EB16F9A94B005227FB /* alarm_icon.png */,
@@ -1824,6 +1886,7 @@
 		6180D8481649F24600D9C74D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				61EF5644170546FF008706C7 /* JBuddy */,
 				6139632616EF8EFF0056B314 /* Shop */,
 				61A183F616E658B4006C6F31 /* Gallery */,
 				21735AEE16CCAE7E001C789A /* SV-Settings */,
@@ -2076,6 +2139,7 @@
 		61858DFC1662FFFF00DC7E9E /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				61C3BBB0170D3CE5004FD778 /* HPGrowingTextView */,
 				61D5F62F16BA618300110825 /* Connection */,
 				6181298F16830CC10068C68B /* JSONKit */,
 				61812969168308940068C68B /* ASIHTTPRequest */,
@@ -2100,6 +2164,7 @@
 		61858E0A1663428F00DC7E9E /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
+				61C3BBB7170D6399004FD778 /* SMMessageViewTableCell */,
 				614BA74316F3F46600E5AA74 /* MarqueeLabel */,
 				FF622EA616E861C100CEAD00 /* CustomBadge */,
 				210FC26E16DEEFAE0018A19B /* MJPopupViewController */,
@@ -2207,6 +2272,27 @@
 			path = CreateQR;
 			sourceTree = "<group>";
 		};
+		61C3BBB0170D3CE5004FD778 /* HPGrowingTextView */ = {
+			isa = PBXGroup;
+			children = (
+				61C3BBB1170D3CE5004FD778 /* HPGrowingTextView.h */,
+				61C3BBB2170D3CE5004FD778 /* HPGrowingTextView.m */,
+				61C3BBB3170D3CE5004FD778 /* HPTextViewInternal.h */,
+				61C3BBB4170D3CE5004FD778 /* HPTextViewInternal.m */,
+			);
+			path = HPGrowingTextView;
+			sourceTree = "<group>";
+		};
+		61C3BBB7170D6399004FD778 /* SMMessageViewTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				61C3BBB8170D6399004FD778 /* SMMessageViewTableCell.h */,
+				61C3BBB9170D6399004FD778 /* SMMessageViewTableCell.m */,
+			);
+			name = SMMessageViewTableCell;
+			path = myjam/SMMessageViewTableCell;
+			sourceTree = "<group>";
+		};
 		61D5F62F16BA618300110825 /* Connection */ = {
 			isa = PBXGroup;
 			children = (
@@ -2223,6 +2309,39 @@
 				61D5F63716BA6B4100110825 /* ErrorViewController.m */,
 			);
 			name = ErrorPage;
+			sourceTree = "<group>";
+		};
+		61EF5644170546FF008706C7 /* JBuddy */ = {
+			isa = PBXGroup;
+			children = (
+				61FE9231170AC668008C0F44 /* NewChatViewController.h */,
+				61FE9232170AC669008C0F44 /* NewChatViewController.m */,
+				61FE9233170AC669008C0F44 /* NewChatViewController.xib */,
+				61EF564F170582C4008706C7 /* BuddyCustomCell */,
+				61EF564517054753008706C7 /* ChatListViewController.h */,
+				61EF564617054753008706C7 /* ChatListViewController.m */,
+				61EF564717054753008706C7 /* ChatListViewController.xib */,
+				61FE921F17094C2D008C0F44 /* BuddyListViewController.h */,
+				61FE922017094C2D008C0F44 /* BuddyListViewController.m */,
+				61FE922117094C2D008C0F44 /* BuddyListViewController.xib */,
+				61FE922A1709800D008C0F44 /* AddBuddyViewController.h */,
+				61FE922B1709800D008C0F44 /* AddBuddyViewController.m */,
+				61FE922C1709800D008C0F44 /* AddBuddyViewController.xib */,
+				61C3BBA9170D1FB9004FD778 /* ChatViewController.h */,
+				61C3BBAA170D1FB9004FD778 /* ChatViewController.m */,
+				61C3BBAB170D1FBA004FD778 /* ChatViewController.xib */,
+			);
+			name = JBuddy;
+			sourceTree = "<group>";
+		};
+		61EF564F170582C4008706C7 /* BuddyCustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				61EF565017058334008706C7 /* BuddyCell.h */,
+				61EF565117058334008706C7 /* BuddyCell.m */,
+				61EF5653170583A7008706C7 /* BuddyCell.xib */,
+			);
+			name = BuddyCustomCell;
 			sourceTree = "<group>";
 		};
 		FF622EA616E861C100CEAD00 /* CustomBadge */ = {
@@ -2556,6 +2675,18 @@
 				61B0DD3716FB196200FDEDED /* DeliverySelSavAddresses.xib in Resources */,
 				61B0DD3916FB196200FDEDED /* DeliverySelSavAddrViewController.xib in Resources */,
 				61EF563B17052C30008706C7 /* ProductTableViewCellwoCat.xib in Resources */,
+				61EF5642170546BA008706C7 /* JBuddyViewController.xib in Resources */,
+				61EF564917054753008706C7 /* ChatListViewController.xib in Resources */,
+				61EF5654170583A7008706C7 /* BuddyCell.xib in Resources */,
+				61FE922317094C2D008C0F44 /* BuddyListViewController.xib in Resources */,
+				61FE922E1709800D008C0F44 /* AddBuddyViewController.xib in Resources */,
+				61FE923017098273008C0F44 /* buddy_search_jambu.png in Resources */,
+				61FE9235170AC669008C0F44 /* NewChatViewController.xib in Resources */,
+				61C3BBAD170D1FBA004FD778 /* ChatViewController.xib in Resources */,
+				61C3BBBD170D65E3004FD778 /* aqua.png in Resources */,
+				61C3BBBE170D65E3004FD778 /* orange.png in Resources */,
+				61C3BBC1170D6903004FD778 /* buddy_no.png in Resources */,
+				61C3BBC2170D6903004FD778 /* buddy_yes.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2566,6 +2697,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61FE9238170BDD8B008C0F44 /* AddBuddyViewController.m in Sources */,
+				61FE922417094D3D008C0F44 /* BuddyListViewController.m in Sources */,
 				612007DD16F80071005227FB /* BottomSwipeViewNews.m in Sources */,
 				612007DE16F80071005227FB /* BottomSwipeViewPromo.m in Sources */,
 				61266C6416F6F40F0092BB83 /* BottomSwipeViewJShop.m in Sources */,
@@ -2738,6 +2871,14 @@
 				61B0DD3616FB196200FDEDED /* DeliverySelSavAddresses.m in Sources */,
 				61B0DD3816FB196200FDEDED /* DeliverySelSavAddrViewController.m in Sources */,
 				61EF563A17052C30008706C7 /* ProductTableViewCellwoCat.m in Sources */,
+				61EF5641170546BA008706C7 /* JBuddyViewController.m in Sources */,
+				61EF564817054753008706C7 /* ChatListViewController.m in Sources */,
+				61EF565217058334008706C7 /* BuddyCell.m in Sources */,
+				61FE9234170AC669008C0F44 /* NewChatViewController.m in Sources */,
+				61C3BBAC170D1FBA004FD778 /* ChatViewController.m in Sources */,
+				61C3BBB5170D3CE5004FD778 /* HPGrowingTextView.m in Sources */,
+				61C3BBB6170D3CE5004FD778 /* HPTextViewInternal.m in Sources */,
+				61C3BBBA170D6399004FD778 /* SMMessageViewTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

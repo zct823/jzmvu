@@ -13,5 +13,7 @@
 
 @property (nonatomic, retain) IBOutlet UIView *contentView;
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivity;
+@property (retain, nonatomic) IBOutlet UILabel *label;
 
 @end

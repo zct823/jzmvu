@@ -39,7 +39,13 @@
     // Do any additional setup after loading the view from its nib.
     
     self.webView.delegate = self;
-    
+    [[self.webView scrollView] setBounces:NO];
+    [self.webView setHidden:YES];
+    [self loadWebPage];
+}
+
+- (void)loadWebPage
+{
     NSString *urlAddress = @"http://jam-bu.com/api/content/faq.php";
     
     //Create a URL object.
@@ -50,9 +56,33 @@
     
     //Load the request in the UIWebView.
     [self.webView loadRequest:requestObj];
-    [[self.webView scrollView] setBounces:NO];
-    //[self.scroller setContentSize:self.scrollView.frame.size];
-    [self.view addSubview:self.webView];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.webView setHidden:NO];
+    NSLog(@"done");
+}
+
+- (void)reloadWebPage
+{
+    NSLog(@"reload");
+    [self.loadingActivity setHidden:NO];
+    self.label.text = @"Loading ...";
+    
+    [self loadWebPage];
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"Failed: %@",error);
+    [self.webView setHidden:YES];
+    [self.loadingActivity setHidden:YES];
+    self.label.text = @"Connection Error. Please tap to retry.";
+    
+    UITapGestureRecognizer *tapToReload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadWebPage)];
+    [self.view addGestureRecognizer:tapToReload];
+    [tapToReload release];
 }
 
 -(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {

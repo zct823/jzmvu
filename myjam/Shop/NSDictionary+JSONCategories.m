@@ -16,7 +16,7 @@
     [httpRequest startSynchronous];
     NSData *data = [httpRequest responseData];
     NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] ;
-    NSLog(@"%@",result);
+    //NSLog(@"%@",result);
     NSDictionary *results = [[result objectFromJSONString] mutableCopy];
     [result release];
     if (error != nil) return nil;

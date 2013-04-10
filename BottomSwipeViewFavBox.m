@@ -50,7 +50,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)reloadCategories
 {
-    NSLog(@"reload categories");
+    //NSLog(@"reload categories");
     [self.scroller setContentOffset:CGPointMake(0, 0) animated:NO];
     for (UIView *aView in [self.contentView subviews]) {
         if ([aView isKindOfClass:[UILabel class]] || [aView isKindOfClass:[UIImageView class]]) {
@@ -74,7 +74,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (IBAction)firstButton:(id)sender
 {
-    NSLog(@"FirstButton Will Be Sent");
+    //NSLog(@"FirstButton Will Be Sent");
     
     UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
     UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
@@ -91,8 +91,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (IBAction)secondButton:(id)sender
 {
-    NSLog(@"SecondButton Will Be Sent");
-    NSLog(@"Reload Data");
+    //NSLog(@"SecondButton Will Be Sent");
+    //NSLog(@"Reload Data");
     
     UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
     UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
@@ -154,21 +154,21 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view];
-    NSLog(@"YES %f - %f",translation.y, translation.x);
+    //NSLog(@"YES %f - %f",translation.y, translation.x);
     
     if(gestureRecognizer.numberOfTouches == 2){
-        NSLog(@"2");
+        //NSLog(@"2");
         if (translation.y > 0) {
-            NSLog(@"slide down now");
+            //NSLog(@"slide down now");
             [self bringBottomViewDown];
             return YES;
         }
     }
     else{
-        NSLog(@"%d",gestureRecognizer.numberOfTouches);
+        //NSLog(@"%d",gestureRecognizer.numberOfTouches);
     }
     
-    NSLog(@"NO");
+    //NSLog(@"NO");
     return NO;
 }
 
@@ -180,7 +180,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)handleContinueButton
 {
-    NSLog(@"handleContinueButton");
+    //NSLog(@"handleContinueButton");
     [self bringBottomViewDown];
     
     if (!isSearchDisabled) {
@@ -212,7 +212,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         i++;
     }
     
-    NSLog(@"data: %@",strData);
+    //NSLog(@"data: %@",strData);
     
 //    [hm.nv refreshTableItemsWithFilter:strData];
     [box.fbvc refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
@@ -242,7 +242,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)setupCatagoryList
 {
-    NSLog(@"setupCatagoryList. checked %d",[checkedCategories count]);
+    //NSLog(@"setupCatagoryList. checked %d",[checkedCategories count]);
     
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)]; //clear content first before reload
     
@@ -251,14 +251,14 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     NSDictionary *categories;
     
     NSString *urlString = [self returningAPIString];
-    NSLog(@"(BottomSwipeView) Vardumping UrlString: %@",urlString);
+    //NSLog(@"(BottomSwipeView) Vardumping UrlString: %@",urlString);
     NSString *dataContent = [self returningDataContent];
-    NSLog(@"(BottomSwipeView) Vardumping dataContent: %@",dataContent);
+    //NSLog(@"(BottomSwipeView) Vardumping dataContent: %@",dataContent);
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"(BottomSwipeView) Vardumping response: %@",response);
+    //NSLog(@"(BottomSwipeView) Vardumping response: %@",response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
-    NSLog(@"(BottomSwipeView) Vardumping resultsDictionary: %@",resultsDictionary);
+    //NSLog(@"(BottomSwipeView) Vardumping resultsDictionary: %@",resultsDictionary);
     
     //BottomSwipeView Customization after action
     
@@ -467,7 +467,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             }
             
         }else{
-            NSLog(@"Connection Failed");
+            //NSLog(@"Connection Failed");
             
             isSearchDisabled = YES;
             [self.searchTextField setEnabled:NO];
@@ -494,7 +494,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 {
     //prepare to create default folder if there is no single folder yet.
     
-    NSLog(@"No single folder detected. Create new one for user");
+    //NSLog(@"No single folder detected. Create new one for user");
     
     [self.activityView startAnimating];
     [self storeOrModifyFavFolder:1 withFolderName:@"My Fav Folder" andFolderID:nil];
@@ -503,10 +503,10 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)storeOrModifyFavFolder:(NSInteger)tagID withFolderName:(NSString *)folderName andFolderID:(NSInteger)folderID
 {
-    NSLog(@"(storeOrModifyFavFolder) recheck value tagID %d, Folder Name %@, and folderID %d",tagID,folderName,folderID);
+    //NSLog(@"(storeOrModifyFavFolder) recheck value tagID %d, Folder Name %@, and folderID %d",tagID,folderName,folderID);
     
     NSString *urlString = [NSString stringWithFormat:@"%@/api/fav_folder.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
-    NSLog(@"(storeOrModifyFavFolder) Vardumping UrlString: %@",urlString);
+    //NSLog(@"(storeOrModifyFavFolder) Vardumping UrlString: %@",urlString);
     
     NSString *dataContent = nil;
     
@@ -518,12 +518,12 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     {
         dataContent = [NSString stringWithFormat:@"{\"flag\":\"EDIT_FAV\",\"fav_folder_name\":\"%@\",\"fav_folder_id\":\"%d\"}",folderName,folderID-kLabelTagStart];
     }
-    NSLog(@"(storeOrModifyFavFolder) Vardumping dataContent: %@",dataContent);
+    //NSLog(@"(storeOrModifyFavFolder) Vardumping dataContent: %@",dataContent);
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"(storeOrModifyFavFolder) Vardumping response: %@",response);
+    //NSLog(@"(storeOrModifyFavFolder) Vardumping response: %@",response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
-    NSLog(@"(storeOrModifyFavFolder) Vardumping resultsDictionary: %@",resultsDictionary);
+    //NSLog(@"(storeOrModifyFavFolder) Vardumping resultsDictionary: %@",resultsDictionary);
     
     if([resultsDictionary count])
     {
@@ -554,7 +554,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (void)handleTapCategory:(id)sender
 {
     
-    NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
+    //NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
     int imgTag = kImageTagStart + [(UIGestureRecognizer *)sender view].tag - kLabelTagStart;
     int labelTag = [(UIGestureRecognizer *)sender view].tag;
     
@@ -687,10 +687,10 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    NSLog(@"textfield tag: %d",textField.tag);
-    NSLog(@"Check label tag: %d",lblTagToSendOnTapRec);
-//    NSLog(@"Fav Folder Name AddNewFolder: %@",addNewFolder.text);
-//    NSLog(@"Fav Folder Name EditExistingFolder: %@",editFolder.text);
+    //NSLog(@"textfield tag: %d",textField.tag);
+    //NSLog(@"Check label tag: %d",lblTagToSendOnTapRec);
+//    //NSLog(@"Fav Folder Name AddNewFolder: %@",addNewFolder.text);
+//    //NSLog(@"Fav Folder Name EditExistingFolder: %@",editFolder.text);
     
     if ([addNewFolder.text length])
     {

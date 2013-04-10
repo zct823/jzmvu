@@ -50,7 +50,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)reloadCategories
 {
-    NSLog(@"reload categories");
+    //NSLog(@"reload categories");
     [self.scroller setContentOffset:CGPointMake(0, 0) animated:NO];
     for (UIView *aView in [self.contentView subviews]) {
         if ([aView isKindOfClass:[UILabel class]] || [aView isKindOfClass:[UIImageView class]]) {
@@ -74,7 +74,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (IBAction)firstButton:(id)sender
 {
-    NSLog(@"FirstButton Will Be Sent");
+    //NSLog(@"FirstButton Will Be Sent");
     
     UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
     UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
@@ -91,8 +91,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (IBAction)secondButton:(id)sender
 {
-    NSLog(@"SecondButton Will Be Sent");
-    NSLog(@"Reload Data");
+    //NSLog(@"SecondButton Will Be Sent");
+    //NSLog(@"Reload Data");
     
     UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
     UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
@@ -155,21 +155,21 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view];
-    NSLog(@"YES %f - %f",translation.y, translation.x);
+    //NSLog(@"YES %f - %f",translation.y, translation.x);
     
     if(gestureRecognizer.numberOfTouches == 2){
-        NSLog(@"2");
+        //NSLog(@"2");
         if (translation.y > 0) {
-            NSLog(@"slide down now");
+            //NSLog(@"slide down now");
             [self bringBottomViewDown];
             return YES;
         }
     }
     else{
-        NSLog(@"%d",gestureRecognizer.numberOfTouches);
+        //NSLog(@"%d",gestureRecognizer.numberOfTouches);
     }
     
-    NSLog(@"NO");
+    //NSLog(@"NO");
     return NO;
 }
 
@@ -181,7 +181,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)handleContinueButton
 {
-    NSLog(@"handleContinueButton");
+    //NSLog(@"handleContinueButton");
     [self bringBottomViewDown];
     
     if (!isSearchDisabled) {
@@ -224,7 +224,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         i++;
     }
     
-    NSLog(@"data: %@",strData);
+    //NSLog(@"data: %@",strData);
     [shopVC.sv refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text andOptions:sortData];
 //    [hm.nv refreshTableItemsWithFilter:strData];
 //    [box.fbvc refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
@@ -255,8 +255,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)setupCatagoryList
 {
-    NSLog(@"setupCatagoryList. checked %d",[checkedCategories count]);
-    NSLog(@"setupSortList. checked %d",[sortCategories count]);
+    //NSLog(@"setupCatagoryList. checked %d",[checkedCategories count]);
+    //NSLog(@"setupSortList. checked %d",[sortCategories count]);
     
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)]; //clear content first before reload
     
@@ -265,14 +265,14 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     NSDictionary *categories;
     
     NSString *urlString = [self returningAPIString];
-    NSLog(@"(BottomSwipeView) Vardumping UrlString: %@",urlString);
+    //NSLog(@"(BottomSwipeView) Vardumping UrlString: %@",urlString);
     NSString *dataContent = [self returningDataContent];
-    NSLog(@"(BottomSwipeView) Vardumping dataContent: %@",dataContent);
+    //NSLog(@"(BottomSwipeView) Vardumping dataContent: %@",dataContent);
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"(BottomSwipeView) Vardumping response: %@",response);
+    //NSLog(@"(BottomSwipeView) Vardumping response: %@",response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
-    NSLog(@"(BottomSwipeView) Vardumping resultsDictionary: %@",resultsDictionary);
+    //NSLog(@"(BottomSwipeView) Vardumping resultsDictionary: %@",resultsDictionary);
     
     //BottomSwipeView Customization after action
     
@@ -331,10 +331,10 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
                 for (id row in [resultsDictionary objectForKey:setList])
                 {
                     
-                    NSLog(@"Row: %@", row);
+                    //NSLog(@"Row: %@", row);
                     
                     self.count = self.count + 1;
-                    NSLog(@"Count: %d",count);
+                    //NSLog(@"Count: %d",count);
                     if ((item%2) == 0)
                     { // left column
                         imgFrame = CGRectMake(leftX, leftY + 2, imgWidth, imgWidth);
@@ -481,7 +481,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         }
         else
         {
-            NSLog(@"Connection Failed");
+            //NSLog(@"Connection Failed");
             
             isSearchDisabled = YES;
             [self.searchTextField setEnabled:NO];
@@ -513,7 +513,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         }
     }else{
         UILabel *cLabel = (UILabel *)[self.view viewWithTag: kLabelTagStart+key];
-        NSLog(@"check if already ticked %@",cLabel.text);
+        //NSLog(@"check if already ticked %@",cLabel.text);
         if ([sortCategories objectForKey:cLabel.text])
         {
             return YES;
@@ -525,7 +525,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)handleTapCategory:(id)sender
 {
-    NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
+    //NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
     int tag = [(UIGestureRecognizer *)sender view].tag;
     int imgTag = kImageTagStart + [(UIGestureRecognizer *)sender view].tag - kLabelTagStart;
     NSString *val = [NSString stringWithFormat:@"%d", imgTag-kImageTagStart];
@@ -546,9 +546,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     }
     else if([contentSwitch isEqual:@"1"])
     {
-//        NSLog(@"Self.count: %d",self.count);
+//        //NSLog(@"Self.count: %d",self.count);
         UILabel *tappedLabel = (UILabel *)[self.view viewWithTag:tag];
-        NSLog(@"tapped on : %@", tappedLabel.text);
+        //NSLog(@"tapped on : %@", tappedLabel.text);
         
         // Only tick on one option
         for (int i = kImageTagStart; i<=kImageTagStart+self.count; i++)

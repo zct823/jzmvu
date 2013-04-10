@@ -33,7 +33,7 @@
 // Overidden method to change API dataContent
 - (NSString *)returnAPIDataContent
 {
-    NSLog(@"box share datacontent");
+    //NSLog(@"box share datacontent");
     return [NSString stringWithFormat:@"{\"page\":%d,\"perpage\":%d,\"keyword\":\"%@\"}",self.pageCounter, kListPerpage, self.searchedText];
 }
 
@@ -46,9 +46,9 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",qrcodeid];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
+    //NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
-    NSLog(@"dict %@",resultsDictionary);
+    //NSLog(@"dict %@",resultsDictionary);
     
     if([resultsDictionary count])
     {
@@ -107,7 +107,7 @@
 {
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
-    NSLog(@"Filtering sharebox list with searched text %@",str);
+    //NSLog(@"Filtering sharebox list with searched text %@",str);
     self.selectedCategories = @"";
     self.selectedCategories = str;
     self.searchedText = @"";

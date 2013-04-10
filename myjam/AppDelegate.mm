@@ -112,7 +112,7 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
         NSString *counterKey = [NSString stringWithFormat:@"counter%@",[localData objectForKey:@"tokenString"]];
         
         NSString *counter = [localData objectForKey:counterKey];
-        NSLog(@"counter tutorial %@",counter);
+        //NSLog(@"counter tutorial %@",counter);
         if (counter != nil) {
             int val = [counter intValue];
             [localData setObject:[NSString stringWithFormat:@"%d",++val] forKey:counterKey];
@@ -126,13 +126,13 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
         }
         
         NSString *isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:@"islogin"]copy];
-        NSLog(@"login is %@",isLogin);
+        //NSLog(@"login is %@",isLogin);
         
         // check if login is remembered in local cache
         if ([isLogin isEqualToString:@"NO"] || !counter) {
             [self presentLoginPage];
         }else{
-            NSLog(@"not presentlogin");
+            //NSLog(@"not presentlogin");
             [localData setObject:@"YES" forKey:@"isProfileUpdated"];
             if (![self isSetupDone]) {
                 [self setupViews];
@@ -178,7 +178,7 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
 
 - (void)setupViews
 {
-    NSLog(@"setting up all views");
+    //NSLog(@"setting up all views");
     
     self.isSetupDone = YES;
     
@@ -236,7 +236,7 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
     if (screenBounds.size.height == 568)
     {
         // code for 4-inch screen
-        NSLog(@"Set On 4inch button");
+        //NSLog(@"Set On 4inch button");
         normalStateTB1 = @"home";
         toggledStateTB1 = @"home_selected";
         normalStateTB2 = @"shop";
@@ -251,7 +251,7 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
     else
     {
         // code for 3.5-inch screen
-        NSLog(@"Set On 3.5inch button");
+        //NSLog(@"Set On 3.5inch button");
         normalStateTB1 = @"home_lr";
         toggledStateTB1 = @"home_selected_lr";
         normalStateTB2 = @"shop_lr";
@@ -460,7 +460,7 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
 // Handle sidebar
 - (void)handleTab5
 {
-    NSLog(@"handleSideBar");
+    //NSLog(@"handleSideBar");
 //    [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
     LayerOption = kCloseSideBar;
     
@@ -478,16 +478,16 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
     
     LayerOption = kCloseSwipeBottom;
     
-    NSLog(@"handleSwipeUp");
+    //NSLog(@"handleSwipeUp");
     NSString *isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:@"islogin"] copy];
     
     if ([isLogin isEqualToString:@"NO"]) {
-        NSLog(@"islogin");
+        //NSLog(@"islogin");
         return;
     }
     
     if (self.swipeBottomEnabled == NO) {
-        NSLog(@"Swipedbottom disabled");
+        //NSLog(@"Swipedbottom disabled");
         return;
     }
     
@@ -752,7 +752,7 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
 
 - (void)presentLoginPage
 {
-    NSLog(@"present login");
+    //NSLog(@"present login");
     LoginViewController *loginvc = [[LoginViewController alloc] init];
     UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginvc];
     [loginNav setNavigationBarHidden:YES];
@@ -776,7 +776,7 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
         case FBSessionStateOpen:
             if (!error) {
                 // We have a valid session
-                NSLog(@"User session found");
+                //NSLog(@"User session found");
                 
                 [self performSelector:@selector(performAutoFBLogin) withObject:nil afterDelay:0.0f];
             }
@@ -892,7 +892,7 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
         {
             self.isReturnFromPayment = YES;
             [[NSNotificationCenter defaultCenter]  postNotificationName:@"PurchaseVerification" object:self];
-            NSLog(@"entered here");
+            //NSLog(@"entered here");
             
         }
         
@@ -963,7 +963,7 @@ NSString *const FBSessionStateChangedNotification = @"com.threezquare.jambu:FBSe
     if ([ConnectionClass connected]) {
         [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];
         NSUserDefaults *localData = [NSUserDefaults standardUserDefaults];
-        NSLog(@"get connected!");
+        //NSLog(@"get connected!");
         
         if ([[localData objectForKey:@"noConnection"] isEqualToString:@"YES"]) {
             [localData setObject:@"NO" forKey:@"noConnection"];

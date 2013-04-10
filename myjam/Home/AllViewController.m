@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"viewDidLoad All");
+    //NSLog(@"viewDidLoad All");
     [super viewDidLoad];
     self.selectedCategories = @"";
     self.searchedText = @"";
@@ -83,22 +83,22 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view];
-    NSLog(@"YES %f - %f",translation.y, translation.x);
+    //NSLog(@"YES %f - %f",translation.y, translation.x);
     
     if(gestureRecognizer.numberOfTouches == 2){
-        NSLog(@"2");
+        //NSLog(@"2");
         if (translation.y < 0) {
-            NSLog(@"slide up now");
+            //NSLog(@"slide up now");
             AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [mydelegate handleSwipeUp];
             return YES;
         }
     }
     else{
-        NSLog(@"%d",gestureRecognizer.numberOfTouches);
+        //NSLog(@"%d",gestureRecognizer.numberOfTouches);
     }
     
-    NSLog(@"NO");
+    //NSLog(@"NO");
     return NO;
 }
 
@@ -106,10 +106,10 @@
 - (void)loadData
 {
     [self.activityIndicator startAnimating];
-    //    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
-//    [self performSelector:@selector(setupView) withObject:nil afterDelay:0.0];
+//    [self performSelectorOnMainThread:@selector(setupView) withObject:nil waitUntilDone:YES];
+    [self performSelector:@selector(setupView) withObject:nil afterDelay:0.0];
 //    [self setupView];
-    [self performSelectorInBackground:@selector(setupView) withObject:nil];
+//    [self performSelectorInBackground:@selector(setupView) withObject:nil];
     
 }
 
@@ -195,7 +195,7 @@
     NSString *dataContent = [self returnAPIDataContent];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"dataContent: %@\nresponse listing: %@", dataContent,response);
+    //NSLog(@"dataContent: %@\nresponse listing: %@", dataContent,response);
     NSMutableArray *newData = [[NSMutableArray alloc] init];
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
     
@@ -237,7 +237,7 @@
                 //                if (!error) {
                 //                    aData.thumbImage = [[UIImage alloc] initWithData:[imageRequest responseData]];
                 //                }else{
-                //                    NSLog(@"error retrieve cell thumbs: %@",error);
+                //                    //NSLog(@"error retrieve cell thumbs: %@",error);
                 //                    ASIHTTPRequest *imageRequest2 = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:aData.imageURL]];
                 //                    [imageRequest2 startSynchronous];
                 //                    if (!error) {
@@ -276,19 +276,19 @@
                 //                [self.tableView setContentOffset:CGPointMake(0, (([self.tableData count]-kDisplayPerscreen)*kTableCellHeight)+kExtraCellHeight)];
             }
             
-            NSLog(@"page now is %d",self.pageCounter);
-            NSLog(@"totpage %d",self.totalPage);
+            //NSLog(@"page now is %d",self.pageCounter);
+            //NSLog(@"totpage %d",self.totalPage);
             
             // if data is less, then hide the loading view
             if (([newData count] > 0 && [newData count] < kListPerpage)) {
-                NSLog(@"here xx");
+                //NSLog(@"here xx");
                 [self.activityIndicatorView setHidden:YES];
             }
             
         }
         else
         {
-            NSLog(@"Listing error (probably API error) but we treat as no records to close the (null) message.");
+            //NSLog(@"Listing error (probably API error) but we treat as no records to close the (null) message.");
             [self.activityIndicatorView setHidden:NO];
             [self.activityIndicator setHidden:YES];
             self.loadingLabel.text = [NSString stringWithFormat:@"No records. Pull to refresh"];
@@ -315,7 +315,7 @@
     }
     
     if ([status isEqualToString:@"ok"] && self.totalPage == 0) {
-        NSLog(@"empty");
+        //NSLog(@"empty");
         [self.activityIndicatorView setHidden:NO];
         [self.activityIndicator setHidden:YES];
         self.loadingLabel.text = [NSString stringWithFormat:@"No records. Pull to refresh"];
@@ -324,7 +324,7 @@
     }
     
     if ([status isEqualToString:@"ok"] && self.totalPage > 1 && ![[resultsDictionary objectForKey:@"list"] count]) {
-        NSLog(@"data empty");
+        //NSLog(@"data empty");
         [self.activityIndicatorView setHidden:YES];
         //        [self.tableView setContentOffset:CGPointMake(0, (([self.tableData count]-kDisplayPerscreen)*kTableCellHeight)+kExtraCellHeight)];
     }
@@ -389,7 +389,7 @@
                                if (!error) {
                                    
                                }else{
-                                   NSLog(@"error retrieve image: %@",error);
+                                   //NSLog(@"error retrieve image: %@",error);
                                }
                                
                            }];
@@ -449,7 +449,7 @@
 
 - (void) refreshTableItemsWithFilter:(NSString *)str
 {
-    NSLog(@"Filtering all list");
+    //NSLog(@"Filtering all list");
     self.selectedCategories = @"";
     self.selectedCategories = str;
     self.pageCounter = 1;
@@ -467,7 +467,7 @@
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
     
-    NSLog(@"Filtering ALL list with searched text %@",str);
+    //NSLog(@"Filtering ALL list with searched text %@",str);
     self.selectedCategories = @"";
     self.selectedCategories = str;
     self.searchedText = @"";

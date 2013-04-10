@@ -32,7 +32,7 @@
 // Overidden method to change API dataContent
 - (NSString *)returnAPIDataContent
 {
-    NSLog(@"box create datacontent");
+    //NSLog(@"box create datacontent");
     return [NSString stringWithFormat:@"{\"page\":%d,\"perpage\":%d,\"keyword\":\"%@\",\"app_type\":\"%@\"}",self.pageCounter, kListPerpage,self.searchedText,self.selectedCategories];
 }
 
@@ -40,7 +40,7 @@
 {
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
-    NSLog(@"Filtering Createbox list with searched text %@",str);
+    //NSLog(@"Filtering Createbox list with searched text %@",str);
     self.selectedCategories = @"";
     self.selectedCategories = str;
     self.searchedText = @"";
@@ -60,7 +60,7 @@
 //{
 //    //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
 //    
-//    NSLog(@"Filtering Createbox list with searched app %@",str);
+//    //NSLog(@"Filtering Createbox list with searched app %@",str);
 //    self.selectedApp = @"";
 //    self.selectedApp = str;
 //    self.searchedText = @"";

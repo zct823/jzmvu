@@ -31,6 +31,8 @@
 
 @implementation MoreViewController
 
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -49,9 +51,9 @@
 //- (id) init
 //{
 //    self = [super init];
-//    
+//
 //    if(!self)return nil;
-//    
+//
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNSNCNotify:) name:@"notifyClose" object:nil];
 //
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNSNCNotify:) name:@"notifyUnfollowProcess" object:nil];
@@ -84,15 +86,15 @@
     
     if ([mydelegate.swipeOptionString isEqualToString:@"scan"] || [mydelegate.swipeOptionString isEqualToString:@"share"] || [mydelegate.swipeOptionString isEqualToString:@"favourite"] || [mydelegate.swipeOptionString isEqualToString:@"create"])
     {
-        NSLog(@"Hiding unfollow and favourite btn");
+        //NSLog(@"Hiding unfollow and favourite btn");
         [self.btnFav setHidden:YES];
         [self.btnUnfollow setHidden:YES];
     }
     else
     {
-         NSLog(@"Staying unfollow and favourite btn");
-         [self.btnFav setHidden:NO];
-         [self.btnUnfollow setHidden:NO];
+        //NSLog(@"Staying unfollow and favourite btn");
+        [self.btnFav setHidden:NO];
+        [self.btnUnfollow setHidden:NO];
     }
     
     HomeViewController *home = [mydelegate.homeNavController.viewControllers objectAtIndex:0];
@@ -106,7 +108,7 @@
 	// Get the default calendar from store.
 	self.defaultCalendar = [self.eventStore defaultCalendarForNewEvents];
     
-    NSLog(@"Show details for id(%@)",self.qrcodeId);
+    //NSLog(@"Show details for id(%@)",self.qrcodeId);
     // Init scrollview
     self.scroller = (UIScrollView *)self.view;
     
@@ -136,11 +138,11 @@
         [self performSelectorOnMainThread:@selector(setupViews) withObject:nil waitUntilDone:NO];
         //        [self performSelectorInBackground:@selector(setupViews) withObject:nil];
     }else{
-//        [self performSelector:@selector(setupErrorPage) withObject:nil];
+        //        [self performSelector:@selector(setupErrorPage) withObject:nil];
         if (![self.detailsData.qrcodeType isEqualToString:@"Gallery"]) {
             [self setupErrorPage];
         }
-    
+        
     }
     
 }
@@ -170,7 +172,7 @@
 
 - (IBAction)followBtn:(id)sender {
     
-    NSLog(@"Get Category for this post: %@",self.detailsData.contentProviderUID);
+    //NSLog(@"Get Category for this post: %@",self.detailsData.contentProviderUID);
     
     UnFollowViewController *unFollowVC = [[UnFollowViewController alloc]init];
     
@@ -185,12 +187,12 @@
     NSString *urlString = [NSString stringWithFormat:@"%@/api/settings_news_preference.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
     NSString *dataContent = [NSString stringWithFormat:@"{\"flag\":\"UNFOLLOW_CP\",\"cp_id\":\"%@\"}",self.detailsData.contentProviderUID];
     
-    NSLog(@"Data Content: %@",dataContent);
+    //NSLog(@"Data Content: %@",dataContent);
     
     //=== WRAPPING DATA IN NSSTRING ===//
     NSString *wrappedDefaultDataFromServer = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
     
-    NSLog(@"Check response for dataContent: %@",wrappedDefaultDataFromServer);
+    //NSLog(@"Check response for dataContent: %@",wrappedDefaultDataFromServer);
     
     NSDictionary* wrappedDefaultDataToDictionary = [[wrappedDefaultDataFromServer objectFromJSONString] copy];
     
@@ -273,7 +275,7 @@
         DetailProductViewController *detailViewController = [[DetailProductViewController alloc] init];
         detailViewController.productInfo = [[MJModel sharedInstance] getProductInfoFor:productId];
         detailViewController.productId = [productId mutableCopy];
-        NSLog(@"prod id %@",detailViewController.productId);
+        //NSLog(@"prod id %@",detailViewController.productId);
         detailViewController.buyButton =  [[NSString alloc] initWithString:@"ok"];
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [self.navigationController popToRootViewControllerAnimated:NO];
@@ -283,16 +285,16 @@
         
         return;
     }
-//    else{
+    //    else{
     if ([self retrieveDataFromAPI])
     {
-//        [self performSelectorOnMainThread:@selector(setupViews) withObject:nil waitUntilDone:YES];
+        //        [self performSelectorOnMainThread:@selector(setupViews) withObject:nil waitUntilDone:YES];
         [self setupViews];
     }else{
-//        [self performSelector:@selector(setupErrorPage) withObject:nil afterDelay:0.0];
+        //        [self performSelector:@selector(setupErrorPage) withObject:nil afterDelay:0.0];
         [self setupErrorPage];
     }
-//    }
+    //    }
 }
 
 - (void)setupErrorPage
@@ -325,7 +327,7 @@
 
 - (void)setupViews
 {
-    NSLog(@"Setting up detail view");
+    //NSLog(@"Setting up detail view");
     
     FontLabel *titleView = [[FontLabel alloc] initWithFrame:CGRectZero fontName:@"jambu-font.otf" pointSize:22];
     if ([self.detailsData.qrcodeType isEqualToString:@"News"]) {
@@ -413,8 +415,8 @@
     if ([self.detailsData.qrcodeType isEqualToString:@"News"] || [self.detailsData.qrcodeType isEqualToString:@"Contact"] || [self.detailsData.qrcodeType isEqualToString:@"Social"] || [self.detailsData.qrcodeType isEqualToString:@"Url"] || [self.detailsData.qrcodeType isEqualToString:@"Map"] || [self.detailsData.qrcodeType isEqualToString:@"Calendar"] || [self.detailsData.qrcodeType isEqualToString:@"Text"] || [self.detailsData.qrcodeType isEqualToString:@"Phone"] ||  [self.detailsData.qrcodeType isEqualToString:@"Email"])
     {
         [self.description setText:self.detailsData.fullText];
-        NSLog(@"here 3");
-        //        NSLog(@"xxx %@",self.detailsData.fullText);
+        //NSLog(@"here 3");
+        //        //NSLog(@"xxx %@",self.detailsData.fullText);
     }
     
     UIView *aDescriptionView = [[UIView alloc] initWithFrame:CGRectMake(20, currentHeight, self.description.frame.size.width, self.description.frame.size.height+30)];
@@ -437,9 +439,9 @@
             [subTitle release];
             [self.view addSubview:aSubtitleView];
             [aSubtitleView release];
-//            self.aDescriptionView = [[UIView alloc] initWithFrame:CGRectMake(20, currentHeight+kSubtitleHeight, self.description.frame.size.width, self.description.frame.size.height+30)];
+            //            self.aDescriptionView = [[UIView alloc] initWithFrame:CGRectMake(20, currentHeight+kSubtitleHeight, self.description.frame.size.width, self.description.frame.size.height+30)];
             aDescriptionView.frame = CGRectMake(20, currentHeight+kSubtitleHeight, self.description.frame.size.width, self.description.frame.size.height+30);
-            NSLog(@"here 2");
+            //NSLog(@"here 2");
             
         }
     }
@@ -451,7 +453,7 @@
         [self.description sizeToFit];
         [aDescriptionView addSubview:self.description];
         [self.description release];
-        NSLog(@"here");
+        //NSLog(@"here");
         
         if ([self.detailsData.qrcodeType isEqualToString:@"Contact"] || [self.detailsData.qrcodeType isEqualToString:@"Calendar"])
         {
@@ -459,7 +461,7 @@
         }
     }
     
-    NSLog(@"xxx %@",self.description.text);
+    //NSLog(@"xxx %@",self.description.text);
     
     [self.view addSubview:aDescriptionView];
     [aDescriptionView release];
@@ -501,14 +503,26 @@
         if (![self.detailsData.linkQrcodeId isEqualToString:@"0"])
         {
             [self.viewMoreLabel setHidden:NO];
-            NSLog(@"Push another details view for id(%@)",self.detailsData.linkQrcodeId);
+            //NSLog(@"Push another details view for id(%@)",self.detailsData.linkQrcodeId);
             
             self.viewMoreLabel.userInteractionEnabled = YES;
+            self.viewMoreLabel.text = @"Go to link";
             UITapGestureRecognizer *urlTapRecognizer;
             urlTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleOpenAnotherId)];
             [self.viewMoreLabel addGestureRecognizer:urlTapRecognizer];
             [urlTapRecognizer release];
         }
+        
+    }
+    else if([self.detailsData.qrcodeType isEqualToString:@"Email"])
+    {
+        [self.viewMoreLabel setHidden:NO];
+        self.viewMoreLabel.userInteractionEnabled = YES;
+        self.viewMoreLabel.text = @"Send Email";
+        UITapGestureRecognizer *urlTapRecognizer;
+        urlTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSendEmail)];
+        [self.viewMoreLabel addGestureRecognizer:urlTapRecognizer];
+        [urlTapRecognizer release];
         
     }
     
@@ -558,6 +572,27 @@
     //    self.contentView.frame = CGRectMake(0, kDateY, self.contentView.frame.size.width, self.contentView.frame.size.height);
     [self.blankView removeFromSuperview];
     
+}
+
+- (void)handleSendEmail
+{
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+        mailer.mailComposeDelegate = self;
+//        NSLog(@"%@--",self.detailsData.aEmail);
+        [mailer setToRecipients:[NSArray arrayWithObjects:self.detailsData.aEmail, nil]];
+        [mailer setSubject:self.detailsData.aSubject];
+        [mailer setMessageBody:self.detailsData.aBody isHTML:NO];
+        [self presentModalViewController:mailer animated:YES];
+        [mailer release];
+    }
+    else
+    {
+        CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"JAM-BU Email" message:@"Please configure your mail in Mail Application" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
 }
 
 - (void)handleOpenAnotherId
@@ -619,7 +654,7 @@
             }else
             {
                 // codes here when user NOT allow your app to access the calendar.
-                NSLog(@"User not allow to open calendar app");
+                //NSLog(@"User not allow to open calendar app");
             }
         }];
     }
@@ -634,7 +669,7 @@
     EKEventEditViewController *addController = [[EKEventEditViewController alloc] init];
     addController.editViewDelegate = self;
     EKEvent *event = [EKEvent eventWithEventStore:eventStore];
-    NSLog(@"start timestamp %@, end %@",self.detailsData.startTimestamp,self.detailsData.endTimestamp);
+    //NSLog(@"start timestamp %@, end %@",self.detailsData.startTimestamp,self.detailsData.endTimestamp);
     [event setTitle:self.detailsData.title];
     [event setStartDate:self.detailsData.startTimestamp];
     [event setEndDate:self.detailsData.endTimestamp];
@@ -656,9 +691,9 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",self.qrcodeId];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
+    //NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
-    NSLog(@"dict %@",resultsDictionary);
+    //NSLog(@"dict %@",resultsDictionary);
     
     if([resultsDictionary count])
     {
@@ -671,7 +706,7 @@
                 NSString *productid = [resultsDictionary objectForKey:@"product_id"];
                 return productid;
             }
-        
+            
         }
     }
     
@@ -681,251 +716,252 @@
 - (BOOL)retrieveDataFromAPI
 {
     BOOL success = YES;
-    NSLog(@"start retrieving..");
-//    NSString *productId = [self checkQRCodeType:self.qrcodeId];
-//
-//    if ([productId intValue] > 0) { // type of product
-//        popDisabled = NO;
-//        DetailProductViewController *detailViewController = [[DetailProductViewController alloc] init];
-//        detailViewController.productInfo = [[MJModel sharedInstance] getProductInfoFor:productId];
-//        detailViewController.productId = [productId mutableCopy];
-//        NSLog(@"prod id %@",detailViewController.productId);
-//        detailViewController.buyButton =  [[NSString alloc] initWithString:@"ok"];
-//        AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//        [mydelegate.boxNavController popToRootViewControllerAnimated:NO];
-//        [mydelegate.boxNavController pushViewController:detailViewController animated:NO];
-////        [self.navigationController pushViewController:detailViewController animated:YES];
-//        [detailViewController release];
-//        
-//        return NO;
-//    }
-//    else{
     
-        NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_details.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
-        NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",self.qrcodeId];
-        
-        NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-        NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
-        NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
-        NSLog(@"dict %@",resultsDictionary);
-        
-        if([resultsDictionary count])
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_details.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
+    NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",self.qrcodeId];
+    
+    NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
+    //NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
+    NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
+    NSLog(@"dict %@",resultsDictionary);
+    
+    if([resultsDictionary count])
+    {
+        NSString *status = [resultsDictionary objectForKey:@"status"];
+        if ([status isEqualToString:@"ok"])
         {
-            NSString *status = [resultsDictionary objectForKey:@"status"];
-            if ([status isEqualToString:@"ok"])
+            self.detailsData.qrcodeId = self.qrcodeId;
+            self.detailsData.category = [resultsDictionary objectForKey:@"category"];
+            self.detailsData.labelColor = [resultsDictionary objectForKey:@"color"];
+            self.detailsData.contentProvider = [resultsDictionary objectForKey:@"fullname"];
+            self.detailsData.contentProviderUID = [resultsDictionary objectForKey:@"userid"];
+            self.newsId = [resultsDictionary objectForKey:@"news_id"];
+            self.detailsData.appTitle = [resultsDictionary objectForKey:@"app_title"];
+            self.detailsData.date = [resultsDictionary objectForKey:@"date"];
+            self.detailsData.abstract = [resultsDictionary objectForKey:@"description"];
+            self.detailsData.type = [resultsDictionary objectForKey:@"type"];
+            self.detailsData.fullText = [resultsDictionary objectForKey:@"full_description"];
+            self.detailsData.linkType = [resultsDictionary objectForKey:@"link_type"];
+            self.detailsData.linkURL = [resultsDictionary objectForKey:@"link_url"];
+            self.detailsData.linkQrcodeId = [resultsDictionary objectForKey:@"link_qrcode_id"];
+            self.detailsData.qrcodeType = [resultsDictionary objectForKey:@"qrcode_type"];
+            //NSLog(@"type is --- %@",self.detailsData.qrcodeType);
+            if ([self.detailsData.qrcodeType isEqualToString:@"Gallery"])
             {
-                self.detailsData.qrcodeId = self.qrcodeId;
-                self.detailsData.category = [resultsDictionary objectForKey:@"category"];
-                self.detailsData.labelColor = [resultsDictionary objectForKey:@"color"];
-                self.detailsData.contentProvider = [resultsDictionary objectForKey:@"fullname"];
-                self.detailsData.contentProviderUID = [resultsDictionary objectForKey:@"userid"];
-                self.newsId = [resultsDictionary objectForKey:@"news_id"];
-                self.detailsData.appTitle = [resultsDictionary objectForKey:@"app_title"];
-                self.detailsData.date = [resultsDictionary objectForKey:@"date"];
-                self.detailsData.abstract = [resultsDictionary objectForKey:@"description"];
-                self.detailsData.type = [resultsDictionary objectForKey:@"type"];
-                self.detailsData.fullText = [resultsDictionary objectForKey:@"full_description"];
-                self.detailsData.linkType = [resultsDictionary objectForKey:@"link_type"];
-                self.detailsData.linkURL = [resultsDictionary objectForKey:@"link_url"];
-                self.detailsData.linkQrcodeId = [resultsDictionary objectForKey:@"link_qrcode_id"];
-                self.detailsData.qrcodeType = [resultsDictionary objectForKey:@"qrcode_type"];
-                NSLog(@"type is --- %@",self.detailsData.qrcodeType);
-                if ([self.detailsData.qrcodeType isEqualToString:@"Gallery"])
-                {
-                    // Redirecting to AGalleryViewController
-                    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                    [self.navigationController popToRootViewControllerAnimated:NO];
-                    AGalleryViewController *gallery = [[AGalleryViewController alloc] init];
-                    gallery.qrcodeId = self.detailsData.qrcodeId;
-                    [mydelegate.boxNavController pushViewController:gallery animated:NO];
-                    [gallery release];
-                    return NO;
-                }
-                
-                else if ([self.detailsData.qrcodeType isEqualToString:@"Text"])
-                {
-                    self.detailsData.fullText = [resultsDictionary objectForKey:@"text_text"];
-                }
-                else if ([self.detailsData.qrcodeType isEqualToString:@"Email"])
-                {
-                    self.detailsData.fullText = [NSString stringWithFormat:@"Email:\n%@",[resultsDictionary objectForKey:@"email_email"]];
-                }
-                else if ([self.detailsData.qrcodeType isEqualToString:@"Phone"])
-                {
-                    //                self.detailsData.subTitleString = [resultsDictionary objectForKey:@"phone_name"];
-                    self.detailsData.fullText = [NSString stringWithFormat:@"%@\n\nPhone Number:\n%@",[resultsDictionary objectForKey:@"phone_name"], [resultsDictionary objectForKey:@"phone_phone"]];
-                }
-                else if ([self.detailsData.qrcodeType isEqualToString:@"Contact"]) {
-                    
-                    
-                    NSString *orgString = [resultsDictionary objectForKey:@"contact_organization"];
-                    
-                    NSString *mobString = [resultsDictionary objectForKey:@"contact_mobile_phone_number"];
-                    
-                    NSString *phoString = [resultsDictionary objectForKey:@"contact_phone_number"];
-                    
-                    NSString *emaString = [resultsDictionary objectForKey:@"contact_email"];
-                    
-                    NSString *addString = [resultsDictionary objectForKey:@"contact_address"];
-                    
-                    NSString *citString = [resultsDictionary objectForKey:@"contact_city"];
-                    
-                    NSString *staString = [resultsDictionary objectForKey:@"contact_state"];
-                    
-                    NSString *posString = [resultsDictionary objectForKey:@"contact_postcode"];
-                    
-                    NSString *couString = [resultsDictionary objectForKey:@"contact_country"];
-                    
-                    NSString *urllString = [resultsDictionary objectForKey:@"contact_url"];
-                    
-                    if (orgString.length == 0){orgString = @"";}
-                    if (mobString.length == 0){mobString = @"";}
-                    if (phoString.length == 0){phoString = @"";}
-                    if (emaString.length == 0){emaString = @"";}
-                    if (addString.length == 0){addString = @"";}
-                    if (citString.length == 0){citString = @"";}
-                    if (staString.length == 0){staString = @"";}
-                    if (posString.length == 0){posString = @"";}
-                    if (couString.length == 0){couString = @"";}
-                    if (urllString.length == 0){urllString = @"";}
-                    
-                    
-                    NSMutableString *addressFull = [[NSMutableString alloc] init];
-                    if ([addString length] > 0) {
-                        [addressFull appendString:addString];
-                    }
-                    if ([citString length] > 0) {
-                        [addressFull appendFormat:@"\n%@",citString];
-                    }
-                    if ([staString length] > 0) {
-                        [addressFull appendFormat:@"\n%@",staString];
-                    }
-                    if ([posString length] > 0) {
-                        [addressFull appendFormat:@"\n%@",posString];
-                    }
-                    if ([couString length] > 0) {
-                        [addressFull appendFormat:@"\n%@",couString];
-                    }
-                    
-                    self.detailsData.subTitleString = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"contact_name"]]; //subtitle
-                    
-                    self.detailsData.fullText = [NSString stringWithFormat:@"Organization: \n%@\n\nMobile Number: \n%@\n\nPhone Number: \n%@\n\nEmail: \n%@\n\nAddress: \n%@\n\nURL: \n%@\n",
-                                                 orgString,mobString,phoString,emaString,addressFull, urllString];
-                    [addressFull release];
-                    [aContact setName:[resultsDictionary objectForKey:@"contact_name"]];
-                    [aContact setOrganization:[resultsDictionary objectForKey:@"contact_organization"]];
-                    [aContact setAddress:[resultsDictionary objectForKey:@"contact_address"]];
-                    [aContact setPhoneNumbers:[resultsDictionary objectForKey:@"contact_mobile_phone_number"]];
-                }
-                else if ([self.detailsData.qrcodeType isEqualToString:@"Url"]) {
-                    self.detailsData.fullText = [NSString stringWithFormat:@"%@\n\n%@",
-                                                 [resultsDictionary objectForKey:@"url_name"],
-                                                 [resultsDictionary objectForKey:@"url_url"]];
-                    self.detailsData.linkURL = [resultsDictionary objectForKey:@"url_url"];
-                }
-                else if ([self.detailsData.qrcodeType isEqualToString:@"Social"]) {
-                    self.detailsData.fullText = [NSString stringWithFormat:@"%@: %@\n\n\n%@",
-                                                 [resultsDictionary objectForKey:@"social_type"],
-                                                 [resultsDictionary objectForKey:@"social_name"],
-                                                 [resultsDictionary objectForKey:@"social_url"]];
-                    
-                    self.detailsData.linkURL = [resultsDictionary objectForKey:@"social_url"];
-                }
-                else if ([self.detailsData.qrcodeType isEqualToString:@"Map"]) {
-                    
-                    NSString *kAddress = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_address"]];
-                    NSString *kCity = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_city"]];
-                    NSString *kState = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_state"]];
-                    NSString *kPostcode = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_postcode"]];
-                    NSString *kCountry = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_country"]];
-                    
-                    
-                    self.detailsData.fullText = [NSString stringWithFormat:@"%@\n\nAddress: %@\nCity: %@\nState: %@\nPostcode: %@\nCountry: %@\nDescription: %@",
-                                                 [resultsDictionary objectForKey:@"map_name"],
-                                                 kAddress,
-                                                 kCity,
-                                                 kState,
-                                                 kPostcode,
-                                                 kCountry,
-                                                 [resultsDictionary objectForKey:@"map_description"]];
-                    
-                    NSMutableString *searchAddress = [[NSMutableString alloc] initWithString:kAddress];
-                    
-                    if ([kCity length]) {
-                        [searchAddress appendFormat:@", %@",kCity];
-                    }
-                    if ([kState length]) {
-                        [searchAddress appendFormat:@", %@",kState];
-                    }
-                    if ([kPostcode length]) {
-                        [searchAddress appendFormat:@", %@",kPostcode];
-                    }
-                    if ([kCountry length]) {
-                        [searchAddress appendFormat:@", %@",kCountry];
-                    }
-                    
-                    self.aAddress = [NSString stringWithString:searchAddress];
-                    [searchAddress release];
-                    
-                    NSLog(@"%@", self.aAddress);
-                }
-                else if ([self.detailsData.qrcodeType isEqualToString:@"Calendar"]) {
-                    
-                    //                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    //                [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                    //                [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"MYT"]];
-                    
-                    NSDate *startTime = [self reformatDateFromString: [resultsDictionary objectForKey:@"calendar_start_timestampt"]];
-                    
-                    NSDate *endTime = [self reformatDateFromString: [resultsDictionary objectForKey:@"calendar_end_timestampt"]];
-                    
-                    NSString *sTime = [resultsDictionary objectForKey:@"calendar_start_time"];
-                    NSString *eTime = [resultsDictionary objectForKey:@"calendar_end_time"];
-                    NSString *sDate = [resultsDictionary objectForKey:@"calendar_start_date"];
-                    NSString *eDate = [resultsDictionary objectForKey:@"calendar_end_date"];
-                    
-                    self.detailsData.title = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"calendar_event_name"]];
-                    self.detailsData.notes = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"calendar_event_description"]];
-                    self.detailsData.location = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"calendar_location"]];
-                    
-                    self.detailsData.fullText = [NSString stringWithFormat:@"%@\n\nStart Time:\n%@\n%@\n\nEnd Time:\n%@\n%@\n\nLocation:\n%@",
-                                                 self.detailsData.notes,
-                                                 sDate,
-                                                 sTime,
-                                                 eDate,
-                                                 eTime,
-                                                 self.detailsData.location
-                                                 ];
-                    self.detailsData.subTitleString = self.detailsData.title;
-                    self.detailsData.startTimestamp = startTime;
-                    self.detailsData.endTimestamp = endTime;
-                }
-                
-                NSMutableArray *imageURLs = [resultsDictionary objectForKey:@"images"];
-                self.detailsData.imageArray = [[NSMutableArray alloc] initWithCapacity:[imageURLs count]];
-                
-                for (NSString *url in imageURLs) {
-                    [self retrieveImages:url];
-                }
-                imageURLs = nil;
-                
-            }else{
-                success = NO;
-                //            NSLog(@"error retrieve all data");
+                // Redirecting to AGalleryViewController
+                AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                AGalleryViewController *gallery = [[AGalleryViewController alloc] init];
+                gallery.qrcodeId = self.detailsData.qrcodeId;
+                [mydelegate.boxNavController pushViewController:gallery animated:NO];
+                [gallery release];
+                return NO;
             }
+            
+            else if ([self.detailsData.qrcodeType isEqualToString:@"Text"])
+            {
+                self.detailsData.fullText = [resultsDictionary objectForKey:@"text_text"];
+            }
+            else if ([self.detailsData.qrcodeType isEqualToString:@"Email"])
+            {
+//                self.detailsData.fullText = [NSString stringWithFormat:@"Email:\n%@",[resultsDictionary objectForKey:@"email_email"]];
+                
+                self.detailsData.aSubject = [resultsDictionary valueForKey:@"email_subject"];
+                self.detailsData.aBody = [resultsDictionary valueForKey:@"email_description"];
+                self.detailsData.aQRdesc = [resultsDictionary valueForKey:@"email_qrdescription"];
+                self.detailsData.aEmail = [resultsDictionary valueForKey:@"email_email"];
+                
+                NSMutableString *emailContent = [NSMutableString stringWithFormat:@""];
+                if ([self.detailsData.aSubject length]) {
+                    [emailContent appendFormat:@"Subject\n%@",self.detailsData.aSubject];
+                }
+                if ([self.detailsData.aBody length]) {
+                    [emailContent appendFormat:@"\n\nEmail Body\n%@",self.detailsData.aBody];
+                }
+                if ([self.detailsData.aQRdesc length]) {
+                    [emailContent appendFormat:@"\n\nEmail QR Description\n%@",self.detailsData.aQRdesc];
+                }
+                if ([self.detailsData.aEmail length]) {
+                    [emailContent appendFormat:@"\n\nEmail\n%@",self.detailsData.aEmail];
+                }
+                self.detailsData.fullText = emailContent;
+            }
+            else if ([self.detailsData.qrcodeType isEqualToString:@"Phone"])
+            {
+                //                self.detailsData.subTitleString = [resultsDictionary objectForKey:@"phone_name"];
+                self.detailsData.fullText = [NSString stringWithFormat:@"%@\n\nPhone Number:\n%@",[resultsDictionary objectForKey:@"phone_name"], [resultsDictionary objectForKey:@"phone_phone"]];
+            }
+            else if ([self.detailsData.qrcodeType isEqualToString:@"Contact"]) {
+                
+                
+                NSString *orgString = [resultsDictionary objectForKey:@"contact_organization"];
+                
+                NSString *mobString = [resultsDictionary objectForKey:@"contact_mobile_phone_number"];
+                
+                NSString *phoString = [resultsDictionary objectForKey:@"contact_phone_number"];
+                
+                NSString *emaString = [resultsDictionary objectForKey:@"contact_email"];
+                
+                NSString *addString = [resultsDictionary objectForKey:@"contact_address"];
+                
+                NSString *citString = [resultsDictionary objectForKey:@"contact_city"];
+                
+                NSString *staString = [resultsDictionary objectForKey:@"contact_state"];
+                
+                NSString *posString = [resultsDictionary objectForKey:@"contact_postcode"];
+                
+                NSString *couString = [resultsDictionary objectForKey:@"contact_country"];
+                
+                NSString *urllString = [resultsDictionary objectForKey:@"contact_url"];
+                
+                if (orgString.length == 0){orgString = @"";}
+                if (mobString.length == 0){mobString = @"";}
+                if (phoString.length == 0){phoString = @"";}
+                if (emaString.length == 0){emaString = @"";}
+                if (addString.length == 0){addString = @"";}
+                if (citString.length == 0){citString = @"";}
+                if (staString.length == 0){staString = @"";}
+                if (posString.length == 0){posString = @"";}
+                if (couString.length == 0){couString = @"";}
+                if (urllString.length == 0){urllString = @"";}
+                
+                
+                NSMutableString *addressFull = [[NSMutableString alloc] init];
+                if ([addString length] > 0) {
+                    [addressFull appendString:addString];
+                }
+                if ([citString length] > 0) {
+                    [addressFull appendFormat:@"\n%@",citString];
+                }
+                if ([staString length] > 0) {
+                    [addressFull appendFormat:@"\n%@",staString];
+                }
+                if ([posString length] > 0) {
+                    [addressFull appendFormat:@"\n%@",posString];
+                }
+                if ([couString length] > 0) {
+                    [addressFull appendFormat:@"\n%@",couString];
+                }
+                
+                self.detailsData.subTitleString = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"contact_name"]]; //subtitle
+                
+                self.detailsData.fullText = [NSString stringWithFormat:@"Organization: \n%@\n\nMobile Number: \n%@\n\nPhone Number: \n%@\n\nEmail: \n%@\n\nAddress: \n%@\n\nURL: \n%@\n",
+                                             orgString,mobString,phoString,emaString,addressFull, urllString];
+                [addressFull release];
+                [aContact setName:[resultsDictionary objectForKey:@"contact_name"]];
+                [aContact setOrganization:[resultsDictionary objectForKey:@"contact_organization"]];
+                [aContact setAddress:[resultsDictionary objectForKey:@"contact_address"]];
+                [aContact setPhoneNumbers:[resultsDictionary objectForKey:@"contact_mobile_phone_number"]];
+            }
+            else if ([self.detailsData.qrcodeType isEqualToString:@"Url"]) {
+                self.detailsData.fullText = [NSString stringWithFormat:@"%@\n\n%@",
+                                             [resultsDictionary objectForKey:@"url_name"],
+                                             [resultsDictionary objectForKey:@"url_url"]];
+                self.detailsData.linkURL = [resultsDictionary objectForKey:@"url_url"];
+            }
+            else if ([self.detailsData.qrcodeType isEqualToString:@"Social"]) {
+                self.detailsData.fullText = [NSString stringWithFormat:@"%@: %@\n\n\n%@",
+                                             [resultsDictionary objectForKey:@"social_type"],
+                                             [resultsDictionary objectForKey:@"social_name"],
+                                             [resultsDictionary objectForKey:@"social_url"]];
+                
+                self.detailsData.linkURL = [resultsDictionary objectForKey:@"social_url"];
+            }
+            else if ([self.detailsData.qrcodeType isEqualToString:@"Map"]) {
+                
+                NSString *kAddress = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_address"]];
+                NSString *kCity = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_city"]];
+                NSString *kState = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_state"]];
+                NSString *kPostcode = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_postcode"]];
+                NSString *kCountry = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"map_country"]];
+                
+                
+                self.detailsData.fullText = [NSString stringWithFormat:@"%@\n\nAddress: %@\nCity: %@\nState: %@\nPostcode: %@\nCountry: %@\nDescription: %@",
+                                             [resultsDictionary objectForKey:@"map_name"],
+                                             kAddress,
+                                             kCity,
+                                             kState,
+                                             kPostcode,
+                                             kCountry,
+                                             [resultsDictionary objectForKey:@"map_description"]];
+                
+                NSMutableString *searchAddress = [[NSMutableString alloc] initWithString:kAddress];
+                
+                if ([kCity length]) {
+                    [searchAddress appendFormat:@", %@",kCity];
+                }
+                if ([kState length]) {
+                    [searchAddress appendFormat:@", %@",kState];
+                }
+                if ([kPostcode length]) {
+                    [searchAddress appendFormat:@", %@",kPostcode];
+                }
+                if ([kCountry length]) {
+                    [searchAddress appendFormat:@", %@",kCountry];
+                }
+                
+                self.aAddress = [NSString stringWithString:searchAddress];
+                [searchAddress release];
+                
+                //NSLog(@"%@", self.aAddress);
+            }
+            else if ([self.detailsData.qrcodeType isEqualToString:@"Calendar"]) {
+                
+                //                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                //                [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                //                [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"MYT"]];
+                
+                NSDate *startTime = [self reformatDateFromString: [resultsDictionary objectForKey:@"calendar_start_timestampt"]];
+                
+                NSDate *endTime = [self reformatDateFromString: [resultsDictionary objectForKey:@"calendar_end_timestampt"]];
+                
+                NSString *sTime = [resultsDictionary objectForKey:@"calendar_start_time"];
+                NSString *eTime = [resultsDictionary objectForKey:@"calendar_end_time"];
+                NSString *sDate = [resultsDictionary objectForKey:@"calendar_start_date"];
+                NSString *eDate = [resultsDictionary objectForKey:@"calendar_end_date"];
+                
+                self.detailsData.title = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"calendar_event_name"]];
+                self.detailsData.notes = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"calendar_event_description"]];
+                self.detailsData.location = [NSString stringWithFormat:@"%@",[resultsDictionary objectForKey:@"calendar_location"]];
+                
+                self.detailsData.fullText = [NSString stringWithFormat:@"%@\n\nStart Time:\n%@\n%@\n\nEnd Time:\n%@\n%@\n\nLocation:\n%@",
+                                             self.detailsData.notes,
+                                             sDate,
+                                             sTime,
+                                             eDate,
+                                             eTime,
+                                             self.detailsData.location
+                                             ];
+                self.detailsData.subTitleString = self.detailsData.title;
+                self.detailsData.startTimestamp = startTime;
+                self.detailsData.endTimestamp = endTime;
+            }
+            
+            NSMutableArray *imageURLs = [resultsDictionary objectForKey:@"images"];
+            self.detailsData.imageArray = [[NSMutableArray alloc] initWithCapacity:[imageURLs count]];
+            
+            for (NSString *url in imageURLs) {
+                [self retrieveImages:url];
+            }
+            imageURLs = nil;
+            
         }else{
             success = NO;
+            //            //NSLog(@"error retrieve all data");
         }
-        
+    }else{
+        success = NO;
+    }
+    
+    errorMessage = [resultsDictionary objectForKey:@"message"];
+    
+    [resultsDictionary release];
+    
+    if (success == NO) {
         errorMessage = [resultsDictionary objectForKey:@"message"];
-        
-        [resultsDictionary release];
-        
-        if (success == NO) {
-            errorMessage = [resultsDictionary objectForKey:@"message"];
-            popDisabled = NO;
-        }
-//    }
+        popDisabled = NO;
+    }
+    //    }
     
     return success;
 }
@@ -966,7 +1002,7 @@
     if (!error) {
         [self.detailsData.imageArray addObject:aImg];
     }else{
-        NSLog(@"error retrieve image: %@",error);
+        //NSLog(@"error retrieve image: %@",error);
     }
     
     [aImg release];
@@ -983,7 +1019,7 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@,\"share_type\":\"%@\"}",qrcodeId,aType];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -992,10 +1028,10 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success share");
+            //NSLog(@"Success share");
         }
         else{
-            NSLog(@"share error!");
+            //NSLog(@"share error!");
         }
     }
     
@@ -1192,23 +1228,23 @@
     switch (result)
     {
         case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+            //NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
             msg = @"";
             break;
         case MFMailComposeResultSaved:
-            NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+            //NSLog(@"Mail saved: you saved the email message in the drafts folder.");
             msg = [NSString stringWithFormat:@"Email has been saved to draft"];
             break;
         case MFMailComposeResultSent:
-            NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+            //NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
             msg = [NSString stringWithFormat:@"Email has been successfully sent"];
             break;
         case MFMailComposeResultFailed:
-            NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+            //NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
             msg = [NSString stringWithFormat:@"Email was not sent, possibly due to an error"];
             break;
         default:
-            NSLog(@"Mail not sent.");
+            //NSLog(@"Mail not sent.");
             break;
     }
     
@@ -1266,11 +1302,11 @@
 	switch (action) {
 		case EKEventEditViewActionCanceled:
 			// Edit action canceled, do nothing.
-            NSLog(@"Event Canceled");
+            //NSLog(@"Event Canceled");
 			break;
 			
 		case EKEventEditViewActionSaved:
-			NSLog(@"Event Saved");
+			//NSLog(@"Event Saved");
             [controller.eventStore saveEvent:controller.event span:EKSpanThisEvent error:&error];
 			break;
 			
@@ -1303,25 +1339,25 @@
 }
 
 - (void)dealloc {
-
+    
     [super dealloc];
-
-//    [_titleLabel release];
+    
+    //    [_titleLabel release];
     [_dateLabel release];
-//    [_description release];
+    //    [_description release];
     [_labelColorView release];
     [_typeLabel release];
     [_categoryLabel release];
     [_imageCarouselView release];
     [_leftButton release];
     [_rightButton release];
-//    [_shareView release];
-//    [_viewMoreLabel release];
+    //    [_shareView release];
+    //    [_viewMoreLabel release];
     [_shareFBButton release];
     [_shareTwitterButton release];
-//    [_providerLabel release];
+    //    [_providerLabel release];
     [_shareEmailButton release];
-//    [_aDescriptionView release];
+    //    [_aDescriptionView release];
     [_detailsData release];
     [_blankView release];
     [_imageSliderView release];

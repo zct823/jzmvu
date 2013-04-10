@@ -32,16 +32,16 @@
 # pragma mark Main category refresh receiver (NSNotificationCenter)
 
 
-- (id) init
-{
-    self = [super init];
-    
-    if(!self)return nil;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataNotify:) name:@"notifyTableReload" object:nil];
-    
-    return self;
-}
+//- (id) init
+//{
+//    self = [super init];
+//    
+//    if(!self)return nil;
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataNotify:) name:@"notifyTableReload" object:nil];
+//    
+//    return self;
+//}
 
 - (void) loadDataNotify:(NSNotification *)notification
 {
@@ -149,7 +149,7 @@
 
 - (NSString *)urlAPIString
 {
-    NSLog(@"Token String: %@",[[[NSUserDefaults standardUserDefaults]objectForKey:@"tokenString"]mutableCopy]);
+    //NSLog(@"Token String: %@",[[[NSUserDefaults standardUserDefaults]objectForKey:@"tokenString"]mutableCopy]);
     
     return [NSString stringWithFormat:@"%@/api/settings_news_preference.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
 }
@@ -162,7 +162,7 @@
     
     //=== WRAPPING DATA IN NSSTRING ===//
     NSString *wrappedDefaultDataFromServer = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContentForDefaults];
-    NSLog(@"Check response for DEFAULT2 param: %@",wrappedDefaultDataFromServer);
+    //NSLog(@"Check response for DEFAULT2 param: %@",wrappedDefaultDataFromServer);
     
     NSMutableArray *newData = [[NSMutableArray alloc] init];
     NSDictionary *wrappedDefaultDataToDictionary = [[wrappedDefaultDataFromServer objectFromJSONString] copy];
@@ -293,11 +293,11 @@
     UIImage *unTickedCT = [UIImage imageNamed:@"settings_news_inactive.png"];
     UIImage *bulkCT = [UIImage imageNamed:@"settings_news_semi.png"];
 
-    NSLog(@"Subscription STATUS GET: %@",setData.subscriptionStatus);
+    //NSLog(@"Subscription STATUS GET: %@",setData.subscriptionStatus);
 
     if ([setData.subscriptionStatus isEqual:@"2"])
     {
-        NSLog(@"SubscriptionStatus isEqual to TWO should be passed...");
+        //NSLog(@"SubscriptionStatus isEqual to TWO should be passed...");
         CGRect setFrameCT = CGRectMake(0, 0, bulkCT.size.width-20, bulkCT.size.height-10);
         customTicker.frame = setFrameCT;
         [customTicker setBackgroundImage:bulkCT forState:UIControlStateNormal];
@@ -306,7 +306,7 @@
     }
     else if ([setData.subscriptionStatus isEqual:@"1"])
     {
-        NSLog(@"SubscriptionStatus isEqual to ONE should be passed...");
+        //NSLog(@"SubscriptionStatus isEqual to ONE should be passed...");
         CGRect setFrameCT = CGRectMake(0, 0, tickedCT.size.width-20, tickedCT.size.height-10);
         customTicker.frame = setFrameCT;
         [customTicker setBackgroundImage:tickedCT forState:UIControlStateNormal];
@@ -315,7 +315,7 @@
     }
     else if([setData.subscriptionStatus isEqual:@"0"])
     {
-        NSLog(@"SubscriptionStatus isEqual to ZERO should be passed...");
+        //NSLog(@"SubscriptionStatus isEqual to ZERO should be passed...");
         CGRect setFrameCT = CGRectMake(0, 0, unTickedCT.size.width-20, unTickedCT.size.height-10);
         customTicker.frame = setFrameCT;
         [customTicker setBackgroundImage:unTickedCT forState:UIControlStateNormal];
@@ -330,9 +330,9 @@
     //cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.tag = setData.defaultCategoryID;
     
-    NSLog(@"Showing hidden data TEST: %ld",(long)indexPath.row);
+    //NSLog(@"Showing hidden data TEST: %ld",(long)indexPath.row);
     
-    NSLog(@"getbuttonid: %ld",(long)customTicker.tag);
+    //NSLog(@"getbuttonid: %ld",(long)customTicker.tag);
     
     return cell;
 }
@@ -343,8 +343,8 @@
 -(void)subscribeBtn:(id)btnTagID
 {
     
-    NSLog(@"Subscribe button is voided!");
-    NSLog(@"ID TAG: %@",(id)[btnTagID tag]);
+    //NSLog(@"Subscribe button is voided!");
+    //NSLog(@"ID TAG: %@",(id)[btnTagID tag]);
     
     NSString *namaRumahApi = [self urlAPIString];
     NSString *dataContent = nil;
@@ -352,7 +352,7 @@
     dataContent = [NSString stringWithFormat:@"{\"flag\":\"SUBSCRIBE_BULK\",\"category_id\":\"%@\"}",(id)[btnTagID tag]];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:namaRumahApi andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
 
     if([resultsDictionary count])
@@ -362,7 +362,7 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success change");
+            //NSLog(@"Success change");
             [self loadAfterSaved];
             [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.2];
         }
@@ -381,8 +381,8 @@
 -(void)unsubscribeBtn:(id)btnTagID
 {
     
-    NSLog(@"Unsubscribe button is voided!");
-    NSLog(@"ID TAG: %@",(id)[btnTagID tag]);
+    //NSLog(@"Unsubscribe button is voided!");
+    //NSLog(@"ID TAG: %@",(id)[btnTagID tag]);
 
     NSString *namaRumahApi = [self urlAPIString];
     NSString *dataContent = nil;
@@ -390,7 +390,7 @@
     dataContent = [NSString stringWithFormat:@"{\"flag\":\"UNSUBSCRIBE_BULK\",\"category_id\":\"%@\"}",(id)[btnTagID tag]];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:namaRumahApi andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -400,7 +400,7 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success change");
+            //NSLog(@"Success change");
             [self loadAfterSaved];
             [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.2];
         }
@@ -426,7 +426,7 @@
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    NSLog(@"cell TAG: %@",(id)cell.tag);
+    //NSLog(@"cell TAG: %@",(id)cell.tag);
     
     CPViewController *cpVC = [[CPViewController alloc] initWithTagID:cell.tag];
     

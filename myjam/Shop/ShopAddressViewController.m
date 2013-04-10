@@ -72,7 +72,7 @@
         self.scroller.scrollEnabled = NO;
     }
     [self refreshScroller];
-    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+    //NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
 }
 - (void)didReceiveMemoryWarning
 {
@@ -101,11 +101,11 @@
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     for (int i=0 ; i< [mydelegate.shopNavController.viewControllers count]; i++){
-        NSLog(@"%@",[[mydelegate.shopNavController.viewControllers objectAtIndex:i] class] );
+        //NSLog(@"%@",[[mydelegate.shopNavController.viewControllers objectAtIndex:i] class] );
         
         if( [[[mydelegate.shopNavController.viewControllers objectAtIndex:i] class] isEqual:[ShopDetailListingViewController class]])
         {
-            NSLog(@"ok");
+            //NSLog(@"ok");
             
             [mydelegate.shopNavController popToViewController:[mydelegate.shopNavController.viewControllers objectAtIndex:i] animated:YES];
             break;

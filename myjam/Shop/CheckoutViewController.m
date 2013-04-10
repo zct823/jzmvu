@@ -65,7 +65,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"vdl checkout");
+    //NSLog(@"vdl checkout");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shoppingCartChange:) name:@"cartChangedFromView" object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PurchaseVerification" object:nil];
@@ -239,7 +239,7 @@
             }
         }
         
-        NSLog(@"%@", _cartList);
+        //NSLog(@"%@", _cartList);
         [self.tableView reloadData];
         [self updatePage];
     }
@@ -304,7 +304,7 @@
     
     mydelegate.isReturnFromPayment = NO;
     NSDictionary *purchaseStatus = [[MJModel sharedInstance] getPurchaseStatus:[[_cartList objectAtIndex:0] valueForKey:@"cart_id"]];
-    NSLog(@"PurchaseVerification get called!");
+    //NSLog(@"PurchaseVerification get called!");
     if ([[purchaseStatus valueForKey:@"status"] isEqualToString:@"Paid"]){
         ShopViewController *sv1 =[[mydelegate.shopNavController viewControllers] objectAtIndex:0];
         [[NSNotificationCenter defaultCenter ] postNotificationName:@"cartChanged" object:self];

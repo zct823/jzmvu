@@ -204,17 +204,17 @@
 - (void)FBGetInfoNSendParam
 {
     loginUsingFB = 1;
-    NSLog(@"LoginUsingFB: %d",loginUsingFB);
+    //NSLog(@"LoginUsingFB: %d",loginUsingFB);
     if(FBSession.activeSession.isOpen)
     {
-        NSLog(@"Facebook is logged");
+        //NSLog(@"Facebook is logged");
         [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
             if (!error)
             {
-                NSLog(@"Username: %@",user.name);
-                NSLog(@"User Email: %@",[user objectForKey:@"email"]);
-                NSLog(@"User ID: %@",[user objectForKey:@"id"]);
-                NSLog(@"User Access Token: %@",[[FBSession activeSession]accessToken]);
+                //NSLog(@"Username: %@",user.name);
+                //NSLog(@"User Email: %@",[user objectForKey:@"email"]);
+                //NSLog(@"User ID: %@",[user objectForKey:@"id"]);
+                //NSLog(@"User Access Token: %@",[[FBSession activeSession]accessToken]);
                 
                 self.fb_userName = user.name;
                 self.fb_userEmail = [user objectForKey:@"email"];
@@ -233,10 +233,10 @@
     
     NSString *dataContent = [NSString stringWithFormat:@"{\"username\":\"%@\",\"email\":\"%@\",\"facebook_id\":\"%@\",\"access_token\":\"%@\"}",self.fb_userName,self.fb_userEmail, self.fb_id, self.fb_token];
     
-    NSLog(@"Recheck the value: Username is %@, email is %@, facebook_id is %@, and access token is %@",self.fb_userName,self.fb_userEmail,self.fb_id,self.fb_token);
+    //NSLog(@"Recheck the value: Username is %@, email is %@, facebook_id is %@, and access token is %@",self.fb_userName,self.fb_userEmail,self.fb_id,self.fb_token);
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"resp %@, data %@",response, dataContent);
+    //NSLog(@"resp %@, data %@",response, dataContent);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     [DejalBezelActivityView removeViewAnimated:YES];
@@ -250,7 +250,7 @@
         NSString *email = [resultsDictionary objectForKey:@"email"];
         NSString *mobile = [resultsDictionary objectForKey:@"mobileno"];
         
-        NSLog(@"token: %@, name %@",token, fullname);
+        //NSLog(@"token: %@, name %@",token, fullname);
         if ([status isEqualToString:@"ok"])
         {
             [self handleSuccessLogin];
@@ -268,18 +268,18 @@
             NSString *counterKey = [NSString stringWithFormat:@"counter%@",token];
             NSString *counter = [localData objectForKey:counterKey];
             if (counter == nil) {
-                NSLog(@"Create counter for newly logged in user");
+                //NSLog(@"Create counter for newly logged in user");
                 [localData setObject:@"1" forKey:counterKey];
             }
             
             [localData synchronize];
         }else{
-            NSLog(@"Login failed");
+            //NSLog(@"Login failed");
             
             if ([message length] < 1) {
-                NSLog(@"Connection Error");
+                //NSLog(@"Connection Error");
             }else{
-                NSLog(@"message: %@",message);
+                //NSLog(@"message: %@",message);
                 CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"JAM-BU Login" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 [alert release];
@@ -293,7 +293,7 @@
 
 - (void)handleSuccessLogin
 {
-    NSLog(@"Login success");
+    //NSLog(@"Login success");
     [UIView animateWithDuration:0.6f animations:^
      {
          self.view.alpha=0.0f;
@@ -307,10 +307,10 @@
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     if (![mydelegate isSetupDone]) {
-        NSLog(@"re-setup all views");
+        //NSLog(@"re-setup all views");
         [mydelegate setupViews];
     }else{
-        NSLog(@"Clear and re-setup all views");
+        //NSLog(@"Clear and re-setup all views");
         [mydelegate clearViews];
         [mydelegate setupViews];
     }
@@ -326,7 +326,7 @@
 - (void)triggerTnCWebPage
 {
     tncURL = [NSString stringWithFormat:@"%@/t&c",APP_API_URL];
-    NSLog(@"initiating URL string in HandleOpenSafari: %@",tncURL);
+    //NSLog(@"initiating URL string in HandleOpenSafari: %@",tncURL);
     
     NSURL *url = [NSURL URLWithString:tncURL];
     
@@ -393,7 +393,7 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"username\":\"%@\",\"email\":\"%@\",\"password\":\"%@\",\"mobileno\":\"%@\"}",self.usernameTextField.text, self.emailTextField.text, self.passwordTextField.text, self.mobileNumTextField.text];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"%@",dataContent);
+    //NSLog(@"%@",dataContent);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     [DejalBezelActivityView removeViewAnimated:YES];
@@ -405,7 +405,7 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Register success");
+            //NSLog(@"Register success");
             
             // Add form view
             [self.scroller addSubview:self.registeredView];
@@ -414,12 +414,12 @@
             [self.contentView removeFromSuperview];
         }
         else{
-            NSLog(@"Register failed");
+            //NSLog(@"Register failed");
             
             if ([message length] < 1) {
-                NSLog(@"Connection Error");
+                //NSLog(@"Connection Error");
             }else{
-                NSLog(@"message: %@",message);
+                //NSLog(@"message: %@",message);
                 CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"JAM-BU Register" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 [alert release];

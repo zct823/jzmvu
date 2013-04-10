@@ -59,7 +59,7 @@
     
     currentHeight = 12;
     
-    NSLog(@"Show gallery for id(%@)",self.qrcodeId);
+    //NSLog(@"Show gallery for id(%@)",self.qrcodeId);
     // Init scrollview
     self.scroller = (UIScrollView *)self.view;
     [self.scroller addSubview:self.blankView];
@@ -146,7 +146,7 @@
 
 - (void)setupViews
 {
-    NSLog(@"Setting up detail view");
+    //NSLog(@"Setting up detail view");
     
     [self.scroller addSubview:self.contentView];
     UIView *topTextView = [[UIView alloc] init];
@@ -222,7 +222,7 @@
                     if (!error) {
                         
                     }else{
-                        NSLog(@"error retrieve image: %@",error);
+                        //NSLog(@"error retrieve image: %@",error);
                     }
                     
                 }];
@@ -285,7 +285,7 @@
 - (void)handleImageFullScreen:(id)sender
 {
     int index = [(UIGestureRecognizer *)sender view].tag;
-    NSLog(@"tapped on img %d",[(UIGestureRecognizer *)sender view].tag);
+    //NSLog(@"tapped on img %d",[(UIGestureRecognizer *)sender view].tag);
     PhotoViewController *photovc = [[PhotoViewController alloc] init];
 //    photovc.aImages = self.detailsData.imageArray;
 //    [self presentModalViewController:photovc animated:YES];
@@ -305,9 +305,9 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",self.qrcodeId];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
+    //NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
-    NSLog(@"dict %@",resultsDictionary);
+    //NSLog(@"dict %@",resultsDictionary);
     
     if([resultsDictionary count])
     {
@@ -340,7 +340,7 @@
             
         }else{
             success = NO;
-            NSLog(@"error retrieve all data");
+            //NSLog(@"error retrieve all data");
         }
     }else{
         success = NO;
@@ -356,7 +356,7 @@
 - (void)retrieveImages: (NSString *)uri
 {
 //    ASIHTTPRequest *imageRequest = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:uri]];
-//    NSLog(@"retrieve image ..");
+//    //NSLog(@"retrieve image ..");
 //    [imageRequest startSynchronous];
 //    [imageRequest setTimeOutSeconds:2];
 //    NSError *error = [imageRequest error];
@@ -367,7 +367,7 @@
 //                                  if (!error) {
 //                                      [self.detailsData.imageArray addObject:image];
 //                                  }else{
-//                                      NSLog(@"error retrieve image: %@",error);
+//                                      //NSLog(@"error retrieve image: %@",error);
 //                                  }
 //                              
 //                              }];
@@ -377,7 +377,7 @@
 //    if (!error) {
 //        [self.detailsData.imageArray addObject:aImg];
 //    }else{
-//        NSLog(@"error retrieve image: %@",error);
+//        //NSLog(@"error retrieve image: %@",error);
 //    }
     
 //    [aImg release];
@@ -394,7 +394,7 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@,\"share_type\":\"%@\"}",qrcodeId,aType];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -403,10 +403,10 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success share");
+            //NSLog(@"Success share");
         }
         else{
-            NSLog(@"share error!");
+            //NSLog(@"share error!");
         }
     }
     
@@ -561,23 +561,23 @@
     switch (result)
     {
         case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+            //NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
             msg = @"";
             break;
         case MFMailComposeResultSaved:
-            NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+            //NSLog(@"Mail saved: you saved the email message in the drafts folder.");
             msg = [NSString stringWithFormat:@"Email has been saved to draft"];
             break;
         case MFMailComposeResultSent:
-            NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+            //NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
             msg = [NSString stringWithFormat:@"Email has been successfully sent"];
             break;
         case MFMailComposeResultFailed:
-            NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+            //NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
             msg = [NSString stringWithFormat:@"Email was not sent, possibly due to an error"];
             break;
         default:
-            NSLog(@"Mail not sent.");
+            //NSLog(@"Mail not sent.");
             break;
     }
     

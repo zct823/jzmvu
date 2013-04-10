@@ -44,7 +44,7 @@
 {
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = YES;
-//    [self refresh];
+    [self refresh];
 }
 
 - (void)refresh {
@@ -123,16 +123,15 @@
 
 - (void) addItemsToEndOfTableView{
     //    [super addItemsToEndOfTableView];
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         if (self.pageCounter >= self.totalPage)
         {
-            
-            CGRect screenBounds = [[UIScreen mainScreen] bounds];
-            if (screenBounds.size.height != 568) {
-                // code for 4-inch screen
-                [self.tableView setContentOffset:CGPointMake(0, 0)];
+//            CGRect screenBounds = [[UIScreen mainScreen] bounds];
+//            if (screenBounds.size.height != 568) {
+                // code for 4-inch screen]
+                [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height-45)];
                 
-            }
+//            }
             
         }else if (self.pageCounter < self.totalPage){
             self.pageCounter++;
@@ -227,8 +226,6 @@
     [cell.transView1 setHidden:NO];
     
     [cell.button1 setBackgroundImageWithURL:[NSURL URLWithString:[[[[_catArray objectAtIndex:indexPath.section] valueForKey:@"shop_list"] objectAtIndex:0] valueForKey:@"shop_logo"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_icon.png"]];
-    
-    
     
     [cell.buttonTap1 addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -339,6 +336,11 @@
     return kTableCellHeight;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Do nothing
+}
+
 #pragma mark - Table view delegate
 
 -(void)viewAll:(id)sender{
@@ -371,7 +373,7 @@
     ShopDetailListingViewController *detailViewController = [[ShopDetailListingViewController alloc] init];
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     detailViewController.productArray = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getTopListOfItemsFor:[[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list"]objectAtIndex:([sender tag]%3)]valueForKey:@"shop_id"]]];
-    NSLog(@"%@",_catArray);
+//    NSLog(@"%@",_catArray);
     detailViewController.shopInfo = [[NSDictionary alloc] initWithObjectsAndKeys: [[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list" ] objectAtIndex:([sender tag] %3) ]valueForKey:@"shop_id"],@"shop_id", [[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list" ] objectAtIndex:([sender tag] %3) ]valueForKey:@"shop_name"], @"shop_name",  [[[[_catArray objectAtIndex:([sender tag]/3)] valueForKey:@"shop_list" ] objectAtIndex:([sender tag] %3) ]valueForKey:@"shop_top_seller"],@"shop_top_seller", nil];
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
@@ -379,7 +381,7 @@
 
 - (void) refreshTableItemsWithFilter:(NSString *)str andSearchedText:(NSString *)pattern andOptions:optionData{
     
-    NSLog(@"Filtering news list with searched text %@",str);
+    //NSLog(@"Filtering news list with searched text %@",str);
     self.catArray =  [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] getCategoryAndTopShopFor:pattern cats:str arrangedBy:optionData]];
     /*    self.selectedCategories = @"";
      self.selectedCategories = str;

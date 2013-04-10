@@ -100,7 +100,7 @@
     if (![self.stateArray count] || ![self.countryArray count]) {
         [self setupCategoryList];
     }
-    NSLog(@"vda");
+    //NSLog(@"vda");
 }
 
 - (void)setupCategoryList
@@ -128,7 +128,7 @@
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     NSDictionary *states;
     NSDictionary *countries;
-    NSLog(@"response: %@",response);
+    //NSLog(@"response: %@",response);
     if([resultsDictionary count])
     {
         NSString *status = [resultsDictionary objectForKey:@"status"];
@@ -145,7 +145,7 @@
             }
 //            self.stateArray = [resultsDictionary objectForKey:@"states"];
 //            self.countryArray = [resultsDictionary objectForKey:@"countries"];
-//            NSLog(@"state :%@\ncountry :%@",self.stateArray,self.countryArray);
+//            //NSLog(@"state :%@\ncountry :%@",self.stateArray,self.countryArray);
             
         }else{
             CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Create Failed" message:@"Connection failure. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -160,7 +160,7 @@
 
 - (IBAction)pickerDoneClicked:(id)sender
 {
-    NSLog(@"curr :%d",self.currTag);
+    //NSLog(@"curr :%d",self.currTag);
     if (self.currTag == 1) {
         if (![self.stateTextField.text length]) {
             self.stateTextField.text = [self.stateArray objectAtIndex:0];
@@ -176,7 +176,7 @@
     }
     //    self.countryTextField.text = [self.stateArray objectForKey:self.stateTextField.text];
     //    [self.stateTextField resignFirstResponder];
-    //    NSLog(@"ID :%@",self.categoryId);
+    //    //NSLog(@"ID :%@",self.categoryId);
 }
 
 #pragma mark -
@@ -213,7 +213,7 @@
     else {
         //save address
         [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
-        NSLog(@"saved");
+        //NSLog(@"saved");
         [self performSelector:@selector(processSaveAddress) withObject:nil afterDelay:0.2];
     }
 }
@@ -241,7 +241,7 @@
                              self.countryId];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -251,7 +251,7 @@
         
         if ([status isEqualToString:@"ok"]) {
             msg = @"Success submit address.";
-            NSLog(@"%@",msg);
+            //NSLog(@"%@",msg);
             UJliteProfileViewController *ujlite = [[UJliteProfileViewController alloc] init];
             [ujlite reloadView];
             [self.navigationController popViewControllerAnimated:YES];
@@ -291,7 +291,7 @@
 // Do something with the selected row.
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
-    NSLog(@"option selected %d", row);
+    //NSLog(@"option selected %d", row);
     if (pickerView.tag == 1) {
         self.stateTextField.text = [self.stateArray objectAtIndex:row];
     }

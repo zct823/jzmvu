@@ -54,7 +54,7 @@
     self.scrollView = (UIScrollView *)self.view;
     
     
-    NSLog(@"Get cartID: %@",getCartID);
+    //NSLog(@"Get cartID: %@",getCartID);
     
     [self retAddrFrmAPI];
 }
@@ -84,7 +84,7 @@
                 {
                     self.addressList = [resultsDictionary objectForKey:@"address"];
                     
-                    NSLog(@"ROW: %@",row);
+                    //NSLog(@"ROW: %@",row);
                     
                     if (count == 0)
                     {
@@ -97,10 +97,10 @@
                         kickStartAddrY = kickStartAddrY+110;
                     }
                     
-                    NSLog(@"row street: %@",[row objectForKey:@"address"]);
-                    NSLog(@"row city: %@",[row objectForKey:@"city"]);
-                    NSLog(@"row state: %@",[row objectForKey:@"state"]);
-                    NSLog(@"row country: %@",[row objectForKey:@"country"]);
+                    //NSLog(@"row street: %@",[row objectForKey:@"address"]);
+                    //NSLog(@"row city: %@",[row objectForKey:@"city"]);
+                    //NSLog(@"row state: %@",[row objectForKey:@"state"]);
+                    //NSLog(@"row country: %@",[row objectForKey:@"country"]);
                     
                     DeliverySelSavAddresses *dssaUIV = [[DeliverySelSavAddresses alloc] initWithFrame: CGRectMake(0, kickStartAddrY, 320, 106)];
                     
@@ -163,7 +163,7 @@
 - (void)setPrime:(id)sender
 {
     UIButton* aid = (UIButton*) sender;
-    NSLog(@"tag=%d",aid.tag);
+    //NSLog(@"tag=%d",aid.tag);
     NSString *flag = @"SET_PRIMARY_ADDRESS";
     addrIdSetPrime = aid.tag;
     NSString *urlString = [NSString stringWithFormat:@"%@/api/settings_jambulite_profile.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
@@ -172,9 +172,9 @@
                              (long)aid.tag];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"request %@\n%@\n\nresponse dataSetPrime: %@", urlString, dataContent, response);
+    //NSLog(@"request %@\n%@\n\nresponse dataSetPrime: %@", urlString, dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
-    NSLog(@"dict %@",resultsDictionary);
+    //NSLog(@"dict %@",resultsDictionary);
     
     if([resultsDictionary count])
     {
@@ -182,7 +182,7 @@
         NSString *msg = [resultsDictionary objectForKey:@"message"];
         
         if ([status isEqualToString:@"ok"]) {
-            NSLog(@"Successfully set primary address!");
+            //NSLog(@"Successfully set primary address!");
             [DejalBezelActivityView activityViewForView:self.view withLabel:@"Saving ..." width:100];
             [self performSelector:@selector(setViewPrime) withObject:nil afterDelay:0.2];
         }
@@ -192,7 +192,7 @@
             [alert release];
         }
     }
-    NSLog(@"end saved");
+    //NSLog(@"end saved");
 }
 
 - (void)setViewPrime
@@ -219,8 +219,8 @@
 
 - (void)selectedAddress:(id)sender
 {
-    NSLog(@"Button Voided!");
-    NSLog(@"tapped on label %d",[(UITapGestureRecognizer *)sender view].tag);
+    //NSLog(@"Button Voided!");
+    //NSLog(@"tapped on label %d",[(UITapGestureRecognizer *)sender view].tag);
     self.tagID = [(UITapGestureRecognizer *)sender view].tag;
     
     int clickedTag = [(UITapGestureRecognizer *)sender view].tag;
@@ -247,7 +247,7 @@
 
 - (void)goToNextView
 {
-    NSLog(@"gotonextview addID:%d",self.tagID);
+    //NSLog(@"gotonextview addID:%d",self.tagID);
     
     NSString *urlString = [NSString stringWithFormat:@"%@/api/shop_cart_delivery_address_submit.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
     
@@ -263,7 +263,7 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"OK");
+            //NSLog(@"OK");
             
             NSDictionary *dictTemp = [[MJModel sharedInstance] getDeliveryInfoFor:getCartID];
             

@@ -24,8 +24,6 @@
 @property (retain, nonatomic) IBOutlet UILabel *mapsLabel;
 @property (retain, nonatomic) IBOutlet UILabel *socialLabel;
 @property (retain, nonatomic) IBOutlet UILabel *feedbackLabel;
-@property (retain, nonatomic) IBOutlet UILabel *buddyLabel;
-
 @property (retain, nonatomic) IBOutlet UILabel *faqLabel;
 @property (retain, nonatomic) IBOutlet UILabel *aboutLabel;
 @property (retain, nonatomic) IBOutlet UILabel *logoutLabel;

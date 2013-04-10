@@ -21,8 +21,8 @@
 - (void)layoutSubviews
 {
 	for (UIView *subview in self.subviews){ //Fast Enumeration
-		//NSLog(@"subview class :%@",[subview class]); //Get Class Description of Each Subview
-		//NSLog(@"subview.tag %i",subview.tag); //Get Button Tags
+		////NSLog(@"subview class :%@",[subview class]); //Get Class Description of Each Subview
+		////NSLog(@"subview.tag %i",subview.tag); //Get Button Tags
 		
 		if ([subview isMemberOfClass:[UIImageView class]]) { //Find UIImageView Containing Blue Background
 			subview.hidden = YES; //Hide UIImageView Containing Blue Background

@@ -30,7 +30,7 @@
 
 - (void)performActionWithController:(UIViewController *)controller
                       shouldConfirm:(bool)confirm {
-  NSLog(@"Abstract Action performed");
+  //NSLog(@"Abstract Action performed");
 }
 
 @end

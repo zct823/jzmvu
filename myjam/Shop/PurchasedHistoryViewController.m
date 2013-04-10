@@ -62,38 +62,38 @@
     
     NSString *tempId = [[orders objectAtIndex:0] valueForKey:@"order_no"];
     for (int i = 0; i<[orders count]; i++){
-        NSLog(@"%@",tempId);
-        NSLog(@"%@",[[orders objectAtIndex:i] valueForKey:@"order_no" ] );
-        NSLog(@"%c", [[NSString stringWithFormat:@"%@",[[orders objectAtIndex:i] valueForKey:@"order_no" ] ]isEqualToString:tempId]);
-        NSLog(@"i=%d",i);
+        //NSLog(@"%@",tempId);
+        //NSLog(@"%@",[[orders objectAtIndex:i] valueForKey:@"order_no" ] );
+        //NSLog(@"%c", [[NSString stringWithFormat:@"%@",[[orders objectAtIndex:i] valueForKey:@"order_no" ] ]isEqualToString:tempId]);
+        //NSLog(@"i=%d",i);
         if ( [[NSString stringWithFormat:@"%@",[[orders objectAtIndex:i] valueForKey:@"order_no" ] ]isEqualToString:tempId]){
             
             [tempOrderArray addObject:[orders objectAtIndex:i]];
-            NSLog(@"same");
+            //NSLog(@"same");
         }else{
-            NSLog(@"%@",tempOrderArray);
-            NSLog(@"%d",[tempOrderArray count]);
+            //NSLog(@"%@",tempOrderArray);
+            //NSLog(@"%d",[tempOrderArray count]);
             [tempArray addObject:tempOrderArray];
-            NSLog(@"%d",[tempArray count]);
-            NSLog(@"%@",tempArray);
+            //NSLog(@"%d",[tempArray count]);
+            //NSLog(@"%@",tempArray);
             tempOrderArray = [NSMutableArray array];
-            NSLog(@"%@",tempArray);
+            //NSLog(@"%@",tempArray);
             [tempOrderArray addObject:[orders objectAtIndex:i]];
             
             tempId = [[orders objectAtIndex:i] valueForKey:@"order_no" ];
-            NSLog(@"tempArray:%@",tempArray);
-            NSLog(@"tempOrderArray:%@",tempOrderArray);
+            //NSLog(@"tempArray:%@",tempArray);
+            //NSLog(@"tempOrderArray:%@",tempOrderArray);
             
         }
     }
-    NSLog(@"last object: %@",tempArray );
-    NSLog(@"last object: %@",[tempArray lastObject]);
-    NSLog(@"%@",tempId);
+    //NSLog(@"last object: %@",tempArray );
+    //NSLog(@"last object: %@",[tempArray lastObject]);
+    //NSLog(@"%@",tempId);
     if (![[[[tempArray lastObject] lastObject] valueForKey:@"order_no"] isEqualToString:tempId])
     {
         [tempArray addObject:tempOrderArray];
-        NSLog(@"tempArray:%@",tempArray);
-        NSLog(@"tempOrderArray:%@",tempOrderArray);
+        //NSLog(@"tempArray:%@",tempArray);
+        //NSLog(@"tempOrderArray:%@",tempOrderArray);
     }
     return tempArray;
 }
@@ -116,7 +116,7 @@
         
         self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId:[self.purchasedHistory valueForKey:@"list"]]];
         self.tempPurchasedArray = [[NSMutableArray alloc] initWithArray:[self.purchasedHistory valueForKey:@"list"]];
-        NSLog(@"----\n\n\n\n\n\n%@\n\n\n\n\n-----",self.tempPurchasedArray);
+        //NSLog(@"----\n\n\n\n\n\n%@\n\n\n\n\n-----",self.tempPurchasedArray);
         
         self.totalPage = [self.purchasedHistory valueForKey:@"pagecount"];
         
@@ -160,7 +160,7 @@
             
             //            if (([self.purchasedHistoryArray count] > kDisplayPerscreen))
             //            {
-            //                NSLog(@"here=");
+            //                //NSLog(@"here=");
             //                [self.tableView setContentOffset:CGPointMake(0, (([self.purchasedHistoryArray count]-kDisplayPerscreen)*(kTableCellHeight+kCellHeaderHeight)+kExtraCellHeight)];
             //            }else{
             //
@@ -204,8 +204,8 @@
                 
             }
             [self.tempPurchasedArray addObjectsFromArray:tempArray];
-            NSLog(@"%d",[self.tempPurchasedArray count]);
-            NSLog(@"%@",self.tempPurchasedArray);
+            //NSLog(@"%d",[self.tempPurchasedArray count]);
+            //NSLog(@"%@",self.tempPurchasedArray);
             self.purchasedHistoryArray = [[NSMutableArray alloc] initWithArray:[self groupByOrderId: self.tempPurchasedArray ]];
             
         }
@@ -230,8 +230,8 @@
             
         }
         
-        NSLog(@"page now is %d",self.pageCounter);
-        NSLog(@"totpage %d",self.totalPage);
+        //NSLog(@"page now is %d",self.pageCounter);
+        //NSLog(@"totpage %d",self.totalPage);
         
         if (self.totalPage == self.pageCounter) {
             self.loadingLabel.text = @"";
@@ -241,7 +241,7 @@
             
             // if data is less, then hide the loading view
             if (([[resultsDictionary valueForKey:@"list"] count] > 0 && [[resultsDictionary valueForKey:@"list"] count] < kListPerpage)) {
-                NSLog(@"here xx");
+                //NSLog(@"here xx");
                 [self.activityIndicatorView setHidden:YES];
                 
             }
@@ -263,7 +263,7 @@
             }
             
             if ([status isEqualToString:@"ok"] && self.totalPage == 0) {
-                NSLog(@"empty");
+                //NSLog(@"empty");
                 [self.activityIndicatorView setHidden:NO];
                 [self.activityIndicator setHidden:YES];
                 self.loadingLabel.text = [NSString stringWithFormat:@"No records. Pull to refresh"];
@@ -272,7 +272,7 @@
             }
             
             if ([status isEqualToString:@"ok"] && self.totalPage > 1 && ![[resultsDictionary objectForKey:@"list"] count]) {
-                NSLog(@"data empty");
+                //NSLog(@"data empty");
                 [self.activityIndicatorView setHidden:YES];
                 //        [self.tableView setContentOffset:CGPointMake(0, (([self.tableData count]-kDisplayPerscreen)*kTableCellHeight)+kExtraCellHeight)];
             }
@@ -347,11 +347,11 @@
 {
     DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
     detailViewController.productInfo = [[MJModel sharedInstance] getPuchasedInfoForId:[[[self.purchasedHistoryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] valueForKey:@"order_item_id"]];
-    //    NSLog(@"--- %@",detailViewController.productInfo);
+    //    //NSLog(@"--- %@",detailViewController.productInfo);
     detailViewController.buyButton = [[NSString alloc] initWithString:@"not-ok"];
     detailViewController.orderId = [[[self.purchasedHistoryArray objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]valueForKey:@"order_item_id"];
     detailViewController.productId = [[[self.purchasedHistoryArray objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]valueForKey:@"product_id"];
-    NSLog(@"--- %@",detailViewController.orderId);
+    //NSLog(@"--- %@",detailViewController.orderId);
     detailViewController.purchasedString = @"purchased";
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -391,7 +391,7 @@ heightForHeaderInSection:(NSInteger)section
 }
 - (void) refreshTableItemsWithFilter:(NSString *)str andSearchedText:(NSString *)pattern andOptions:(NSString*)optionData{
     
-    NSLog(@"Filtering news list with searched text %@",str);
+    //NSLog(@"Filtering news list with searched text %@",str);
     self.purchasedHistory =  [[NSDictionary alloc] initWithDictionary:[[MJModel sharedInstance] getPurchasedHistoryFor:pattern cats:str arrangedBy:optionData forPage:@"1"]];
     
     [[super tableView] reloadData];

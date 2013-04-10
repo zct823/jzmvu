@@ -66,7 +66,7 @@
     
     if ([self retrieveDataFromAPI])
     {
-        [self performSelectorOnMainThread:@selector(setupViews) withObject:nil waitUntilDone:NO];
+       // [self performSelectorOnMainThread:@selector(setupViews) withObject:nil waitUntilDone:NO];
     }else{
         //        [self setupErrorPage];
         NSLog(@"setupFailed");
@@ -183,35 +183,37 @@
     else {
         [self fGender];
     }
-    
+    NSLog(@"ADDRESS :%@",self.addressArray);
     //setup address list view
     CGFloat aHeight = 0;
     int ind = 1;
-    for (id row in self.addressArray)
-    {
-        CustomAddress *addrs = [[CustomAddress alloc] initWithFrame:CGRectMake(0, kStartAddressY + aHeight, 320, 46)];
-        aHeight = aHeight + addrs.frame.size.height;
-        addrs.addressLabel.text = [NSString stringWithFormat:@"Address %d\n%@",ind++,[row objectForKey:@"address"]];
-        
-        if ([[row objectForKey:@"addressIsPrimary"] isEqualToString:@"Y"]) {
-            [addrs.addressButton setImage:[UIImage imageNamed:@"checkbox_active"] forState:UIControlStateNormal];
-            [addrs.primaryLabel setText:@"Primary"];
-        } else {
-            addrs.addressButton.tag = [[row objectForKey:@"addressId"] intValue];
-            [addrs.addressButton addTarget:self action:@selector(setPrime:) forControlEvents:UIControlEventTouchUpInside];
+    if ([self.addressArray isKindOfClass:[NSArray class]]) {
+        for (id row in self.addressArray)
+        {
+            CustomAddress *addrs = [[CustomAddress alloc] initWithFrame:CGRectMake(0, kStartAddressY + aHeight, 320, 46)];
+            aHeight = aHeight + addrs.frame.size.height;
+            addrs.addressLabel.text = [NSString stringWithFormat:@"Address %d\n%@",ind++,[row objectForKey:@"address"]];
+            
+            if ([[row objectForKey:@"addressIsPrimary"] isEqualToString:@"Y"]) {
+                [addrs.addressButton setImage:[UIImage imageNamed:@"checkbox_active"] forState:UIControlStateNormal];
+                [addrs.primaryLabel setText:@"Primary"];
+            } else {
+                addrs.addressButton.tag = [[row objectForKey:@"addressId"] intValue];
+                [addrs.addressButton addTarget:self action:@selector(setPrime:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            addrs.addressLabel.userInteractionEnabled = YES;
+            UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(deleteAddress:)];
+            swipe.direction = UISwipeGestureRecognizerDirectionRight;
+            swipe.numberOfTouchesRequired = 1;
+            [addrs.addressLabel addGestureRecognizer:swipe];
+            
+            addrs.addressLabel.tag = [[row objectForKey:@"addressId"] intValue];
+            UITapGestureRecognizer *tapEditMail = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editMail:)];
+            [addrs.addressLabel addGestureRecognizer:tapEditMail];
+            [tapEditMail release];
+            [self.view addSubview:addrs];
+            [addrs release];
         }
-        addrs.addressLabel.userInteractionEnabled = YES;
-        UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(deleteAddress:)];
-        swipe.direction = UISwipeGestureRecognizerDirectionRight;
-        swipe.numberOfTouchesRequired = 1;
-        [addrs.addressLabel addGestureRecognizer:swipe];
-        
-        addrs.addressLabel.tag = [[row objectForKey:@"addressId"] intValue];
-        UITapGestureRecognizer *tapEditMail = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editMail:)];
-        [addrs.addressLabel addGestureRecognizer:tapEditMail];
-        [tapEditMail release];
-        [self.view addSubview:addrs];
-        [addrs release];
     }
     
     NSLog(@" height:%f",aHeight);
@@ -324,13 +326,13 @@
             //      NSLog(@"urlImg :%@",img);
             //    [self.imgPro setImage:img];
             //            [img release];
-            
+            self.addressArray = nil;
             if (! [[resultsDictionary objectForKey:@"address"] isKindOfClass:[NSString class]]){
                 //isKindOfClass: -> untuk check kalau [resultsDictionary objectForKey:@"address"] ni class apa? contohnya dekat sini, aku check kalau [resultsDictionary objectForKey:@"address"] bukan class string, baru check address. Sebab API kalau kosong dia return "" (string)
                 resultAddress = [resultsDictionary objectForKey:@"address"];
                 
                 self.addressArray = resultAddress;
-                NSLog(@"%@",resultAddress);
+                NSLog(@"RESULTADDRESS :%@",resultAddress);
                 for (id row in resultAddress)
                 {
                     MData *aData = [[MData alloc] init];
@@ -453,10 +455,8 @@
         
         if ([status isEqualToString:@"ok"]) {
             NSLog(@"Successfully save change!");
-            [self reloadView];
-            SidebarView *sbar = [[SidebarView alloc] init];
-            [sbar reloadImage];
-            [sbar release];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadView"object:self];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadImage"object:self];
         }
         CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Jambulite Profile" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -577,7 +577,7 @@
         if ([status isEqualToString:@"ok"]) {
             NSLog(@"Successfully delete address!");
             [self removeMailView];
-            [self reloadView];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadView"object:self];
         }
         else {
             CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Address Profile" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

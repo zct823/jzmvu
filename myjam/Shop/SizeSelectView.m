@@ -167,7 +167,7 @@
 //        expectedLabelSize = [[NSString stringWithFormat:@"%@",[[[self.sizeChoices objectAtIndex:0] objectAtIndex:i] valueForKey:@"size_name"]]  sizeWithFont:[UIFont fontWithName:@"Verdana" size:24.0] constrainedToSize:CGSizeMake(imageWidth, imageHeight) lineBreakMode:UILineBreakModeWordWrap];
         //CGRect imageFrame = CGRectMake(tempWidth.width, 0, 30, imageHeight);
 //        tempWidth.width = tempWidth.width + self.leftMargin + self.midMargin + expectedLabelSize.width;
-//        NSLog(@"size :%f %f",expectedLabelSize.width, x);
+//        //NSLog(@"size :%f %f",expectedLabelSize.width, x);
     }
 }
 -(void) setSizeChoicesNum:(int)sizeChoicesNum{

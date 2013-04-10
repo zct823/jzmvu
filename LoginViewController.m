@@ -75,7 +75,7 @@
     
     loginUsingFB = 0;
     
-    NSLog(@"Login FB: %d",loginUsingFB);
+    //NSLog(@"Login FB: %d",loginUsingFB);
     
     // Setup screen for retina 4
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
@@ -190,17 +190,17 @@
 - (void)FBGetInfoNSendParam
 {
     loginUsingFB = 1;
-    NSLog(@"LoginUsingFB: %d",loginUsingFB);
+    //NSLog(@"LoginUsingFB: %d",loginUsingFB);
     if(FBSession.activeSession.isOpen)
     {
-        NSLog(@"Facebook is logged");
+        //NSLog(@"Facebook is logged");
         [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
             if (!error)
             {
-                NSLog(@"Username: %@",user.name);
-                NSLog(@"User Email: %@",[user objectForKey:@"email"]);
-                NSLog(@"User ID: %@",[user objectForKey:@"id"]);
-                NSLog(@"User Access Token: %@",[[FBSession activeSession]accessToken]);
+                //NSLog(@"Username: %@",user.name);
+                //NSLog(@"User Email: %@",[user objectForKey:@"email"]);
+                //NSLog(@"User ID: %@",[user objectForKey:@"id"]);
+                //NSLog(@"User Access Token: %@",[[FBSession activeSession]accessToken]);
                 
                 self.fb_userName = user.name;
                 self.fb_userEmail = [user objectForKey:@"email"];
@@ -243,11 +243,11 @@
 {
     self.passwordTextField.enabled = NO;
     if ([self.passwordTextField isSecureTextEntry]) {
-        NSLog(@"tapped NO");
+        //NSLog(@"tapped NO");
         [self.passwordTextField setSecureTextEntry:NO];
         [self.checkBox setImage:[UIImage imageNamed:@"green_tick"] forState:UIControlStateNormal];
     }else{
-        NSLog(@"tapped YES");
+        //NSLog(@"tapped YES");
         [self.passwordTextField setSecureTextEntry:YES];
         [self.checkBox setImage:nil forState:UIControlStateNormal];
     }
@@ -280,7 +280,7 @@
     
     NSString *dataContent = [NSString stringWithFormat:@"{\"username\":\"%@\",\"password\":\"%@\"}",self.usernameTextField.text, self.passwordTextField.text];
     
-    NSLog(@"Recheck the value: Username is %@, email is %@, facebook_id is %@, and access token is %@",self.fb_userName,self.fb_userEmail,self.fb_id,self.fb_token);
+    //NSLog(@"Recheck the value: Username is %@, email is %@, facebook_id is %@, and access token is %@",self.fb_userName,self.fb_userEmail,self.fb_id,self.fb_token);
     
     if (loginUsingFB == 1)
     {
@@ -290,7 +290,7 @@
     }
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"resp %@, data %@",response, dataContent);
+    //NSLog(@"resp %@, data %@",response, dataContent);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     [DejalBezelActivityView removeViewAnimated:YES];
@@ -306,7 +306,7 @@
         NSString *email = [resultsDictionary objectForKey:@"email"];
         NSString *mobile = [resultsDictionary objectForKey:@"mobileno"];
         
-        NSLog(@"token: %@, name %@",token, fname);
+        //NSLog(@"token: %@, name %@",token, fname);
         if ([status isEqualToString:@"ok"])
         {
             [self handleSuccessLogin];
@@ -328,25 +328,25 @@
             [localData setObject:@"YES" forKey:@"isDisplayTutorial"];
             
             if (![fname length]) {
-                NSLog(@"Profile not updated!");
+                //NSLog(@"Profile not updated!");
                 [localData setObject:@"NO" forKey:@"isProfileUpdated"];
             }
             
             NSString *counterKey = [NSString stringWithFormat:@"counter%@",token];
             NSString *counter = [localData objectForKey:counterKey];
             if (counter == nil) {
-                NSLog(@"Create counter for newly logged in user");
+                //NSLog(@"Create counter for newly logged in user");
                 [localData setObject:@"1" forKey:counterKey];
             }
             
             [localData synchronize];
         }else{
-            NSLog(@"Login failed");
+            //NSLog(@"Login failed");
             
             if ([message length] < 1) {
-                NSLog(@"Connection Error");
+                //NSLog(@"Connection Error");
             }else{
-                NSLog(@"message: %@",message);
+                //NSLog(@"message: %@",message);
                 CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"JAM-BU Login" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 [alert release];
@@ -359,7 +359,7 @@
 
 - (void)handleSuccessLogin
 {
-    NSLog(@"Login success");
+    //NSLog(@"Login success");
     [UIView animateWithDuration:0.6f animations:^
      {
          self.view.alpha=0.0f;
@@ -373,10 +373,10 @@
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     if (![mydelegate isSetupDone]) {
-        NSLog(@"re-setup all views");
+        //NSLog(@"re-setup all views");
         [mydelegate setupViews];
     }else{
-        NSLog(@"Clear and re-setup all views");
+        //NSLog(@"Clear and re-setup all views");
         [mydelegate clearViews];
         [mydelegate setupViews];
     }

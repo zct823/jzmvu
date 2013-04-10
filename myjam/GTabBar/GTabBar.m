@@ -41,7 +41,7 @@
 //		if ([defaults integerForKey:kSelectedTab]) {
 //			initTab = [defaults integerForKey:kSelectedTab];
 //		}
-//		NSLog(@"%d", initTab);
+//		//NSLog(@"%d", initTab);
 		tabViewControllers = [[NSMutableArray alloc] initWithCapacity:[tbControllers count]];
 		tabViewControllers = tbControllers;
 		
@@ -115,7 +115,7 @@
             }
             
             if (i == kShopTab) {
-                NSLog(@"shop hardcoded clicked");
+                //NSLog(@"shop hardcoded clicked");
                 if (mydelegate.isCheckoutFromSideBar == YES) {
                     mydelegate.isCheckoutFromSideBar = NO;
                 }else if(mydelegate.isShowPurchaseHistory == YES){
@@ -125,12 +125,12 @@
                 }
             }else if(i == kHomeTab)
             {
-                NSLog(@"home hardcoded clicked");
+                //NSLog(@"home hardcoded clicked");
                 
                 [mydelegate.homeNavController popToRootViewControllerAnimated:NO];
             }else if(i == kBoxTab)
             {
-                NSLog(@"Box hardcoded clicked");
+                //NSLog(@"Box hardcoded clicked");
                 if (mydelegate.isFromScannerTab == YES) {
                     mydelegate.isFromScannerTab = NO;
                 }else{
@@ -160,7 +160,7 @@
     
     // hardcoded to toggle button setting at index 5
     if (button == [tabItemsArray objectAtIndex:4]) {
-        NSLog(@"Setting clicked"); 
+        //NSLog(@"Setting clicked"); 
         return;
     }
 //	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

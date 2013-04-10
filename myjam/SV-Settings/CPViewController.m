@@ -48,7 +48,7 @@
                                      action:nil] autorelease];
     
     self.tagID = tagID;
-    NSLog(@"tagID: %@",tagID);
+    //NSLog(@"tagID: %@",tagID);
     
     return self;
 }
@@ -129,7 +129,7 @@
 
 - (NSString *)urlAPIString
 {
-    NSLog(@"Token String: %@",[[[NSUserDefaults standardUserDefaults]objectForKey:@"tokenString"]mutableCopy]);
+    //NSLog(@"Token String: %@",[[[NSUserDefaults standardUserDefaults]objectForKey:@"tokenString"]mutableCopy]);
     
     return [NSString stringWithFormat:@"%@/api/settings_news_preference.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
 }
@@ -142,7 +142,7 @@
     
     //=== WRAPPING DATA IN NSSTRING ===//
     NSString *wrappedDefaultDataFromServer = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContentForDefaults];
-    NSLog(@"Check response for DEFAULT2 param CPVC: %@",wrappedDefaultDataFromServer);
+    //NSLog(@"Check response for DEFAULT2 param CPVC: %@",wrappedDefaultDataFromServer);
     
     NSMutableArray *newData = [[NSMutableArray alloc] init];
     NSDictionary *wrappedDefaultDataToDictionary = [[wrappedDefaultDataFromServer objectFromJSONString] copy];
@@ -189,7 +189,7 @@
                     {
                         for(id row2 in secondArray)
                         {
-                            NSLog(@"Second Array: %@",secondArray);
+                            //NSLog(@"Second Array: %@",secondArray);
                         
                             MData *settingsVar = [[MData alloc]init];
                         
@@ -288,11 +288,11 @@
     UIImage *tickedCT = [UIImage imageNamed:@"settings_news_active.png"];
     UIImage *unTickedCT = [UIImage imageNamed:@"settings_news_inactive.png"];
 
-    NSLog(@"Subscription STATUS GET: %@",setData.subscriptionStatus);
+    //NSLog(@"Subscription STATUS GET: %@",setData.subscriptionStatus);
 
     if ([setData.subscriptionStatus isEqual:@"1"])
     {
-        NSLog(@"SubscriptionStatus isEqual to ONE should be passed...");
+        //NSLog(@"SubscriptionStatus isEqual to ONE should be passed...");
         CGRect setFrameCT = CGRectMake(0, 0, tickedCT.size.width-20, tickedCT.size.height-10);
         customTicker.frame = setFrameCT;
         [customTicker setBackgroundImage:tickedCT forState:UIControlStateNormal];
@@ -301,7 +301,7 @@
     }
     else if([setData.subscriptionStatus isEqual:@"0"])
     {
-        NSLog(@"SubscriptionStatus isEqual to ZERO should be passed...");
+        //NSLog(@"SubscriptionStatus isEqual to ZERO should be passed...");
         CGRect setFrameCT = CGRectMake(0, 0, unTickedCT.size.width-20, unTickedCT.size.height-10);
         customTicker.frame = setFrameCT;
         [customTicker setBackgroundImage:unTickedCT forState:UIControlStateNormal];
@@ -316,9 +316,9 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //cell.tag = setData.defaultCategoryID;
     
-    NSLog(@"Showing hidden data TEST: %ld",(long)indexPath.row);
+    //NSLog(@"Showing hidden data TEST: %ld",(long)indexPath.row);
     
-    NSLog(@"getbuttonid: %ld",(long)customTicker.tag);
+    //NSLog(@"getbuttonid: %ld",(long)customTicker.tag);
     
     return cell;
 }
@@ -328,15 +328,15 @@
 -(void)subscribeBtn:(id)btnTagID
 {
     
-    NSLog(@"Subscribe button is voided!");
-    NSLog(@"ID TAG: %@",(id)[btnTagID tag]);
+    //NSLog(@"Subscribe button is voided!");
+    //NSLog(@"ID TAG: %@",(id)[btnTagID tag]);
     
     NSString *namaRumahApi = [self urlAPIString];
     
     NSString *dataContent = [NSString stringWithFormat:@"{\"flag\":\"SUBSCRIBE2\",\"category_id\":\"%@\",\"cp_id\":\"%@\"}",self.tagID,(id)[btnTagID tag]];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:namaRumahApi andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
 
     if([resultsDictionary count])
@@ -346,7 +346,7 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success change");
+            //NSLog(@"Success change");
             [self loadAfterSaved];
             [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.2];
 
@@ -367,15 +367,15 @@
 -(void)unsubscribeBtn:(id)btnTagID
 {
     
-    NSLog(@"Unsubscribe button is voided!");
-    NSLog(@"ID TAG: %@",(id)[btnTagID tag]);
+    //NSLog(@"Unsubscribe button is voided!");
+    //NSLog(@"ID TAG: %@",(id)[btnTagID tag]);
 
     NSString *namaRumahApi = [self urlAPIString];
     
     NSString *dataContent = [NSString stringWithFormat:@"{\"flag\":\"UNSUBSCRIBE2\",\"category_id\":\"%@\",\"cp_id\":\"%@\"}",self.tagID,(id)[btnTagID tag]];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:namaRumahApi andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -385,7 +385,7 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success change");
+            //NSLog(@"Success change");
             [self loadAfterSaved];
             [self performSelector:@selector(deAnimateDBAV) withObject:nil afterDelay:0.2];
             

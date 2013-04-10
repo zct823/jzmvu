@@ -82,9 +82,9 @@
                 placeholderImage:[UIImage imageNamed:@"default_icon"]
                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
                            if (!error) {
-                               NSLog(@"success image %d",i);
+                               //NSLog(@"success image %d",i);
                            }else{
-                               NSLog(@"error retrieve image: %@",error);
+                               //NSLog(@"error retrieve image: %@",error);
                            }
                            
                        }];

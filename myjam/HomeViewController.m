@@ -101,10 +101,10 @@
     [currentView removeFromSuperview];
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (viewController == vc1 || viewController == vc2 || viewController == vc3) {
-        NSLog(@"Enable bottom view for JAM-BU Feed");
+        //NSLog(@"Enable bottom view for JAM-BU Feed");
         mydelegate.swipeBottomEnabled = YES;
         if (viewController == vc1) {
-            NSLog(@"ALL");
+            //NSLog(@"ALL");
             mydelegate.swipeController = kAll;
             mydelegate.swipeOptionString = @"home-all";
         } else if (viewController == vc2) {
@@ -115,7 +115,7 @@
             mydelegate.swipeOptionString = @"home-promo";
         }
     }else{
-        NSLog(@"Bottom view disabled");
+        //NSLog(@"Bottom view disabled");
         mydelegate.swipeBottomEnabled = NO;
     }
 
@@ -148,7 +148,7 @@
     NSString *counterKey = [NSString stringWithFormat:@"counter%@",[localData objectForKey:@"tokenString"]];
     NSString *counter = [localData objectForKey:counterKey];
     int countI = [counter intValue];
-    NSLog(@"Home counter: %@",counter);
+    //NSLog(@"Home counter: %@",counter);
     
     if ([isDisplay isEqualToString:@"YES"] && countI < 500)
     {
@@ -185,13 +185,13 @@
 
 - (void)animateAds
 {
-    NSLog(@"viewwillAappearHome: enable bottom view for news");
+    //NSLog(@"viewwillAappearHome: enable bottom view for news");
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [mydelegate.bannerView animateFunction];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"viewwilldisappearHome: disable bottom view");
+    //NSLog(@"viewwilldisappearHome: disable bottom view");
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = NO;
 }

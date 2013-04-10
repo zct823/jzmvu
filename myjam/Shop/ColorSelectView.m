@@ -114,7 +114,7 @@
             if ([self.colorChoices count]>1){
             if ([[[[self.colorChoices objectAtIndex:1] objectAtIndex:i] valueForKey:@"stock_balance"] isEqual:[NSNumber numberWithInt:0] ]){
                 imageView.image = [UIImage imageNamed:@"cross.png"];
-                NSLog(@"Out of stock");
+                //NSLog(@"Out of stock");
             }
         }}
         
@@ -174,8 +174,8 @@
     int newColor = 0;
     for (int i = self.imageViews.count - 1; i >= 0; i--) {
         UIImageView *imageView = [self.imageViews objectAtIndex:i];
-        NSLog(@"%f",touchLocation.x);
-        NSLog(@"%f",imageView.frame.origin.x);
+        //NSLog(@"%f",touchLocation.x);
+        //NSLog(@"%f",imageView.frame.origin.x);
         if (touchLocation.x > imageView.frame.origin.x){
             newColor = i ;
             break;

@@ -76,7 +76,7 @@ static Database *sharedDatabase = nil;
       sharedDatabase.nextScanIdent = maxId + 1;
       sqlite3_reset(maxIdStatement);
     } else {
-      NSLog(@"failed to read max ID from database\n");
+      //NSLog(@"failed to read max ID from database\n");
     }
     
   }

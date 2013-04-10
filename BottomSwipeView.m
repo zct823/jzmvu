@@ -43,7 +43,7 @@ static int kImageTagStart = 1000;
 
 - (void)reloadCategories
 {
-    NSLog(@"reload categories all");
+    //NSLog(@"reload categories all");
     [self.scroller setContentOffset:CGPointMake(0, 0) animated:NO];
     for (UIView *aView in [self.contentView subviews]) {
         if ([aView isKindOfClass:[UILabel class]] || [aView isKindOfClass:[UIImageView class]]) {
@@ -102,21 +102,21 @@ static int kImageTagStart = 1000;
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view];
-    NSLog(@"YES %f - %f",translation.y, translation.x);
+    //NSLog(@"YES %f - %f",translation.y, translation.x);
     
     if(gestureRecognizer.numberOfTouches == 2){
-        NSLog(@"2");
+        //NSLog(@"2");
         if (translation.y > 0) {
-            NSLog(@"slide down now");
+            //NSLog(@"slide down now");
             [self bringBottomViewDown];
             return YES;
         }
     }
     else{
-        NSLog(@"%d",gestureRecognizer.numberOfTouches);
+        //NSLog(@"%d",gestureRecognizer.numberOfTouches);
     }
     
-    NSLog(@"NO");
+    //NSLog(@"NO");
     return NO;
 }
 
@@ -128,7 +128,7 @@ static int kImageTagStart = 1000;
 
 - (void)handleContinueButton
 {
-    NSLog(@"handleContinueButton");
+    //NSLog(@"handleContinueButton");
     [self bringBottomViewDown];
     
     if (!isSearchDisabled) {
@@ -160,11 +160,11 @@ static int kImageTagStart = 1000;
         i++;
     }
     
-    NSLog(@"data: %@",strData);
+    //NSLog(@"data: %@",strData);
     
     if (mydelegate.swipeController == kAll) {
         [hm.av refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
-        NSLog(@"all");
+        //NSLog(@"all");
     }
     
     //    [DejalBezelActivityView removeViewAnimated:YES];
@@ -182,7 +182,7 @@ static int kImageTagStart = 1000;
 
 - (void)setupCatagoryList
 {
-    NSLog(@"setupCatagoryList. checked %d",[self.checkedAllCategories count]);
+    //NSLog(@"setupCatagoryList. checked %d",[self.checkedAllCategories count]);
     
     NSDictionary *categories;
     NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_category.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
@@ -281,7 +281,7 @@ static int kImageTagStart = 1000;
             [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, totalHeight)];
             
         }else{
-            NSLog(@"Connection Failed");
+            //NSLog(@"Connection Failed");
             
             isSearchDisabled = YES;
             [self.searchTextField setEnabled:NO];
@@ -319,7 +319,7 @@ static int kImageTagStart = 1000;
 
 - (void)handleTapCategory:(id)sender
 {
-    NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
+    //NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
     int imgTag = kImageTagStart + [(UIGestureRecognizer *)sender view].tag - kLabelTagStart;
     NSString *val = [NSString stringWithFormat:@"%d", imgTag-kImageTagStart];
     

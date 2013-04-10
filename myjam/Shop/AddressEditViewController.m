@@ -130,7 +130,7 @@
     [self getDataFromAddressInfo];
     
     // Set list for pickerView
-    //NSLog(@"dictstates :%@",self.dictStates);
+    ////NSLog(@"dictstates :%@",self.dictStates);
         self.stateArray = [[NSMutableArray alloc] initWithArray:[self.dictStates allKeys]];
         [self.stateArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
         self.countryArray = [[NSMutableArray alloc] initWithArray:[self.dictCountries allKeys]];
@@ -174,7 +174,7 @@
 {
     NSDictionary *states;
     NSDictionary *countries;
-    NSLog(@"address :%@",self.addressInfo);
+    //NSLog(@"address :%@",self.addressInfo);
     
         if (![[self.addressInfo objectForKey:@"state_list"] isKindOfClass:[NSNull class]] && [[self.addressInfo objectForKey:@"status"] isEqualToString:@"ok"])
         {
@@ -218,7 +218,7 @@
 
 - (IBAction)pickerDoneClicked:(id)sender
 {
-    NSLog(@"curr :%d",self.currTag);
+    //NSLog(@"curr :%d",self.currTag);
     if (self.currTag == 1) {
         if (![self.stateTextField.text length]) {
             self.stateTextField.text = [self.stateArray objectAtIndex:0];
@@ -265,7 +265,7 @@
     else {
         //save address
         [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
-        NSLog(@"saved");
+        //NSLog(@"saved");
         [self performSelector:@selector(processSaveAddress) withObject:nil afterDelay:0.2];
     }
 }
@@ -282,7 +282,7 @@
 - (void)processSaveAddress
 {
     NSDictionary *status = [[MJModel sharedInstance] submitAddressForCart:self.cartId forAddress:self.addressTextField.text  inCity:self.cityTextField.text withPostcode:self.postcodeTextField.text inState:self.stateId inCountry:self.countryId];
-    NSLog(@"cartID :%@, add :%@, city :%@,  pcode :%@, state :%@, country :%@",self.cartId,self.addressTextField.text,self.cityTextField.text,self.postcodeTextField.text,self.stateId,self.countryId);
+    //NSLog(@"cartID :%@, add :%@, city :%@,  pcode :%@, state :%@, country :%@",self.cartId,self.addressTextField.text,self.cityTextField.text,self.postcodeTextField.text,self.stateId,self.countryId);
     
     if ([[status valueForKey:@"status" ] isEqual:@"ok"]){
         NSDictionary *dictTemp = [[MJModel sharedInstance] getDeliveryInfoFor:self.cartId];
@@ -338,7 +338,7 @@
 // Do something with the selected row.
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
-    NSLog(@"option selected %d", row);
+    //NSLog(@"option selected %d", row);
     if (pickerView.tag == 1) {
         self.stateTextField.text = [self.stateArray objectAtIndex:row];
     }

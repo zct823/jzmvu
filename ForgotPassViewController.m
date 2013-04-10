@@ -200,7 +200,7 @@
     
     NSString *wrappedDataFromServer = [ASIWrapper requestPostJSONWithStringURL:rumahApiURL andDataContent:sendToServerParam];
     
-    NSLog(@"Check wrapped data first: %@",wrappedDataFromServer);
+    //NSLog(@"Check wrapped data first: %@",wrappedDataFromServer);
     
     NSDictionary *wrappedDataToDictionary = [[wrappedDataFromServer objectFromJSONString] copy];
     
@@ -220,14 +220,14 @@
         }
         else
         {
-            NSLog(@"Register failed");
+            //NSLog(@"Register failed");
             
             if ([message length] < 1) {
-                NSLog(@"Connection Error");
+                //NSLog(@"Connection Error");
             }
             else
             {
-                NSLog(@"message: %@",message);
+                //NSLog(@"message: %@",message);
                 [self alertBox:message];
             }
             
@@ -240,7 +240,7 @@
 - (void)hantarEmailKeRumahApi
 {
     [self.emailTextField endEditing:YES];
-    NSLog(@"HANTAREMEAL AND TEXFIELD: %@",self.emailTextField.text);
+    //NSLog(@"HANTAREMEAL AND TEXFIELD: %@",self.emailTextField.text);
     
     if([self.emailTextField.text isEqualToString:@""])
     {

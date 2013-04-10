@@ -383,7 +383,7 @@
 - (void)showStore
 {
     ShopAddressViewController *detailViewController = [[ShopAddressViewController alloc] init];
-    NSLog(@"%@",_shopInfo);
+    //NSLog(@"%@",_shopInfo);
     detailViewController.shopId = [_shopInfo valueForKey:@"shop_id"];
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];

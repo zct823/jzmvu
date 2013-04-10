@@ -114,7 +114,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"vwa shop");
+    //NSLog(@"vwa shop");
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = YES;
 //    [self.navigationController popToRootViewControllerAnimated:NO];
@@ -128,7 +128,7 @@
 }
 -(void)switchViewController:(UIViewController *)viewController {
     
-    NSLog(@"switch vc in box");
+    //NSLog(@"switch vc in box");
     
     AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -147,11 +147,11 @@
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     mydelegate.swipeBottomEnabled = YES;
     if (viewController == vc2) {
-        NSLog(@"Enable bottom view for Shops");
+        //NSLog(@"Enable bottom view for Shops");
      //   mydelegate.currentPage = kShop;
         
     }else{
-        NSLog(@"Enable bottom view for Shops");
+        //NSLog(@"Enable bottom view for Shops");
       //  mydelegate.currentPage = kPurchased;
     }
     

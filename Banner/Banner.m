@@ -50,9 +50,9 @@
     NSString *urlString = [NSString stringWithFormat:@"%@/api/jambu_ads.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"] copy]];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:@""];
-//    NSLog(@"request %@\n\nresponse data: %@", urlString, response);
+//    //NSLog(@"request %@\n\nresponse data: %@", urlString, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
-//    NSLog(@"dict %@",resultsDictionary);
+//    //NSLog(@"dict %@",resultsDictionary);
     
     NSString *uri = @"";
     if([resultsDictionary count])
@@ -75,14 +75,14 @@
                                if (!error) {
                                    [self addURLImage];
                                }else{
-//                                   NSLog(@"error retrieve image: %@",error);
+//                                   //NSLog(@"error retrieve image: %@",error);
                                    [self addURLImageDefault];
                                }
                                
                            }];
             
         }else{
-//            NSLog(@"Error retrieve api data");
+//            //NSLog(@"Error retrieve api data");
             //            [imageView setImage:[UIImage imageNamed:@"ad4.png"]];
         }
     }
@@ -122,7 +122,7 @@
 //
 //- (void)requestFinished:(ASIHTTPRequest *)request
 //{
-//    NSLog(@"request done");
+//    //NSLog(@"request done");
 //    UIImage *aImg = [[UIImage alloc] initWithData:[request responseData]];
 //    [imageView setImage:aImg];
 //    
@@ -134,7 +134,7 @@
 //- (void)requestFailed:(ASIHTTPRequest *)request
 //{
 //    NSError *error = [request error];
-//    NSLog(@"error retrieve image: %@",error);
+//    //NSLog(@"error retrieve image: %@",error);
 //}
 
 @end

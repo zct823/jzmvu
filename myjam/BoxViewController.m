@@ -63,7 +63,7 @@
 
 - (void)animateAds
 {
-    NSLog(@"viewwillAappearHome: enable bottom view for news");
+    //NSLog(@"viewwillAappearHome: enable bottom view for news");
     AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [mydelegate.bannerView animateFunction];
 }
@@ -142,7 +142,7 @@
 
 -(void)switchViewController:(UIViewController *)viewController {
     
-    NSLog(@"switch vc in box");
+    //NSLog(@"switch vc in box");
     
     AppDelegate *myDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     

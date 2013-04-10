@@ -46,7 +46,7 @@
 // Overidden method to change API dataContent
 - (NSString *)returnAPIDataContent
 {
-    NSLog(@"box scan datacontent");
+    //NSLog(@"box scan datacontent");
     return [NSString stringWithFormat:@"{\"page\":%d,\"perpage\":%d,\"news_category_id\":\"%@\",\"keyword\":\"%@\",\"app_type\":\"%@\",\"shop_category_id\":\"%@\",\"product_category_id\":\"%@\"}",self.pageCounter, kListPerpage, self.selectedCategories, self.searchedText,self.selectedApp,self.selectedShop,self.selectedProduct];
 }
 
@@ -59,9 +59,9 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",qrcodeid];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
+    //NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
-    NSLog(@"dict %@",resultsDictionary);
+    //NSLog(@"dict %@",resultsDictionary);
     
     if([resultsDictionary count])
     {
@@ -110,7 +110,7 @@
 {
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
-    NSLog(@"Filtering Scanbox list with searched text %@",str);
+    //NSLog(@"Filtering Scanbox list with searched text %@",str);
     [self resetDataFilter];
     self.selectedCategories = str;
     self.searchedText = @"";
@@ -130,7 +130,7 @@
 {
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
-    NSLog(@"Filtering Scanbox list with searched app %@",str);
+    //NSLog(@"Filtering Scanbox list with searched app %@",str);
     [self resetDataFilter];
     self.selectedApp = str;
     self.searchedText = @"";
@@ -149,7 +149,7 @@
 {
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
-    NSLog(@"Filtering Scanbox list with searched app %@",str);
+    //NSLog(@"Filtering Scanbox list with searched app %@",str);
     [self resetDataFilter];
     self.selectedShop = str;
     self.searchedText = @"";
@@ -168,7 +168,7 @@
 {
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
-    NSLog(@"Filtering Scanbox list with searched app %@",str);
+    //NSLog(@"Filtering Scanbox list with searched app %@",str);
     [self resetDataFilter];
     self.selectedProduct = str;
     self.searchedText = @"";

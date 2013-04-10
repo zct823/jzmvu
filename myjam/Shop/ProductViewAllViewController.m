@@ -81,7 +81,7 @@
 //    
 //    self.tableView.backgroundView = tempImageView;
 //    [tempImageView release];
-//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 70, 0)];
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 70, 0)];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -113,17 +113,26 @@
 {
     static NSString *CellIdentifier = @"Cell";
     if(indexPath.row == 0){
-        ShopHeaderViewCell *cell = (ShopHeaderViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        //ShopHeaderViewCell *cell = (ShopHeaderViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        CustomHeaderCell *cell = (CustomHeaderCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
         {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ShopHeaderViewCell" owner:nil options:nil];
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomHeaderCell" owner:nil options:nil];
             cell = [nib objectAtIndex:0];
         }
-        cell.shopLabel.text = [self.shopInfo valueForKey:@"shop_name"];
-        if([[self.shopInfo valueForKey:@"shop_top_seller"] isEqual:@"Y"]){
-            cell.topSellerLabel.hidden=NO;
-        }
+//        cell.shopLabel.text = [self.shopInfo valueForKey:@"shop_name"];
+//        if([[self.shopInfo valueForKey:@"shop_top_seller"] isEqual:@"Y"]){
+//            cell.topSellerLabel.hidden=NO;
+//        }
+        UILabel *catNameLabelTemp = [[UILabel alloc] init];
+        CGSize expectedLabelSize  = [self.catName sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(150.0, cell.catNameLabel.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
+        CGRect newFrame = cell.catNameLabel.frame;
+        newFrame.size.width = expectedLabelSize.width;
+        cell.catNameLabel.text = catName;
+        cell.catNameLabel.frame = newFrame;
+        [catNameLabelTemp release];
         
+        cell.viewAllButton.hidden = YES;
         return cell;
     }
     
@@ -154,21 +163,19 @@
 {
     [cell.transView2 setHidden:YES];
     [cell.transView3 setHidden:YES];
-    if (indexPath.row ==1){
-        UILabel *catNameLabelTemp = [[UILabel alloc] init];
-        
-        CGSize expectedLabelSize  = [self.catName sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(150.0, cell.catNameLabel.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
-        
-        
-        CGRect newFrame = cell.catNameLabel.frame;
-        newFrame.size.width = expectedLabelSize.width;
-        cell.catNameLabel.text = catName;
-        cell.catNameLabel.frame = newFrame;
-        [catNameLabelTemp release];
-        cell.viewAllButton.hidden = YES;
-        cell.middleLine.frame = CGRectMake(expectedLabelSize.width+50,cell.middleLine.frame.origin.y,300-expectedLabelSize.width-50, 1);
-        
-    }
+//    if (indexPath.row ==1){
+//        UILabel *catNameLabelTemp = [[UILabel alloc] init];
+//        
+//        CGSize expectedLabelSize  = [self.catName sizeWithFont:[UIFont fontWithName:@"Verdana" size:12.0] constrainedToSize:CGSizeMake(150.0, cell.catNameLabel.frame.size.height) lineBreakMode:UILineBreakModeWordWrap];
+//        
+//        CGRect newFrame = cell.catNameLabel.frame;
+//        newFrame.size.width = expectedLabelSize.width;
+//        cell.catNameLabel.text = catName;
+//        cell.catNameLabel.frame = newFrame;
+//        [catNameLabelTemp release];
+//        cell.viewAllButton.hidden = YES;
+//    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     // Configure the cell...
     //  cell.topLabel1.text =
@@ -185,6 +192,7 @@
     productNameLabel.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+0)]  valueForKey:@"product_name"];
     [cell.transView1 addSubview:productNameLabel];
     [productNameLabel release];
+//    NSLog(@"IMG1 :%d",3*(indexPath.row-1)+0);
     
     MarqueeLabel *categoryLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 14, 90, 18) rate:20.0f andFadeLength:10.0f];
     categoryLabel.marqueeType = MLContinuous;
@@ -234,6 +242,7 @@
         productNameLabel.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+1)]  valueForKey:@"product_name"];
         [cell.transView2 addSubview:productNameLabel];
         [productNameLabel release];
+//        NSLog(@"IMG2 :%d",3*(indexPath.row-1)+1);
         
         MarqueeLabel *categoryLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 14, 90, 18) rate:20.0f andFadeLength:10.0f];
         categoryLabel.marqueeType = MLContinuous;
@@ -287,6 +296,7 @@
         productNameLabel.text = [[productAllArray objectAtIndex:(3*(indexPath.row-1)+2)]  valueForKey:@"product_name"];
         [cell.transView3 addSubview:productNameLabel];
         [productNameLabel release];
+//        NSLog(@"IMG3 :%d",3*(indexPath.row-1)+2);
         
         MarqueeLabel *categoryLabel = [[MarqueeLabel alloc] initWithFrame:CGRectMake(0, 14, 90, 18) rate:20.0f andFadeLength:10.0f];
         categoryLabel.marqueeType = MLContinuous;
@@ -331,11 +341,16 @@
 -(void)showProductDetail:(id)sender {
     
     DetailProductViewController *detailViewController = [[DetailProductViewController alloc] initWithNibName:@"DetailProductViewController" bundle:nil];
-    NSLog(@"%@",productAllArray);
+//    NSLog(@"%@",productAllArray);
     NSString *prodId = [[productAllArray  objectAtIndex:[sender tag] ] valueForKey:@"product_id" ];
     detailViewController.productInfo = [[MJModel sharedInstance] getProductInfoFor:prodId];
     detailViewController.buyButton =  [[NSString alloc] initWithString:@"ok"];
     detailViewController.productId = [prodId mutableCopy];
+//    //------------------------------------------------------------
+//    detailViewController.productAllArray = self.productAllArray;
+//    detailViewController.productArray = self.productArray;
+//    detailViewController.shopInfo = self.shopInfo;
+//    //------------------------------------------------------------
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
 }

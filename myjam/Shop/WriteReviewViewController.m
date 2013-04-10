@@ -71,7 +71,7 @@
     self.ratingValue = [_productInfo valueForKey:@"rating"];
     self.rateView.rating = [[_productInfo valueForKey:@"rating"] intValue];
     self.productName.text = [_productInfo valueForKey:@"product_name"];
-    NSLog(@"Product Name: %@",self.productName.text);
+    //NSLog(@"Product Name: %@",self.productName.text);
     self.shopName.text = [_productInfo valueForKey:@"shop_name"];
     
     MarqueeLabel *shopeName = [[MarqueeLabel alloc] initWithFrame:CGRectMake(181, 79, 119, 21) rate:20.0f andFadeLength:10.0f];
@@ -140,7 +140,7 @@
 }
 - (IBAction)submitReview:(id)sender {
     NSDictionary *answer = [[MJModel sharedInstance] submitReview:self.productReview.text forProduct:[_productInfo valueForKey:@"product_id"] withRating:self.ratingValue];
-    NSLog(@"%@",answer);
+    //NSLog(@"%@",answer);
     if ([[answer valueForKey:@"status"] isEqual:@"ok"]){
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle: @"Succesful"
@@ -168,11 +168,11 @@
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     for (int i=0 ; i< [mydelegate.shopNavController.viewControllers count]; i++){
-        NSLog(@"%@",[[mydelegate.shopNavController.viewControllers objectAtIndex:i] class] );
+        //NSLog(@"%@",[[mydelegate.shopNavController.viewControllers objectAtIndex:i] class] );
         
         if( [[[mydelegate.shopNavController.viewControllers objectAtIndex:i] class] isEqual:[ShopDetailListingViewController class]])
         {
-            NSLog(@"ok");
+            //NSLog(@"ok");
             
             [mydelegate.shopNavController popToViewController:[mydelegate.shopNavController.viewControllers objectAtIndex:i] animated:YES];
             break;

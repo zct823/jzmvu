@@ -52,7 +52,7 @@
 {
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
-    NSLog(@"Filtering PROMOTIONS list with searched text %@",str);
+    //NSLog(@"Filtering PROMOTIONS list with searched text %@",str);
     self.selectedCategories = @"";
     self.selectedCategories = str;
     self.searchedText = @"";

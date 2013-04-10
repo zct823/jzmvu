@@ -133,7 +133,7 @@
   if ([self soundToPlay] != nil) {
     OSStatus error = AudioServicesCreateSystemSoundID((CFURLRef)[self soundToPlay], &beepSound);
     if (error != kAudioServicesNoError) {
-      NSLog(@"Problem loading nearSound.caf");
+      //NSLog(@"Problem loading nearSound.caf");
     }
   }
 }
@@ -241,7 +241,7 @@
 
 - (void)decoder:(Decoder *)decoder willDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset{
 #ifdef DEBUG
-  NSLog(@"DecoderViewController MessageWhileDecodingWithDimensions: Decoding image (%.0fx%.0f) ...", image.size.width, image.size.height);
+  //NSLog(@"DecoderViewController MessageWhileDecodingWithDimensions: Decoding image (%.0fx%.0f) ...", image.size.width, image.size.height);
 #endif
 }
 
@@ -257,16 +257,16 @@
     AudioServicesPlaySystemSound(beepSound);
   }
     
-    NSLog(@"1");
+    //NSLog(@"1");
 #ifdef DEBUG
-  NSLog(@"result string = %@", resultString);
+  //NSLog(@"result string = %@", resultString);
 #endif
 }
 
 - (void)presentResultPoints:(NSArray *)resultPoints
                    forImage:(UIImage *)image
                 usingSubset:(UIImage *)subset {
-    NSLog(@"2");
+    //NSLog(@"2");
   // simply add the points to the image view
   NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:resultPoints];
   [overlayView setPoints:mutableArray];
@@ -298,11 +298,11 @@
 
 /*
   - (void)stopPreview:(NSNotification*)notification {
-  // NSLog(@"stop preview");
+  // //NSLog(@"stop preview");
   }
 
   - (void)notification:(NSNotification*)notification {
-  // NSLog(@"notification %@", notification.name);
+  // //NSLog(@"notification %@", notification.name);
   }
 */
 
@@ -351,11 +351,11 @@ static bool isIPad() {
       isIPad() && 
       [inputDevice
         supportsAVCaptureSessionPreset:AVCaptureSessionPresetiFrame960x540]) {
-    // NSLog(@"960");
+    // //NSLog(@"960");
     preset = AVCaptureSessionPresetiFrame960x540;
   }
   if (!preset) {
-    // NSLog(@"MED");
+    // //NSLog(@"MED");
     preset = AVCaptureSessionPresetMedium;
   }
   self.captureSession.sessionPreset = preset;
@@ -406,7 +406,7 @@ static bool isIPad() {
   if (!self.prevLayer) {
     self.prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
   }
-  // NSLog(@"prev %p %@", self.prevLayer, self.prevLayer);
+  // //NSLog(@"prev %p %@", self.prevLayer, self.prevLayer);
   self.prevLayer.frame = self.view.bounds;
   self.prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
   [self.view.layer addSublayer: self.prevLayer];

@@ -271,7 +271,7 @@
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [mydelegate.shopNavController pushViewController:detailViewController animated:YES];
     //  [detailViewController release];
-    NSLog(@"tapped: %d",[sender tag]);
+    //NSLog(@"tapped: %d",[sender tag]);
 }
 /*
 // Override to support conditional editing of the table view.

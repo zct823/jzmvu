@@ -17,7 +17,6 @@
 #import "FeedbackViewController.h"
 #import "AboutViewController.h"
 #import "SettingsViewController.h"
-#import "JBuddyViewController.h"
 
 #define kTableCellHeightA 110
 @interface SidebarView ()
@@ -84,11 +83,6 @@
     [[self tableView] addGestureRecognizer:swipeRightRecognizer];
     [swipeRightRecognizer release];
     
-    self.buddyLabel.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapBuddyRecoginzer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleBuddyList)];
-    [self.buddyLabel addGestureRecognizer:tapBuddyRecoginzer];
-    [tapBuddyRecoginzer release];
-    
     self.contactLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapContactRecoginzer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleContact)];
     [self.contactLabel addGestureRecognizer:tapContactRecoginzer];
@@ -143,9 +137,9 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"flag\":\"%@\"}",flag];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    //NSLog(@"request %@\n%@\n\nresponse retrieveData: %@", urlString, dataContent, response);
+    ////NSLog(@"request %@\n%@\n\nresponse retrieveData: %@", urlString, dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
-    //NSLog(@"dict %@",resultsDictionary);
+    ////NSLog(@"dict %@",resultsDictionary);
     
     if([resultsDictionary count])
     {
@@ -169,7 +163,7 @@
             [localData setObject:mobile forKey:@"mobile"];
             
             NSString *urlImg = [resultProfile objectForKey:@"avatar_url"];
-            NSLog(@"urlImg :%@",urlImg);
+            //NSLog(@"urlImg :%@",urlImg);
             [self.profileImage setImageWithURL:[NSURL URLWithString:urlImg]
                               placeholderImage:[UIImage imageNamed:@"blank_avatar.png"]];
         }
@@ -191,7 +185,7 @@
 - (void) receiveTestNotification:(NSNotification *) notification
 {
     if ([[notification name] isEqualToString:@"reloadImage"]) {
-        NSLog (@"Successfully reload image!");
+        //NSLog (@"Successfully reload image!");
         [self retrieveImageFromAPI];
         [self setUserInfo]; //just add this code.
     }
@@ -229,7 +223,6 @@
     [self setNameLabel:nil];
     [self setEmailLabel:nil];
     [self setTableView:nil];
-    [self setBuddyLabel:nil];
     [super viewDidUnload];
     self.contentView = nil;
     
@@ -285,51 +278,28 @@
     
 }
 
-//- (void)pushProfileViewController
-//{
-//    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
-//    
-//    SettingsViewController *settings = [[SettingsViewController alloc] init];
-//    settings.updateProfile = YES;
-//    [mydelegate.otherNavController pushViewController:settings animated:NO];
-//    [mydelegate.tabView activateController:4];
-//    
-//    
-//    // Manually change the selected tabButton
-//    for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
-//        if (i == 4) {
-//            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
-//        } else {
-//            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
-//        }
-//    }
-//    
-//    [mydelegate closeSidebar];
-//}
-//
-//- (void)pushBuddyListViewController
-//{
-//    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
-//    
-//    JBuddyViewController *buddyList = [[JBuddyViewController alloc] init];
-//
-//    [mydelegate.otherNavController pushViewController:buddyList animated:NO];
-//    [mydelegate.tabView activateController:4];
-//    
-//    
-//    // Manually change the selected tabButton
-//    for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
-//        if (i == 4) {
-//            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
-//        } else {
-//            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
-//        }
-//    }
-//    
-//    [mydelegate closeSidebar];
-//}
+- (void)pushProfileViewController
+{
+    AppDelegate *mydelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [mydelegate.otherNavController popToRootViewControllerAnimated:NO];
+    
+    SettingsViewController *settings = [[SettingsViewController alloc] init];
+    settings.updateProfile = YES;
+    [mydelegate.otherNavController pushViewController:settings animated:NO];
+    [mydelegate.tabView activateController:4];
+    
+    
+    // Manually change the selected tabButton
+    for (int i = 0; i < [mydelegate.tabView.tabItemsArray count]; i++) {
+        if (i == 4) {
+            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:YES];
+        } else {
+            [[mydelegate.tabView.tabItemsArray objectAtIndex:i] toggleOn:NO];
+        }
+    }
+    
+    [mydelegate closeSidebar];
+}
 
 - (void)handleSwipeRight
 {
@@ -339,7 +309,7 @@
 
 - (void)handleContact
 {
-    NSLog(@"handleContact");
+    //NSLog(@"handleContact");
     
     ContactViewController *contact = [[ContactViewController alloc] init];
     //    [self pushController:contact];
@@ -349,7 +319,7 @@
 
 - (void)handleCalendar
 {
-    NSLog(@"handleCalendar");
+    //NSLog(@"handleCalendar");
     
     CalenderViewController *cal = [[CalenderViewController alloc] init];
     [self showViewControllerWithLoadingView:cal];
@@ -358,7 +328,7 @@
 
 - (void)handleMap
 {
-    NSLog(@"handleMap");
+    //NSLog(@"handleMap");
     
     MapViewController *map = [[MapViewController alloc] init];
     [self showViewControllerWithLoadingView:map];
@@ -368,7 +338,7 @@
 
 - (void)handleSocial
 {
-    NSLog(@"handleSocial");
+    //NSLog(@"handleSocial");
     
     ShowSocialViewController *soc = [[ShowSocialViewController alloc] init];
     [self showViewControllerWithLoadingView:soc];
@@ -377,7 +347,7 @@
 
 - (void)handleFAQ
 {
-    NSLog(@"handleFAQ");
+    //NSLog(@"handleFAQ");
     
     FAQViewController *faq = [[FAQViewController alloc] init];
     [self showViewControllerWithLoadingView:faq];
@@ -386,7 +356,7 @@
 
 - (void)handleFeedback
 {
-    NSLog(@"handleFeedback");
+    //NSLog(@"handleFeedback");
     
     FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
     [self showViewControllerWithLoadingView:feedback];
@@ -394,21 +364,12 @@
 }
 - (void)handleSettings
 {
-    NSLog(@"handleSettings");
+    //NSLog(@"handleSettings");
     
     SettingsViewController *settings = [[SettingsViewController alloc] init];
     [self showViewControllerWithLoadingView:settings];
     //    [self pushController:settings];
     [settings release];
-}
-
-- (void)handleBuddyList
-{
-    NSLog(@"handleBuddy");
-    
-    JBuddyViewController *buddyListVc = [[JBuddyViewController alloc] init];
-    [self showViewControllerWithLoadingView:buddyListVc];
-    [buddyListVc release];
 }
 
 - (void)handleAbout
@@ -421,7 +382,7 @@
 
 - (void)handleLogout
 {
-    NSLog(@"handleLogout");
+    //NSLog(@"handleLogout");
     [self showLoadingView];
     // If OK, go to alertview delegate
     CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"Logout JAM-BU" message:@"Are you sure to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
@@ -476,7 +437,6 @@
     [_tableView release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [_buddyLabel release];
     [super dealloc];
 }
 
@@ -571,7 +531,7 @@
 }
 - (void)createCellForIndex:(NSIndexPath *)indexPath cell:(SideBarCartCell *)cell
 {
-    NSLog(@"%@", cartItems);
+    //NSLog(@"%@", cartItems);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (![[[[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list" ] objectAtIndex:indexPath.row-1]  valueForKey:@"product_name"] class ]isEqual:[NSNull class]]){
         cell.productItem.text = [[[[cartItems objectAtIndex:indexPath.section] valueForKey:@"item_list" ] objectAtIndex:indexPath.row-1]  valueForKey:@"product_name"];
@@ -633,10 +593,10 @@
 -(void)changeQty:(id)sender{
     NSString *newQty ;
     //For add item
-    NSLog(@"%d", [sender tag]);
+    //NSLog(@"%d", [sender tag]);
     if (([sender tag] % 2) == 0){
-        NSLog(@"%d",(([sender tag]/100)-1));
-        NSLog(@"%@",cartItems);
+        //NSLog(@"%d",(([sender tag]/100)-1));
+        //NSLog(@"%@",cartItems);
         newQty = [NSString stringWithFormat:@"%d",([[[[[cartItems objectAtIndex:([sender tag]/1000)] valueForKey:@"item_list"]  objectAtIndex:((([sender tag]%1000)/100)-1)]  valueForKey:@"quantity" ] intValue] +1)  ];
         
     }
@@ -680,15 +640,17 @@
     
 }
 
--(void)changeQuantity:(NSString*)qty from:(NSInteger*)tag{
+-(void)changeQuantity:(NSString*)qty from:(NSInteger*)tag
+{
     self.cartItems = [[NSMutableArray alloc] initWithArray:[[MJModel sharedInstance] updateProduct:[[[[cartItems objectAtIndex:((int)tag/1000)] valueForKey:@"item_list"]  objectAtIndex:((((int)tag%1000)/100)-1)] valueForKey:@"cart_item_id"] forCart:[[cartItems objectAtIndex:((int)tag/1000)]valueForKey:@"cart_id"]  forQuantity:qty]];
     
     [self.tableView reloadData];
     [self updateTabBar];
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"cartChangedFromView"
-     object:self];
+     postNotificationName:@"cartChangedFromView" object:self];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadCartViewNotif" object:self];
 }
+
 - (void)updateTabBar {
     int counter = 0;
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;

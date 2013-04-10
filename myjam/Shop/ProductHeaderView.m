@@ -40,6 +40,8 @@
     [_buyButton1 release];
     [_productState release];
     [_rateView release];
+    [_productPriceAfterDiscount release];
+    [_redLine release];
     [super dealloc];
     [_imageCarouselView release];
     [_leftButton release];

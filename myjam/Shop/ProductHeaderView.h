@@ -23,6 +23,8 @@
 @property (retain, nonatomic) IBOutlet UILabel *productPrice;
 @property (retain, nonatomic) IBOutlet UIButton *buyButton1;
 @property (retain, nonatomic) IBOutlet UIImageView *productState;
+@property (retain, nonatomic) IBOutlet UILabel *productPriceAfterDiscount;
+@property (retain, nonatomic) IBOutlet UIView *redLine;
 
 
 @end

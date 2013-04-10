@@ -64,7 +64,7 @@
         self.proImage = [[UIImageView alloc ] initWithImage:image];
         [self performSelectorInBackground:@selector(uploadImage) withObject:self];
         //        self.isImageChanged = YES;
-        //        NSLog(@"check if image changed %d",isImageChanged);
+        //        //NSLog(@"check if image changed %d",isImageChanged);
     }
     [self dismissModalViewControllerAnimated:YES];
     [self.navigationController popViewControllerAnimated:YES];
@@ -106,7 +106,7 @@
     NSError *error = [asiRequest error];
     if (!error) {
         NSString *response = [asiRequest responseString];
-        NSLog(@"%@",response);
+        //NSLog(@"%@",response);
         //Muz: Aku tambah method ni untuk clearkan cacheImage library yang kita guna.. sebab kita upload gambar baru, kita bagitau app buang gambar yang kita simpan sebelum ni
         [self clearImageCache];
         
@@ -118,16 +118,16 @@
         [sbar release];
     }else{
         NSString *error = [NSString stringWithFormat:@"%@",[asiRequest error]];
-        NSLog(@"error: %@",error);
+        //NSLog(@"error: %@",error);
         
         if (!([error rangeOfString:@"timed out"].location == NSNotFound)) {
-            NSLog(@"%@",[NSString stringWithFormat:@"{\"status\":\"error\",\"message\":\"Request timed out.\"}"]);
+            //NSLog(@"%@",[NSString stringWithFormat:@"{\"status\":\"error\",\"message\":\"Request timed out.\"}"]);
         }else if (!([error rangeOfString:@"connection failure"].location == NSNotFound)) {
-            NSLog(@"%@",[NSString stringWithFormat:@"{\"status\":\"error\",\"message\":\"Connection failure occured.\"}"]);
+            //NSLog(@"%@",[NSString stringWithFormat:@"{\"status\":\"error\",\"message\":\"Connection failure occured.\"}"]);
         }
         else [NSString stringWithFormat:@"{\"status\":\"error\"}"];
     }
-    NSLog(@"%@",[asiRequest responseString]);
+    //NSLog(@"%@",[asiRequest responseString]);
     
     [url release];
 //    [asiRequest release];

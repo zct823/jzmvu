@@ -35,6 +35,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveTestNotification:)
+                                                 name:@"reloadCartViewNotif"
+                                               object:nil];
+    
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     tempColorsForSize = [[NSMutableArray alloc] init];
     tempSizesForColor = [[NSMutableArray alloc] init];
@@ -49,7 +55,7 @@
         counter = counter+2;
     }
     headerView = [[[NSBundle mainBundle] loadNibNamed:@"ProductHeaderView" owner:self options:nil]objectAtIndex:0];
-    self.tableView.tableHeaderView = headerView;
+    
     [headerView.rateView bringSubviewToFront:headerView.imageCarouselView];
     headerView.productName.text = [productInfo valueForKey:@"product_name"];
     headerView.rateView.editable = FALSE;
@@ -57,12 +63,29 @@
     headerView.rateView.nonSelectedImage = [UIImage imageNamed:@"grey_star.png"];
     headerView.rateView.maxRating = 5;
     
-    NSLog(@"rating %@",[productInfo valueForKey:@"product_rating"]);
+    //NSLog(@"rating %@",[productInfo valueForKey:@"product_rating"]);
     
     headerView.rateView.rating = [[productInfo valueForKey:@"product_rating"] doubleValue];
+    if (headerView.rateView.rating == 0) {
+        [headerView.rateView setHidden:YES];
+    }
     headerView.productCat.text = [productInfo valueForKey:@"product_category"];
     headerView.shopName.text = [productInfo valueForKey:@"shop_name"];
     headerView.productPrice.text = [productInfo valueForKey:@"product_price"];
+//    headerView.productPriceAfterDiscount.text = [productInfo valueForKey:@"product_price_before_discount"];
+    
+    if (![[productInfo valueForKey:@"product_price_before_discount"] isEqualToString:headerView.productPrice.text]) {
+        headerView.productPrice.text = [productInfo valueForKey:@"product_price_before_discount"];
+        headerView.productPriceAfterDiscount.text = [productInfo valueForKey:@"product_price"];
+        [headerView.productPriceAfterDiscount setHidden:NO];
+        [headerView.redLine setHidden:NO];
+        
+        CGSize textLabelSize = [headerView.productPrice.text sizeWithFont:[UIFont boldSystemFontOfSize:20]];
+        headerView.redLine.frame  = CGRectMake(headerView.redLine.frame.origin.x, headerView.redLine.frame.origin.y, textLabelSize.width+35,3);
+    }else{
+        headerView.frame = CGRectMake(headerView.frame.origin.x, headerView.frame.origin.x, headerView.frame.size.width, headerView.frame.size.height-30);
+    }
+    
     self.productDesc.text = [productInfo valueForKey:@"product_description"];
     if ([[productInfo valueForKey:@"product_bulky"] isEqualToString:@"Y"]){
         if ([[productInfo valueForKey:@"product_fragile"] isEqualToString:@"Y"]){
@@ -84,6 +107,8 @@
         
         
     }
+    
+    self.tableView.tableHeaderView = headerView;
     
     currentHeight = 30;
     headerView.shopName.userInteractionEnabled = YES;
@@ -214,13 +239,13 @@
     // NSString *contentType = [[imageRequest responseHeaders]
     //                  objectForKey:@"Content-Type"];
     UIImage *aImg = [[UIImage alloc] initWithData:[imageRequest responseData]];
-    NSLog(@"%@", [aImg class]);
+    //NSLog(@"%@", [aImg class]);
     
     if ([aImg isKindOfClass:[NSData class]]||[aImg isKindOfClass:[UIImage class]] ){
         
         
     }else{
-        NSLog(@"img is null");
+        //NSLog(@"img is null");
         aImg = [UIImage imageNamed:@"default_icon.png"];
     }
     [self.aImages addObject:aImg];
@@ -228,12 +253,22 @@
     [aImg release];
     [imageRequest release];
     
-    
-    //   }
-    
-    
-    
+
 }
+
+#pragma mark -
+#pragma mark notification Center
+- (void) receiveTestNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"reloadCartViewNotif"]) {
+        NSLog (@"Successfully reload view! :%@",self.productId);
+        productInfo = [[MJModel sharedInstance] getProductInfoFor:self.productId];
+        [self.tableView reloadData];
+        //        BuyNowCell *cell = (BuyNowCell *)[self.tableView cellForRowAtIndexPath:1];
+        //        [cell setNeedsDisplay];
+    }
+}
+
 #pragma mark -
 #pragma mark Carousel delegate
 
@@ -435,10 +470,10 @@
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     NSMutableArray *cartItems = [[NSMutableArray alloc] initWithArray:mydelegate.sidebarController.cartItems];
     for (int i = 0; i< [cartItems count]; i++){
-        NSLog(@"%@",[cartItems objectAtIndex:i]);
+        //NSLog(@"%@",[cartItems objectAtIndex:i]);
         if ([[[cartItems objectAtIndex:i ] valueForKey:@"shop_name"] isEqual:[productInfo valueForKey:@"shop_name"]] ){
             for (id row in [[cartItems objectAtIndex:i  ]valueForKey:@"item_list"]){
-                NSLog(@"row: %@", row);
+                //NSLog(@"row: %@", row);
                 if ([self.productId isEqual:[row valueForKey:@"product_id"]]){
                     if (counter == 0){
                         butbool = 1;
@@ -693,7 +728,7 @@
                     cell.sizeSelectView.colorsForSize = tempColorsForSize;
                     cell.sizeSelectView.sizeChoicesNum = [[productInfo valueForKey:@"size_available"] count];
                     cell.sizeSelectView.delegate = self;
-                    NSLog(@"%@", tempColorsForSize);
+                    //NSLog(@"%@", tempColorsForSize);
                 }
                 return cell;
             }else if (indexPath.row ==0)
@@ -783,7 +818,7 @@
     
     ReportSpamViewController *detailView = [[ReportSpamViewController alloc] init];
     detailView.orderItemId = self.orderId;
-    NSLog(@"%@ -- ", detailView.orderItemId);
+    //NSLog(@"%@ -- ", detailView.orderItemId);
     detailView.productId = self.productId;
     detailView.qrTitle = headerView.productName.text;
     detailView.qrProvider = headerView.shopName.text;
@@ -815,8 +850,8 @@
         AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         NSArray *tempArray =  mydelegate.sidebarController.cartItems;
         for (id row in tempArray){
-            NSLog(@"%@",row);
-            NSLog(@"%@", [productInfo valueForKey:@"shop_name"]);
+            //NSLog(@"%@",row);
+            //NSLog(@"%@", [productInfo valueForKey:@"shop_name"]);
             if ([[productInfo valueForKey:@"shop_name"] isEqualToString:[row valueForKey:@"shop_name"]]){
                 self.cartId = [row valueForKey:@"cart_id"];
                 break;
@@ -868,7 +903,7 @@
                 [tempSizesForColor addObject:row];
             }
         }
-        //  NSLog(@"%@", tempArray);
+        //  //NSLog(@"%@", tempArray);
         //= [NSMutableArray arrayWithArray:tempArray];
         [self.tableView reloadData];
     }
@@ -915,11 +950,11 @@
 }
 -(void)clearSelectedSize{
     self.selectedSize = @"none";
-    NSLog(@"%@",selectedSize);
+    //NSLog(@"%@",selectedSize);
 }
 -(void)clearSelectedColor{
     self.selectedColor =@"none";
-    NSLog(@"%@",selectedColor);
+    //NSLog(@"%@",selectedColor);
 }
 
 @end

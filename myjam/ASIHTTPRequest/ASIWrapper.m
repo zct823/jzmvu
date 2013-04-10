@@ -24,12 +24,12 @@
     NSString *response;
     if (!error) {
         response = [request responseString];
-//        NSLog(@"response: %@",response);
+//        //NSLog(@"response: %@",response);
         return response;
     }else{
 //        NSError *error = [request error];
         NSString *error = [NSString stringWithFormat:@"%@",[request error]];
-        NSLog(@"error: %@",error);
+        //NSLog(@"error: %@",error);
         
         if (!([error rangeOfString:@"timed out"].location == NSNotFound)) {
             return [NSString stringWithFormat:@"{\"status\":\"error\",\"message\":\"Request timed out.\"}"];

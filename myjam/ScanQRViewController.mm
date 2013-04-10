@@ -75,7 +75,7 @@
 
 - (void)openScanner
 {
-    NSLog(@"openScanner");
+    //NSLog(@"openScanner");
     
     widController = [[ZXingWidgetController alloc] initWithDelegate:self showCancel:NO OneDMode:NO];
     QRCodeReader* qrcodeReader = [[QRCodeReader alloc] init];
@@ -109,14 +109,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    NSLog(@"viewWillAppearScan");
+    //NSLog(@"viewWillAppearScan");
     [self.loadingActivityView startAnimating];
     //    [self openScanner];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"viewWillDisappearScan");
+    //NSLog(@"viewWillDisappearScan");
     [self.loadingActivityView stopAnimating];
     [DejalBezelActivityView removeViewAnimated:YES];
 }
@@ -142,7 +142,7 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",qrcodeId];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -151,11 +151,11 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success submit scan");
+            //NSLog(@"Success submit scan");
             return YES;
         }
         else{
-            NSLog(@"Submit scan error!");
+            //NSLog(@"Submit scan error!");
         }
     }
     
@@ -170,7 +170,7 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_data\":\"%@\"}",str];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
     
     if([resultsDictionary count])
@@ -179,11 +179,11 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Get qrcode id success");
+            //NSLog(@"Get qrcode id success");
             return [resultsDictionary objectForKey:@"qrcode_id"];
         }
         else{
-            NSLog(@"Get qrcode id error!");
+            //NSLog(@"Get qrcode id error!");
         }
     }
     
@@ -196,9 +196,9 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@}",qrcodeid];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
+    //NSLog(@"request %@\n%@\n\nresponse data: %@", urlString, dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
-    NSLog(@"dict %@",resultsDictionary);
+    //NSLog(@"dict %@",resultsDictionary);
     
     if([resultsDictionary count])
     {
@@ -262,12 +262,12 @@
         return;
     }
     
-    NSLog(@"str %@",resultString);
+    //NSLog(@"str %@",resultString);
     //    NSString *qrcodeId = @"0";
     
     //    qrcodeId = [self getQRCodeIdFromScanString:resultString];
     
-    NSLog(@"str %@",resultString);
+    //NSLog(@"str %@",resultString);
     NSString *qrcodeId;
     BOOL isInternalQR = NO;
     
@@ -295,7 +295,7 @@
     
     // Process alien qrcode
     if (!isInternalQR) {
-        NSLog(@"External QR code");
+        //NSLog(@"External QR code");
         
         qrcodeId = [self performResultAction:resultString];
         if ([qrcodeId isEqualToString:@"0000"]) { // 0000 indicates calendar qrcode
@@ -350,10 +350,10 @@
             }
         }
     }else{
-        NSLog(@"Error occured.");
+        //NSLog(@"Error occured.");
     }
     
-    NSLog(@"qrcodeid : %@",qrcodeId);
+    //NSLog(@"qrcodeid : %@",qrcodeId);
 }
 
 - (void)zxingControllerDidCancel:(ZXingWidgetController*)controller {
@@ -370,12 +370,12 @@
     NSString *qrcodeId;
     
     if (self.result == nil) {
-        NSLog(@"no result to perform an action on!");
+        //NSLog(@"no result to perform an action on!");
         return @"error";
     }
     
     if (self.actions == nil || self.actions.count == 0) {
-        NSLog(@"Plain text detected!");
+        //NSLog(@"Plain text detected!");
         
         if (resultString == nil || [resultString length] < 1) {
             return @"error";
@@ -420,7 +420,7 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"text_text\":\"%@\",\"external\":\"1\"}",text];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
     
     if([resultsDictionary count])
@@ -430,10 +430,10 @@
         if ([status isEqualToString:@"ok"])
         {
             qrcodeId = [resultsDictionary objectForKey:@"qrcode_id"];
-            NSLog(@"Submit text ok!");
+            //NSLog(@"Submit text ok!");
         }
         else{
-            NSLog(@"Submit text error! %@",[resultsDictionary objectForKey:@"message"]);
+            //NSLog(@"Submit text error! %@",[resultsDictionary objectForKey:@"message"]);
             
         }
     }
@@ -443,13 +443,13 @@
 
 - (NSString *)processScanEvent:(NSString *)text
 {
-    NSLog(@"processScanEvent");
+    //NSLog(@"processScanEvent");
     
     NSString *qrcodeId = nil;
     NSArray *rawKeyValue = [text componentsSeparatedByString:@"\n"];
     MEvent *event = [[MEvent alloc] init];
     
-    NSLog(@"%@",rawKeyValue);
+    //NSLog(@"%@",rawKeyValue);
     for (NSString *line in rawKeyValue)
     {
         NSArray *keyVal = [line componentsSeparatedByString:@":"];
@@ -497,7 +497,7 @@
     
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -507,10 +507,10 @@
         if ([status isEqualToString:@"ok"])
         {
             qrcodeId = [resultsDictionary objectForKey:@"qrcode_id"];
-            NSLog(@"Submit event ok!");
+            //NSLog(@"Submit event ok!");
         }
         else{
-            NSLog(@"Submit event error! %@",[resultsDictionary objectForKey:@"message"]);
+            //NSLog(@"Submit event error! %@",[resultsDictionary objectForKey:@"message"]);
             
         }
     }
@@ -540,7 +540,7 @@
 
 - (NSString *)processAddContact:(ParsedResult *)parsed
 {
-    NSLog(@"processAddContact");
+    //NSLog(@"processAddContact");
     
     BusinessCardParsedResult *vcard = (BusinessCardParsedResult *)parsed;
     
@@ -557,7 +557,7 @@
                              address];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -567,10 +567,10 @@
         if ([status isEqualToString:@"ok"])
         {
             qrcodeId = [resultsDictionary objectForKey:@"qrcode_id"];
-            NSLog(@"Submit contact ok!");
+            //NSLog(@"Submit contact ok!");
         }
         else{
-            NSLog(@"Submit contact error! %@",[resultsDictionary objectForKey:@"message"]);
+            //NSLog(@"Submit contact error! %@",[resultsDictionary objectForKey:@"message"]);
             
         }
     }
@@ -580,12 +580,12 @@
 
 - (NSString *)processShowMap:(ParsedResult *)parsed
 {
-    NSLog(@"processShowMap");
+    //NSLog(@"processShowMap");
     
     GeoParsedResult *geo = (GeoParsedResult *)parsed;
     
     NSArray *coords = [geo.location componentsSeparatedByString:@","];
-    NSLog(@"coords: %@", geo.location);
+    //NSLog(@"coords: %@", geo.location);
     mapCoords = geo.location;
     CLLocationCoordinate2D cc2d = CLLocationCoordinate2DMake([[coords objectAtIndex:0] doubleValue], [[coords objectAtIndex:1] doubleValue]);
     MKReverseGeocoder *geoCoder = [[MKReverseGeocoder alloc] initWithCoordinate:cc2d];
@@ -598,7 +598,7 @@
 
 - (NSString *)processOpenURL:(ParsedResult *)parsed
 {
-    NSLog(@"processOpenURL");
+    //NSLog(@"processOpenURL");
     
     NSString *qrcodeId = nil;
     URIParsedResult *urlqr = (URIParsedResult *)parsed;
@@ -610,7 +610,7 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"app_title\":\"Alien\",\"url_name\":\"\",\"url_url\":\"%@\",\"external\":\"1\"}",aURL];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -620,10 +620,10 @@
         if ([status isEqualToString:@"ok"])
         {
             qrcodeId = [resultsDictionary objectForKey:@"qrcode_id"];
-            NSLog(@"Submit url ok!");
+            //NSLog(@"Submit url ok!");
         }
         else{
-            NSLog(@"Submit url error! %@",[resultsDictionary objectForKey:@"message"]);
+            //NSLog(@"Submit url error! %@",[resultsDictionary objectForKey:@"message"]);
             
         }
     }
@@ -647,14 +647,14 @@
                           [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressZIPKey],
                           [myPlacemark.addressDictionary objectForKey:(NSString *)kABPersonAddressCountryKey]];
     
-    NSLog(@"result address %@", aAddress);
+    //NSLog(@"result address %@", aAddress);
     
     NSString *urlString = [NSString stringWithFormat:@"%@/api/qrcode_map.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
     
     NSString *dataContent = [NSString stringWithFormat:@"{\"app_title\":\"Alien\",\"category_id\":\"\",\"map_name\":\"Alien QR Code\",\"map_description\":\"%@\",\"map_address\":\"%@\",\"external\":\"1\"}", mapCoords , aAddress];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -664,10 +664,10 @@
         if ([status isEqualToString:@"ok"])
         {
             qrcodeId = [resultsDictionary objectForKey:@"qrcode_id"];
-            NSLog(@"Submit map ok!");
+            //NSLog(@"Submit map ok!");
         }
         else{
-            NSLog(@"Submit map error! %@",[resultsDictionary objectForKey:@"message"]);
+            //NSLog(@"Submit map error! %@",[resultsDictionary objectForKey:@"message"]);
             
         }
     }
@@ -684,14 +684,14 @@
             [more release];
         }
     }else{
-        NSLog(@"Error occured.");
+        //NSLog(@"Error occured.");
     }
 }
 
 // this delegate is called when the reversegeocoder fails to find a placemark
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error
 {
-    NSLog(@"reverseGeocoder:%@ didFailWithError:%@", geocoder, error);
+    //NSLog(@"reverseGeocoder:%@ didFailWithError:%@", geocoder, error);
 }
 
 

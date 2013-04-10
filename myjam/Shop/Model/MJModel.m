@@ -23,13 +23,13 @@ static MJModel *_sharedInstance = nil;
 -(NSDictionary*) getResponseDict:(NSString*)request withOptions:(NSString*)options{
 
     NSString *urlString = [NSString stringWithFormat:@"%@%@?token=%@",APP_API_URL,request,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"] copy]];
-    NSLog(@"%@",urlString);
+    //NSLog(@"%@",urlString);
    NSString *dataContent = options;
-    NSLog(@"%@",dataContent);
+    //NSLog(@"%@",dataContent);
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
 //   NSDictionary *resultsDictionary = [[NSDictionary alloc] initWithDictionary:[response objectFromJSONString]];
     NSDictionary *resultsDictionary = [[response objectFromJSONString] copy];
-//    NSLog(@"%@",resultsDictionary);
+//    //NSLog(@"%@",resultsDictionary);
     return resultsDictionary;
 }
 
@@ -50,7 +50,7 @@ static MJModel *_sharedInstance = nil;
             for (id row in cat)
             {
                 if ( ![[row objectForKey:@"category_shop_count"] isEqual:[NSNumber numberWithInt:0]]){
-//                    NSLog(@"%@",row);
+//                    //NSLog(@"%@",row);
                     [catList addObject:row];
                 }
                
@@ -83,7 +83,7 @@ static MJModel *_sharedInstance = nil;
     
     NSArray *temp =[NSArray arrayWithArray:[[self getResponseDict:request withOptions:options]
                                             objectForKey:@"sort_option"]];
-    NSLog(@"%@", temp);
+    //NSLog(@"%@", temp);
     [answer setObject:temp forKey:@"list"];
     
     return answer;
@@ -96,7 +96,7 @@ static MJModel *_sharedInstance = nil;
     NSString *options = [NSString stringWithFormat:@""];
     NSArray *temp =[NSArray arrayWithArray:[[self getResponseDict:request withOptions:options]
                                            objectForKey:@"category_list"]];
-    NSLog(@"%@", temp);
+    //NSLog(@"%@", temp);
     [answer setObject:temp forKey:@"list"];
     return answer;
 }
@@ -106,7 +106,7 @@ static MJModel *_sharedInstance = nil;
     NSString *options = [NSString stringWithFormat:@""];
     NSArray *temp =[NSArray arrayWithArray:[[self getResponseDict:request withOptions:options]
                                             objectForKey:@"status_list"]];
-    NSLog(@"%@", temp);
+    //NSLog(@"%@", temp);
     [answer setObject:temp forKey:@"list"];
     return answer;
 }
@@ -132,7 +132,7 @@ static MJModel *_sharedInstance = nil;
                 }
                 
             }
-            NSLog(@"%@",catList);
+            //NSLog(@"%@",catList);
         }
     }
     return catList;
@@ -183,7 +183,7 @@ static MJModel *_sharedInstance = nil;
                 }
                 
             }
-            NSLog(@"%@",catList);
+            //NSLog(@"%@",catList);
         }
     }
     return catList;
@@ -201,15 +201,15 @@ static MJModel *_sharedInstance = nil;
         NSString *status = [answer objectForKey:@"status"];
         
         if ([status isEqualToString:@"ok"])
-        { NSLog(@"%@",answer);
+        { //NSLog(@"%@",answer);
             cat = [[[answer objectForKey:@"list"] objectAtIndex:0]objectForKey:@"shop_list"] ;
             
             for (id row in cat)
             {
                 [catList addObject:row];
-                NSLog(@"%@",row);
+                //NSLog(@"%@",row);
             }
-            NSLog(@"%@",catList);
+            //NSLog(@"%@",catList);
         }
     }
 
@@ -222,7 +222,7 @@ static MJModel *_sharedInstance = nil;
     NSString *options =[NSString stringWithFormat:@"{\"shop_id\":%@,\"search_sort\":\"A-Z\",\"category_id\":%@,\"page\":\"%@\"}",shopId,catId,pageNum];
  
 
-    NSLog(@"%@",options);
+    //NSLog(@"%@",options);
     NSDictionary *answer =  [self getResponseDict:request withOptions:options];
     NSDictionary *cat;
     if([answer count])
@@ -230,15 +230,15 @@ static MJModel *_sharedInstance = nil;
         NSString *status = [answer objectForKey:@"status"];
         
         if ([status isEqualToString:@"ok"])
-        { NSLog(@"%@",answer);
+        { //NSLog(@"%@",answer);
             cat = [[[answer objectForKey:@"list"] objectAtIndex:0]objectForKey:@"product_list"] ;
             
             for (id row in cat)
             {
                 [productList addObject:row];
-                NSLog(@"%@",row);
+                //NSLog(@"%@",row);
             }
-            NSLog(@"%@",productList);
+            //NSLog(@"%@",productList);
         }
     }
     return productList;
@@ -257,7 +257,7 @@ static MJModel *_sharedInstance = nil;
         if ([status isEqualToString:@"ok"])
         { 
             prod = [answer objectForKey:@"product_info"]  ;
-            NSLog(@"%@",prod);
+            //NSLog(@"%@",prod);
         }
     }
     return prod;
@@ -283,7 +283,7 @@ static MJModel *_sharedInstance = nil;
                 [productReview addObject:row];
            
             }
-            NSLog(@"%@",productReview);
+            //NSLog(@"%@",productReview);
         }
     }
     return productReview;
@@ -317,14 +317,14 @@ static MJModel *_sharedInstance = nil;
     
      NSString *options =[NSString stringWithFormat:@"{\"product_id\":\"%@\",\"comment\":\"%@\",\"rating\":\"%@\"}",prodId,review,rate];
     reviewStatus =  [self getResponseDict:request withOptions:options];
-      NSLog(@"%@",reviewStatus);
+      //NSLog(@"%@",reviewStatus);
     return reviewStatus;
 }
 -(NSDictionary*)addToCart:(NSString*)prodId withSize:(NSString*)size andColor:(NSString*)color{
     NSDictionary *reviewStatus = [NSDictionary dictionary];
     NSString* request = [NSString stringWithFormat:@"/api/shop_cart_product_add.php"];
     NSString *options;
-    NSLog(@"%@",color);
+    //NSLog(@"%@",color);
     
     if ([size isEqualToString:@"none"] && [color isEqualToString:@"none"]){
         options = [NSString stringWithFormat:@"{\"product_id\":\"%@\"}",prodId];  
@@ -338,9 +338,9 @@ static MJModel *_sharedInstance = nil;
     else{
   options =[NSString stringWithFormat:@"{\"product_id\":\"%@\",\"size_id\":\"%@\",\"color_id\":\"%@\"}",prodId,size,color]; 
     }
-   NSLog(@"%@",options);
+   //NSLog(@"%@",options);
     reviewStatus =  [self getResponseDict:request withOptions:options];
-    NSLog(@"%@",reviewStatus);
+    //NSLog(@"%@",reviewStatus);
     return reviewStatus;
 }
 -(NSMutableArray*)getCartList{
@@ -370,7 +370,7 @@ static MJModel *_sharedInstance = nil;
     NSMutableArray *cart = [NSMutableArray array];
     NSMutableArray *cartList = [NSMutableArray array];
     cartList = [self getCartList];
-    NSLog(@"%@",row);
+    //NSLog(@"%@",row);
     [cart addObject:[cartList objectAtIndex:[row intValue] ]];
      return cart;
 }
@@ -378,7 +378,7 @@ static MJModel *_sharedInstance = nil;
     NSMutableArray *cart = [NSMutableArray array];
     NSMutableArray *cartList = [NSMutableArray array];
     cartList = [self getCartList];
-    NSLog(@"%@",cartId);
+    //NSLog(@"%@",cartId);
     for (id row in cartList){
         if ([[row valueForKey:@"cart_id"] isEqualToString:cartId]){
             [cart addObject:row];
@@ -392,7 +392,7 @@ static MJModel *_sharedInstance = nil;
  //   NSMutableArray *cartList = [NSMutableArray array];
     NSString* request = [NSString stringWithFormat:@"/api/shop_cart_list.php"];
     NSString *options =[NSString stringWithFormat:@"{\"cart_id\":\"%@\",\"cart_item_id\":\"%@\",\"quantity\":\"%@\"}",cartId,itemId,qty];
-    NSLog(@"%@",options);
+    //NSLog(@"%@",options);
     NSDictionary *answer =  [self getResponseDict:request withOptions:options];
     if([answer count])
     {
@@ -428,9 +428,9 @@ static MJModel *_sharedInstance = nil;
 -(NSDictionary*)submitAddressForCart:(NSString*)cartId forAddress:(NSString*)address inCity:(NSString*)city withPostcode:(NSString*)code inState:(NSString*)state inCountry:(NSString*)country{
     NSString* request = [NSString stringWithFormat:@"/api/shop_cart_delivery_address_submit.php"];
         NSString *options =[NSString stringWithFormat:@"{\"cart_id\":\"%@\",\"delivery_address\":\"%@\",\"delivery_city\":\"%@\",\"delivery_postcode\":\"%@\",\"delivery_state_code\":\"%@\",\"delivery_country_code\":\"%@\"}",cartId,address,city,code,state,country];
-    NSLog(@"%@",options);
+    //NSLog(@"%@",options);
     NSDictionary *answer =  [self getResponseDict:request withOptions:options];
-    NSLog(@"%@", answer);
+    //NSLog(@"%@", answer);
     return answer;
 }
 -(NSDictionary*)getDeliveryInfoFor:(NSString*)cartId{
@@ -491,7 +491,7 @@ static MJModel *_sharedInstance = nil;
     NSString* request = [NSString stringWithFormat:@"/api/report_abuse_type.php"];
     NSString *options =[NSString stringWithFormat:@"{\"product_id\":\"%@\"}",prodId];
     NSDictionary *answer = [ [NSDictionary alloc] initWithDictionary:[self getResponseDict:request withOptions:options ]];
-    NSLog(@"answer:%@", answer);
+    //NSLog(@"answer:%@", answer);
     return [answer autorelease];
 
 }
@@ -499,14 +499,14 @@ static MJModel *_sharedInstance = nil;
     NSString* request = [NSString stringWithFormat:@"/api/report_abuse_submit.php"];
      NSString *options =[NSString stringWithFormat:@"{\"product_id\":\"%@\",\"report_type\":\"%@\",\"report_remarks\":\"%@\"}",prodId,reportId,remarks];
     NSDictionary *answer = [ [NSDictionary alloc] initWithDictionary:[self getResponseDict:request withOptions:options ]];
-    NSLog(@"answer:%@", answer);
+    //NSLog(@"answer:%@", answer);
     return [answer autorelease];
 }
 -(NSDictionary*) getPurchaseStatus:(NSString*)cartId{
     NSString* request = [NSString stringWithFormat:@"/api/shop_cart_payment_status.php"];
     NSString *options =[NSString stringWithFormat:@"{\"cart_id\":\"%@\"}",cartId];
     NSDictionary *answer = [ [NSDictionary alloc] initWithDictionary:[self getResponseDict:request withOptions:options ]];
-    NSLog(@"answer:%@", answer);
+    //NSLog(@"answer:%@", answer);
     return [answer autorelease];
 }
 //-(void)authenticateWithFacebook{

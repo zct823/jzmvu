@@ -45,7 +45,13 @@
     // Do any additional setup after loading the view from its nib.
     
     self.webView.delegate = self;
-    
+    [self.webView setHidden:YES];
+    [[self.webView scrollView] setBounces:NO];
+    [self loadWebPage];
+}
+
+- (void)loadWebPage
+{
     NSString *urlAddress = @"http://jam-bu.com/api/content/about.php";
     
     //Create a URL object.
@@ -56,31 +62,45 @@
     
     //Load the request in the UIWebView.
     [self.webView loadRequest:requestObj];
-    [[self.webView scrollView] setBounces:NO];
-    //[self.scroller setContentSize:self.scrollView.frame.size];
-    [self.view addSubview:self.webView];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.webView setHidden:NO];
+    NSLog(@"done");
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"Failed: %@",error);
+    [self.webView setHidden:YES];
+    [self.loadingActivity setHidden:YES];
+    self.label.text = @"Connection Error. Please tap to retry.";
+    
+    UITapGestureRecognizer *tapToReload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadWebPage)];
+    [self.view addGestureRecognizer:tapToReload];
+    [tapToReload release];
+}
+
+- (void)reloadWebPage
+{
+    NSLog(@"reload");
+    [self.loadingActivity setHidden:NO];
+    self.label.text = @"Loading ...";
+    
+    [self loadWebPage];
 }
 
 -(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
     if ( inType == UIWebViewNavigationTypeLinkClicked ) {
-        NSLog(@"NO :%@",inRequest);
+        //NSLog(@"NO :%@",inRequest);
         [[UIApplication sharedApplication] openURL:[inRequest URL]];
         return NO;
     }
     
+    
     return YES;
 }
-
-//-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-//{
-//    NSURL *requestURL =[ [ request URL ] retain ];
-//    if ( ( [ [ requestURL scheme ] isEqualToString: @"http" ] || [ [ requestURL scheme ] isEqualToString: @"https" ] || [ [ requestURL scheme ] isEqualToString: @"mailto" ])
-//        && ( navigationType == UIWebViewNavigationTypeLinkClicked ) ) {
-//        return ![ [ UIApplication sharedApplication ] openURL: [ requestURL autorelease ] ];
-//    }
-//    [ requestURL release ];
-//    return YES;
-//}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -97,4 +117,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    [_loadingActivity release];
+    [_label release];
+    [super dealloc];
+}
+- (void)viewDidUnload {
+    [self setLoadingActivity:nil];
+    [self setLabel:nil];
+    [super viewDidUnload];
+}
 @end

@@ -38,7 +38,7 @@
                                          target:self
                                          action:@selector(disappearModal)] autorelease];
         
-        //NSLog(@"QRCODE ID PASSED WITH VALUE: %@",qrCodeId);
+        ////NSLog(@"QRCODE ID PASSED WITH VALUE: %@",qrCodeId);
         
         //self.qrcodeId = qrCodeId;
     }
@@ -135,13 +135,13 @@
 {
     if(self.oldIndexPath == nil)
     {
-        NSLog(@"Continue button will trigger no select alert");
+        //NSLog(@"Continue button will trigger no select alert");
         [self performSelector:@selector(setMessageForNoSelectError) withObject:self afterDelay:0.0f];
     }
     else
     {
         [self saveDataToServer:currentCellTag withCurrentFav:self.purrFav];
-        NSLog(@"Continue button will trigger NSNotificationCenter");
+        //NSLog(@"Continue button will trigger NSNotificationCenter");
         [self performSelector:@selector(setMessageForSuccess) withObject:self afterDelay:0.0f];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"notifyClose" object:self];
     }
@@ -151,7 +151,7 @@
 
 - (NSString *)urlAPIString
 {
-    NSLog(@"Token String: %@",[[[NSUserDefaults standardUserDefaults]objectForKey:@"tokenString"]mutableCopy]);
+    //NSLog(@"Token String: %@",[[[NSUserDefaults standardUserDefaults]objectForKey:@"tokenString"]mutableCopy]);
     
     return [NSString stringWithFormat:@"%@/api/fav_folder.php?token=%@",APP_API_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenString"]mutableCopy]];
 }
@@ -174,12 +174,12 @@
         dataContentForDefaults = [NSString stringWithFormat:@"{\"flag\":\"REPLACE\",\"qrcode_id\":\"%@\",\"fav_folder_id\":\"%@\"}",self.qrcodeId,cellTag];
     }
     
-    NSLog(@"Data Content: %@",dataContentForDefaults);
+    //NSLog(@"Data Content: %@",dataContentForDefaults);
     
     //=== WRAPPING DATA IN NSSTRING ===//
     NSString *wrappedDefaultDataFromServer = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContentForDefaults];
     
-    NSLog(@"Check response for DEFAULT2 param: %@",wrappedDefaultDataFromServer);
+    //NSLog(@"Check response for DEFAULT2 param: %@",wrappedDefaultDataFromServer);
     
     NSMutableArray *newData = [[NSMutableArray alloc] init];
     NSDictionary* wrappedDefaultDataToDictionary = [[wrappedDefaultDataFromServer objectFromJSONString] copy];
@@ -226,7 +226,7 @@
                 }
                 else
                 {
-                    NSLog(@"List is null/not available");
+                    //NSLog(@"List is null/not available");
                     [self tableViewHide];
                 }
             }
@@ -367,7 +367,7 @@
     
     currentCellTag = (id)cell.tag;
 
-    NSLog(@"Cell Tag: %@ & Current Fav: %@",(id)cell.tag,self.purrFav);
+    //NSLog(@"Cell Tag: %@ & Current Fav: %@",(id)cell.tag,self.purrFav);
     
 //    [self saveDataToServer:(id)cell.tag withCurrentFav:self.purrFav];
     

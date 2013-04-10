@@ -95,7 +95,7 @@
     if (![self.orderItemId isKindOfClass:[NSString class]]) {
         self.orderItemId = @"";
     }
-    NSLog(@"QRID :%@ PRO :%@,%@,%@",self.qrcodeId,self.productId,self.newsId, self.orderItemId);
+    //NSLog(@"QRID :%@ PRO :%@,%@,%@",self.qrcodeId,self.productId,self.newsId, self.orderItemId);
     //setup info view
     self.providerLabel.text = self.qrProvider;
     self.titleLabel.text = self.qrTitle;
@@ -113,7 +113,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"vwd");
+    //NSLog(@"vwd");
     [self.scroller setContentOffset:CGPointMake(0, 0) animated:NO];
 //    for (UITextField *aView in [self.contentView subviews]) {
 //        if ([aView isKindOfClass:[UITextField class]]) {
@@ -129,21 +129,21 @@
         //        [self performSelectorInBackground:@selector(setupCategoryList) withObject:nil];
         [self setupReportTypeList];
     }
-    NSLog(@"vda");
+    //NSLog(@"vda");
 }
 
 - (void)setupReportTypeList
 {
     // Init the category data
     if (![self.orderItemId isEqual:@""]) {
-        NSLog(@"1");
+        //NSLog(@"1");
         [self retrieveReportTypeForPurchasedItemFromAPI];
     }
     else if (![self.productId isEqual:@""]) {
-        NSLog(@"2");
+        //NSLog(@"2");
         [self retrieveReportTypeForProductFromAPI];
     } else {
-        NSLog(@"3");
+        //NSLog(@"3");
         [self retrieveReportTypeForBoxFromAPI];
     }
     // Set list for pickerView
@@ -195,7 +195,7 @@
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
-    NSLog(@"resp: %@",response);
+    //NSLog(@"resp: %@",response);
     if([resultsDictionary count])
     {
         NSString *status = [resultsDictionary objectForKey:@"status"];
@@ -228,7 +228,7 @@
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
-    NSLog(@"resp: %@",response);
+    //NSLog(@"resp: %@",response);
     if([resultsDictionary count])
     {
         NSString *status = [resultsDictionary objectForKey:@"status"];
@@ -272,7 +272,7 @@
     else {
         //go to processSubmitSpam
         [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
-        NSLog(@"saved");
+        //NSLog(@"saved");
         if (![self.productId isEqual:@""]) {
             [self performSelector:@selector(processSubmitSpamForProduct) withObject:nil afterDelay:0.2];
         } else {
@@ -305,7 +305,7 @@
                              self.remarksTextView.text];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -319,7 +319,7 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success submit spam");
+            //NSLog(@"Success submit spam");
             [self.navigationController popToRootViewControllerAnimated:NO];
         }
     }
@@ -336,7 +336,7 @@
                         self.remarksTextView.text];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -350,7 +350,7 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success submit spam");
+            //NSLog(@"Success submit spam");
             [self.navigationController popToRootViewControllerAnimated:NO];
         }
     }
@@ -396,7 +396,7 @@
 // Do something with the selected row.
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
-    NSLog(@"option selected %d", row);
+    //NSLog(@"option selected %d", row);
     
     self.reportTypeTextField.text = [self.dataArray objectAtIndex:row];
 }
@@ -410,7 +410,7 @@
     
     self.reportTypeId = [self.reportTypes objectForKey:self.reportTypeTextField.text];
     [self.reportTypeTextField resignFirstResponder];
-    NSLog(@"ID :%@",self.reportTypeId);
+    //NSLog(@"ID :%@",self.reportTypeId);
 }
 
 - (IBAction)pickerCancelClicked

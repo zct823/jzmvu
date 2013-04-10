@@ -223,7 +223,7 @@
 
 - (void)goToRWR
 {
-    NSLog(@"RWR Tapped");
+    //NSLog(@"RWR Tapped");
     WriteReviewViewController *detailViewController = [[WriteReviewViewController alloc] init];
     detailViewController.productInfo =[[MJModel sharedInstance]getReviewInfoFor:self.productId];
     AppDelegate *mydelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -237,7 +237,7 @@
 
         if( [[[mydelegate.shopNavController.viewControllers objectAtIndex:i] class] isEqual:[ShopDetailListingViewController class]])
         {
-            NSLog(@"ok");
+            //NSLog(@"ok");
    
             [mydelegate.shopNavController popToViewController:[mydelegate.shopNavController.viewControllers objectAtIndex:i] animated:YES];
             break;

@@ -63,5 +63,11 @@
 @property (nonatomic, retain) NSString *favFolderID;
 @property (nonatomic, retain) NSString *favFolderName;
 
+// For email
+@property (nonatomic, retain) NSString *aEmail;
+@property (nonatomic, retain) NSString *aSubject;
+@property (nonatomic, retain) NSString *aBody;
+@property (nonatomic, retain) NSString *aQRdesc;
+
 
 @end

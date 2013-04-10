@@ -97,11 +97,11 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-  NSLog(@"failed to load content, performing failure callback");
+  //NSLog(@"failed to load content, performing failure callback");
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-  NSLog(@"finished loading content, performing success callback");
+  //NSLog(@"finished loading content, performing success callback");
 }
 
 

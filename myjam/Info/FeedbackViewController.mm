@@ -68,7 +68,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"vwd");
+    //NSLog(@"vwd");
     [self.scroller setContentOffset:CGPointMake(0, 0) animated:NO];
     for (UITextField *aView in [self.contentView subviews]) {
         if ([aView isKindOfClass:[UITextField class]]) {
@@ -107,7 +107,7 @@
     else {
         //saved feedback
         [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
-        NSLog(@"saved");
+        //NSLog(@"saved");
         [self performSelector:@selector(processSavedFeedback) withObject:nil afterDelay:0.2];
     }
 }
@@ -132,7 +132,7 @@
                              self.commentTextView.text];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -141,7 +141,7 @@
         
         if (![status isEqualToString:@"ok"])
         {
-            NSLog(@"Submit feedback error!");
+            //NSLog(@"Submit feedback error!");
             if ([[resultsDictionary objectForKey:@"message"] isEqualToString:@"Request timed out"]) {
                 CustomAlertView *alert = [[CustomAlertView alloc] initWithTitle:@"JAM-BU Feedback" message:@"Request timed out. Please retry again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
@@ -149,7 +149,7 @@
             }
         }
         else {
-            NSLog(@"Success submit feedback");
+            //NSLog(@"Success submit feedback");
             ShowFeedbackViewController *fvc = [[ShowFeedbackViewController alloc] init];
             [self.navigationController pushViewController:fvc animated:YES];
             [fvc release];

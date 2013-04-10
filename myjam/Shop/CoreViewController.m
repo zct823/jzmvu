@@ -60,7 +60,7 @@
     NSString *dataContent = [NSString stringWithFormat:@"{\"qrcode_id\":%@,\"share_type\":\"%@\"}",qrcodeId,aType];
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"abc: %@, def:%@",dataContent, response);
+    //NSLog(@"abc: %@, def:%@",dataContent, response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
     
     if([resultsDictionary count])
@@ -69,10 +69,10 @@
         
         if ([status isEqualToString:@"ok"])
         {
-            NSLog(@"Success share");
+            //NSLog(@"Success share");
         }
         else{
-            NSLog(@"share error!");
+            //NSLog(@"share error!");
         }
     }
     
@@ -223,23 +223,23 @@
     switch (result)
     {
         case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+            //NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
             msg = @"";
             break;
         case MFMailComposeResultSaved:
-            NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+            //NSLog(@"Mail saved: you saved the email message in the drafts folder.");
             msg = [NSString stringWithFormat:@"Email has been saved to draft"];
             break;
         case MFMailComposeResultSent:
-            NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+            //NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
             msg = [NSString stringWithFormat:@"Email has been successfully sent"];
             break;
         case MFMailComposeResultFailed:
-            NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+            //NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
             msg = [NSString stringWithFormat:@"Email was not sent, possibly due to an error"];
             break;
         default:
-            NSLog(@"Mail not sent.");
+            //NSLog(@"Mail not sent.");
             break;
     }
     

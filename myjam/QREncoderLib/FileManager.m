@@ -46,7 +46,7 @@ static FileManager* _sharedFileManager = nil;
   NSString *appSupport = [NSSearchPathForDirectoriesInDomains( NSApplicationSupportDirectory, NSUserDomainMask, YES ) objectAtIndex:0];
   NSString *dir = [NSString stringWithFormat:@"%@/iPhoneKuapay", appSupport];
   
-  NSLog(@"\nDirectory: %@\n\n",dir);
+  //NSLog(@"\nDirectory: %@\n\n",dir);
   
   [[NSFileManager defaultManager] createDirectoryAtPath:dir 
          withIntermediateDirectories:YES 

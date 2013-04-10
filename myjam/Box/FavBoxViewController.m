@@ -31,7 +31,7 @@
 // Overidden method to change API dataContent
 - (NSString *)returnAPIDataContent
 {
-    NSLog(@"box fav datacontent");
+    //NSLog(@"box fav datacontent");
     return [NSString stringWithFormat:@"{\"page\":%d,\"perpage\":%d,\"fav_id\":\"%@\",\"keyword\":\"%@\"}",self.pageCounter, kListPerpage, self.selectedCategories, self.searchedText];
 }
 
@@ -51,7 +51,7 @@
 {
     //    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading ..." width:100];
     
-    NSLog(@"Filtering favbox list with searched text %@",str);
+    //NSLog(@"Filtering favbox list with searched text %@",str);
     self.selectedCategories = @"";
     self.selectedCategories = str;
     self.searchedText = @"";

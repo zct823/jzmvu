@@ -146,7 +146,7 @@
     }
     
     if (([scrollView contentOffset].y + scrollView.frame.size.height) == [scrollView contentSize].height) {
-        NSLog(@"scroller reach to bottom, start load item");
+        //NSLog(@"scroller reach to bottom, start load item");
         
         if ([self.activityIndicatorView isHidden]) {
             [self.activityIndicatorView setHidden:NO];

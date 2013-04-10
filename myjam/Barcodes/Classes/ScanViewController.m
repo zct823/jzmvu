@@ -143,7 +143,7 @@
     } else if (indexPath.row == 1) {
       CGSize size = [[result stringForDisplay] sizeWithFont:bodyFont constrainedToSize:CGSizeMake(280.0, TEXT_VIEW_HEIGHT) lineBreakMode:UILineBreakModeWordWrap];
 #ifdef DEBUG
-      NSLog(@"text size = %f", size.height);
+      //NSLog(@"text size = %f", size.height);
 #endif
       return fminf(TEXT_VIEW_HEIGHT, fmaxf(44, size.height + 24));
     } else if (indexPath.row == 2) {

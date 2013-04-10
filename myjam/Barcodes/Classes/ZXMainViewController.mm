@@ -36,7 +36,7 @@
       
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-    NSLog(@"viewDidLoad xx");
+    //NSLog(@"viewDidLoad xx");
     
     [self openQRScaner];
     
@@ -44,7 +44,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"viewWillAppear");
+    //NSLog(@"viewWillAppear");
     [self openQRScaner];
 }
 
@@ -96,7 +96,7 @@
 
 - (void)messageFailed:(id)sender {
   MessageViewController *messageController = sender;
-  NSLog(@"Failed to load message!");
+  //NSLog(@"Failed to load message!");
   [messageController release];
 }
 
@@ -132,7 +132,7 @@
 - (void)zxingController:(ZXingWidgetController*)controller didScanResult:(NSString *)resultString {
   [self dismissModalViewControllerAnimated:YES];
 #ifdef DEBUG  
-  NSLog(@"result has %d actions", actions ? 0 : actions.count);
+  //NSLog(@"result has %d actions", actions ? 0 : actions.count);
 #endif
   Scan * scan = [[Database sharedDatabase] addScanWithText:resultString];
   [[NSUserDefaults standardUserDefaults] setObject:resultString forKey:@"lastScan"];
@@ -162,27 +162,27 @@
 
 - (void)performResultAction {
   if (self.result == nil) {
-    NSLog(@"no result to perform an action on!");
+    //NSLog(@"no result to perform an action on!");
     return;
   }
   
   if (self.actions == nil || self.actions.count == 0) {
-    NSLog(@"result has no actions to perform!");
+    //NSLog(@"result has no actions to perform!");
     return;
   }
   
   if (self.actions.count == 1) {
     ResultAction *action = [self.actions lastObject];
 #ifdef DEBUG
-    NSLog(@"Result has the single action, (%@)  '%@', performing it",
-          NSStringFromClass([action class]), [action title]);
+    //NSLog(@"Result has the single action, (%@)  '%@', performing it",
+//          NSStringFromClass([action class]), [action title]);
 #endif
     [self performSelector:@selector(confirmAndPerformAction:)
                withObject:action
                afterDelay:0.0];
   } else {
 #ifdef DEBUG
-    NSLog(@"Result has multiple actions, popping up an action sheet");
+    //NSLog(@"Result has multiple actions, popping up an action sheet");
 #endif
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithFrame:self.view.bounds];
     

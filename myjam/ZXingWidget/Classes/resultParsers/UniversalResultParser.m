@@ -52,16 +52,16 @@ static NSMutableArray *sTheResultParsers = nil;
 + (ParsedResult *)parsedResultForString:(NSString *)s
                                  format:(BarcodeFormat)format {
 #ifdef DEBUG
-  NSLog(@"parsing result:\n<<<\n%@\n>>>\n", s);
+  //NSLog(@"parsing result:\n<<<\n%@\n>>>\n", s);
 #endif
   for (Class c in sTheResultParsers) {
 #ifdef DEBUG
-    NSLog(@"trying %@", NSStringFromClass(c));
+    //NSLog(@"trying %@", NSStringFromClass(c));
 #endif
     ParsedResult *result = [c parsedResultForString:s format:format];
     if (result != nil) {
 #ifdef DEBUG
-      NSLog(@"parsed as %@ %@", NSStringFromClass([result class]), result);
+      //NSLog(@"parsed as %@ %@", NSStringFromClass([result class]), result);
 #endif
       return result;
     }

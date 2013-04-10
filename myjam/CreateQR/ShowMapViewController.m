@@ -58,7 +58,7 @@
     
     
     [self addAnnotationToMap];
-    NSLog(@"address: %@", self.mapAddress);
+    //NSLog(@"address: %@", self.mapAddress);
     
     [DejalBezelActivityView removeViewAnimated:YES];
 }
@@ -100,7 +100,7 @@
 //        lon = [[items objectAtIndex:3] doubleValue];
 //    }
 //    else {
-//        NSLog(@"Address, %@ not found: Error %@",addressStr, [items objectAtIndex:0]);
+//        //NSLog(@"Address, %@ not found: Error %@",addressStr, [items objectAtIndex:0]);
 //    }
     
 //    double latitude = 0.0;
@@ -111,7 +111,7 @@
     
     NSDictionary *googleResponse = [[NSString stringWithContentsOfURL: [NSURL URLWithString: req] encoding: NSUTF8StringEncoding error: nil] objectFromJSONString];
     
-    NSLog(@"%@",googleResponse);
+    //NSLog(@"%@",googleResponse);
     
     NSDictionary    *resultsDict = [googleResponse valueForKey:  @"results"];   // get the results dictionary
     NSDictionary   *geometryDict = [resultsDict valueForKey: @"geometry"];   // geometry dictionary within the  results dictionary
@@ -135,7 +135,7 @@
 
 - (void)mapView:(MKMapView *)mv didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    NSLog(@"Debug - didUpdateUserLocation");
+    //NSLog(@"Debug - didUpdateUserLocation");
     
 }
 
@@ -144,7 +144,7 @@
 // this delegate method is called if an error occurs in locating your current location
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"locationManager:%@ didFailWithError:%@", manager, error);
+    //NSLog(@"locationManager:%@ didFailWithError:%@", manager, error);
 }
 
 - (void)didReceiveMemoryWarning

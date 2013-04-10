@@ -45,7 +45,7 @@ static int kImageTagStart = 1000;
 
 //- (void)reloadCategories
 //{
-//    NSLog(@"reload categories");
+//    //NSLog(@"reload categories");
 //    [self.scroller setContentOffset:CGPointMake(0, 0) animated:NO];
 //    for (UIView *aView in [self.contentView subviews]) {
 //        if ([aView isKindOfClass:[UILabel class]] || [aView isKindOfClass:[UIImageView class]]) {
@@ -70,7 +70,7 @@ static int kImageTagStart = 1000;
 
 - (IBAction)firstButton:(id)sender
 {
-    NSLog(@"FirstButton Will Be Sent");
+    //NSLog(@"FirstButton Will Be Sent");
     
     UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
     UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
@@ -84,8 +84,8 @@ static int kImageTagStart = 1000;
 
 - (IBAction)secondButton:(id)sender
 {
-    NSLog(@"SecondButton Will Be Sent");
-    NSLog(@"Reload Data");
+    //NSLog(@"SecondButton Will Be Sent");
+    //NSLog(@"Reload Data");
     
     UIButton *btn1 = (UIButton *)[self.view viewWithTag:1];
     UIButton *btn2 = (UIButton *)[self.view viewWithTag:2];
@@ -144,21 +144,21 @@ static int kImageTagStart = 1000;
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view];
-    NSLog(@"YES %f - %f",translation.y, translation.x);
+    //NSLog(@"YES %f - %f",translation.y, translation.x);
     
     if(gestureRecognizer.numberOfTouches == 2){
-        NSLog(@"2");
+        //NSLog(@"2");
         if (translation.y > 0) {
-            NSLog(@"slide down now");
+            //NSLog(@"slide down now");
             [self bringBottomViewDown];
             return YES;
         }
     }
     else{
-        NSLog(@"%d",gestureRecognizer.numberOfTouches);
+        //NSLog(@"%d",gestureRecognizer.numberOfTouches);
     }
     
-    NSLog(@"NO");
+    //NSLog(@"NO");
     return NO;
 }
 
@@ -170,7 +170,7 @@ static int kImageTagStart = 1000;
 
 - (void)handleContinueButton
 {
-    NSLog(@"handleContinueButton");
+    //NSLog(@"handleContinueButton");
     [self bringBottomViewDown];
     
     if (!isSearchDisabled) {
@@ -202,7 +202,7 @@ static int kImageTagStart = 1000;
         i++;
     }
     
-    NSLog(@"data: %@",strData);
+    //NSLog(@"data: %@",strData);
     
     //    [hm.nv refreshTableItemsWithFilter:strData];
     //    [box.scanv refreshTableItemsWithFilter:strData andSearchedText:self.searchTextField.text];
@@ -241,19 +241,19 @@ static int kImageTagStart = 1000;
 
 - (void)setupCatagoryList
 {
-    NSLog(@"setupCatagoryList. checked %d",[checkedCategories count]);
+    //NSLog(@"setupCatagoryList. checked %d",[checkedCategories count]);
     
     /*NSDictionary *categories;
     
     NSString *urlString = [self returningAPIString];
-    NSLog(@"(BottomSwipeView) Vardumping UrlString: %@",urlString);
+    //NSLog(@"(BottomSwipeView) Vardumping UrlString: %@",urlString);
     NSString *dataContent = [self returningDataContent];
-    NSLog(@"(BottomSwipeView) Vardumping dataContent: %@",dataContent);
+    //NSLog(@"(BottomSwipeView) Vardumping dataContent: %@",dataContent);
     
     NSString *response = [ASIWrapper requestPostJSONWithStringURL:urlString andDataContent:dataContent];
-    NSLog(@"(BottomSwipeView) Vardumping response: %@",response);
+    //NSLog(@"(BottomSwipeView) Vardumping response: %@",response);
     NSDictionary *resultsDictionary = [[response objectFromJSONString] mutableCopy];
-    NSLog(@"(BottomSwipeView) Vardumping resultsDictionary: %@",resultsDictionary);
+    //NSLog(@"(BottomSwipeView) Vardumping resultsDictionary: %@",resultsDictionary);
     
     [DejalBezelActivityView removeViewAnimated:YES];
     
@@ -362,7 +362,7 @@ static int kImageTagStart = 1000;
             [self.scroller setContentSize:CGSizeMake(self.contentView.frame.size.width, totalHeight)];
             
         }else{
-            NSLog(@"Connection Failed");
+            //NSLog(@"Connection Failed");
             
             isSearchDisabled = YES;
             [self.searchTextField setEnabled:NO];
@@ -395,7 +395,7 @@ static int kImageTagStart = 1000;
 
 - (void)handleTapCategory:(id)sender
 {
-    NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
+    //NSLog(@"tapped on label %d",[(UIGestureRecognizer *)sender view].tag);
     int imgTag = kImageTagStart + [(UIGestureRecognizer *)sender view].tag - kLabelTagStart;
     NSString *val = [NSString stringWithFormat:@"%d", imgTag-kImageTagStart];
     

@@ -57,6 +57,12 @@
 @property (nonatomic, retain) NSMutableArray *arrayTemp;
 @property (nonatomic, retain) CustomBadge *cartCounter;
 
+//For Near Me Use
+@property (nonatomic) double currentLat;
+@property (nonatomic) double currentLong;
+@property (nonatomic) NSInteger withRadius;
+@property (nonatomic) NSInteger currentDecDegree;
+
 @property int indexTemp;
 @property int swipeController;
 @property int pageIndex;
